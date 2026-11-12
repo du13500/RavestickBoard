@@ -251,7 +251,7 @@ Kussmund, Blume, Biene, Kuh als vollständige 16×16-Farbmatrizen aus Original-A
 
 - [x] **DOC-01 · P0** Erste Firmware v0.1.0 unter eigenem Versionsnamen gesichert.
 - [x] **DOC-02 · P0** Projekt-Themenspeicher, Roadmap, Änderungs- und Entscheidungslog angelegt (22.10.2026).
-- [x] **DOC-03 · P0** Git eingerichtet, initial privates Repository unter `du13500/RavestickBoard-for-CoolLED1248` auf GitHub gesichert (22.10.2026).
+- [x] **DOC-03 · P0** Git eingerichtet, initial privates Repository unter `du13500/RavestickBoard-for-CoolLED1248` auf GitHub gesichert (22.10.2026). Umbenennung in `RavestickBoard` beschlossen (12.11.2026, ADR-2026-11-12-A); die Umbenennung auf GitHub machst du selbst.
 - [ ] **DOC-04 · P1** README/Installationsanleitung und Changelog **bei jeder künftigen Version fortlaufend** aktualisieren; v0.2.0-Dokumente werden im aktuellen Audit nachgezogen.
 - [ ] **DOC-05 · P1** Einheitliche Fehlermeldungen, Verhalten nach Stromausfall, Boot- und Dauerbetriebstests.
 - [ ] **DOC-06 · P2** Originalanzeigen separat referenzieren, Normal/Bold und Hersteller-Eigenheiten dokumentieren.
@@ -342,7 +342,7 @@ Nach nachgewiesener Umsetzung einer Funktion: den passenden Eintrag (etwa `PRE-0
 - [ ] **ANM-19 · P3** *Vorschlag, nicht entschieden (4.11.2026):* „Bildblock“: ein im Zeichner gemaltes Einzelbild als Blockseite speichern (Block ist als Ziel der Animation nicht möglich, ein Bild als Seite wäre ein eigener Weg). Erst nach 0.6.2.0 überlegen.
 - [ ] **ANM-20 · P2** *Vorschlag (4.11.2026):* „Zeit je Frame“ skaliert automatisch mit, wenn Schrittweite oder „Auf 79 verteilen“ Bilder auslässt, damit die Abspielgeschwindigkeit ungefähr gleich bleibt (Nutzer kann übersteuern).
 - [ ] **ANM-21 · P3** *Vorschlag (4.11.2026):* Hinweise in der Importansicht, z. B. „GIF wiederholt sich nach 60 Bildern – nur einen Durchlauf nehmen?“, wenn sich der Bildinhalt nach n Bildern wiederholt.
-- [ ] **ANM-22 · P2** *Beobachtung aus dem Hardwaretest 0.6.1.3 (4.11.2026):* `GET /api/anim/list` streamt bei 40 Animationen rund 24 KB; in einem Export sank das System-Minimum während dieser Anfrage von 7.400 auf 3.920 Byte. Der Abruf in Teilen (0.6.1.4) behebt das für `/api/anim/get`, nicht für die Liste. Messen (HTTP-Spur, „Worst Cases“); mögliche Maßnahmen: Liste in Seiten, Heap-Schutz wie beim Abruf, Vorschaubilder einzeln nachladen.
+- [ ] **ANM-22 · P2** *Beobachtung aus dem Hardwaretest 0.6.1.3 (4.11.2026):* `GET /api/anim/list` streamt bei 40 Animationen rund 24 KB; in einem Export sank das System-Minimum während dieser Anfrage von 7.400 auf 3.920 Byte. Der Abruf in Teilen (0.6.1.4) behebt das für `/api/anim/get`, nicht für die Liste. Messen (HTTP-Spur, „Worst Cases“); mögliche Maßnahmen: Liste in Seiten, Heap-Schutz wie beim Abruf, Vorschaubilder einzeln nachladen. *Stand 0.6.1.5:* Die Liste ist jetzt durch den Heap-Schutz (503 unter 20.000 Byte) abgesichert; eine Aufteilung in Seiten bleibt offen, falls der Test es nahelegt.
 - [ ] **ANM-23 · P3** *Zurückgestellt (4.11.2026):* J3 „Als neue Animation speichern“ aus dem Testplan 0.6.1.3: Der Nutzer will erst nachsehen; in der Bearbeitungsansicht gibt es „Als Kopie speichern“. Kein Handlungsbedarf, bis er sich meldet.
 - [ ] **ANM-24 · P2** *Idee aus dem Hardwaretest 0.6.1.3 (Zusatzzeile Z1, 4.11.2026):* Ambiente (Vollbild in einer Farbe) läuft als Lauftext; deshalb wirken die Tasten zum Erzwingen des Anzeigeverhaltens (und, wie du schreibst, Laser u. ä.) darauf. Prüfen, ob Ambiente künftig technisch als Animation übertragen werden kann, damit dieses Verhalten nicht erzwungen werden kann. *Zu klären, noch nicht geprüft:* (1) Das Dateiformat verlangt mindestens 2 Bilder (Kopf 2–79); „1 Frame“ hieße zwei gleiche Bilder; ob die Tafel auch ein einzelnes Bild als `0x04` annimmt, ist ungetestet. (2) Das Verhalten der Tafel nach dem Ausschalten (Animation bleibt, 0.6.0.2) wäre dann auch das der Ambiente. (3) Farben: Animationen kennen sieben LED-Farben; die heutigen Ambiente-Farben gegen diese Liste prüfen. (4) Tempo-Regler und Anzeige-Tasten wären dann wie bei Animationen gesperrt (Anzeige an/aus bleibt). (5) Helligkeit bei Animationen ist noch offen (ANM-14). Nichts gebaut.
 - [ ] **ANM-14 · P2** Helligkeit bei Animationen: Wirkt `0x08` nach einer Animation? Ungeprüft (der Test 0.6.0.2 hat das nicht beantwortet); Tempo-Regler ist bei Animationen gesperrt (0.6.1.0).
@@ -359,7 +359,18 @@ Ergebnis: 54 Schritte in Ordnung, 1 nicht in Ordnung, 5 nicht getestet, 18 offen
 - **WEB-A2 · P3** Der erste Aufruf der Startseite `/` dauerte bis zu 2,5 s (HTTP-Spur: 2.516 ms bei Heap 16.796 Byte). Gzip-Auslieferung von 90 KB über das Soft-AP; messen, ob Größe oder Heap die Ursache ist.
 - Weitere Anmerkungen des Nutzers zu D3, E2 und G6 stehen im ausgefüllten Excel; soweit sie noch zutreffen, beim Hardwaretest 0.6.1.4 erneut prüfen.
 
-## Code-Review 4.11.2026 – Stand der Befunde (v0.6.1.4-dev)
+## Hardwaretest 0.6.1.4 – Befunde und Vormerkungen (12.11.2026)
+
+Ergebnis: 70 Schritte in Ordnung, 13 nicht getestet, 9 ohne Eintrag. Behandelt in 0.6.1.5: Heap beim Abruf (System-Minimum 400 Byte, Wächter-Neustart in `anim_get`), weiße Seite auf dem zweiten Gerät (D9), Modus nach Animation (H2, J14), fehlende Meldung bei Ablehnung (D10), Optik des gesperrten Tempo-Reglers (A4, D5), Weichzeichnung im Ausschnitt-Rahmen (F1). Dazu die Wünsche vom 12.11.2026 (WLAN-Name, Rückwärts, Raster leeren, Sortieren, Mehrfachauswahl, Laptop-Ansicht). Vorgemerkt:
+
+- **SYS-16 · P2** *Entscheidung offen:* NimBLE statt Bluedroid prüfen. Bluedroid belegt beim Start rund 73 KB Heap (190 → 118 KB); NimBLE braucht deutlich weniger. Das wäre der größte Hebel gegen den knappen Heap, ist aber ein Umbau der BLE-Schicht (andere Bibliothek, alle BLE-Aufrufe, Vor-Scan, Tafelverwaltung) und braucht einen eigenen Hardwaretest. Erst entscheiden, wenn 0.6.1.5 gemessen ist.
+- **SYS-17 · P3** Zugriff ohne WLAN-Wechsel am Laptop (Frage vom 12.11.2026): zweiter WLAN-Stick am Laptop, Station-Modus des ESP32 im Heimnetz (eigener Modus mit Zugangsdaten) oder Web Serial über USB (nur Chrome/Edge, eigene Seite). Nichts entschieden.
+- **WEB-14 · P3** Bibliotheks-Vorschau am Laptop: Liste links, rechts Vorschau mit Name, Art, Farbe, Kurzwahl (Entwurf vom 12.11.2026 hat gefallen); eigener Schritt, weil neue Funktion statt Layout.
+- **UI-15 · P3** *Optional:* Kontrast leicht anheben (Rahmen der Kacheln, kleine Grautexte). Am echten Bildschirm war die Lesbarkeit besser als im Menü-Screenshot vermutet; nur bei Bedarf.
+- **ANM-25 · P2** Frames durch Verschieben erzeugen (Idee vom 9.11.2026, für den Zeichen-Editor): Bereich oder Streifen pro Frame um n Pixel verschieben (oben, unten, seitlich), mit Umlauf; mehrere Streifen mit eigener Geschwindigkeit (z. B. Slot-Walzen). Entstanden aus dem Zeichnen von „Slots“ in Excel.
+- Weiter offen: SYS-14, SYS-15 (BLE-Hänger), WEB-A2, ANM-23 (J3).
+
+## Code-Review 4.11.2026 – Stand der Befunde (fortgeschrieben bis v0.6.1.5-dev)
 
 Bericht: Code-Review von 0.6.1.2 (V1, M1–M5, N1–N14). Stand nach dem Aufräum-Build 0.6.1.3:
 

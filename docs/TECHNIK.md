@@ -1,8 +1,15 @@
-## Technischer Nachtrag v0.6.1.0 bis 0.6.1.4: Animationen als Dateien (3.11.2026, fortgeschrieben 4.11.2026)
+## Technischer Nachtrag v0.6.1.0 bis 0.6.1.5: Animationen als Dateien (3.11.2026, fortgeschrieben 12.11.2026)
 
 **Stand:** im Quellcode vorhanden und am Rechner geprüft (Dateispeicher mit dem echten Sketch-Code gegen ein Dateisystem im Speicher; Nutzlast gegen die unabhängige Referenz; Weboberfläche in Chromium). Arduino-Compile, echtes LittleFS, Webserver und BLE-Senden aus der Datei sind offen.
 
 **Aufteilung:** Die Weboberfläche zerlegt und wandelt alles um (GIF-Decoder, Bildstreifen, Text-Raster, Farbreduktion auf die sieben LED-Farben, Planung der Bildfolge) und baut die **Nutzlast des Befehls `0x04`** (Format siehe Nachtrag 0.6.0.0). Die Firmware speichert und sendet nur. Der Browser lädt Nutzlast, Vorschaubild und Name hoch; es gibt keinen Gesamtpuffer im ESP32.
+
+**Neu in 0.6.1.5 (Hardwaretest von 0.6.1.4: System-Minimum 400 Byte, Wächter-Neustart in `anim_get`):**
+- *Abruf:* höchstens 1200 Byte Nutzlast je Antwort; die ganze Antwort (etwa 1,9 KB) entsteht in einem vorab reservierten `String` und geht mit `web.send` in einem Stück hinaus, nachdem die Datei geschlossen ist. Gemessen war, dass jeder 3000er-Teil den freien Heap kurzzeitig um 13 bis 23 KB senkte, weit mehr als die eigentlichen Daten; der Puffer der Sendekette (lwIP/WLAN), viele kleine Chunks und der Dateipuffer sind die **vermutete** Ursache (aus den Messreihen geschlossen, nicht am Gerät bewiesen). 503, wenn freier Heap < 24.000 Byte oder größter Block < 10.000 Byte (`ESP.getMaxAllocHeap()`) oder `reserve` scheitert; Feld `heap` für die Pause im Browser.
+- *Lesende Routen:* `httpRouteGuarded()` antwortet unter 20.000 Byte freiem Heap mit 503 und `Retry-After: 1` (Liste siehe CHANGELOG). Die Oberfläche wiederholt lesende Anfragen bis 8-mal nach 450 ms. Status, Diagnose und Exporte sind nie geschützt, damit man den Zustand gerade dann sehen kann.
+- *Startseite:* unter 22.000 Byte eine Warteseite (503, `meta refresh` 2 s, Notausgang `/?force=1`); mit gültigem ETag weiter 304.
+- *Modus nach einer Animation:* Ist der letzte erfolgreiche Auftrag eine Animation oder unbekannt (`rb61LastKind != 1`), sendet ein Text-, Seiten-, Block- oder Ambiente-Auftrag den Modus (`0x06`) zusätzlich hinter den Daten. Anlass: Die Tafel zeigte im Test den ersten Inhalt nach einer Animation mit Linkslauf, obwohl der Modus vor den Daten gesetzt war. Ob die Wiederholung das behebt, ist offen.
+- *Reihenfolge:* `/rb-anim/order.bin`, je ID zwei Byte (little endian). Fehlt die Datei oder ist sie leer oder beschädigt, gilt aufsteigend nach ID; unbekannte und doppelte Einträge werden übergangen, nicht genannte IDs aufsteigend angehängt. Neue Animation ans Ende, gelöschte heraus.
 
 **Neu in 0.6.1.4:**
 - *Abruf in Teilen:* `GET /api/anim/get?id=&off=&len=` (siehe Routentabelle). Grund: Der Webserver (`WebServer` des Arduino-Cores) sendet über `sendContent` in Stücken, die sich bei langsamem Empfänger in den Sendepuffern von lwIP und WLAN stauen; bei einer Antwort mit bis zu 40 KB Base64 und nur etwa 30 KB freiem Heap fiel dieser auf 1.640 Byte (Block 820 Byte, System-Minimum 352 Byte), eine Anfrage dauerte 5,5 s. Die Ursache im Puffer ist eine **Schlussfolgerung** aus den Messreihen, hier nicht reproduzierbar. Gegenmaßnahmen: Antwort auf höchstens 3000 Byte Nutzlast (rund 4 KB Text), Heap-Schutz mit Schwelle 16.000 Byte (503), kleine Stapelpuffer (600 Byte roh, 804 Byte Text; der kleinste freie Stapel lag bei 4.856 Byte von 8 KB).
@@ -29,8 +36,9 @@ Eine Datei gilt nur, wenn Kennung, Wertebereiche, Länge der Nutzlast und Dateig
 
 | Route | Zweck |
 |---|---|
-| `GET /api/anim/list` | `{ok, ready, max (79 Bilder), limit (40), free, total, items:[{id, name, frames, ms, broken, bytes, thumb}]}` (Bytes des Dateisystems; Vorschaubild als Base64) |
-| `GET /api/anim/get?id=[&off=][&len=]` | seit 0.6.1.4 in Teilen: `{ok, id, name, frames, ms, total, off, n, data}` mit `total` = Länge der Nutzlast, `off` = Anfang dieses Teils, `n` = Bytes in diesem Teil, `data` = Base64-URL ohne Füllzeichen; `off` Standard 0, `len` Standard und Höchstwert 3000; intern Stücke zu 600 Byte. 400 bei `off` < 0, `off` > `total` oder `len` < 1; 404 unbekannt oder beschädigt; **503 „Speicher knapp“**, wenn `ESP.getFreeHeap()` < 16.000 Byte (die Weboberfläche wartet 300 ms und wiederholt bis zu 30-mal). Vor 0.6.1.4: die ganze Nutzlast in einer Antwort |
+| `GET /api/anim/list` | `{ok, ready, max (79 Bilder), limit (40), free, total, items:[{id, name, frames, ms, broken, bytes, thumb}]}` (Bytes des Dateisystems; Vorschaubild als Base64); seit 0.6.1.5 in der Reihenfolge aus `order.bin` und unter 20.000 Byte Heap 503 |
+| `GET /api/anim/get?id=[&off=][&len=]` | in Teilen: `{ok, id, name, frames, ms, total, off, n, heap, data}` mit `total` = Länge der Nutzlast, `off` = Anfang dieses Teils, `n` = Bytes in diesem Teil, `heap` = freier Heap beim Start (seit 0.6.1.5), `data` = Base64-URL ohne Füllzeichen; `off` Standard 0, `len` Standard und Höchstwert 1200 (0.6.1.4: 3000); 400 bei Abschnitt außerhalb, 404, 503 bei freiem Heap unter 24.000 Byte, größtem Block unter 10.000 Byte oder fehlendem Antwortpuffer (0.6.1.4: nur Heap unter 16.000) |
+| `POST /api/anim/move` (0.6.1.5) | `id`, `to` (neuer Platz ab 0); schreibt `order.bin`; 400 bei unbekannter ID oder ungültigem Platz, 500 wenn die Datei nicht geschrieben werden kann |
 | `POST /api/anim/put` | `off`, `data` (Base64-URL ohne Füllzeichen, höchstens 1200 Byte roh); erstes Stück (`off=0`) mit `frames`, `ms`, `total`, `name`, `thumb`, `crc` (seit 0.6.1.3, nur Ziffern, höchstens `0xFFFFFFFF`, sonst 400; bei Abweichung am Ende 422 und Upload verworfen); `abort=1` verwirft. Schreibt `up.tmp`, beim letzten Stück Prüfung und `rename` auf die kleinste freie Nummer (seit 0.6.1.4, siehe oben; 507, wenn keine frei ist) |
 | `POST /api/anim/send` | `id`; startet den Auftrag `ANIM` mit `rb61PendingAnimId`; Antwort 202 |
 | `POST /api/anim/rename`, `/delete` | `id` (und `name`); `/delete` entfernt nur die Datei und lässt Kurzwahlen unberührt (0.6.1.3 leerte sie noch, 0.6.1.4 nicht mehr; ADR-2026-11-04-J). `/duplicate` ist seit 0.6.1.3 entfernt |
@@ -160,7 +168,7 @@ Header: Der bekannte Protokoll-Header bleibt 107 Bytes groß, die ursprüngliche
 | Tafel | Original-CoolLEDX, **64×16 Pixel**, sieben LED-Farben, Advertising-Firmwarekennung `06` |
 | Tafeladresse | ab 0.5.0.0 nicht mehr im Code: „Meine Tafel“ liegt im NVS (Namespace `rbsign`), eine fremde Tafel nur im RAM; jede Tafel hat ihre eigene Adresse |
 | BLE | Service `0000fff0-0000-1000-8000-00805f9b34fb`, Characteristic `0000fff1-0000-1000-8000-00805f9b34fb` (Read, Notify, Write Without Response) |
-| Wi-Fi | ESP32-AP `CoolLED1248`, Passwort `Banane1248!`, Browser `http://192.168.4.1`; **bewusst dokumentiertes Testpasswort** |
+| Wi-Fi | ESP32-AP `RavestickBoard` (bis 0.6.1.4 `CoolLED1248`), Passwort `Banane1248!`, Browser `http://192.168.4.1`; **bewusst dokumentiertes Testpasswort** |
 
 Die ursprünglichen Advertising-Daten laut BLE-Scan: `e1ebff0000037ec31000400106` (mit Herstellerkennung; enthält die getestete MAC, Höhe `0x10`, Breite `0x0040`, Farbmodus `01` und Firmwarekennung `06`). Der Nutzer hat bestätigt, dass der zuletzt übertragene Inhalt auf der Tafel ohne BLE-Verbindung und nach deren Stromtrennung erhalten bleibt.
 

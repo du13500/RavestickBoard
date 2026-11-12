@@ -1,6 +1,17 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 4.11.2026 für v0.6.1.4-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 12.11.2026 für v0.6.1.5-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.5 – Befunde aus dem Hardwaretest von 0.6.1.4, vertagte Anfragen, Modus nach Animation (12.11.2026)
+
+**Gemessen in 0.6.1.4:** Jeder Abruf-Teil von 3000 Byte senkte den freien Heap kurzzeitig um 13 bis 23 KB; alle Stufen des System-Minimums (bis 400 Byte) fielen in `/api/anim/get`; direkt nach einem Animationsversand mit zwei Geräten startete der Wächter in der Phase `anim_get` neu (frei 5.224 Byte). So liest man das in den Exporten: In der HTTP-Spur zeigt die Spalte „Heap vor/min/nach“ den Abfall je Anfrage, die Worst Cases nennen „System-Min-Abfall in Anfrage“ mit Pfad; im Seriallog stehen die Zeilen `[HTTPTRACE] … sysMin=alt->neu`.
+
+**Neu in 0.6.1.5:**
+- Zeile „HTTP-Anfragen wegen knappem Heap vertagt (503): n“ in der Textdiagnose. Sie zählt jedes 503 aus Heap-Gründen: Abruf einer Animation, lesende Listen-Routen und die Warteseite. Einige nach einem großen Sendeauftrag mit zwei Geräten sind erwartet; die Oberfläche wiederholt unsichtbar. Sehr viele (über 100) oder eine dauerhaft angezeigte Warteseite deuten auf einen dauerhaft niedrigen Heap; dann Diagnose, RAM- und HTTP-Spur exportieren (Status und Exporte sind nie gesperrt).
+- In der HTTP-Spur erscheinen vertagte Anfragen mit Status 503 (sie zählen als Fehler).
+- Ereignis (Kategorie `BLE`) „Anzeigemodus nach den Daten erneut gesetzt (vorher Animation oder unbekannt)“ beim ersten Text-, Seiten-, Block- oder Ambiente-Auftrag nach einer Animation oder nach dem Start; „… erneutes Setzen nicht bestaetigt“ ist als Fehler markiert, der Auftrag gilt trotzdem als gesendet.
+- Ereignis (Kategorie `ANIM`) „Reihenfolge der Animationen konnte nicht gespeichert werden“, falls `order.bin` nicht geschrieben werden kann (die Liste fällt dann auf „aufsteigend nach Nummer“ zurück).
+- Die Diagnose beginnt mit „RavestickBoard | Diagnose“; das WLAN heißt `RavestickBoard`.
 
 ## Diagnose-Ergänzung v0.6.1.4 – Befunde aus dem Hardwaretest von 0.6.1.3 und Abruf in Teilen (4.11.2026)
 
@@ -40,7 +51,7 @@ Beim v0.3.2-Korrektur-2-Praxistest wurden teilweise alle BLE-Pakete quittiert un
 
 ## Aufrufen und Exportieren
 
-1. Mit `CoolLED1248` verbinden und `http://192.168.4.1` öffnen.
+1. Mit `RavestickBoard` verbinden (bis 0.6.1.4 `CoolLED1248`) und `http://192.168.4.1` öffnen.
 2. Bereich **Diagnose / Log** aufklappen und bei Bedarf aktualisieren.
 3. **„Log kopieren“**: seit v0.1.2 bevorzugt. Wegen unverschlüsseltem HTTP kann die Clipboard-API auf iPhone/Safari eingeschränkt sein; der Browser versucht Fallback bzw. bietet manuellen Text. **Der Safari-Fallback ist nicht in sämtlichen Konstellationen abgenommen.**
 4. Alternativ **TXT herunterladen**. Dieser Weg wurde bereits mit v0.1.1 auf dem iPhone bestätigt.

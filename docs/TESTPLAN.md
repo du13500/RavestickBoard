@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.4.md`](TESTPLAN_v0.6.1.4.md) (Abruf in Teilen, freie Nummern, Löschen mit Kurzwahl, gesperrte Tasten, Regression, 4.11.2026). Der Plan von 0.6.1.3 liegt in [`archive/TESTPLAN_v0.6.1.3.md`](archive/TESTPLAN_v0.6.1.3.md). Die folgenden Abschnitte sind die Testpläne und Abnahmeprotokolle früherer Versionen und gelten für deren Stand; Hardwareergebnisse stehen jeweils in den zugehörigen Entwicklungsständen und im Changelog.
+> **Neuester Testplan:** [`TESTPLAN_v0.6.1.5.md`](TESTPLAN_v0.6.1.5.md) (Heap-Schutz, Modus nach Animation, Mehrfachauswahl, Sortieren, Laptop-Ansicht, WLAN-Name, 12.11.2026). Der Plan von 0.6.1.4 liegt in [`archive/TESTPLAN_v0.6.1.4.md`](archive/TESTPLAN_v0.6.1.4.md), der von 0.6.1.3 in [`archive/TESTPLAN_v0.6.1.3.md`](archive/TESTPLAN_v0.6.1.3.md).
 
 ## Ergänzung v0.3.5
 
@@ -104,7 +104,7 @@ Nach Prüfung: Neustart/WLAN, gespeicherte Blockseiten, normale Textübertragung
 | Nr. | Testpunkt | Ergebnis | Bemerkungen |
 |---:|---|---|---|
 | 1 | Korrektur 2 kompiliert und wird geflasht | | |
-| 2 | WLAN `CoolLED1248` startet ohne `alloc pp wdev funcs fail` | | |
+| 2 | WLAN `RavestickBoard` (bis 0.6.1.4 `CoolLED1248`) startet ohne `alloc pp wdev funcs fail` | | |
 | 3 | Webinterface unter `192.168.4.1` erreichbar | | |
 | 4 | `NVS`: 10 alte Blockseiten geladen | | |
 | 5 | `[RAM]`-Zeilen beim Start sichtbar | | |
