@@ -1,6 +1,6 @@
 # RavestickBoard · Quellen, Lizenzumfang und Rechte
 
-**Aktueller Stand: 12.11.2026 (v0.6.1.5-dev) · Projektcode unter MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
+**Aktueller Stand: 12.11.2026 (v0.6.1.6-dev) · Projektcode unter MIT. Die neun Beispiel-Animationen unter `assets/animationen/` (seit 0.6.1.6) sind eigene Gestaltung, mit `tools/beispiel_animationen.py` erzeugt, ebenfalls MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
 
 ## MIT ab v0.4.0-dev
 

@@ -1,6 +1,17 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 12.11.2026 für v0.6.1.5-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 12.11.2026 für v0.6.1.6-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.6 – Webantworten während einer Übertragung, Stapel (12.11.2026)
+
+**Gemessen in 0.6.1.5:** 1:44 h, 96 Aufträge, zwei Geräte, kein Neustart. `/api/anim/get` senkte das System-Minimum nicht mehr (0 Abfälle in `/api/*`, 0.6.1.4: 6); 503 nur viermal. Das System-Minimum von 2.632 Byte entstand 20–23 s nach dem Start beim Einbuchen des ersten Geräts, noch vor jeder Anfrage. Während einer großen Übertragung mit zwei Geräten etwa 22 KB frei, größter Block 7–10 KB; kleinster freier Stapel 3.656 Byte. Im 52-s-Grenztest stand **keine einzige HTTP-Zeile** in der Spur: Während der Übertragung wurde nichts beantwortet (B5/F9).
+
+**Neu in 0.6.1.6:**
+- Zeile „Webantworten in Übertragungen: an | Aufrufe n | Status n | Warteseite n | 409 n | längster Aufruf n ms“ (bei `RB_WEB_DURING_BLE 0`: „aus (wie 0.6.1.5)“). *Aufrufe* zählt jedes `web.handleClient()` innerhalb eines Auftrags (auch ohne Anfrage), die anderen Zahlen die tatsächlich beantworteten Anfragen.
+- Zeile „Stapel vor der ersten Webantwort in einer Übertragung: n Bytes | danach (kleinster Wert seit Start): n Bytes“. **So lesen:** Der zweite Wert ist der wichtige. Liegt er deutlich über 1.000 Byte, reicht der Stapel; unter etwa 1.000 Byte ist es knapp (dann melden); ein Absturz mit Stapelüberlauf zeigt sich als Neustart mit Grund „Panic“ und einer Absturzspur in einer `tx_…`-Phase. Zum Vergleich steht weiter der kleinste freie Stapel des ganzen Laufs in der Diagnose.
+- JSON-Diagnose: Objekt `txWeb` mit `on`, `calls`, `status`, `wait`, `busy`, `maxMs`, `stackBefore`, `stackAfter`.
+- In der HTTP-Spur erscheinen Antworten während einer Übertragung mit 200 (Status), 503 (Warteseite) oder 409; 409 zählt dort als Fehler, ist aber gewollt.
+- Neue Phasen der Wächter-Spur: `tx_wait_notify`, `tx_after_ack`, `ble_after_connect`, `job_end`, `job_retry` (bleiben während der Webantwort stehen).
 
 ## Diagnose-Ergänzung v0.6.1.5 – Befunde aus dem Hardwaretest von 0.6.1.4, vertagte Anfragen, Modus nach Animation (12.11.2026)
 

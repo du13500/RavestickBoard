@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.5.md`](TESTPLAN_v0.6.1.5.md) (Heap-Schutz, Modus nach Animation, Mehrfachauswahl, Sortieren, Laptop-Ansicht, WLAN-Name, 12.11.2026). Der Plan von 0.6.1.4 liegt in [`archive/TESTPLAN_v0.6.1.4.md`](archive/TESTPLAN_v0.6.1.4.md), der von 0.6.1.3 in [`archive/TESTPLAN_v0.6.1.3.md`](archive/TESTPLAN_v0.6.1.3.md).
+> **Neuester Testplan:** [`TESTPLAN_v0.6.1.6.md`](TESTPLAN_v0.6.1.6.md) (Antworten und Sperre während einer Übertragung, Rahmen, kleine Displays, 40 Blocktext-Seiten, Beispiel-Animationen). Vorgänger: [`archive/TESTPLAN_v0.6.1.5.md`](archive/TESTPLAN_v0.6.1.5.md).
 
 ## Ergänzung v0.3.5
 

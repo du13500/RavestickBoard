@@ -370,7 +370,18 @@ Ergebnis: 70 Schritte in Ordnung, 13 nicht getestet, 9 ohne Eintrag. Behandelt i
 - **ANM-25 · P2** Frames durch Verschieben erzeugen (Idee vom 9.11.2026, für den Zeichen-Editor): Bereich oder Streifen pro Frame um n Pixel verschieben (oben, unten, seitlich), mit Umlauf; mehrere Streifen mit eigener Geschwindigkeit (z. B. Slot-Walzen). Entstanden aus dem Zeichnen von „Slots“ in Excel.
 - Weiter offen: SYS-14, SYS-15 (BLE-Hänger), WEB-A2, ANM-23 (J3).
 
-## Code-Review 4.11.2026 – Stand der Befunde (fortgeschrieben bis v0.6.1.5-dev)
+## Hardwaretest 0.6.1.5 – Befunde und Vormerkungen (12.11.2026)
+
+Ergebnis: 44 Schritte in Ordnung, 1 nicht in Ordnung (B5), 9 nicht getestet, 9 „siehe Log“; 1:44 h, kein Neustart. Behandelt in 0.6.1.6: B5/F9 (keine Webantwort während einer Übertragung), D1 (Meldung ohne Umlaute), Vorschau im Editor auf dem iPhone SE („aus“, Ursache Schrift), Rahmen, kleine Displays, lange Namen, Blocktext-Editor, Kurzwahl-Dialog, Import-Benennung, Mülleimer, Kopie mit Namen, Beispiel-Animationen. F4 (Ausschnitt-Rahmen) hat begeistert.
+
+- **ANM-26 · P1 (0.6.1.7, abgestimmt)** Animations-Übersicht als Raster: zwei Spalten am Handy, am Laptop so viele, wie passen; je Kachel das *erste Bild fest* (auch beim Antippen keine Bewegung; Bewegung nur in Liste und Bearbeiten), Name mit weichem Ausblenden, „Frames · Dauer“, Knöpfe **Senden** und **Stift** (öffnet den Bearbeiten-Dialog dieser Animation); oben „Import“ und **„Liste“** (die jetzige Ansicht für Sortieren, Umbenennen, Löschen, Mehrfachauswahl). Während einer Übertragung gesperrt wie alles andere. Entwurf gerendert am 12.11.2026.
+- **UI-16 · P1 (0.6.1.7, abgestimmt)** Markierung **„auf der Tafel“** (grüner Rand und Schild) für den zuletzt gesendeten Inhalt in Animationen, Bibliothek, Programmen, Ambiente und Kurzwahl (dort die Taste, deren Ziel gerade läuft). Der ESP32 merkt sich Art und Nummer in einer kleinen Datei (übersteht einen Neustart) und meldet sie im Status. Regeln: ungespeicherter Text aus dem Editor → nichts markiert; Eintrag nach dem Senden bearbeitet oder gelöscht → Markierung weg; Tempo, Modus, Helligkeit ändern nichts; Tafelwechsel löscht die Markierung; bei Programmen das Programm markieren (technisch beim Bau prüfen).
+- **WEB-14 · P2 (0.6.1.7)** Vorschau in der Bibliothek (Laptop und Handy; bei Lauftext mit Tempo-Regler), Programme gegebenenfalls später.
+- **ANM-27 · P3** Standbild durch einen Rahmen laufen lassen; **ANM-28 · P3** Slots-Editor mit drei Symbolen aus der Symboltabelle (Ideen vom 12.11.2026, für den Zeichen-Editor).
+- **UI-17 · P3** Prozentanzeige der Übertragung im Bedienfeld (Variante a vom 12.11.2026, bewusst nicht gebaut: mehr Statusabfragen während der Übertragung). Nachrüstbar, wenn der Stapel reicht.
+- Weiter offen: SYS-14, SYS-15 (BLE-Hänger), SYS-16 (NimBLE, Entscheidung), SYS-17, WEB-A2, ANM-23 (J3), ANM-25, UI-15.
+
+## Code-Review 4.11.2026 – Stand der Befunde (fortgeschrieben bis v0.6.1.6-dev)
 
 Bericht: Code-Review von 0.6.1.2 (V1, M1–M5, N1–N14). Stand nach dem Aufräum-Build 0.6.1.3:
 

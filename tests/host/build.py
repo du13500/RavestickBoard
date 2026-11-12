@@ -2,7 +2,9 @@ import sys,re
 from pathlib import Path
 # usage: build.py <repo root> <out.cpp>   (Rechnertest der Text-Renderfunktionen aus dem Sketch)
 stage=Path(sys.argv[1]); out=Path(sys.argv[2])
-fw=sorted((stage/'firmware').glob('RavestickBoard_v*'))[0]
+def _ver(p):   # neuester Firmware-Ordner (im Repo liegen alle alten Staende daneben)
+    return tuple(int(x) for x in re.findall(r'\d+', p.name))
+fw=max((stage/'firmware').glob('RavestickBoard_v*'),key=_ver)
 ino=next(fw.glob('*.ino')).read_text(encoding='utf8').split('\n')
 def find(prefix,start=0):
     for i in range(start,len(ino)):
