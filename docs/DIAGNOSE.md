@@ -1,6 +1,12 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 4.11.2026 für v0.6.1.3-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 4.11.2026 für v0.6.1.4-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.4 – Befunde aus dem Hardwaretest von 0.6.1.3 und Abruf in Teilen (4.11.2026)
+
+**Gemessen in 0.6.1.3 (Hardwaretest):** (1) Beim Abruf einer großen Animation (`/api/anim/get`) fiel der freie Heap von etwa 31 KB auf 1.640 Byte, der größte Block auf 820 Byte, das System-Minimum auf 352 Byte; eine Anfrage dauerte 5,5 s; in einem Lauf startete der Wächter das Board in der Phase `anim_get` neu (frei 3.120 Byte, System-Minimum 1.312 Byte). (2) Zwei weitere Wächter-Neustarts: Phase `ble_regNotify` und Phase `ble_connect` (BLE-Hänger; im Export vom 4.11.2026: Phase `ble_connect` bei 74.211 ms, Auftrag 3, frei 28.720 Byte, System-Minimum 9.464 Byte, die Geräte wurden vorher abgemeldet). (3) Im RAM-Verlauf eines späteren Exports (Laufzeit 5:43) sank das System-Minimum bei der **WLAN-Anmeldung** des ersten Geräts von 57.808 auf 41.656 Byte und bei der IP-Vergabe auf 9.984 Byte; später auf 7.400 und 3.920 Byte, davon einmal während `GET /api/anim/list` (459 ms, 7.400 auf 3.920). Bei einem BLE-Verbindungsaufbau fiel das System-Minimum auf 12.568 Byte (`BLE_LINK`). (4) Kleinster freier Stapel 4.856 Byte von 8 KB; Compiler: globale Variablen 79.452 Byte (24 %), Sketch 1.583.589 Byte (75 %); die Diagnose eines späteren Exports nennt 1.599.248 Byte (Abweichung vermutlich andere IDE-Einstellung, nicht geklärt).
+
+**Neues Verhalten in 0.6.1.4:** `GET /api/anim/get` liefert höchstens 3000 Byte je Antwort; liegt der freie Heap bei Beginn unter 16.000 Byte, kommt 503 „Speicher knapp“ (die Weboberfläche wiederholt nach 300 ms, höchstens 30-mal). Das 503 erscheint **nicht** im Ereignisprotokoll; in der HTTP-Spur (`/api/http.txt`) steht es als Statuscode der Anfrage (503 zählt als Fehler). Zum Prüfen: nach einem Durchgang „große Animation auswählen, bearbeiten, speichern, löschen“ das Heap-Minimum, das System-Minimum und die Zeile „Worst Cases“ (Kleinster Heap in Anfrage, Pfad `/api/anim/get`) der HTTP-Spur mit dem Wert aus 0.6.1.3 vergleichen. Wiederholt die Oberfläche häufig, ist die Schwelle 16.000 Byte zu hoch oder der Heap bleibt dauerhaft knapp; beides wäre ein Messbefund, kein Fehler des Ablaufs.
 
 ## Diagnose-Ergänzung v0.6.1.3 – Prüfsumme, Lesefehler, Stapel (4.11.2026)
 

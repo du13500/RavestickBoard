@@ -334,7 +334,7 @@ Nach nachgewiesener Umsetzung einer Funktion: den passenden Eintrag (etwa `PRE-0
 - [ ] **ANM-10 · P2** Upload beschleunigen: Adam braucht für 79 Frames rund 55 s, vor allem wegen des Wartens auf die Bestätigung jedes Chunks. Messen (Test C1), dann die feste Pause pro Paket durch ein Warten auf die Antwort ersetzen. Nach Adam gibt es außerdem einen Visualisierungs-/Musik-Opcode, der schneller hochladen soll (nur Balken, vermutlich uninteressant).
 - [ ] **ANM-11 · P3** Seitenprogramm als Animation (mehrere Seiten einmal hochladen, Standzeiten durch wiederholte Frames, z. B. 2 s und 3 s mit 1000 ms Frame und 2× bzw. 3× wiederholt): vermeidet die Prozentanzeige beim Wechsel. Berührt die Entscheidung „Animation als eigener Bereich“; erst nach dem Test und der Import-Stufe entscheiden. *4.11.2026:* Wiederholte Frames für Standzeiten sind auch der Weg für Einzelbilder im Zeichner (zwei gleiche Frames) und die Grundlage für ANM-20.
 - [ ] **ANM-12 · P3** *Zukunftsmusik, nicht scrappen:* Die Testbilder aus dem Animationstest (Nummern, Vollbildfarbe mit Nummer, Balken) sind für Zähler und eine Uhrzeit-Anzeige denkbar (Nutzer, 3.11.2026: „könnte gegebenenfalls für die Counter nutzbar sein. Oder eine Uhrzeit-Funktion“). Deshalb bleiben `rb60NumberPixel` und die Ziffernreihen sowie der Animationstest erhalten. Voraussetzung wäre eine Zeitquelle (siehe unten „Zeitquelle“) und, weil die Tafel nur Frames abspielt, eine Folge vorberechneter Bilder.
-- [x] **ANM-13 · P2** *(in 0.6.1.2 gebaut, Hardwaretest offen)* Animationen als Kurzwahl: Quelle „Animationen“ im Kurzwahl-Dialog, Kachel sendet die gespeicherte Animation, bei beschädigter Animation „Animation fehlt“ (sendet nichts); *seit 0.6.1.3* leert das Löschen einer Animation die zugehörigen Kurzwahlen. Offen bleibt, ob Animationen ins Backup sollen (derzeit nicht).
+- [x] **ANM-13 · P2** *(in 0.6.1.2 gebaut, Hardwaretest offen)* Animationen als Kurzwahl: Quelle „Animationen“ im Kurzwahl-Dialog, Kachel sendet die gespeicherte Animation, bei fehlender oder beschädigter Animation „Animation fehlt“ (sendet nichts); *0.6.1.3* leerte beim Löschen die zugehörigen Kurzwahlen, *seit 0.6.1.4* bleiben sie unberührt und freie Nummern berücksichtigen sie (ADR-2026-11-04-J). Offen bleibt, ob Animationen ins Backup sollen (derzeit nicht).
 - [x] **ANM-15 · P2** *(in 0.6.1.2 gebaut, Hardwaretest offen)* Ausschnitt-Rahmen 4 : 1 auf dem Quellbild statt Schiebereglern (Wunsch 3.11.2026). Möglich später: Rahmen auch drehbar? Mehrere Rahmen je Bild (Kamerafahrt über ein großes Bild als Animation)? Bisher nicht gewünscht.
 - [x] **ANM-18 · P1** *(in 0.6.1.2 gebaut, Hardwaretest offen)* Bestehende Animation bearbeiten: Zeit je Bild, Bildbereich, Schrittweite, Hin und Zurück, Name; Speichern überschreibt unter derselben Nummer, Kopie möglich. Nicht möglich ohne das Original: Ausschnitt, Farbumsetzung. Einzelne Bilder löschen/umsortieren und malen folgen mit dem Zeichen-Editor (ANM-06, 0.6.2.0).
 - [x] **ANM-16 · P2** *(in 0.6.1.2 gebaut, Hardwaretest offen)* „Nur senden“: Animation ohne Speichern an die Tafel (temporäre Datei, danach gelöscht).
@@ -342,12 +342,24 @@ Nach nachgewiesener Umsetzung einer Funktion: den passenden Eintrag (etwa `PRE-0
 - [ ] **ANM-19 · P3** *Vorschlag, nicht entschieden (4.11.2026):* „Bildblock“: ein im Zeichner gemaltes Einzelbild als Blockseite speichern (Block ist als Ziel der Animation nicht möglich, ein Bild als Seite wäre ein eigener Weg). Erst nach 0.6.2.0 überlegen.
 - [ ] **ANM-20 · P2** *Vorschlag (4.11.2026):* „Zeit je Frame“ skaliert automatisch mit, wenn Schrittweite oder „Auf 79 verteilen“ Bilder auslässt, damit die Abspielgeschwindigkeit ungefähr gleich bleibt (Nutzer kann übersteuern).
 - [ ] **ANM-21 · P3** *Vorschlag (4.11.2026):* Hinweise in der Importansicht, z. B. „GIF wiederholt sich nach 60 Bildern – nur einen Durchlauf nehmen?“, wenn sich der Bildinhalt nach n Bildern wiederholt.
+- [ ] **ANM-22 · P2** *Beobachtung aus dem Hardwaretest 0.6.1.3 (4.11.2026):* `GET /api/anim/list` streamt bei 40 Animationen rund 24 KB; in einem Export sank das System-Minimum während dieser Anfrage von 7.400 auf 3.920 Byte. Der Abruf in Teilen (0.6.1.4) behebt das für `/api/anim/get`, nicht für die Liste. Messen (HTTP-Spur, „Worst Cases“); mögliche Maßnahmen: Liste in Seiten, Heap-Schutz wie beim Abruf, Vorschaubilder einzeln nachladen.
+- [ ] **ANM-23 · P3** *Zurückgestellt (4.11.2026):* J3 „Als neue Animation speichern“ aus dem Testplan 0.6.1.3: Der Nutzer will erst nachsehen; in der Bearbeitungsansicht gibt es „Als Kopie speichern“. Kein Handlungsbedarf, bis er sich meldet.
+- [ ] **ANM-24 · P2** *Idee aus dem Hardwaretest 0.6.1.3 (Zusatzzeile Z1, 4.11.2026):* Ambiente (Vollbild in einer Farbe) läuft als Lauftext; deshalb wirken die Tasten zum Erzwingen des Anzeigeverhaltens (und, wie du schreibst, Laser u. ä.) darauf. Prüfen, ob Ambiente künftig technisch als Animation übertragen werden kann, damit dieses Verhalten nicht erzwungen werden kann. *Zu klären, noch nicht geprüft:* (1) Das Dateiformat verlangt mindestens 2 Bilder (Kopf 2–79); „1 Frame“ hieße zwei gleiche Bilder; ob die Tafel auch ein einzelnes Bild als `0x04` annimmt, ist ungetestet. (2) Das Verhalten der Tafel nach dem Ausschalten (Animation bleibt, 0.6.0.2) wäre dann auch das der Ambiente. (3) Farben: Animationen kennen sieben LED-Farben; die heutigen Ambiente-Farben gegen diese Liste prüfen. (4) Tempo-Regler und Anzeige-Tasten wären dann wie bei Animationen gesperrt (Anzeige an/aus bleibt). (5) Helligkeit bei Animationen ist noch offen (ANM-14). Nichts gebaut.
 - [ ] **ANM-14 · P2** Helligkeit bei Animationen: Wirkt `0x08` nach einer Animation? Ungeprüft (der Test 0.6.0.2 hat das nicht beantwortet); Tempo-Regler ist bei Animationen gesperrt (0.6.1.0).
 - [ ] **ANM-08 · P2** Offene Fragen aus dem Hardwaretest (Stand 0.6.0.2 beantwortet: Persistenz nach Ausschalten = ja; Text ersetzt Animation sauber = ja; `0x06` danach = ohne Wirkung; 1–8 ms = flüssig): bleibt die Animation nach dem Ausschalten, Zusammenspiel mit `0x06` und mit einem späteren Text-Upload, Übertragungsdauer für 30 KB, Flashbedarf je Datei, Platz der LittleFS-Partition.
 - [ ] **SYM-WIDE · P2** Frei gestaltbare Symbole mit 16 Pixel Höhe und variabler Breite (z. B. 40×16 Flugzeug) im Renderer und in der Vorschau ermöglichen; 16×16-Originalsymbole bleiben erhalten.
 - [ ] **LIC-04 · P1** Bei tatsächlicher Übernahme fremder MIT- oder Apache-lizenzierter Bestandteile Lizenztexte und Urheberhinweise beibehalten; nur technische Protokollrecherche erfordert keine Codeübernahme.
 
-## Code-Review 4.11.2026 – Stand der Befunde (v0.6.1.3-dev)
+## Hardwaretest 0.6.1.3 – Befunde und Vormerkungen (4.11.2026)
+
+Ergebnis: 54 Schritte in Ordnung, 1 nicht in Ordnung, 5 nicht getestet, 18 offen. Behandelt in 0.6.1.4: Heap-Einbruch beim Abruf (B7, Wächter-Neustart `anim_get`), J4 (Nummernvergabe), Sperre der Anzeige-Tasten. Vorgemerkt:
+
+- **SYS-14 · P2** *Vorschlag, nicht beschlossen:* „Werkseinstellungen / gezielt löschen“: Alle Animationen löschen, Bibliothek leeren, Kurzwahlen leeren, kompletter Werkszustand; jeweils mit Rückfrage und Hinweis auf ein vorheriges Backup. Anlass: Es gibt bisher keinen Weg zurück in den Ausgangszustand (Frage des Nutzers zu J4). Kein Bau ohne ausdrückliches Go.
+- **SYS-15 · P1** BLE-Hänger: `ble_connect` und `ble_regNotify` führten im Test dreimal zum Wächter-Neustart (zusätzlich zu `anim_get`). Zusammenhang mit niedrigem Heap möglich (BLE-Verbindungsaufbau senkt das System-Minimum auf etwa 12.568 Byte), unbewiesen. Nach dem Test von 0.6.1.4 prüfen, ob die Hänger mit mehr freiem Heap seltener werden; sonst Zeitlimit-Umbau der BLE-Aufrufe erwägen.
+- **WEB-A2 · P3** Der erste Aufruf der Startseite `/` dauerte bis zu 2,5 s (HTTP-Spur: 2.516 ms bei Heap 16.796 Byte). Gzip-Auslieferung von 90 KB über das Soft-AP; messen, ob Größe oder Heap die Ursache ist.
+- Weitere Anmerkungen des Nutzers zu D3, E2 und G6 stehen im ausgefüllten Excel; soweit sie noch zutreffen, beim Hardwaretest 0.6.1.4 erneut prüfen.
+
+## Code-Review 4.11.2026 – Stand der Befunde (v0.6.1.4-dev)
 
 Bericht: Code-Review von 0.6.1.2 (V1, M1–M5, N1–N14). Stand nach dem Aufräum-Build 0.6.1.3:
 
@@ -355,10 +367,10 @@ Bericht: Code-Review von 0.6.1.2 (V1, M1–M5, N1–N14). Stand nach dem Aufräu
 |---|---|---|
 | V1 | `RB_TEST_HANG` auf 1 | bleibt in Entwicklungsbuilds; **Release-Checkliste:** auf 0 setzen, `test_build` prüft den ausgelieferten Stand |
 | M1 | Lesefehler, keine Prüfsumme | erledigt in 0.6.1.3 (CRC-32, Abbruch) |
-| M2 | ID-Wiederverwendung und Kurzwahl | erledigt in 0.6.1.3 (Kurzwahlen beim Löschen leeren statt ID-Zähler, ADR-2026-11-04-A) |
+| M2 | ID-Wiederverwendung und Kurzwahl | 0.6.1.3: Kurzwahlen beim Löschen leeren (ADR-2026-11-04-A); **seit 0.6.1.4:** kleinste freie Nummer unter Berücksichtigung der Kurzwahlen, Löschen lässt sie unberührt (ADR-2026-11-04-J) |
 | M3 | Ersetzen kann Original verlieren | erledigt in 0.6.1.3 (`.bak`); echtes LittleFS-`rename` im Hardwaretest beobachten |
-| M4 | statischer RAM ≈ 37 KB | nur Messung: Compilerzeile „Globale Variablen“ festhalten; kein Umbau |
-| M5 | Stack unbekannt | Stapelwert in der Diagnose; nach einem Durchgang notieren |
+| M4 | statischer RAM ≈ 37 KB | gemessen in 0.6.1.3: globale Variablen 79.452 Byte (24 %); kein Umbau |
+| M5 | Stack unbekannt | Stapelwert in der Diagnose; gemessen in 0.6.1.3: kleinster freier Stapel 4.856 Byte von 8 KB |
 | N1, N5, N6, N10 | `up.tmp`, Längenprüfung, `duplicate`, Beschriftungen | erledigt in 0.6.1.3 |
 | N2 | MTU-Vorprüfung | bewusst nicht (ADR-2026-11-04-C) |
 | N3 | Helligkeit bei Animationen | im Hardwaretest beobachten (siehe ANM-14) |
