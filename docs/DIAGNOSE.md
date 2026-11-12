@@ -1,6 +1,16 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 12.11.2026 für v0.6.1.6-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 12.11.2026 für v0.6.1.7-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.7 – Exporte, Neustart-Grund im Status (12.11.2026)
+
+**Gemessen in 0.6.1.6:** Stapel vor der ersten Webantwort 4.744 Byte, danach mindestens 4.472 Byte; kleinster Loop-Stapel 4.136 Byte; 129 Aufrufe, längster 12 ms. Ruhe-Heap mit zwei Geräten etwa 28,8 KB. `GET /api/http.txt` dauerte 3.481 ms und senkte das System-Minimum von 2.660 auf 992 Byte (Heap min 2.004, Block min 820). Wächter-Neustart in `ble_regNotify` nach etwa 65 Minuten (SYS-15).
+
+**Neu in 0.6.1.7:**
+- Zeile „Exporte: auf freien Heap gewartet (0.6.1.7): n×“. Zählt, wie oft ein Export vor einem Stück auf freien Heap gewartet hat. Ein paar sind normal; der Wert zeigt, dass die Bremse greift.
+- `http.txt` und `ram.txt` kommen in Stücken zu 512 Byte statt Zeile für Zeile; der Inhalt ist unverändert.
+- `/api/status` enthält `boot`, `up`, `restart` (`hang`/`crash`/leer) und `restartPhase`. Die Oberfläche zeigt nach einem Neustart durch den Wächter einmal je Gerät eine Meldung; die ausführliche Spur steht weiter unter „Absturzspur Vorlauf“.
+- Kurze Steuerbefehle (Helligkeit, Tempo, Anzeigemodus, an/aus) zählen nicht mehr als Übertragung: In „Webantworten in Übertragungen“ tauchen nur noch Datenübertragungen auf.
 
 ## Diagnose-Ergänzung v0.6.1.6 – Webantworten während einer Übertragung, Stapel (12.11.2026)
 

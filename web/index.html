@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.6.1.6-dev</title>
+<title>RavestickBoard · v0.6.1.7-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -548,7 +548,13 @@ input,select,textarea{font-size:16px}              /* iOS zoomt sonst beim Fokus
 body:not([data-rb-view='diagnostics']):not([data-rb-view='settings']){padding-bottom:0!important}
 #rbDock.rb-dock{margin:10px 0 0!important;width:100%!important;max-width:none!important;border-radius:17px 17px 0 0!important;border-bottom:0!important;
  box-shadow:none!important;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))!important;position:relative!important}
-body.rb-frame #appShell{height:100dvh;min-height:0!important;display:flex;flex-direction:column;box-sizing:border-box;padding-bottom:0!important;overflow:hidden}
+/* 0.6.1.7: Der Rahmen hängt an den echten Fensterkanten (fixed, oben/unten 0) statt an 100dvh. In der iOS-Web-App
+   rechnete 100dvh die volle Bildschirmhöhe, obwohl die Statusleiste davon 20 pt belegt: die Seite war so viel zu hoch
+   (Hardwaretest 0.6.1.6, C1–C5). Dokument und Body scrollen im Rahmen gar nicht (kein Federn), nur die Listen. */
+html.rb-frame-doc,html.rb-frame-doc body{height:100%;overflow:hidden!important;overscroll-behavior:none}
+body.rb-frame #appShell{position:fixed;top:0;bottom:0;left:12px;right:12px;height:auto;max-width:720px;margin:0 auto;min-height:0!important;
+ display:flex;flex-direction:column;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:0!important;overflow:hidden;overscroll-behavior:none}
+@media(min-width:1000px){body.rb-frame #appShell{left:256px;max-width:860px;padding-top:20px}body.rb-frame[data-rb-view='home'] #appShell{max-width:1120px}}
 body.rb-frame .app-header{flex:0 0 auto}
 body.rb-frame .app-view:not(.hidden){flex:1 1 auto!important;min-height:0!important;height:auto!important;display:flex!important;flex-direction:column;overflow:hidden;padding-bottom:0!important}
 body.rb-frame .app-view:not(.hidden)>.inner-panel:not(.hidden){flex:1 1 auto!important;min-height:0!important;max-height:none!important;height:auto!important;
@@ -594,7 +600,7 @@ body.rb-frame #view-ambience .ambience-colors button{min-height:34px!important}
 #pageRail::-webkit-scrollbar{height:5px;width:5px}
 #pageRail::-webkit-scrollbar-thumb{background:#4a566b;border-radius:3px}
 /* Übertragung läuft: alles Sendende/Ändernde gesperrt, Hinweis liegt auf dem Bedienfeld (vergrößert es nicht) */
-html.rb-tx :is(#libInit,#libOpen,#libSend,#libDuplicate,#libRename,#libDelete,#libAssign,#libUnassign,#libExport,
+html.rb-tx :is(#libInit,#libOpen,#libSend,#libDuplicate,#libRename,#libDelete,#libExport,
  #animImport,#animSend,#animEdit,#animRename,#animDelete,#animSave,#animSaveSend,#animSaveCopy,#animSendOnly,
  #v43ProgEdit,#v42RunProgram,#v42StopProgram,#v42DeleteProgram,#v42SaveProgram,
  #sendScroll,#libSaveAs,#libSaveChanges,#pageShow,#v42SendDraftBand,#v42SaveBlock,#v42UpdateBlock,
@@ -611,9 +617,16 @@ html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center
 @media(prefers-reduced-motion:reduce){.rb-tx-pill i{animation:none}.library-row .lib-name.rb-run>span{animation:none}}
 #status.toast{z-index:1200}   /* Meldungen auch über Dialogen sichtbar */
 #v42ShortcutMsg:empty{display:none}
+/* ===== v0.6.1.7 ===== */
+button.rb-working{opacity:1!important;cursor:progress}
+html.rb-down .rb-tx-pill span{color:#ffc2c9;border-color:#ff8a9877}
+#status.rb-long{max-height:none!important;line-height:1.4;padding:11px 14px}
+html.rb-down .rb-tx-pill i{background:#ff7385;box-shadow:0 0 0 4px rgba(255,115,133,.18)}
+button.rb-working svg{animation:rbTxPulse 1.4s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){button.rb-working svg{animation:none}}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.6.1.6-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.6.1.7-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -658,7 +671,6 @@ html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center
 </div>
 <div class="rb-multi-bar" id="libMultiBar" hidden></div>
 <div aria-label="Gespeicherte Texte" class="entry-list library-list" role="list" id="libList"><p class="empty-state">Noch keine Texte gespeichert.</p></div>
-<div class="library-footer hidden"><label for="libSlot">Kurzwahl</label><select id="libSlot"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select><button id="libAssign" type="button">Belegen</button><button id="libUnassign" type="button">Freigeben</button></div>
 <div class="library-footer settings-actions" id="v42BackupFooter"><button id="libExport" type="button" data-rb-icon="database-arrow-down" data-rb-painted="database-arrow-down"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 19 3 3 3-3"/><path d="M19 16v6"/><path d="M21 12.536V5"/><path d="M3 12A9 3 0 0 0 15.182 14.806"/><path d="M3 5V19A9 3 0 0 0 13.318 21.968"/><ellipse cx="12" cy="5" rx="9" ry="3"/></svg>Backup exportieren</button><label class="library-import" for="libImport" data-rb-icon="database-arrow-up">Backup zusammenführen</label><input type="file" accept=".json,application/json" id="libImport" class="visually-hidden"/></div>
 </div>
 </div></section><section aria-label="Animationen" class="app-view inner-view hidden" id="view-animations">
@@ -762,7 +774,7 @@ html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center
 </section>
 
 </section><section class="panel rb-legacy-controls"><div class="label">Tafelsteuerung</div>
-<div class="power-control"><span><b>LED-Anzeige</b><small id="powerState">Status nach Neustart unbekannt</small></span><div aria-label="Anzeige ein- oder ausschalten" role="group"><button class="small-btn" id="powerOff" type="button">Aus</button><button class="small-btn" id="powerOn" type="button">Ein</button></div></div>
+<div class="power-control"><span><b>LED-Anzeige</b><small id="powerState">Status nach Neustart unbekannt</small></span><div aria-label="Anzeige ein- oder ausschalten" role="group"><button class="small-btn" id="powerOff" type="button" data-rb-icon="eye-closed" data-rb-only="1" title="Anzeige aus" aria-label="Anzeige aus">Aus</button><button class="small-btn" id="powerOn" type="button" data-rb-icon="eye" data-rb-only="1" title="Anzeige ein" aria-label="Anzeige ein">Ein</button></div></div>
 <p class="hint">Nur das LED-Display, nicht den ESP32 ausschalten. Der zuletzt erfolgreich gesendete BLE-Befehl wird angezeigt; ein Zustandssensor ist nicht vorhanden.</p>
 <div class="pixel-range" role="group" aria-label="Helligkeit"><span class="range-pict rb-range-icon" data-rb-icon="sunset" data-rb-painted="sunset" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" id="brightness" max="100" min="1" type="range" value="75"/><b id="brightLabel">75 %</b><span class="range-pict rb-range-icon" data-rb-icon="sunrise" data-rb-painted="sunrise" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div></section></section><section aria-label="Ambiente" class="app-view inner-view hidden" id="view-ambience">
 <div class="panel inner-panel"><h2>Ambiente</h2><p class="hint">Eine Farbe antippen, um die gesamte 64×16-Tafel mit dieser Farbe zu füllen. Die aktuelle Textanzeige wird dadurch ersetzt.</p>
@@ -796,7 +808,7 @@ html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.6.1.6-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.6.1.7-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -847,7 +859,7 @@ html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center
 <label class="field">Beschriftung<input class="v42-name" id="v42ShortcutLabel" maxlength="47" placeholder="Meine Kurzwahl"></label><small id="v42ShortcutBytes" class="v42-hint">0 / 47 UTF-8-Bytes</small>
 <p class="rb-anim-err" id="v42ShortcutMsg" role="alert"></p>
 <div class="v42-row" id="v42ShortcutActions"><button class="secondary danger" id="v42ShortcutDelete" type="button" data-rb-only="1" data-rb-icon="trash" title="Kurzwahl löschen" aria-label="Kurzwahl löschen" data-rb-painted="trash"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button><button class="secondary" id="v42ShortcutCancel" type="button" data-rb-only="1" data-rb-icon="undo-dot" title="Abbrechen" aria-label="Abbrechen" data-rb-painted="undo-dot"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/><path d="M3 7v6h6"/><circle cx="12" cy="17" r="1"/></svg></button><button class="primary" id="v42ShortcutSave" type="button" data-rb-only="1" data-rb-icon="star-check" title="Kurzwahl speichern" aria-label="Kurzwahl speichern" data-rb-painted="star-check"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.06 12.501 2.78-2.707a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014"/><path d="m15 18 2 2 4-4"/></svg></button></div></div></div>
-<div aria-live="polite" class="toast" id="status" role="status" aria-atomic="true" hidden></div><div aria-label="Symbole auswählen" aria-modal="true" class="symbol-modal hidden" id="symbolOverlay" role="dialog"><div class="symbol-sheet"><div class="symbol-head"><b>❤️ 🍌 Symbol einfügen</b><button aria-label="Symbolauswahl schließen" class="secondary" id="symbolClose" type="button">✕</button></div><div id="symbolsPicker"><p class="hint">Unsere 16×16-Pixelgrafiken – thematisch sortiert, direkt aus den LED-Matrizen gerendert. Tippen fügt das Motiv an der Cursorposition ein.</p><div id="symbolCategories"></div></div></div></div></main>
+<div aria-live="polite" class="toast" id="status" role="status" aria-atomic="true" hidden></div><div aria-label="Symbole auswählen" aria-modal="true" class="symbol-modal hidden" id="symbolOverlay" role="dialog"><div class="symbol-sheet"><div class="symbol-head"><b>❤️ 🍌 Symbol einfügen</b><button aria-label="Symbolauswahl schließen" class="secondary" id="symbolClose" type="button" title="Schließen" data-rb-icon="x" data-rb-only="1"></button></div><div id="symbolsPicker"><p class="hint">Unsere 16×16-Pixelgrafiken – thematisch sortiert, direkt aus den LED-Matrizen gerendert. Tippen fügt das Motiv an der Cursorposition ein.</p><div id="symbolCategories"></div></div></div></div></main>
 <script>
 /* ==== v0.6.1.0 Animationen: reine Funktionen (ohne DOM, in Node testbar) ==== */
 const RbAnim=(()=>{
@@ -1203,14 +1215,15 @@ async function api(path,data=null,noRetry=false){const track=path!=='/api/status
    if(e.busy&&!data&&!noRetry&&b<RB_TX_TRIES){b++;n--;rbTxSet(true);if(track)rbBusySince=Date.now();await new Promise(r=>setTimeout(r,RB_TX_WAIT_MS));continue;}
    if(e.status!==503||data||noRetry||n>=RB_503_TRIES)throw e;await new Promise(r=>setTimeout(r,RB_503_WAIT_MS));}}}
  finally{if(track)rbBusy=Math.max(0,rbBusy-1);}}
-async function api0(path,data,opt){if(data){opt.method='POST';opt.headers={'Content-Type':'application/x-www-form-urlencoded'};opt.body=new URLSearchParams(data);}const r=await fetch(path,opt);if(r.status===202){rbBleJobStart();if(!RB_TX_SHORT.test(path))rbTxSet(true);}let j;try{j=await r.json();}catch(e){const x=Error('HTTP '+r.status);x.status=r.status;throw x;}if(!r.ok||j.ok===false){const x=Error(j.message||'HTTP '+r.status);x.status=r.status;if(j.busy)x.busy=true;throw x;}return j;}
+async function api0(path,data,opt){if(path==='/api/status'&&!opt.signal&&typeof AbortController==='function'){const ac=new AbortController();opt.signal=ac.signal;setTimeout(()=>ac.abort(),4000);}   // 0.6.1.7: hängendes Board erkennen
+ if(data){opt.method='POST';opt.headers={'Content-Type':'application/x-www-form-urlencoded'};opt.body=new URLSearchParams(data);}const r=await fetch(path,opt);if(r.status===202){rbBleJobStart();if(!RB_TX_SHORT.test(path))rbTxSet(true);}let j;try{j=await r.json();}catch(e){const x=Error('HTTP '+r.status);x.status=r.status;throw x;}if(!r.ok||j.ok===false){const x=Error(j.message||'HTTP '+r.status);x.status=r.status;if(j.busy)x.busy=true;throw x;}return j;}
 let toastTimeout=null;
 function notify(text){
  const message=String(text||'').trim();
  // Start/status-poll messages are visible on the Diagnose page, not as permanent banners.
  if(!message || /^(Bereit[.!]?|Noch kein Inhalt|Verbindung wird geprüft)/i.test(message))return;
  const toast=$('status'),problem=/Fehler|fehlgeschlagen|abgewiesen|Timeout|nicht erreichbar|ungültig/i.test(message);
- clearTimeout(toastTimeout);toast.textContent=message;toast.hidden=false;
+ clearTimeout(toastTimeout);toast.classList.remove('rb-long');toast.textContent=message;toast.hidden=false;
  toast.classList.toggle('toast-error',problem);
  toast.setAttribute('role',problem?'alert':'status');
  toastTimeout=setTimeout(()=>{toast.hidden=true;},problem?5200:2200);
@@ -1343,8 +1356,8 @@ function rbSignRowsRender(note){
   if(it.mine)tag('Meine Tafel','mine');if(it.active)tag('wird genutzt','active');if(!it.cool)tag('kein Tafelname','');
   info.append(nm,sm,tags);
   const btns=document.createElement('div');btns.className='rb-sign-btns';
-  if(!it.mine){const b=document.createElement('button');b.type='button';b.className='primary';b.dataset.act='save';b.dataset.i=String(i);b.textContent='Als meine Tafel speichern';btns.append(b);}
-  if(!it.active){const b=document.createElement('button');b.type='button';b.className='secondary';b.dataset.act='use';b.dataset.i=String(i);b.textContent=it.mine?'Meine Tafel nutzen':'Jetzt nutzen';btns.append(b);}
+  if(!it.mine){const b=document.createElement('button');b.type='button';b.className='primary';b.dataset.act='save';b.dataset.i=String(i);b.dataset.rbIcon='save';b.textContent='Als meine Tafel speichern';btns.append(b);}
+  if(!it.active){const b=document.createElement('button');b.type='button';b.className='secondary';b.dataset.act='use';b.dataset.i=String(i);b.dataset.rbIcon=it.mine?'tower-control':'blend';b.textContent=it.mine?'Meine Tafel nutzen':'Jetzt nutzen';btns.append(b);}
   row.append(sig,info,btns);box.append(row);
  });
  rb43PaintIcons();
@@ -1385,13 +1398,14 @@ let rbAnimActive=false;
 let rbPollFailures=0,rbPollFailureStarted=0,rbPollPending=false;
 async function poll(){
  if(rbPollPending)return;
- if(rbTxOn&&Date.now()-rbTxPolledAt<2400)return;   // 0.6.1.6: während einer Übertragung seltener fragen
+ if(rbTxOn&&Date.now()-rbTxPolledAt<900)return;   // 0.6.1.7: während einer Übertragung etwa jede Sekunde (0.6.1.6: 2,4 s; der Stapel hat genug Reserve)
  rbTxPolledAt=Date.now();
  // Der Webserver bedient nur eine Anfrage zugleich: waehrend Listen/Speichern laufen oder der Tab im Hintergrund ist, nicht zusaetzlich abfragen.
  if(document.hidden||(rbBusy>0&&Date.now()-rbBusySince<6000))return;
  rbPollPending=true;
  try{
   const d=await api('/api/status');rbPollFailures=0;rbPollFailureStarted=0;$('rbConnectionStatus').hidden=true;
+  rbLastOk=Date.now();rbDownSet(false);rbBootCheck(d);
   rbTxFromStatus(d);
   if(d.busy){controllerBusy=true;rbBleShow(d);return;}   // 0.6.1.6: kleiner Status aus einer laufenden Übertragung
   // Status belongs in the status view/diagnostics, never as a repeated toast.
@@ -1405,6 +1419,7 @@ async function poll(){
   renderProgramState(d);
  }catch(e){
   if(!rbPollFailures++)rbPollFailureStarted=Date.now();
+  if(rbPollFailures>=2&&Date.now()-rbLastOk>RB_DOWN_AFTER_MS)rbDownSet(true);   // 0.6.1.7: Board hängt (seit 0.6.1.6 antwortet es sonst auch während Übertragungen)
   // BLE uploads block the Arduino loop for several seconds: do not claim an outage.
   if(rbPollFailures>=5 && Date.now()-rbPollFailureStarted>30000)$('rbConnectionStatus').hidden=false;
  }finally{rbPollPending=false;}
@@ -1520,8 +1535,8 @@ function rbMultiPrune(kind,ids){for(const id of [...rbMulti[kind]])if(!ids.inclu
 function rbMultiBar(kind,barId,noun){
  const bar=$(barId),n=rbMulti[kind].size;bar.replaceChildren();bar.hidden=n<2;if(n<2)return;
  const t=document.createElement('span');t.textContent=n+' '+noun+' ausgewählt. Nur „Löschen“ ist möglich (Entf). Esc hebt die Auswahl auf.';
- const b=document.createElement('button');b.type='button';b.textContent='Auswahl aufheben';b.onclick=()=>{rbMulti[kind].clear();RB_MULTI[kind].draw();};
- bar.append(t,b);
+ const b=document.createElement('button');b.type='button';b.textContent='Auswahl aufheben';b.dataset.rbIcon='x';b.dataset.rbOnly='1';b.title='Auswahl aufheben';b.setAttribute('aria-label','Auswahl aufheben');b.onclick=()=>{rbMulti[kind].clear();RB_MULTI[kind].draw();};
+ bar.append(t,b);rb43PaintIcons();
 }
 const RB_MULTI={
  lib:{plural:'Bibliothekseinträge',path:'/api/library/delete',items:()=>libraryItems,name:x=>x.corrupt?'Beschädigter Eintrag #'+x.id:x.name,
@@ -1596,7 +1611,7 @@ function renderLibrary(){
  });
  const selection=!!librarySelectedItem();for(const id of ['libOpen','libSend','libDuplicate','libRename','libDelete'])$(id).disabled=!selection||!libraryReady||multi;
  if(multi)$('libDelete').disabled=!libraryReady;
- $('libUnassign').disabled=!libraryReady;
+
 }
 let rbFresh={lib:0,prog:0};
 async function refreshLibrary(){
@@ -1642,8 +1657,6 @@ $('libDelete').onclick=async()=>{if(rbMultiOn('lib')){await rbMultiDelete('lib')
  const dependent=[...uses.map(n=>'Programm: '+n),...shortcuts.map(i=>'Kurzwahl '+i)];
  const warning=dependent.length?'\n\nVerwendet von:\n'+dependent.join('\n')+'\n\nProgramme werden als unvollständig markiert. Kurzwahlen werden entfernt.':'';
  if(!confirm('Vorlage „'+selected.name+'“ wirklich löschen?'+warning))return;try{await api('/api/library/delete',{id:selected.id});if(libraryEditorId===selected.id){libraryEditorId=0;libraryCurrentRecord=null;v42EditorMode('new');libraryEditorIndicator();}if(v42BlockEditorId===selected.id){v42BlockEditorId=0;v42EditorMode('new');v42BlockEditorLabel();}librarySelected=0;await refreshLibrary();await v42RefreshPrograms();await v42RefreshShortcuts();notify('Vorlage gelöscht.');}catch(e){notify('Löschen: '+e.message);}};
-$('libAssign').onclick=async()=>{if(!librarySelectedItem())return;try{const j=await api('/api/library/shortcut',{slot:$('libSlot').value,id:librarySelected});notify(j.message);await refreshLibrary();}catch(e){notify(e.message);}};
-$('libUnassign').onclick=async()=>{try{const j=await api('/api/library/shortcut',{slot:$('libSlot').value,id:0});notify(j.message);await refreshLibrary();}catch(e){notify(e.message);}};
 async function libraryBackup(){const full=[];for(const row of libraryItems){if(row.corrupt)throw Error('Bibliothek enthält beschädigte Einträge: zuerst Diagnose prüfen.');full.push(await api('/api/library/get?id='+row.id));}
  return {format:'RavestickBoard-library',schema:1,firmware:'0.4.1-dev',created:new Date().toISOString(),items:full,shortcuts:[...libraryShortcuts]};}
 $('libExport').onclick=async()=>{try{const obj=await libraryBackup();const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='RavestickBoard_Bibliothek_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);notify('Backup erstellt – Datei außerhalb des ESP32 aufbewahren.');}catch(e){notify('Backup fehlgeschlagen: '+e.message);}};
@@ -1936,6 +1949,8 @@ $('libImport').onchange=async e=>{const file=e.target.files?.[0];e.target.value=
 // ISC / selected Feather MIT notices: THIRD_PARTY_NOTICES.md and LICENSE.
 // No external network required on ESP32 AP.
 const RB43_LUCIDE={
+'tower-control':'<path d="M18.2 12.27 20 6H4l1.8 6.27a1 1 0 0 0 .95.73h10.5a1 1 0 0 0 .96-.73Z"/><path d="M8 13v9"/><path d="M16 22v-9"/><path d="m9 6 1 7"/><path d="m15 6-1 7"/><path d="M12 6V2"/><path d="M13 2h-2"/>',
+'blend':'<circle cx="15" cy="9" r="7"/><circle cx="9" cy="15" r="7"/>',
 'image-play':'<path d="M15 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z"/><path d="M21 12.17V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m6 21 5-5"/><circle cx="9" cy="9" r="2"/>',
 'chevron-left':'<path d="m15 18-6-6 6-6"/>',
 'chevron-right':'<path d="m9 18 6-6-6-6"/>',
@@ -2984,24 +2999,26 @@ var rbTxOn=false,rbTxPolledAt=0,rbTxSeen=0,rbTxSince=0;
 const RB_TX_SHORT=/^\/api\/(brightness|speed|mode|power)$/;
 function rbTxSet(on){
  on=!!on;if(on)rbTxSince=Date.now();
- if(on===rbTxOn)return;rbTxOn=on;document.documentElement.classList.toggle('rb-tx',on);
+ if(on===rbTxOn)return;rbTxOn=on;rbLockPaint();
  if(!on)rbTxSeen=0;
 }
+// 0.6.1.7: Gesperrt wird nur, wenn der ESP32 selbst „busy“ meldet (das tut er nur bei echten Datenübertragungen).
+// Kurze Steuerbefehle (Helligkeit, Tempo, Modus, Ein/Aus) lösen keinen Hinweis mehr aus (Hardwaretest 0.6.1.6, B1/B12).
 function rbTxFromStatus(d){
- const busy=!!d.busy||d.state==='sending'||d.state==='queued';
- if(busy){rbTxSeen++;if(d.busy||rbTxSeen>=2)rbTxSet(true);}
- else{rbTxSeen=0;rbTxSet(false);}   // nur zwei Meldungen HINTEREINANDER zählen
+ if(d.busy){rbTxSeen++;rbTxSet(true);}
+ else{rbTxSeen=0;rbTxSet(false);}
 }
 // Notbremse: ohne Bestätigung durch den Status löst sich die Sperre nach zwei Minuten
 setInterval(()=>{if(rbTxOn&&Date.now()-rbTxSince>120000)rbTxSet(false);},5000);
+setInterval(()=>{if(rbTxOn||rbDown)poll();},1000);   // 0.6.1.7: während einer Übertragung zusätzlich jede Sekunde fragen, damit der Hinweis am Ende gleich verschwindet
 (function(){const d=$('rbDock');if(!d)return;const p=document.createElement('div');p.className='rb-tx-pill';p.setAttribute('role','status');p.setAttribute('aria-live','polite');
- p.innerHTML='<span><i aria-hidden="true"></i>Übertragung läuft …</span>';d.append(p);})();
+ p.innerHTML='<span><i aria-hidden="true"></i><b class="rb-tx-text">Übertragung läuft …</b></span>';d.append(p);})();
 
 // ---- Rahmen: fensterhohe Seiten mit Liste ---------------------------------------------------------------------------
 function rbFrameSync(){
  const v=document.body.dataset.rbView||'',hid=id=>{const e=$(id);return !e||e.classList.contains('hidden');};
  const framed=v==='home'||v==='library'||v==='ambience'||(v==='programs'&&!hid('v43ProgListPane'))||(v==='animations'&&!hid('animListPane'));
- document.body.classList.toggle('rb-frame',framed);
+ document.body.classList.toggle('rb-frame',framed);document.documentElement.classList.toggle('rb-frame-doc',framed);
 }
 new MutationObserver(rbFrameSync).observe(document.body,{attributes:true,attributeFilter:['data-rb-view']});
 ['v43ProgListPane','animListPane'].forEach(id=>{const e=$(id);if(e)new MutationObserver(rbFrameSync).observe(e,{attributes:true,attributeFilter:['class']});});
@@ -3054,4 +3071,41 @@ async function rbFontInit(){
 }
 
 init();
+
+/* ==== v0.6.1.7 ==== */
+// ---- Backup exportieren: sichtbares Signal, solange das Backup entsteht (Hardwaretest 0.6.1.6, Z2) -----------------
+// Das Backup holt jeden Eintrag einzeln vom ESP32 und dauert deshalb einige Sekunden.
+(function(){const b=$('libExport');if(!b)return;const run=b.onclick;if(!run)return;
+ b.onclick=async()=>{if(b.dataset.working)return;b.dataset.working='1';b.disabled=true;b.classList.add('rb-working');
+  const label=[...b.childNodes].find(n=>n.nodeType===3),old=label?label.textContent:'';if(label)label.textContent='Backup wird erstellt …';
+  try{await run();}finally{if(label)label.textContent=old;b.classList.remove('rb-working');b.disabled=false;delete b.dataset.working;}};})();
+
+// ---- ESP32 hängt / hat neu gestartet (Hardwaretest 0.6.1.6: Wächter-Neustart nach Bluetooth-Hänger) ----------------
+// Stufe 1: Antwortet der Status etwa 6 s lang nicht, liegt „ESP32 antwortet nicht …“ auf dem Bedienfeld und alles ist
+// gesperrt (Hinweis wie bei einer Übertragung). Stufe 2: Meldet das Board danach eine neue Startkennung mit Grund
+// „hang“ oder „crash“, erscheint einmal je Gerät und Start eine Meldung, was passiert ist.
+const RB_DOWN_AFTER_MS=6000;
+var rbDown=false,rbLastOk=Date.now(),rbBootLast=0;
+function rbLockPaint(){
+ document.documentElement.classList.toggle('rb-tx',rbTxOn||rbDown);document.documentElement.classList.toggle('rb-down',rbDown);
+ const t=document.querySelector('.rb-tx-pill .rb-tx-text');if(t)t.textContent=rbDown?'ESP32 antwortet nicht …':'Übertragung läuft …';
+}
+function rbDownSet(on){on=!!on;if(on===rbDown)return;rbDown=on;rbLockPaint();}
+function rbNoticeLong(msg){const toast=$('status');clearTimeout(toastTimeout);toast.classList.add('rb-long');toast.textContent=msg;toast.hidden=false;toast.classList.add('toast-error');toast.setAttribute('role','alert');toastTimeout=setTimeout(()=>{toast.hidden=true;},14000);}
+function rbRestartText(d){
+ const ph=String(d.restartPhase||'');
+ if(d.restart==='hang')return ph.startsWith('ble')?'Der ESP32 hat sich neu gestartet: Bluetooth hing beim Verbinden mit der Tafel ('+ph+'). Der letzte Auftrag wurde nicht ausgeführt – bitte noch einmal senden.'
+  :'Der ESP32 hing'+(ph?' ('+ph+')':'')+' und hat sich neu gestartet. Der letzte Auftrag wurde nicht ausgeführt – bitte noch einmal senden.';
+ return 'Der ESP32 ist abgestürzt und hat neu gestartet. Der letzte Auftrag wurde vermutlich nicht ausgeführt – bitte noch einmal senden.';
+}
+function rbBootCheck(d){
+ if(!d||!d.boot)return;const prev=rbBootLast;rbBootLast=d.boot;
+ if(d.restart!=='hang'&&d.restart!=='crash')return;
+ let ack='';try{ack=localStorage.getItem('rb-restart-ack')||'';}catch(e){}
+ if(ack===String(d.boot))return;
+ const fresh=(prev&&prev!==d.boot)||(Number(d.up)>=0&&Number(d.up)<600);   // gerade neu gestartet (oder Seite kurz danach geöffnet)
+ if(!fresh)return;
+ try{localStorage.setItem('rb-restart-ack',String(d.boot));}catch(e){}
+ rbNoticeLong(rbRestartText(d));
+}
 </script></body></html>

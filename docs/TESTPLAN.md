@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.6.md`](TESTPLAN_v0.6.1.6.md) (Antworten und Sperre während einer Übertragung, Rahmen, kleine Displays, 40 Blocktext-Seiten, Beispiel-Animationen). Vorgänger: [`archive/TESTPLAN_v0.6.1.5.md`](archive/TESTPLAN_v0.6.1.5.md).
+> **Neuester Testplan:** [`TESTPLAN_v0.6.1.7.md`](TESTPLAN_v0.6.1.7.md) (Rahmen auf dem iPhone, Hinweis nur bei Datenübertragungen, Neustart-Meldung, Exporte). Vorgänger: [`archive/TESTPLAN_v0.6.1.6.md`](archive/TESTPLAN_v0.6.1.6.md).
 
 ## Ergänzung v0.3.5
 

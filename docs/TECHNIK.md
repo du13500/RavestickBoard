@@ -1,8 +1,15 @@
-## Technischer Nachtrag v0.6.1.0 bis 0.6.1.6: Animationen als Dateien (3.11.2026, fortgeschrieben 12.11.2026)
+## Technischer Nachtrag v0.6.1.0 bis 0.6.1.7: Animationen als Dateien (3.11.2026, fortgeschrieben 12.11.2026)
 
 **Stand:** im Quellcode vorhanden und am Rechner geprüft (Dateispeicher mit dem echten Sketch-Code gegen ein Dateisystem im Speicher; Nutzlast gegen die unabhängige Referenz; Weboberfläche in Chromium). Arduino-Compile, echtes LittleFS, Webserver und BLE-Senden aus der Datei sind offen.
 
 **Aufteilung:** Die Weboberfläche zerlegt und wandelt alles um (GIF-Decoder, Bildstreifen, Text-Raster, Farbreduktion auf die sieben LED-Farben, Planung der Bildfolge) und baut die **Nutzlast des Befehls `0x04`** (Format siehe Nachtrag 0.6.0.0). Die Firmware speichert und sendet nur. Der Browser lädt Nutzlast, Vorschaubild und Name hoch; es gibt keinen Gesamtpuffer im ESP32.
+
+**Neu in 0.6.1.7 (Hardwaretest von 0.6.1.6):**
+- *Nur Datenübertragungen:* `rbTxLongJob(Job)` = TEXT, PAGE, AMBIENCE, BAND, ANIM; nur dann ist `rbTxActive` gesetzt (Sperre, Webantworten im Auftrag, `busy` im Status). Web sperrt nur bei `busy`; Abfrage während der Sperre etwa jede Sekunde.
+- *Status:* zusätzlich `boot` (Zufallskennung je Start, `esp_random() | 1`), `up` (Sekunden seit Start), `restart` (`hang`, wenn die Absturzspur den Wächter-Neustart zeigt; `crash` bei Reset-Grund Panic/Interrupt-/Task-/sonstiger Watchdog; sonst leer) und `restartPhase` (Phase aus der Absturzspur). Der kleine Status während einer Übertragung enthält `boot` ebenfalls.
+- *Hänger-Erkennung (Web):* `/api/status` mit Zeitlimit 4 s; nach mindestens zwei Fehlschlägen und mehr als 6 s seit der letzten Antwort `rbDown` (gleiche Sperre wie bei einer Übertragung, Text „ESP32 antwortet nicht …“). Erste erfolgreiche Antwort hebt auf; neue Kennung mit `restart` → einmalige Meldung (`localStorage` `rb-restart-ack`).
+- *Rahmen:* `body.rb-frame #appShell` ist `position:fixed` (oben/unten 0, seitlich 12 px bzw. am Laptop links 256 px), `html.rb-frame-doc` sperrt das Scrollen von Dokument und Body.
+- *Exporte:* `RbExportOut` (512 Byte auf dem Stapel) für `http.txt` und `ram.txt`, `rbExportWaitHeap()` vor jedem Stück (bis 250 ms, Schwelle 14.000 Byte), auch für den Diagnosebericht.
 
 **Neu in 0.6.1.6 (Hardwaretest von 0.6.1.5: keine Webantwort während einer Übertragung, B5/F9):**
 - *Webantworten innerhalb eines Auftrags:* `loop()` setzt `rbTxActive` für die Dauer von `runJob` (einschließlich der einen Wiederholung). An den Wartestellen des Auftrags – Warten auf die Bestätigung eines Pakets (`tx_wait_notify`), 60 ms nach einer Bestätigung (`tx_after_ack`), 650 ms nach dem Verbinden (`ble_after_connect`), Pause am Auftragsende (`job_end`), 400 ms vor der Wiederholung (`job_retry`) – ruft `rbServeWebDuringTx()` höchstens alle `RB_TX_WEB_EVERY_MS` = 250 ms `web.handleClient()` auf. Pausen laufen über `rbTxDelay()` (Schritte zu 10 ms).
