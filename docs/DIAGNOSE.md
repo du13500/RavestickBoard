@@ -1,6 +1,13 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 12.11.2026 für v0.6.1.7-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 14.11.2026 für v0.6.1.8-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.8 – Route in der Absturzspur, „auf der Tafel“ im Status (14.11.2026)
+
+- Die Absturzspur („Vorlauf“) trägt in der Phase `web_handler` jetzt die Route der laufenden Webanfrage, z. B. `web:/api/status`. Anlass: Der Wächter-Neustart im Test von 0.6.1.7 lag in `web_handler` bei 209.799 ms; welche Route blockierte, blieb offen. Bei einem Hänger die Phase **notieren**.
+- `/api/status` enthält zusätzlich `onKind` (0 nichts, 1 Bibliothek, 2 Programm, 3 Ambiente, 4 Animation) und `onId`.
+- Neue Route `/api/sign/forget` („Meine Tafel entfernen“). Die Oberfläche meldet bei fehlenden Antworten nach 5 s; ohne je erfolgreiche Antwort oder ohne WLAN steht ein anderer Text („Keine Verbindung zum ESP32 …“).
+- Weiter offen: SYS-15 (Bluetooth-Hänger in `ble_connect`/`ble_regNotify`).
 
 ## Diagnose-Ergänzung v0.6.1.7 – Exporte, Neustart-Grund im Status (12.11.2026)
 

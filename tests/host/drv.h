@@ -16,6 +16,9 @@ static Grid renderFull(const String&a,const String*b,uint8_t layout,uint8_t c1,u
   std::vector<uint8_t> buf(W*6,0); pixelData=buf.data(); streamDrawingTile=false;
   if(layout==1){ drawInlineUtf8(a,1,0,0,c1,W); if(b)drawInlineUtf8(*b,1,0,8,c2,W);} 
   else drawInlineUtf8(a,layout,1,topFor(layout),c1,W);
+  // 0.6.1.8: Umkehren wie renderText / Mini zweizeilig (nach dem Zeichnen)
+  if(layout==1){ if(rbTextReversed(a))rbReverseBuffer(buf.data(),W,0,1,c1); if(b&&rbTextReversed(*b))rbReverseBuffer(buf.data(),W,1,2,c2); }
+  else if(rbTextReversed(a))rbReverseBuffer(buf.data(),W,0,2,c1);
   Grid g=unpack(buf.data(),W); pixelData=nullptr; return g; }
 // streaming path: prepareStreamText + copyPayloadSlice over the whole payload, in odd-sized chunks
 static Grid renderStream(const String&a,const String*b,uint8_t layout,uint8_t c1,uint8_t c2,uint16_t&W,size_t chunk=20){
@@ -32,6 +35,9 @@ static Grid renderPage(const std::string&l1,const std::string&l2,uint8_t layout,
   std::vector<uint8_t> buf(64*6,0); pixelData=buf.data(); streamDrawingTile=false;
   if(layout==1){ rbPageDrawLine(l1.c_str(),1,align,0,c1,64); rbPageDrawLine(l2.c_str(),1,align,8,c2,64); }
   else rbPageDrawLine(l1.c_str(),layout,align,topFor(layout),c1,64);
+  // 0.6.1.8: Umkehren wie renderBlockPage
+  if(layout==1){ if(rbTextReversed(l1.c_str()))rbReverseBuffer(buf.data(),64,0,1,c1); if(rbTextReversed(l2.c_str()))rbReverseBuffer(buf.data(),64,1,2,c2); }
+  else if(rbTextReversed(l1.c_str()))rbReverseBuffer(buf.data(),64,0,2,c1);
   Grid g=unpack(buf.data(),64); pixelData=nullptr; return g; }
 // Gegenprobe: dieselbe Seite ausschliesslich ueber den Lauftext-Maler (Weg fuer Zeilen mit Stilmarken)
 static Grid renderPageStyledPath(const std::string&l1,const std::string&l2,uint8_t layout,uint8_t align,uint8_t c1,uint8_t c2){

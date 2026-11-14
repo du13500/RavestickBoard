@@ -1,4 +1,4 @@
-# Third-party notices — RavestickBoard v0.6.1.7-dev
+# Third-party notices — RavestickBoard v0.6.1.8-dev
 
 ## Lucide Icons
 
@@ -79,3 +79,7 @@ data size limit). The RavestickBoard code is written independently; no OpenSign
 source code is copied or included. If source code from OpenSign is incorporated
 in a later version, its MIT license text and copyright notice will be
 reproduced here.
+
+## Symbols (since v0.6.1.8)
+
+The 85 symbol bitmaps (16x16, seven colours) are pixel art supplied by the maintainer and kept as the project's own motifs (see `docs/QUELLEN_UND_LIZENZEN.md`, section "Symbole ab 0.6.1.8"). The flag bitmaps reproduce only the common colour sequences of the flags. Icons in `web/index.html` are Lucide icons (above), new in 0.6.1.8: `layout-grid`, `list`, `image-up`, `file-spreadsheet`, `file-up`, `check`, `minimize-2`, `maximize-2`, `shield-check`, `palette` and a few more taken verbatim from the Lucide repository.

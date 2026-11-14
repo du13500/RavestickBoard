@@ -204,7 +204,7 @@ static const uint32_t RB_NEW_SYMBOL_CODES[] = {
   0x1F335, 0x1F6F8, 0xE34D, 0x1F47D
 };
 
-// Excel motifs: original extra ID 36..62, second Ziggi variant appended as ID 63.
+// Excel motifs: original extra ID 36..62, second variant appended as ID 63.
 // Earlier 0..35 IDs remain stable; the crab graphic itself is replaced in slot 11.
 static const uint32_t RB_EXCEL_EXTRA_CODES[] = {
   0x1F7E6, 0x1F328, 0x1F48E, 0x1F343, 0x1F6AC, 0x1F33F, 0x2B07,

@@ -34,11 +34,12 @@ static bool streamPayload=false,streamDrawingTile=false;
 static uint16_t streamImageWidth=0,streamTileStart=0,streamTileCols=0,streamCachedTile=0xFFFF;
 static const String *streamFirstLine=nullptr,*streamSecondLine=nullptr;
 static uint8_t streamLayout=0,streamFirstColor=7,streamSecondColor=7;
+static bool streamRev1=false,streamRev2=false;
 static uint32_t streamFirstPixels=0,streamSecondPixels=0,streamTileRenders=0;
 uint8_t *pixelData=nullptr,*textPayload=nullptr;
 uint8_t pendingLayout=0;
 struct TextMeasure { uint32_t chars; uint32_t pixels; };
-struct TextStyle { uint8_t baseColor; uint8_t color; uint8_t baseLayout; uint8_t layout; };
+struct TextStyle { uint8_t baseColor; uint8_t color; uint8_t baseLayout; uint8_t layout; bool tint; };
 enum RamStage { RT_RENDER_BEGIN,RT_BUFFER_ALLOC };
 void ramTraceMark(RamStage,uint16_t){}
 struct { template<typename... A> void printf(const char*,A...){} } Serial;

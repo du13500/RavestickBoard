@@ -1,3 +1,14 @@
+## Technischer Nachtrag v0.6.1.8: Symbole, Färben, Umkehren, „auf der Tafel“ (14.11.2026)
+
+**Stand:** im Quellcode vorhanden und am Rechner geprüft (Render-Parität Web ↔ Firmware, Hosttests mit dem echten Sketch-Code, Chromium). Arduino-Compile und Hardware offen.
+
+- **Symboldaten:** 85 Sprites × 128 Byte (zwei Pixel je Byte); `RB_SYMBOL_COUNT = 85`, in Web `sprites.length === 85*128`. Quelle `assets/symbole_0618.txt`, Erzeugung `tools/generate_assets.py`. Weniger als 16 Zeilen: senkrecht mittig, Rest nach unten. Waagerecht zählt die belegte Breite (`bounds`, `symbolBounds()`).
+- **Färbekanäle:** Palettenindex, der ersetzt wird (Augen: 1; Herz 3, Auto 69, Zapfsäule 68, Pfeile 42–45, Strohhalm 61: alle Pixel). Zeichnen in Web (`symColor`, `drawTokens`) und Firmware (`TextStyle.tint`, `drawToken`) gleich; Parität im Test.
+- **Stilzeichen:** U+009D (Tönung für das nächste Zeichen) und U+009E (Umkehren). Umkehren: Puffer in der Zeilenfarbe füllen, Buchstaben löschen (`rbReverseBuffer`); Lauftext füllt mindestens 64 Spalten durchgehend.
+- **„Auf der Tafel“:** NVS-Namensraum `rbon`, Schlüssel `k` (1 Bibliothek, 2 Programm, 3 Ambiente mit Farbe 1–7, 4 Animation) und `i` (Nummer); Status-JSON `onKind`, `onId`. Gesetzt am Ende eines erfolgreichen Auftrags (`rbOnPending` beim Einreihen, `rbOnSet` nach `runJob`), gelöscht bei Bearbeiten, Löschen, Überschreiben und Tafelwechsel (`rbOnClear`, `rbOnClearIf`).
+- **Absturzspur und Tafel:** `httpBegin` schreibt `web:<uri>` als Phase; `/api/sign/forget` löscht die gespeicherte Tafel (NVS `rbsign`).
+- **Web:** Verbindungshinweis nach 5 s (`RB_DOWN_AFTER_MS`), Zeitlimit der Statusabfrage 3 s, `rbDownText` unterscheidet „nie geantwortet / offline“ von „antwortet nicht“; `rbSignLoad` wiederholt bis zu dreimal.
+
 ## Technischer Nachtrag v0.6.1.0 bis 0.6.1.7: Animationen als Dateien (3.11.2026, fortgeschrieben 12.11.2026)
 
 **Stand:** im Quellcode vorhanden und am Rechner geprüft (Dateispeicher mit dem echten Sketch-Code gegen ein Dateisystem im Speicher; Nutzlast gegen die unabhängige Referenz; Weboberfläche in Chromium). Arduino-Compile, echtes LittleFS, Webserver und BLE-Senden aus der Datei sind offen.
@@ -114,6 +125,8 @@ Farbe und Schrift pro Zeichen reisen als C1-Steuerzeichen im UTF-8-Text (je 2 By
 | U+0091..U+0097 | Farbe 1..7 |
 | U+0098..U+009B | Schrift Original Normal / Fett / Engschrift / Mini (einzeilig) |
 | U+009C | Schrift der Zeile (Grundlayout) |
+| U+009D | (seit 0.6.1.8) gilt nur für das **nächste** Zeichen: ein färbbares Symbol bekommt die folgende Farbmarke als Färbung; nicht färbbare Symbole und Buchstaben ignorieren sie |
+| U+009E | (seit 0.6.1.8) **Umkehren** am Zeilenanfang: Fläche in der Zeilenfarbe, Buchstaben aus |
 
 Eine Marke gilt für die folgenden Zeichen derselben Zeile bis zur nächsten Marke. Bei Zweizeilig Mini werden Schriftmarken ignoriert, Farbmarken gelten. Zuordnung Schrift → Layout: [3, 4, 0, 2]. Die Oberkante richtet sich bei abweichender Schrift nach dem Layout der Marke (Layout 0 → 1, Layout 2 → 4, sonst 0). Symbole behalten ihre Eigenfarben. `measureText`, `drawInlineUtf8` und `drawInlineUtf8Window` teilen sich `styleApply` und `drawToken`; Streaming-Kacheln tragen den Zustand über Chunk-Grenzen. `decodeText` (Blockseiten) überspringt die Marken. Beim Verketten von Programmeinträgen steht zwischen den Texten `\xC2\x90\xC2\x9C`. Das Bibliotheksfeld fasst 1600 Byte einschließlich Marken. Ohne Marken ist die Ausgabe pixelgleich zu 0.4.3.4.
 
@@ -302,7 +315,7 @@ Siehe [`ROADMAP.md`](ROADMAP.md) und [`THEMENSPEICHER.md`](THEMENSPEICHER.md): e
 - 24 rekonstruierte Originalsymbole sowie ein eigenes Bananensymbol. 16×16 Pixel mit 4-bit RGB-Code pro Pixel, **128 Bytes je Symbol**, 25 × 128 = 3.200 Bytes. 0=aus; RGB-Bits 4/2/1 für Rot/Grün/Blau.
 - Sichtbare Symbolbreite = Differenz der äußersten tatsächlich beleuchteten Spalten +1; 1 Pixel Abstand vorläufig. **Original-App-Vorschub nicht abgeglichen.**
 - Bei Emoji `🍌` wird Hersteller-Banane verwendet; `🍌︎` (U+1F34C + VS15) ist als separates Text-Token für die selbst gestaltete Ravestick-Banane reserviert. Browser/ESP32 interpretieren die Auswahl gleich. Das ist eine **projektspezifische** Unterscheidung, kein Unicode-Standard für Bananenarten.
-- Farbcodierung des Herzens über ❤️ 💛 💚 🩵 💙 💜 🤍; C++ und JS verwenden denselben RGB-Farbcode. Die 16×16-Herzmaske wird umgefärbt.
+- Farbcodierung des Herzens über ❤️ 💛 💚 🩵 💙 💜 🤍; C++ und JS verwenden denselben RGB-Farbcode. Die 16×16-Herzmaske wird umgefärbt. **Seit 0.6.1.8:** Das Menü bietet nur noch das rote Herz; die anderen Herz-Emojis werden in alten Texten weiter so dargestellt, neue Herzfarben entstehen über die Zeichenfarbe (Stilzeichen U+009D, siehe Nachtrag v0.6.1.8).
 - Layoutwerte in `PageRecord.layout`: 0 Engschrift 14px; 1 Mini zwei Zeilen; 2 Mini eine Zeile **horizontal und vertikal zentriert**; 3 Normal; 4 Bold. Das bestehende NVS-Schema 1 und die Recordgröße bleiben unverändert.
 - `/api/speed` sendet `0x07`, `/api/mode` sendet `0x06`, `/api/brightness` bleibt `0x08`, jeweils **ohne vollständige Bilddaten**. BLE-Verbindung für Folgekommandos maximal ca. 2,5 Sekunden inaktiv behalten; Hersteller-App-Koexistenz muss getestet werden.
 - `localStorage` sichert Browser-Entwurf und Reiter, **nicht** als plattformübergreifende Controllerbibliothek. NVS behält die gespeicherten Blockseiten.

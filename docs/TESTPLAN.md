@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.7.md`](TESTPLAN_v0.6.1.7.md) (Rahmen auf dem iPhone, Hinweis nur bei Datenübertragungen, Neustart-Meldung, Exporte). Vorgänger: [`archive/TESTPLAN_v0.6.1.6.md`](archive/TESTPLAN_v0.6.1.6.md).
+> **Neuester Testplan:** [`TESTPLAN_v0.6.1.8.md`](TESTPLAN_v0.6.1.8.md) (Symbole und Symbol-Menü, Färben, Umkehren, Animations-Raster und Import, „auf der Tafel“, Bibliotheks-Vorschau, Korrekturen aus dem Test von 0.6.1.7; als Excel `RavestickBoard_Hardwaretest_v0.6.1.8.xlsx`). Vorgänger: [`archive/TESTPLAN_v0.6.1.7.md`](archive/TESTPLAN_v0.6.1.7.md).
 
 ## Ergänzung v0.3.5
 

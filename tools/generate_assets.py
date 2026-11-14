@@ -1,74 +1,102 @@
 #!/usr/bin/env python3
-"""Rebuild v0.3.0 flash assets from the two reconstructed original-app JSONs.
+"""Symbol-Daten (ab 0.6.1.8) aus assets/symbole_0618.txt neu bauen.
 
-Use files produced in the separate CoolLED1248 glyph/symbol archive:
-  python tools/generate_assets.py --glyphs assets/source/CoolLED1248_Originalglyphen_v02.json \
-       --symbols assets/source/CoolLED1248_Originalsymbole_v01.json
-  python tools/sync_web.py
+Aufruf (Repo-Wurzel):  python tools/generate_assets.py  &&  python tools/sync_web.py
 
-This script does not download assets or copy other people's source code.
-Manufacturer symbols remain credited in docs/QUELLEN_UND_LIZENZEN.md.
+Was passiert:
+  * Die 16x16-Sprites (128 Byte je Sprite, zwei Pixel pro Byte, hoeherer Halbbyte = gerades x)
+    stehen gepackt in web/index.html (RB_ASSET_DATA.symbols, Base64) und in der Firmware
+    (RB_SYMBOLS_PACKED in RavestickBoard_Assets.h). Beide Kopien muessen identisch sein.
+  * Sprites, die in assets/symbole_0618.txt stehen, werden ersetzt bzw. angehaengt
+    (Nummern ab 64). Alle anderen Nummern bleiben aus dem Bestand in web/index.html.
+  * Weniger als 16 Zeilen: senkrecht mittig (Rest nach unten), Zeilen rechts mit '.' aufgefuellt.
+  * BLANK_SLOTS sind verworfene Nummern: bleiben als leere Plaetze reserviert.
+Die Schrift-Daten (RB_FONT_*, RB_ASSET_DATA.normal/bold) werden nicht angefasst.
+Es werden keine Dateien aus dem Netz geladen.
 """
 from __future__ import annotations
-import argparse, base64, json, re
+import base64, json, re, sys
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser(description=__doc__)
-p.add_argument('--glyphs', type=Path, required=True)
-p.add_argument('--symbols', type=Path, required=True)
-a=p.parse_args()
-glyphs=json.loads(a.glyphs.read_text(encoding='utf-8'))['glyphen']
-icons=json.loads(a.symbols.read_text(encoding='utf-8'))['symbole']
-fonts={}
-for face in ('Normal','Bold'):
- matches=[g for g in glyphs if g['schrift']==face]
- if len(matches)!=82:raise SystemExit(f'{face}: expected 82 records, got {len(matches)}')
- bb=bytearray()
- for g in matches:
-  cp=ord(g['zeichen']); width=int(g['breite_px'])
-  rows=g['zeilen_bin']
-  if not(0<=cp<65536 and 1<=width<=16 and len(rows)==16):raise SystemExit(f'invalid glyph {g}')
-  bb += cp.to_bytes(2,'little')+bytes([width])
-  for row in rows:
-   if len(row)!=width or not set(row)<={'0','1'}:raise SystemExit('Bad row: '+str(g))
-   bb+=int(row,2).to_bytes(2,'little')
- fonts[face.lower()]=bb
-if len(icons)!=24:raise SystemExit('24 original symbols expected')
-pal={'K':0,'R':4,'Y':6,'B':1,'W':7,'G':2,'C':3,'M':5}
-all_symbols=bytearray()
-for icon in icons:
- rows=icon['pixel_codes_16x16']
- if len(rows)!=16 or any(len(row)!=16 for row in rows):raise SystemExit('not 16x16')
- for row in rows:
-  for x in range(0,16,2):all_symbols.append((pal[row[x]]<<4)|pal[row[x+1]])
-# Independently drawn RavestickBoard banana; mirrored vertically for festival totem.
-banana=[
-'KKKKKKKKKKKKKKKK','KKKKKKKKKKKKKKKK','KGGKKKKKKKKKGGKK','KYGKKKKKKKKKYGKK',
-'KYYKKKKKKKKYYGKK','KYYKKKKKKKKYYKKK','KKYYYKKKKKYYYKKK','KKYYYKKKKYYYKKKK',
-'KKKYYYYYYYYYKKKK','KKKYYYYYYYYKKKKK','KKKKYYYYYYKKKKKK','KKKKKWWYYKKKKKKK',
-'KKKKKWWWYKKKKKKK','KKKKKKWYYKKKKKKK','KKKKKKKKKKKKKKKK','KKKKKKKKKKKKKKKK']
-assert len(banana)==16 and all(len(row)==16 for row in banana)
-for row in banana[::-1]:
- for x in range(0,16,2):all_symbols.append((pal[row[x]]<<4)|pal[row[x+1]])
-assert len(all_symbols)==25*128
-out='const RB_ASSET_DATA = '+json.dumps({**{k:base64.b64encode(v).decode() for k,v in fonts.items()},'symbols':base64.b64encode(all_symbols).decode()},ensure_ascii=False)+';'
-web=ROOT/'web'/'index.html'
-s=web.read_text(encoding='utf-8')
-updated,n=re.subn(r'const RB_ASSET_DATA = \{[^\n]+?\};',lambda _:out,s,count=1)
-if n!=1:raise SystemExit('RB_ASSET_DATA not present in web/index.html')
-web.write_text(updated,encoding='utf-8')
-lines=['#pragma once','// Auto-generated from CoolLED1248_Originalglyphen_v02.json, CoolLED1248_Originalsymbole_v01.json',
-'// 164 reconstructed manufacturer glyphs; 24 reconstructed manufacturer symbols.',
-'// The last (25th) icon is an independent RavestickBoard design.',
-'// Original symbols remain credited to CoolLED1248; see docs/QUELLEN_UND_LIZENZEN.md.',
-'#include <stdint.h>','#include <pgmspace.h>']
-for name,data in [('RB_FONT_NORMAL',fonts['normal']),('RB_FONT_BOLD',fonts['bold']),('RB_SYMBOLS_PACKED',all_symbols)]:
- lines+=['static const uint8_t '+name+'[] PROGMEM = {']
- for idx in range(0,len(data),24):lines+=['  '+', '.join('0x%02X'%byte for byte in data[idx:idx+24])+',']
- lines+=['};','']
-lines+=['static constexpr uint8_t RB_ORIG_GLYPHS_PER_FACE = 82;','static constexpr uint8_t RB_SYMBOL_COUNT = 25;',
-'static constexpr uint8_t RB_ORIGINAL_SYMBOL_COUNT = 24;']
-header=ROOT/'firmware'/'RavestickBoard_v0_3_0'/'RavestickBoard_Assets.h'
-header.write_text('\n'.join(lines)+'\n',encoding='utf-8')
-print('Rebuilt',header,', web/index.html. Run python tools/sync_web.py next.')
+ROOT = Path(__file__).resolve().parents[1]
+FW = ROOT / 'firmware' / 'RavestickBoard_v0_6_1_8' / 'RavestickBoard_Assets.h'
+SRC = ROOT / 'assets' / 'symbole_0618.txt'
+WEB = ROOT / 'web' / 'index.html'
+PAL = {'.': 0, 'B': 1, 'G': 2, 'C': 3, 'R': 4, 'M': 5, 'Y': 6, 'W': 7}
+BLANK_SLOTS = (48, 51, 52, 53, 56, 57, 58)
+BYTES = 128
+
+
+def parse(path: Path) -> dict[int, list[str]]:
+    out: dict[int, list[str]] = {}
+    cur = None
+    for line in path.read_text(encoding='utf8').split('\n'):
+        if line.startswith('@ '):
+            cur = int(line.split()[1])
+            if cur in out:
+                raise SystemExit(f'Nummer {cur} doppelt')
+            out[cur] = []
+            continue
+        if line.startswith('#') or not line.strip():
+            continue
+        if cur is None or not set(line) <= set(PAL):
+            raise SystemExit(f'Ungueltige Zeile bei {cur}: {line!r}')
+        out[cur].append(line)
+    return out
+
+
+def pack(rows: list[str]) -> bytes:
+    if not 1 <= len(rows) <= 16 or max(map(len, rows)) > 16:
+        raise SystemExit(f'Matrix zu gross: {len(rows)} Zeilen')
+    top = (16 - len(rows)) // 2
+    grid = [['.'] * 16 for _ in range(16)]
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            grid[top + y][x] = ch
+    data = bytearray()
+    for row in grid:
+        for x in range(0, 16, 2):
+            data.append((PAL[row[x]] << 4) | PAL[row[x + 1]])
+    return bytes(data)
+
+
+def main() -> None:
+    html = WEB.read_text(encoding='utf8')
+    m = re.search(r'const RB_ASSET_DATA = (\{.*?\});\n', html)
+    if not m:
+        raise SystemExit('RB_ASSET_DATA fehlt in web/index.html')
+    data = json.loads(m.group(1))
+    base = bytearray(base64.b64decode(data['symbols']))
+    if len(base) % BYTES:
+        raise SystemExit('Symbolblock hat falsche Laenge')
+    mats = parse(SRC)
+    count = max(max(mats), len(base) // BYTES - 1) + 1
+    if sorted(n for n in mats if n >= 64) != list(range(64, count)):
+        raise SystemExit('Nummern ab 64 muessen lueckenlos sein')
+    base.extend(bytes(BYTES * (count - len(base) // BYTES)))
+    for n, rows in mats.items():
+        base[n * BYTES:(n + 1) * BYTES] = pack(rows)
+    for n in BLANK_SLOTS:
+        base[n * BYTES:(n + 1) * BYTES] = bytes(BYTES)
+    data['symbols'] = base64.b64encode(bytes(base)).decode()
+    out = 'const RB_ASSET_DATA = ' + json.dumps(data, ensure_ascii=False) + ';\n'
+    html = html[:m.start()] + out.rstrip('\n') + '\n' + html[m.end():]
+    html = re.sub(r'const RB_SYMBOL_COUNT=\d+;', f'const RB_SYMBOL_COUNT={count};', html, count=1)
+    WEB.write_text(html, encoding='utf8')
+
+    asset = FW.read_text(encoding='utf8')
+    lines = ['static const uint8_t RB_SYMBOLS_PACKED[] PROGMEM = {']
+    for i in range(0, len(base), 24):
+        lines.append('  ' + ', '.join('0x%02X' % b for b in base[i:i + 24]) + ',')
+    lines.append('};')
+    asset, n1 = re.subn(r'static const uint8_t RB_SYMBOLS_PACKED\[\] PROGMEM = \{.*?\n\};',
+                        lambda _: '\n'.join(lines), asset, count=1, flags=re.S)
+    asset, n2 = re.subn(r'RB_SYMBOL_COUNT = \d+;', f'RB_SYMBOL_COUNT = {count};', asset, count=1)
+    if n1 != 1 or n2 != 1:
+        raise SystemExit('Assets.h: Symbolblock nicht gefunden')
+    FW.write_text(asset, encoding='utf8')
+    print(f'{count} Sprites ({len(base)} Byte) in web/index.html und {FW.name} geschrieben.')
+
+
+if __name__ == '__main__':
+    sys.exit(main())

@@ -14,7 +14,7 @@
 | 10 | 1→2→3→4 WLAN-Clients | RAM/Maxblock aufzeichnen, keine unbeabsichtigten Resets | ☐ |
 | 11 | 12-Seiten-Programm | Fortlaufende Jobs und RAM-Proben, kein Freeze | ☐ |
 | 12 | Pixelart: Frosch/Zigarette/Joint/Verbote | Kleine überarbeitete Pixelgrafiken korrekt | ☐ |
-| 13 | Pixelart: Ziggi I und Ziggi II | Beide separat im Picker, Pixelvorschau = Anzeige | ☐ |
+| 13 | Pixelart: Zusatzeintrag 48 und Ecke (63) | Beide separat im Picker, Pixelvorschau = Anzeige | ☐ |
 | 14 | Sechs bunte Warnungen | Nicht mehr im Picker; alte gespeicherte Texte weiterhin lesbar | ☐ |
 | 15 | Zwei Schneeflocken, Krabbe, Herzen, Banane | Bestehende Grafiken erhalten | ☐ |
 | 16 | Helligkeit/Tempo/Modi/Ein-Aus/Ambiente | Keine Regression der bekannten Steuerbefehle | ☐ |

@@ -188,7 +188,7 @@
     },
     {
       "source_index": 20,
-      "name": "Ziggi I",
+      "name": "Zusatzeintrag 48",
       "sprite_id": 48,
       "bytes": 128,
       "sha256": "efbdf480c8490951",
@@ -338,7 +338,7 @@
     },
     {
       "source_index": 35,
-      "name": "Ziggi II",
+      "name": "Ecke",
       "sprite_id": 63,
       "bytes": 128,
       "sha256": "f5177df63c43bafe",
