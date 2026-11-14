@@ -1,6 +1,6 @@
 # RavestickBoard · Quellen, Lizenzumfang und Rechte
 
-**Aktueller Stand: 14.11.2026 (v0.6.1.8-dev) · Seit 0.6.1.8 sind die Symbole eigene Pixelgrafiken (siehe Abschnitt „Symbole ab 0.6.1.8“). Projektcode unter MIT. Die neun Beispiel-Animationen unter `assets/animationen/` (seit 0.6.1.6) sind eigene Gestaltung, mit `tools/beispiel_animationen.py` erzeugt, ebenfalls MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
+**Aktueller Stand: 14.11.2026 (v0.6.1.9-dev) · Seit 0.6.1.8 sind die Symbole eigene Pixelgrafiken (siehe Abschnitt „Symbole ab 0.6.1.8“). Projektcode unter MIT. Die neun Beispiel-Animationen unter `assets/animationen/` (seit 0.6.1.6) sind eigene Gestaltung, mit `tools/beispiel_animationen.py` erzeugt, ebenfalls MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
 
 ## MIT ab v0.4.0-dev
 
@@ -11,6 +11,8 @@ MIT gestattet ausdrücklich auch kommerzielle Nutzung. Dass wir RavestickBoard a
 ## Symbole ab 0.6.1.8
 
 Seit 0.6.1.8 liegen die 85 Symbole (Nummern 0–84, je 16 × 16 Pixel, sieben Farben) als Daten in `assets/symbole_0618.txt` und werden mit `tools/generate_assets.py` in `web/index.html` und `RavestickBoard_Assets.h` übernommen. Die ersetzten und neuen Matrizen hat Felix am 14.11.2026 als eigene Pixelgrafiken geliefert; sie werden wie die übrigen eigenen Motive des Projekts geführt (Lizenzfrage für diese Dateien bitte bei Gelegenheit ausdrücklich bestätigen): 4, 5, 9, 10, 12, 15–20, 22, 23, 25, 26, 27, 29, 30, 35, 59, 60 und 64–84. Die Flaggen (74–79) folgen den bekannten Farbfolgen; die Vorlage war das Flaggenlexikon des CSD Deutschland (https://csd-deutschland.de/flaggenlexikon/), übernommen wurden nur die Farbfolgen als Pixelraster.
+
+**Seit 0.6.1.9:** Die Grafiken Nr. 9 (Äffchen) und Nr. 82 (Schwein) wurden am 14.11.2026 von Claude als Entwurf gezeichnet und von Felix übernommen (eigene Motive des Projekts, wie die übrigen; Lizenzfrage wie oben bei Gelegenheit bestätigen). Nr. 59 zeigt einen Heißluftballon (vorher „Fächer“ genannt; die Grafik ist unverändert), „Schneeflocke“ heißt „Schneeflocke weiß“. Es kam kein Fremdmaterial hinzu.
 
 **Bestand, der unverändert bleibt:** 13 (Trauben) und 14 (Banane) warten auf Ersatz. Die Nummern 0, 1, 2, 3, 6, 7, 8, 11 und 21 stammen aus der früheren Rekonstruktion; Felix stuft sie als verändert bzw. nicht schutzwürdig (einfache Formen) ein, sie gelten daher nicht mehr als „Original“. Für die übrigen unveränderten Nummern gilt die Herkunftsangabe früherer Stände (eigene Excel-Motive ab Nummer 36, früher rekonstruierte Herstellersymbole darunter); eine Einzelprüfung dieser Nummern steht aus. Die verworfenen Nummern 48, 51–53, 56–58 sind leer.
 

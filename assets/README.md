@@ -12,3 +12,5 @@ python tools/sync_web.py
 `generate_assets.py` schreibt die gepackten Sprites in `web/index.html` und in `RavestickBoard_Assets.h` (beide Kopien müssen gleich sein), danach erzeugt `sync_web.py` den gzip-Webheader. Die Schriftdaten (164 Zeichen Normal und Fett) werden nicht angefasst. Herkunft und Rechte: `docs/QUELLEN_UND_LIZENZEN.md`.
 
 Weitere Dateien: `animationen/` (Beispiel-Animationen als Text-Raster, seit 0.6.1.6) und das Icon `lucide-banana-app-icon.svg`.
+
+Seit 0.6.1.9: Nr. 9 (Äffchen) und Nr. 82 (Schwein) neu gezeichnet; Nr. 59 heißt Heißluftballon (Grafik unverändert). Die Symboltabelle der Firmware (`RB_SYMBOL_CP`) und `SYMBOL_TABLE` im Web werden von Hand gepflegt; der Generator schreibt nur die Sprites.

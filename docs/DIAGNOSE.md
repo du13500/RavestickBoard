@@ -1,6 +1,12 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 14.11.2026 für v0.6.1.8-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 14.11.2026 für v0.6.1.9-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.9 – WLAN-Clients mit Endungen, Animationsliste im Test (14.11.2026)
+
+- **`WLAN Clients: N [a1:b2:c3 (-62 dBm), …]`:** hinter der Zahl stehen die **letzten drei Bytes** der Adresse und das Signal jeder verbundenen Station (nie die ganze Adresse). Dasselbe steht im Ereignis „Verbundene Clients“. Anlass: Im Test von 0.6.1.8 zeigte die Diagnose oft 2 Clients bei einem Gerät. Zum Zuordnen: iPhone → Einstellungen → WLAN → Netzwerk → Adresse (bei „Private WLAN-Adresse“ steht dort die Adresse, die der ESP32 sieht). Bei mehr als zwei Stationen im Verlauf die Endungen **notieren**.
+- **Gemessen in 0.6.1.8:** `/api/anim/list` mit 22 Animationen 850 bis 950 ms, Heap pro Aufruf −10 bis −22 KB, System-Minimum 460, 324, zuletzt **176 Byte**, dann Wächter-Neustart (Phase `web:/api/anim/list`, 965.967 ms); Stapel min 4.524 Byte; RAM-Datei „min“ 2.280 Byte; `/api/library` etwa 1,7 s; Regenbogenwelle (32 Bilder) in 20,4 s. In 0.6.1.9 trägt die Liste keine Vorschaubilder mehr; `/api/anim/thumb` liefert höchstens drei je Antwort (503 bei knappem Heap, zählt in „Anfragen vertagt“).
+- **Was beim Hardwaretest zu notieren ist:** Dauer von `/api/anim/list` und `/api/anim/thumb` aus `http.txt`, System-Minimum nach mehrmaligem Öffnen der Animationen, `/api/library`-Dauer, Anzahl der vertagten Anfragen.
 
 ## Diagnose-Ergänzung v0.6.1.8 – Route in der Absturzspur, „auf der Tafel“ im Status (14.11.2026)
 

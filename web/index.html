@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.6.1.8-dev</title>
+<title>RavestickBoard · v0.6.1.9-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -62,8 +62,12 @@ body.home-active{padding-bottom:0}.home-view{height:calc(100dvh - 114px);min-hei
 .ambience-colors{display:grid;gap:8px;flex:1}.ambience-colors button{min-height:49px;border:1px solid #ffffff60;color:#11161d;font-size:16px;letter-spacing:.4px;box-shadow:inset 0 0 18px #ffffff32;text-shadow:0 1px 1px #ffffff44}
 #view-ambience .inner-panel{min-height:calc(100dvh - 130px)}#view-ambience .bottom-controls{margin-top:15px}
 #status{position:fixed;left:12px;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-width:694px;margin:0 auto;min-height:0;padding:9px 12px;z-index:80;box-shadow:0 5px 25px #000b;font-size:12px;max-height:54px;overflow:hidden}
-.rb-rev{margin-top:12px}.rb-rev-hint{margin:4px 0 0 26px}.rb-rev input:disabled+*{opacity:.6}.symbol-open:disabled,.swatch-more:disabled{opacity:.35;pointer-events:none}.symbol-grid{grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px}.symbol-grid button{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1;min-height:0!important;padding:0!important;background:#090d16!important;border:1px solid #44536d}
-.symbol-grid .pixel-canvas{width:48px;height:48px;background:transparent;border-radius:0}.symbol-grid button.tint::before{content:"";position:absolute;right:1px;top:1px;width:17px;height:17px;border-radius:50%;background:#090d16}.symbol-grid button.tint::after{content:"";position:absolute;right:3px;top:3px;width:13px;height:13px;background:#ffd45c;-webkit-mask:var(--pal) center/contain no-repeat;mask:var(--pal) center/contain no-repeat}.symbol-head b{display:flex;align-items:baseline;gap:10px;min-width:0}#symFlash{font-weight:600;font-size:13px;color:#ffd45c;opacity:0;transition:opacity .45s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#symFlash.show{opacity:1;transition:opacity .08s}.sym-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;flex:none}.sym-tabs::-webkit-scrollbar{display:none}.sym-tabs .chip{flex:none;display:flex;gap:5px;align-items:center;background:#11141c;border:1px solid #353e50;color:#bbc6d5;font-size:12px;font-weight:700;padding:8px 11px;border-radius:9px;cursor:pointer}.sym-tabs .chip.on{background:#ffd35c;border-color:#ffd35c;color:#111820}.sym-search{flex:none;display:flex;align-items:center;gap:8px;background:#101824;border:1px solid #657385;border-radius:8px;padding:0 10px;margin-bottom:8px}.sym-search input{flex:1;background:none;border:0;color:#fff;font-size:16px;height:38px;min-width:0;outline:0;padding:0}.sym-scroll{flex:1;overflow-y:auto;padding:3px 3px 14px;margin:0 -3px}.sym-empty{color:#9fb0c6;font-size:13px;padding:6px 0 10px}.symbol-grid small{line-height:1.1;white-space:normal;max-width:100%;font-size:9px}.symbol-category{margin:14px 0 9px;padding-top:7px;border-top:1px solid #3b485a}
+.symbol-open:disabled,.swatch-more:disabled{opacity:.35;pointer-events:none}.symbol-grid{grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px}.symbol-grid button{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1;min-height:0!important;padding:0!important;background:#090d16!important;border:1px solid #44536d}
+.symbol-grid .pixel-canvas{width:48px;height:48px;background:transparent;border-radius:0}.symbol-grid button.tint::before{content:"";position:absolute;right:1px;top:1px;width:17px;height:17px;border-radius:50%;background:#090d16}.symbol-grid button.tint::after{content:"";position:absolute;right:3px;top:3px;width:13px;height:13px;background:#ffd45c;-webkit-mask:var(--pal) center/contain no-repeat;mask:var(--pal) center/contain no-repeat}.symbol-head b{display:flex;align-items:baseline;gap:10px;min-width:0}#symFlash{font-weight:600;font-size:13px;color:#ffd45c;opacity:0;transition:opacity .45s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#symFlash.show{opacity:1;transition:opacity .08s}.sym-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;flex:none}.sym-tabs::-webkit-scrollbar{display:none}.sym-tabs .chip{flex:none;display:flex;gap:5px;align-items:center;background:#11141c;border:1px solid #353e50;color:#bbc6d5;font-size:12px;font-weight:700;padding:8px 11px;border-radius:9px;cursor:pointer}.sym-tabs .chip.on{background:#ffd35c;border-color:#ffd35c;color:#111820}
+.sym-tabs.fade-l{-webkit-mask-image:linear-gradient(90deg,transparent,#000 30px);mask-image:linear-gradient(90deg,transparent,#000 30px)}
+.sym-tabs.fade-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
+.sym-tabs.fade-l.fade-r{-webkit-mask-image:linear-gradient(90deg,transparent,#000 30px,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,transparent,#000 30px,#000 calc(100% - 30px),transparent)}
+@media(hover:hover) and (pointer:fine){.sym-tabs{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none!important;mask-image:none!important}}.sym-search{flex:none;display:flex;align-items:center;gap:8px;background:#101824;border:1px solid #657385;border-radius:8px;padding:0 10px;margin-bottom:8px}.sym-search input{flex:1;background:none;border:0;color:#fff;font-size:16px;height:38px;min-width:0;outline:0;padding:0}.sym-scroll{flex:1;overflow-y:auto;padding:3px 3px 14px;margin:0 -3px}.sym-empty{color:#9fb0c6;font-size:13px;padding:6px 0 10px}.symbol-grid small{line-height:1.1;white-space:normal;max-width:100%;font-size:9px}.symbol-category{margin:14px 0 9px;padding-top:7px;border-top:1px solid #3b485a}
 #view-diagnostics #diagnostics{display:block}#view-diagnostics details.panel{margin-top:4px}
 @media(max-height:690px){.home-controls{gap:7px}.shortcut-grid{gap:6px}.shortcut{gap:1px;padding:3px;border-radius:11px}.dashboard-settings{padding:5px 8px}.home-actions{margin-top:3px}.shortcut-icon{font-size:18px}}
 @media(max-width:390px){.fixed-actions button{font-size:10px}.inner-panel{padding:10px}.shortcut small{font-size:9px}}
@@ -75,7 +79,8 @@ body{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
  box-shadow:0 12px 32px #000a;border:1px solid #506482;background:#27364b;color:#edf5ff;
  padding:9px 12px;border-radius:10px;font-size:12px;min-height:0;line-height:1.3;margin:0;
  pointer-events:auto;cursor:pointer}
-#status.toast[hidden]{display:none!important}
+#status.toast{transition:opacity .35s ease,visibility 0s linear 0s}
+#status.toast[hidden]{display:block!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility 0s linear .35s}
 #status.toast-error{border-color:#e17878;background:#522b37;color:#fff}
 .shortcut-pulse{animation:shortcutHint .5s ease-in-out}
 @keyframes shortcutHint{50%{border-color:#ffdb6d;box-shadow:0 0 0 2px #ffdb6d99}}
@@ -117,7 +122,6 @@ body{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .library-footer{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:8px 0}
 .library-footer select{min-width:55px}.library-footer button,.library-import{font-size:12px;min-height:32px;padding:8px;border-radius:6px}
 .library-import{border:1px solid #6b7280;cursor:pointer}
-#libEditorInfo{padding:6px 0}
 
 /* v0.4.2 compact workflows and mobile edit forms */
 .v42-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}
@@ -319,7 +323,7 @@ body.home-active #rbDock{flex:0 0 auto;margin:8px auto 0!important}
 /* ===== v0.4.4.0 ===== */
 :root{--rb-send:#3ddc97;--rb-send-ink:#0d1712}
 /* Senden überall gleich: eigene Farbe, die sonst nirgends vorkommt */
-#sendScroll,#libSend,#v42SendDraftBand,#v42RunProgram,#pageShow,#rbzSend,#animSend,#animSaveSend,#animSendOnly{background:var(--rb-send)!important;color:var(--rb-send-ink)!important}
+#sendScroll,#libSend,#v42SendDraftBand,#v42RunProgram,#pageShow,#animSend,#animSaveSend,#animSendOnly{background:var(--rb-send)!important;color:var(--rb-send-ink)!important}
 /* Regler unten: etwas größer, etwas mehr Abstand */
 .rb-dock{gap:6px!important;padding:9px 11px 8px!important}
 .rb-dock .pixel-range{min-height:34px!important;gap:8px!important}
@@ -335,6 +339,8 @@ body.home-active #rbDock{flex:0 0 auto;margin:8px auto 0!important}
 #scrollColors{grid-template-columns:repeat(8,minmax(0,1fr))}
 .swatch-more{width:clamp(26px,7.5vw,39px);height:clamp(26px,7.5vw,39px);padding:0;border-radius:50%;border:3px solid #303948;background:#343e50;color:#f6f7fb;display:inline-flex;align-items:center;justify-content:center;justify-self:center}
 .swatch-more svg{width:62%;height:62%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:760px){.swatch-more svg{width:84%;height:84%}}
+#view-editor button.swatch-more,#rbz button.swatch-more{padding:0!important}   /* 0.6.1.9: am Laptop saß das Palettensymbol im Polster der kompakten Knöpfe fest (11 px) */
 /* Fenster „Zeichen gestalten“ */
 .rbz{position:fixed;inset:0;z-index:120;background:#04070cb8;display:flex;align-items:flex-end;justify-content:center}
 .rbz.hidden{display:none}
@@ -389,7 +395,6 @@ body.home-active #rbDock{flex:0 0 auto;margin:8px auto 0!important}
 .rbz-foot{flex:none;display:flex;gap:8px;padding:10px 15px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid #2a3342;background:#1d222e}
 .rbz-foot button{font-size:16px;padding:14px 11px}
 .rbz-foot .rbz-done{flex:2;background:#343e50;color:#f6f7fb}
-.rbz-foot #rbzSend{flex:3}
 body.rbz-open #status.toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 
 /* ===== v0.4.4.1 ===== */
@@ -604,13 +609,14 @@ html.rb-tx :is(#libInit,#libOpen,#libSend,#libDuplicate,#libRename,#libDelete,#l
  #animImport,#animSend,#animEdit,#animRename,#animDelete,#animSave,#animSaveSend,#animSaveCopy,#animSendOnly,
  #v43ProgEdit,#v42RunProgram,#v42StopProgram,#v42DeleteProgram,#v42SaveProgram,
  #sendScroll,#libSaveAs,#libSaveChanges,#pageShow,#v42SendDraftBand,#v42SaveBlock,#v42UpdateBlock,
- #powerOff,#powerOn,#homePowerOn,#homePowerOff,#rbSignScan,#rbSignBack,#rbSignForget,#rbzSend,#v42ShortcutDelete,#v42ShortcutSave,
+ #powerOff,#powerOn,#homePowerOn,#homePowerOff,#rbSignScan,#rbSignBack,#rbSignForget,#v42ShortcutDelete,#v42ShortcutSave,
  .shortcut,.v43-force-btn[data-mode],#ambienceColors button,#rbAnimTestSection button,#rbSignList button,
  #libList .library-row button:not(.lib-pick),#animList .library-row button:not(.lib-pick),#v42Programs .library-row button:not(.lib-pick),
  .rb-multi-bar button,#rbDock input[type=range],input[data-global]){opacity:.35!important;filter:saturate(.3);pointer-events:none!important}
 html.rb-tx #rbDock>*:not(.rb-tx-pill){opacity:.3}
-.rb-tx-pill{display:none}
-html.rb-tx .rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;pointer-events:none;z-index:3}
+.rb-tx-pill{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;pointer-events:none;z-index:3;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+html.rb-tx .rb-tx-pill{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s linear 0s}
+#rbDock>*:not(.rb-tx-pill){transition:opacity .35s ease}
 .rb-tx-pill span{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:700;color:#ffd45c;background:#1d222ef2;border:1px solid #ffd45c66;border-radius:999px;padding:9px 18px;box-shadow:0 4px 18px #0008}
 .rb-tx-pill i{width:9px;height:9px;border-radius:50%;background:#ffd45c;box-shadow:0 0 0 4px rgba(255,212,92,.18);animation:rbTxPulse 1.4s ease-in-out infinite}
 @keyframes rbTxPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
@@ -627,41 +633,45 @@ button.rb-working svg{animation:rbTxPulse 1.4s ease-in-out infinite}
 
 /* 0.6.1.8 UI-16: „auf der Tafel“ – einheitlich grün, Text „auf der Tafel“ */
 :root{--rb-on:#4fd37a;--rb-on-ink:#06210f}
-.rb-on-badge{display:none;flex:none;align-items:center;font-size:10px;font-weight:700;line-height:1;letter-spacing:.2px;color:var(--rb-on-ink);background:var(--rb-on);border-radius:999px;padding:3px 7px;white-space:nowrap}
+.rb-on-badge{display:none;flex:none;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;color:var(--rb-on-ink);background:var(--rb-on);pointer-events:none}
+.rb-on-badge .rb-lucide{width:14px;height:14px}
 .on-board>.rb-on-badge{display:inline-flex}
 .library-row.on-board{border-color:var(--rb-on)!important;box-shadow:inset 0 0 0 1px var(--rb-on)}
 .shortcut{position:relative}
 .shortcut.on-board{border-color:var(--rb-on);box-shadow:inset 0 0 0 1px var(--rb-on)}
-.shortcut>.rb-on-badge{position:absolute;top:5px;right:5px;font-size:9px;padding:2px 6px}
+.shortcut>.rb-on-badge{position:absolute;top:5px;right:5px}
 #ambienceColors button{position:relative}
 #ambienceColors button.on-board{outline:3px solid var(--rb-on);outline-offset:-3px}
-#ambienceColors button>.rb-on-badge{position:absolute;top:50%;right:9px;transform:translateY(-50%)}
+#ambienceColors button>.rb-on-badge{position:absolute;top:6px;right:8px}
 
 /* 0.6.1.8 ANM-26: Animations-Raster (Handy: 2 Spalten) mit Listenansicht als Alternative */
 .rb-anim-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
 .rb-anim-head h2{margin:0}.rb-anim-head-btns{display:flex;gap:6px}
-.rb-anim-head-btns button{width:auto!important;flex:none;min-height:34px;padding:5px 11px;font-size:13px;display:inline-flex;align-items:center;gap:5px}
-.rb-anim-head-btns .rb-lucide{width:16px;height:16px}
+.rb-anim-head-btns button{width:auto!important;flex:none;min-height:42px;min-width:68px;padding:6px 16px;display:inline-flex;align-items:center;justify-content:center}
+.rb-anim-head-btns .rb-lucide{width:20px;height:20px}
+#animListPane:not(.anim-view-grid) #animGridSend,#animListPane:not(.anim-view-grid) #animGridEdit,#animListPane.anim-view-grid #animBack{display:none!important}
+#animGridSend{background:var(--rb-send)!important;color:var(--rb-send-ink)!important}
 .rb-anim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px;align-content:start}
 @media(min-width:700px){.rb-anim-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}}
-.anim-card{position:relative;display:flex;flex-direction:column;gap:3px;border:1px solid #4c5568;border-radius:12px;padding:7px;background:#1d2330;min-width:0}
+.anim-card{position:relative;display:flex;flex-direction:column;gap:3px;border:1px solid #4c5568;border-radius:12px;padding:7px;background:#1d2330;min-width:0;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.anim-card.selected{border-color:#ecdc67;background:rgba(240,210,100,.07)}
+.anim-card:focus-visible{outline:2px solid #ecdc67;outline-offset:2px}
+.anim-card.broken{cursor:default}
 .anim-card.on-board{border-color:var(--rb-on);box-shadow:inset 0 0 0 1px var(--rb-on)}
 .anim-card>.rb-on-badge{position:absolute;top:12px;right:12px}
 .anim-card-thumb{display:block;width:100%;aspect-ratio:4/1;border-radius:6px;background:#05080d}
 .anim-card-name{display:block;white-space:nowrap;overflow:hidden;font-size:13px;line-height:1.25;margin-top:4px;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
 .anim-card small{font-size:10.5px;color:#b1bdcf}
-.anim-card-actions{display:flex;gap:6px;margin-top:5px}
-.anim-card-actions button{min-height:34px;padding:4px 8px;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:13px}
-.anim-card-actions .anim-card-send{flex:1;background:var(--rb-send)!important;color:var(--rb-send-ink)!important;font-weight:700;border:none}
-.anim-card-actions .anim-card-edit{flex:none;width:40px}
-.anim-card-actions .rb-lucide{width:16px;height:16px}
 .anim-card.broken{border-color:#c0645f}
 #animListPane.anim-view-grid .library-actions,#animListPane.anim-view-grid #animMultiBar,#animListPane.anim-view-grid #animPreviewWrap,#animListPane.anim-view-grid #animList{display:none!important}
 #animListPane:not(.anim-view-grid) #animGrid{display:none}
-html.rb-tx .anim-card-actions button,html.rb-tx #animImport2{opacity:.35!important;filter:saturate(.3);pointer-events:none!important}
+html.rb-tx #animGridSend{opacity:.35!important;filter:saturate(.3);pointer-events:none!important}
+/* 0.6.1.9: Während eine Animation vom ESP32 geladen wird, ist alles in der Animationsansicht gesperrt (so ist zu sehen, dass etwas passiert) */
+#view-animations.anim-busy button,#view-animations.anim-busy .anim-card,#view-animations.anim-busy .library-row{opacity:.4;pointer-events:none}
+body.rb-frame #animGrid{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:2px 2px 6px}
 
-.library-row>.rb-on-badge{width:28px;height:28px;padding:0;justify-content:center;align-items:center;border-radius:50%}
-.library-row>.rb-on-badge .rb-lucide{width:17px;height:17px}
+.library-row>.rb-on-badge{width:26px;height:26px;background:transparent;color:var(--rb-on)}
+.library-row>.rb-on-badge .rb-lucide{width:20px;height:20px}
 
 /* 0.6.1.8 UI-18: Import-Seite – drei gleichberechtigte Quellen, Dock aus */
 body.rb-no-dock #rbDock{display:none!important}
@@ -683,9 +693,9 @@ body.rb-no-dock #rbDock{display:none!important}
  .lib-prev-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:13px}
  .lib-prev-meta[hidden]{display:none}
  .lib-prev-meta dt{color:#9fb0c8}.lib-prev-meta dd{margin:0;word-break:break-word}
- #libPrevTempo[hidden]{display:none}
- #libPrevTempo{display:flex;align-items:center;gap:8px}#libPrevTempo input{flex:1;min-width:0}#libPrevTempo b{font-size:12px;min-width:58px;text-align:right}
- #libPrevTempo .rb-lucide{width:20px;height:20px}
+ .lib-preview{margin:0}   /* gleiche Unterkante wie die Liste links */
+ .lib-prev-ctl{display:flex}.lib-prev-ctl button{min-width:64px;min-height:40px;display:inline-flex;align-items:center;justify-content:center}.lib-prev-ctl button[hidden]{display:none}
+ .lib-prev-ctl .rb-lucide{width:20px;height:20px}
 }
 
 /* 0.6.1.8 (Hardwaretest Z1/Z2): Texteditor und Ambiente am Computer wirkten größer und breiter als Bibliothek, Programme, Animationen.
@@ -694,15 +704,15 @@ body.rb-no-dock #rbDock{display:none!important}
  #view-editor input[type=text],#view-editor input[type=number],#view-editor select,#view-editor textarea,#view-editor textarea.rb-ta{font-size:14px!important;padding:7px 10px;min-height:36px}
  #view-editor button:not([data-rb-only="1"]):not(.swatch){padding:8px 10px;font-size:13.5px}
  #view-editor .panel,#view-editor .editor-card{padding:12px}
- #view-ambience .ambience-colors,body.rb-frame #view-ambience .ambience-colors{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;grid-template-rows:none!important;gap:10px;flex:0 0 auto;align-content:start}
- #view-ambience .ambience-colors button,body.rb-frame #view-ambience .ambience-colors button{min-height:64px!important;font-size:14px}
+ #view-ambience .ambience-colors,body.rb-frame #view-ambience .ambience-colors{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:none!important;gap:8px;flex:0 0 auto;align-content:start}   /* 0.6.1.9: wie am Handy untereinander (sieben Farben), Höhe unverändert klein */
+ #view-ambience .ambience-colors button,body.rb-frame #view-ambience .ambience-colors button{min-height:54px!important;font-size:14px}
  #view-ambience .tiny,#view-ambience p{font-size:12px}
 }
 
 .rb-tx-pill span{max-width:calc(100% - 20px);text-align:center;line-height:1.25}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.6.1.8-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.6.1.9-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -756,9 +766,9 @@ body.rb-no-dock #rbDock{display:none!important}
 <dl class="lib-prev-meta" id="libPrevMeta" hidden>
 <dt>Name</dt><dd id="libPrevName"></dd><dt>Art</dt><dd id="libPrevKind"></dd><dt>Farbe</dt><dd id="libPrevColor"></dd><dt>Kurzwahl</dt><dd id="libPrevShort"></dd>
 </dl>
-<div class="pixel-range" id="libPrevTempo" role="group" aria-label="Geschwindigkeit" hidden><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true"></span><input aria-label="Geschwindigkeit" data-global="speed" min="1" max="100" type="range" value="80"/><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true"></span><b data-global-label="speed">80 / 100</b></div>
+<div class="lib-prev-ctl"><button type="button" id="libPrevSpeed" class="secondary" data-rb-icon="snail" data-rb-only="1" title="1× Vorschaugeschwindigkeit" aria-label="1× Vorschaugeschwindigkeit" hidden></button></div>
 </aside></section><section aria-label="Animationen" class="app-view inner-view hidden" id="view-animations">
-<div class="panel inner-panel anim-view-grid" id="animListPane"><div class="rb-anim-head"><h2>Animationen</h2><div class="rb-anim-head-btns"><button id="animImport2" type="button" class="secondary" data-rb-icon="plus">Import</button><button id="animViewToggle" type="button" class="secondary" data-rb-icon="list" aria-label="Zur Listenansicht">Liste</button></div></div>
+<div class="panel inner-panel anim-view-grid" id="animListPane"><div class="rb-anim-head"><h2>Animationen</h2><div class="rb-anim-head-btns"><button id="animGridSend" type="button" data-rb-icon="plane-takeoff" data-rb-only="1" title="Gewählte Animation an die Tafel senden" aria-label="Gewählte Animation an die Tafel senden" disabled></button><button id="animGridEdit" type="button" class="secondary" data-rb-icon="pencil" data-rb-only="1" title="Editor öffnen (Vorschau, Import, Umbenennen, Löschen)" aria-label="Editor öffnen" disabled></button><button id="animBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Zurück zum Schnellmenü" aria-label="Zurück zum Schnellmenü"></button></div></div>
 <p class="tiny muted" id="animStatus" aria-live="polite">Animationen werden geladen …</p>
 <div id="animGrid" class="rb-anim-grid" role="list" aria-label="Gespeicherte Animationen"></div>
 <div aria-label="Animationsaktionen" class="fixed-actions library-actions" role="toolbar">
@@ -844,7 +854,7 @@ body.rb-no-dock #rbDock{display:none!important}
 <div class="v42-row"><select id="v42StepChoose" aria-label="Bibliotheksinhalt auswählen"></select><button id="v42StepAdd" type="button" data-rb-icon="plus" data-rb-only="1" title="Eintrag hinzufügen" aria-label="Eintrag hinzufügen"></button></div>
 <p id="v42ProgramError" hidden></p>
 <button id="v42SaveProgram" type="button" class="primary" data-rb-icon="save">Programm speichern</button><p class="v42-hint">Blocktexte sind bei Tempo 60–90 kalibriert. Geteilte Laufbänder verwenden vorläufig eine vorsichtige, noch nicht hardwarekalibrierte Zeitabschätzung.</p>
-</div></section><section aria-label="Texteditor" class="app-view hidden" id="view-editor"><div class="editor-context" id="v42EditorContext"><div><strong id="v42EditorHeading">Neuen Inhalt erstellen</strong><small id="v42EditorSubtitle">Eigenständiger Entwurf</small></div><div class="v43-editor-actions"><button id="v43NewContent" type="button" class="secondary" data-rb-icon="plus" data-rb-painted="plus"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Neu</button><button id="v42ReturnLibrary" type="button" class="secondary hidden" data-rb-icon="arrow-left" data-rb-painted="arrow-left"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Bibliothek</button></div></div><nav aria-label="Editor wählen" class="tabs"><button class="tab active" id="tabScroll" type="button" data-rb-icon="line-height" data-rb-painted="line-height"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14H9"/><path d="M21 21H3"/><path d="M21 3H3"/><path d="m8 16 3.453-7.648a.6.6 0 011.094.001L16 16"/></svg>Lauftext</button><button class="tab" id="tabPages" type="button" data-rb-icon="letter-spacing" data-rb-painted="letter-spacing"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14H9"/><path d="M21 3v18"/><path d="M3 3v18"/><path d="m8 16 3.453-7.648a.6.6 0 011.094.001L16 16"/></svg>Blocktext</button></nav><section class="panel preview-sticky"><div class="label">LED-Vorschau · 64 × 16 Punkte</div><canvas aria-label="Pixelgenaue Punktvorschau" height="192" id="matrix" width="768"></canvas><div class="preview-tools" id="previewTools"><button class="small-btn" id="previewRestart" type="button" data-rb-icon="skip-back" data-rb-painted="skip-back" title="Vorschau von vorn" aria-label="Vorschau von vorn" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"/><path d="M3 20V4"/></svg></button><button class="small-btn active" id="previewToggle" type="button" data-rb-icon="pause" data-rb-painted="pause" title="Vorschau pausieren" aria-label="Vorschau pausieren" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg></button><button class="small-btn" id="previewSpeed" type="button" data-rb-icon="snail" data-rb-painted="snail" title="Vorschautempo 1×" aria-label="Vorschautempo 1×" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></button><span class="tiny hidden" id="previewCaption" aria-hidden="true"></span></div><p class="hint" id="previewSpeedHint">Die Geschwindigkeit der Vorschau beeinflusst die Tafel nicht.</p></section><section class="panel" id="scrollEditor"><div class="label">Lauftext bearbeiten</div><label class="field" for="scrollText"><span class="hint">Text · Datenverbrauch wird live berechnet, kein Zeichenlimit</span></label><div class="picker-input rb-grow"><div class="rb-ta-wrap"><textarea autocomplete="off" autocapitalize="off" class="rb-ta" enterkeyhint="done" id="scrollText" rows="1" spellcheck="false" aria-label="Lauftext"></textarea><div class="rb-grip" role="separator" aria-orientation="horizontal" aria-label="Eingabefeld größer ziehen" title="Zum Vergrößern nach unten ziehen"></div></div><button aria-label="Symbol für Lauftext auswählen" class="symbol-open" data-symbol-target="scrollText" title="Symbole einfügen" type="button" data-rb-icon="heart-plus" data-rb-painted="heart-plus" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49"/><path d="M15 15h6"/><path d="M18 12v6"/></svg></button></div><div class="undo-tools"><button id="v42ClearText" class="small-btn danger" type="button" data-rb-icon="eraser" data-rb-painted="eraser"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg>Text leeren</button><button id="rbUndo" class="small-btn rb-histbtn" type="button" aria-label="Rückgängig" title="Rückgängig" disabled><svg class="rb-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg></button><button id="rbRedo" class="small-btn rb-histbtn" type="button" aria-label="Wiederherstellen" title="Wiederherstellen" disabled><svg class="rb-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13"/></svg></button></div><div class="capacity-info"><div aria-live="off" class="tiny" id="scrollCount"></div><div aria-hidden="true" class="capacity-track"><div class="capacity-fill" id="capacityFill"></div></div></div><div class="field"><label for="scrollLayout">Schriftart</label><select id="scrollLayout"><option value="3">Original - Normal</option><option value="4">Original - Bold</option><option value="0">Engschrift</option><option value="2">Mini - Einzeilig</option><option value="1">Mini - Zweizeilig</option></select></div><div class="field hidden" id="scrollSecondWrap"><label for="scrollLine2">Text · Zeile 2</label><div class="picker-input rb-grow"><div class="rb-ta-wrap"><textarea autocomplete="off" autocapitalize="off" class="rb-ta" enterkeyhint="done" id="scrollLine2" rows="1" spellcheck="false" aria-label="Lauftext Zeile 2"></textarea><div class="rb-grip" role="separator" aria-orientation="horizontal" aria-label="Eingabefeld größer ziehen" title="Zum Vergrößern nach unten ziehen"></div></div><button class="symbol-open" data-symbol-target="scrollLine2" title="Symbole einfügen" type="button" data-rb-icon="heart-plus" data-rb-painted="heart-plus" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49"/><path d="M15 15h6"/><path d="M18 12v6"/></svg></button></div></div><div class="label" id="scrollColorLabel">Farbe</div><div class="swatches" id="scrollColors"></div><div class="hidden" id="scrollSecondColors"><div class="label">Farbe · Zeile 2</div><div class="swatches" id="scrollColors2"></div></div><div class="pixel-range" role="group" aria-label="Geschwindigkeit"><span class="range-pict rb-range-icon" data-rb-icon="snail" data-rb-painted="snail" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" id="scrollSpeed" max="100" min="1" type="range" value="80"/><b id="speedLabel">80 / 100</b><span class="range-pict rb-range-icon" data-rb-icon="rabbit" data-rb-painted="rabbit" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div><label class="anim-check wide rb-rev" id="rbRevWrapS"><input type="checkbox" id="rbRevS"/> Umkehren: Tafel leuchtet, Schrift bleibt dunkel</label><p class="tiny muted rb-rev-hint hidden" id="rbRevHintS"></p><div class="actions editor-submit-actions"><button class="primary" id="sendScroll" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Lauftext senden</button><button class="secondary" id="libSaveAs" type="button" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Speichern</button><button class="secondary hidden" id="libSaveChanges" type="button" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Änderungen speichern</button></div><div class="tiny muted" id="libEditorInfo" aria-live="polite">Ungespeicherter Entwurf – unabhängig von der Bibliothek.</div></section><section class="hidden" id="pagesEditor">
+</div></section><section aria-label="Texteditor" class="app-view hidden" id="view-editor"><div class="editor-context" id="v42EditorContext"><div><strong id="v42EditorHeading">Neuen Inhalt erstellen</strong><small id="v42EditorSubtitle">Eigenständiger Entwurf</small></div><div class="v43-editor-actions"><button id="v43NewContent" type="button" class="secondary" data-rb-icon="plus" data-rb-painted="plus"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Neu</button><button id="v42ReturnLibrary" type="button" class="secondary hidden" data-rb-icon="arrow-left" data-rb-painted="arrow-left"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Bibliothek</button></div></div><nav aria-label="Editor wählen" class="tabs"><button class="tab active" id="tabScroll" type="button" data-rb-icon="line-height" data-rb-painted="line-height"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14H9"/><path d="M21 21H3"/><path d="M21 3H3"/><path d="m8 16 3.453-7.648a.6.6 0 011.094.001L16 16"/></svg>Lauftext</button><button class="tab" id="tabPages" type="button" data-rb-icon="letter-spacing" data-rb-painted="letter-spacing"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14H9"/><path d="M21 3v18"/><path d="M3 3v18"/><path d="m8 16 3.453-7.648a.6.6 0 011.094.001L16 16"/></svg>Blocktext</button></nav><section class="panel preview-sticky"><div class="label">LED-Vorschau · 64 × 16 Punkte</div><canvas aria-label="Pixelgenaue Punktvorschau" height="192" id="matrix" width="768"></canvas><div class="preview-tools" id="previewTools"><button class="small-btn" id="previewRestart" type="button" data-rb-icon="skip-back" data-rb-painted="skip-back" title="Vorschau von vorn" aria-label="Vorschau von vorn" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"/><path d="M3 20V4"/></svg></button><button class="small-btn active" id="previewToggle" type="button" data-rb-icon="pause" data-rb-painted="pause" title="Vorschau pausieren" aria-label="Vorschau pausieren" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg></button><button class="small-btn" id="previewSpeed" type="button" data-rb-icon="snail" data-rb-painted="snail" title="Vorschautempo 1×" aria-label="Vorschautempo 1×" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></button><span class="tiny hidden" id="previewCaption" aria-hidden="true"></span></div><p class="hint" id="previewSpeedHint">Die Geschwindigkeit der Vorschau beeinflusst die Tafel nicht.</p></section><section class="panel" id="scrollEditor"><div class="label">Lauftext bearbeiten</div><label class="field" for="scrollText"><span class="hint">Text · Datenverbrauch wird live berechnet, kein Zeichenlimit</span></label><div class="picker-input rb-grow"><div class="rb-ta-wrap"><textarea autocomplete="off" autocapitalize="off" class="rb-ta" enterkeyhint="done" id="scrollText" rows="1" spellcheck="false" aria-label="Lauftext"></textarea><div class="rb-grip" role="separator" aria-orientation="horizontal" aria-label="Eingabefeld größer ziehen" title="Zum Vergrößern nach unten ziehen"></div></div><button aria-label="Symbol für Lauftext auswählen" class="symbol-open" data-symbol-target="scrollText" title="Symbole einfügen" type="button" data-rb-icon="heart-plus" data-rb-painted="heart-plus" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49"/><path d="M15 15h6"/><path d="M18 12v6"/></svg></button></div><div class="undo-tools"><button id="v42ClearText" class="small-btn danger" type="button" data-rb-icon="eraser" data-rb-painted="eraser"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg>Text leeren</button><button id="rbUndo" class="small-btn rb-histbtn" type="button" aria-label="Rückgängig" title="Rückgängig" disabled><svg class="rb-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg></button><button id="rbRedo" class="small-btn rb-histbtn" type="button" aria-label="Wiederherstellen" title="Wiederherstellen" disabled><svg class="rb-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13"/></svg></button></div><div class="capacity-info"><div aria-live="off" class="tiny" id="scrollCount"></div><div aria-hidden="true" class="capacity-track"><div class="capacity-fill" id="capacityFill"></div></div></div><div class="field"><label for="scrollLayout">Schriftart</label><select id="scrollLayout"><option value="3">Original - Normal</option><option value="4">Original - Bold</option><option value="0">Engschrift</option><option value="2">Mini - Einzeilig</option><option value="1">Mini - Zweizeilig</option></select></div><div class="field hidden" id="scrollSecondWrap"><label for="scrollLine2">Text · Zeile 2</label><div class="picker-input rb-grow"><div class="rb-ta-wrap"><textarea autocomplete="off" autocapitalize="off" class="rb-ta" enterkeyhint="done" id="scrollLine2" rows="1" spellcheck="false" aria-label="Lauftext Zeile 2"></textarea><div class="rb-grip" role="separator" aria-orientation="horizontal" aria-label="Eingabefeld größer ziehen" title="Zum Vergrößern nach unten ziehen"></div></div><button class="symbol-open" data-symbol-target="scrollLine2" title="Symbole einfügen" type="button" data-rb-icon="heart-plus" data-rb-painted="heart-plus" data-rb-only="1"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49"/><path d="M15 15h6"/><path d="M18 12v6"/></svg></button></div></div><div class="label" id="scrollColorLabel">Farbe</div><div class="swatches" id="scrollColors"></div><div class="hidden" id="scrollSecondColors"><div class="label">Farbe · Zeile 2</div><div class="swatches" id="scrollColors2"></div></div><div class="pixel-range" role="group" aria-label="Geschwindigkeit"><span class="range-pict rb-range-icon" data-rb-icon="snail" data-rb-painted="snail" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" id="scrollSpeed" max="100" min="1" type="range" value="80"/><b id="speedLabel">80 / 100</b><span class="range-pict rb-range-icon" data-rb-icon="rabbit" data-rb-painted="rabbit" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div><div class="actions editor-submit-actions"><button class="primary" id="sendScroll" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Lauftext senden</button><button class="primary" id="libSaveAs" type="button" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Speichern</button><button class="primary hidden" id="libSaveChanges" type="button" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Änderungen speichern</button></div></section><section class="hidden" id="pagesEditor">
 <section class="panel"><div class="label" id="rbBlockHead">Blocktext · Seite 1 von 40</div><div aria-label="Seitenübersicht" id="pageRail"></div><div class="page-tools"><button class="small-btn" id="pageAdd" data-rb-icon="plus" data-rb-painted="plus" title="Neue Seite" aria-label="Neue Seite"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button><button class="small-btn" id="pageCopy" data-rb-icon="copy" data-rb-painted="copy" title="Seite duplizieren" aria-label="Seite duplizieren"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button><button class="small-btn" id="pageLeft" data-rb-icon="arrow-left" data-rb-painted="arrow-left" title="Seite nach links verschieben" aria-label="Seite nach links verschieben"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button><button class="small-btn" id="pageRight" data-rb-icon="arrow-right" data-rb-painted="arrow-right" title="Seite nach rechts verschieben" aria-label="Seite nach rechts verschieben"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button><button class="secondary" id="v42ClearPage" data-rb-icon="eraser" data-rb-painted="eraser" title="Seite leeren" aria-label="Seite leeren"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg></button><button class="small-btn danger" id="pageDelete" data-rb-icon="trash" data-rb-painted="trash" title="Seite löschen" aria-label="Seite löschen"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button><button class="small-btn danger" id="v42NewBlock" data-rb-icon="flame-kindling" data-rb-painted="flame-kindling" title="Alles löschen" aria-label="Alles löschen"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10a5 5 0 1 1-10 0c0-.3 0-.6.1-.9a2 2 0 1 0 3.3-2C8 4.5 11 2 12 2Z"/><path d="m5 22 14-4"/><path d="m5 18 14 4"/></svg></button></div></section>
 <section class="panel"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="label" id="pageTitle">Seite 1 bearbeiten</div><span class="save-indicator" id="dirty"></span></div>
 <div class="page-form">
@@ -855,9 +865,8 @@ body.rb-no-dock #rbDock{display:none!important}
 <div class="field" id="secondColors"><label>Farbe · Zeile 2</label><div class="swatches" id="pageColors2"></div></div>
 
 </div>
-<label class="anim-check wide rb-rev" id="rbRevWrapP"><input type="checkbox" id="rbRevP"/> Umkehren: Tafel leuchtet, Schrift bleibt dunkel</label><p class="tiny muted rb-rev-hint hidden" id="rbRevHintP"></p><div class="warning hidden" id="pageWarning"></div>
-<div class="actions editor-submit-actions"><button class="primary" id="pageShow" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Diese Seite senden</button><button class="secondary" id="v42SendDraftBand" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Alle Seiten senden</button><button class="secondary" id="v42SaveBlock" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Speichern</button><button class="secondary hidden" id="v42UpdateBlock" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Blocktext aktualisieren</button></div>
-<p class="v42-hint" id="v42BlockInfo">Neuer Blocktext, noch nicht in der Bibliothek gespeichert.</p>
+<div class="warning hidden" id="pageWarning"></div>
+<div class="actions editor-submit-actions"><button class="primary" id="pageShow" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Diese Seite senden</button><button class="secondary" id="v42SendDraftBand" data-rb-icon="plane-takeoff" data-rb-painted="plane-takeoff"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Alle Seiten senden</button><button class="primary" id="v42SaveBlock" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Speichern</button><button class="secondary hidden" id="v42UpdateBlock" data-rb-icon="save" data-rb-painted="save"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>Blocktext aktualisieren</button></div>
 </section>
 
 </section><section class="panel rb-legacy-controls"><div class="label">Tafelsteuerung</div>
@@ -895,7 +904,7 @@ body.rb-no-dock #rbDock{display:none!important}
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.6.1.8-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.6.1.9-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -935,7 +944,7 @@ body.rb-no-dock #rbDock{display:none!important}
 <div class="rbz-colorbar" id="rbzColorBar" aria-label="Farbe für die Auswahl"><div class="rbz-swatches" id="rbzBarColors"></div></div>
 <div class="rbz-foot">
 <button class="rbz-done" id="rbzDone" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fertig</button>
-<button id="rbzSend" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>Senden</button>
+
 </div>
 </div>
 </div>
@@ -1182,7 +1191,7 @@ const RbAnim=(()=>{
 </script>
 <script>
 'use strict';
-const RB_ASSET_DATA = {"normal": "QQAHAAAAAAgAFAAiAEEAQQBBAH8AQQBBAEEAQQBBAAAAAABCAAcAAAAAfgBBAEEAQQBBAEIAfABCAEEAQQBBAH4AAAAAAEMABwAAAAA+AEEAQABAAEAAQABAAEAAQABAAEEAPgAAAAAARAAHAAAAAHwAQgBBAEEAQQBBAEEAQQBBAEEAQgB8AAAAAABFAAcAAAAAfwBAAEAAQABAAEAAfwBAAEAAQABAAH8AAAAAAEYABwAAAAB/AEAAQABAAEAAQAB/AEAAQABAAEAAQAAAAAAARwAHAAAAAD4AQQBAAEAAQABAAEAARwBBAEEAQQA+AAAAAABIAAcAAAAAQQBBAEEAQQBBAH8AQQBBAEEAQQBBAEEAAAAAAEkAAQAAAAABAAEAAQABAAEAAQABAAEAAQABAAEAAQAAAAAASgAHAAAAAAEAAQABAAEAAQABAAEAAQABAEEAQQA+AAAAAABLAAcAAAAAQQBCAEQASABQAGAAYABQAEgARABCAEEAAAAAAEwABwAAAABAAEAAQABAAEAAQABAAEAAQABAAEAAfwAAAAAATQAHAAAAAEEAYwBjAFUAVQBJAEkAQQBBAEEAQQBBAAAAAABOAAcAAAAAQQBhAGEAUQBRAEkASQBFAEUAQwBDAEEAAAAAAE8ABwAAAAAcACIAQQBBAEEAQQBBAEEAQQBBACIAHAAAAAAAUAAHAAAAAH4AQQBBAEEAQQBBAH4AQABAAEAAQABAAAAAAABRAAcAAAAAPgBBAEEAQQBBAEEAQQBBAEEARQBCAD0AAAAAAFIABwAAAAB+AEEAQQBBAEEAQgB8AFAASABEAEIAQQAAAAAAUwAHAAAAAD4AQQBBAEAAQAAwAA4AAQABAEEAQQA+AAAAAABUAAcAAAAAfwAIAAgACAAIAAgACAAIAAgACAAIAAgAAAAAAFUABwAAAABBAEEAQQBBAEEAQQBBAEEAQQBBACIAHAAAAAAAVgAHAAAAAEEAQQBBAEEAQQBBAEEAQQBBACIAFAAIAAAAAABXAAcAAAAAQQBBAEEAQQBBAEkASQBJAEkAVQBVACIAAAAAAFgABwAAAABBAEEAIgAiABQACAAIABQAIgAiAEEAQQAAAAAAWQAHAAAAAEEAQQBBACIAIgAUAAgACAAIAAgACAAIAAAAAABaAAcAAAAAfwABAAIABAAEAAgAEAAQACAA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", "bold": "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", "symbols": "AGYAAAAAAAAERAAAAAAAAEQUAAAAAAAAZEQAAAAAAAAEREAAAAAGYAREQAAABmRGBERGRkZERmQEREZGRkZkQARERkZEREZgBEREZGZGZAAARERGRERAAAAEREZmRgAAAABERERAAAAAAABgBgAAAAAAAGAGAAAAAAAGYGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAGYAAAAAAAAGZmAAAAAAAAZmYAAAAAAAZmZmAAAAZmZmZmZmZgAGZmZmZmZgAAAGZmZmYAAAAABmZmYAAAAABmZmZmAAAAAGYAAGYAAAAAZgAAZgAAAAYAAAAAYAAAAAAAAAAAAAAAAAYAAAAAAGAABgAAYAAGYGBgYGBmAAAGBmAGBgAAAGBgBgZgYAAABgBmYAYAAABmBgAGBmAAZgBmBgZgBmAAZgYABgZgAAAGAGZgBgAAAGBgBgBgYAAABgZgZgYAAAZgYGBgYGYAAGAABgAAYAAAAAAGAAAAAAAAAAAAAAAAAARAAAAEQAAAREQAAEREAAREREAERERAREREQARERERERERERERERERERERERERERERERERERERERERERERERARERERERERAAERERERERAAABERERERAAAAARERERAAAAAAERERAAAAAAABERAAAAAAAAARAAAAAAAAAAAAAAAAAAEREREQAAABEREREREQABEREREREREAERAAAAABEQABEAAAAAEQAAAAAREQAAAAAAEREREQAAAAEREREREAAAEREd3dERAAEREcAd3REQARERwd3dERABERHAAd0REAERER3d0REQABEREREREQAAAREREREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd3cAAHd3AAB3dwAAd3cAB3d3cAd3d3AHd3FwB3dxcAd3ERAHdxEQB3cQEAd3EBAHdxAQB3cQEAd3cXAHd3FwB3d3cAd3d3AAd3cAAHd3AAB3dwAAd3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAEQAAAAAAAAEREAAAAAAAAREQAAAAAAAREREAAAAAABEd0QAAAAABER3REAAAAAERHdEQAAAAEREd0REAAAARER3REQAAARERHdEREAABEREREREQABERER3REREAERERHdEREQEREREREREREREREREREREQAAAABEAAAAAAAABERAAAAAAAAFmEAAAAAAAEWYRAAAAAAAWZmEAAAAAARZmZhAAAAABZhFmEAAAABFmEWYRAAAAFmYRZmEAAAEWZhFmYRAAAWZmZmZmEAARZmYRZmYRABZmZhFmZmEBZmZmZmZmZhFmZmZmZmZmEREREREREREQAAAARAAAAAAAAAREQAAAAAAABERAAAAAAABEREQAAAAAAEQARAAAAAAERABEQAAAAARAAARAAAAAREAABEQAAABEAAAARAAABEQAAABEQAAEQAAAAARAAERAAAAABEQARAAAAAAARARAAAAAAAAEREREREREREREREREREREREAAAAZgYAAAAAAAAGYAAAAAAAAGZmAAAAAABmZmZmAAAABmZmZmZgAABmZlVVZmYABmZVVVVVZmBlZVBVVQVWVmVlVVVVVVZWBmVVd3dVVmAAZVdwB3VWAAAGV3d3dWAAAAZnB3B2YAAAAGZwB2YAAAAAAGZmAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAMAAABmYAAAAzAAAGZjMAADMwAGZmYzMAMzMDMzMzMzAzMzMzEzMDMzMzMzETEzMzMzMxERETMzMzMzMRERMzMzMwAzEzMzMwMwAAZmZjMwAwAAAGZjMAAAAAAAZmAAAAAAAAAGAAAAAAAAAAYAAAAAAAAAAAAAAAAEREAABERAAERAAAAABEQARERAAARERAREAAAAAABEREAAAwAwAAREQARERERABEBEREREREREAABERERERAAAAEREREREAAAERERERERABEAEREREQARAAAQARABAAABEQAAAAAREAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAiAiIAAAAAACIiIiAAAAAAAiIiAAAABEREREQAAABEREREREAABEd0RERERAAEd0REREREAER3RERERERAREREREREREBEREREREREQERERERERERABERERERERAAEREREREREAABEREREREAAAABERERAAAAAAAAAAAAAAAAAICIgAAAAAAICAAIAAAAAAAIRAAAAAAABEVUREAAAABVRVRVRAAAAFVERFVEAAAABERVREAAAAAFVFVERAAAAAVUREVUQAAAAFVERVRAAAAAVUVURAAAAAAEVFREAAAAAABURVRAAAAAAAQFVEAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAREAAAAAAAABYQAAAAAAABYRAAAAAAARZhEBEREREWZhYQFmZmYWZmFhABZhEWZmYWEBERZmZmYWYRZmZmZmYWZhFmZmZmYWZmEBZmZmYWZmEAAREREWZmEAAAFmZmZmEAAAABZmZhEAAAAAARERAAAAAAAAMzMAAAAAAAMzMzAAAAAzMzMzMzMAAzMzMzMzMzAzEzMzMzMxMzETMDMzAzETMRMzMzMzMRMxEzMzMzMxEzERMzMzMxETAxEzMzMzETAAM3MzMzczAAAABzMzcAAAAAAHAzBwAAAAAAADMDAAAAAAAAMzAAAAAAAAAAAAAAAAAAdwAAAAAAAAd3cAAAAAAAd3d3AAAAAAB3d3cAAAAAB3d3d3AAAAAHd3d3cAAAAHd3d3d3AAAAd3d3d3cAAAd3d3d3d3AAB3d3d3d3cAAHd3d3d3dwAAd3d3d3d3AAAHd3d3d3AAAAd3d3d3cAAAAHd3d3cAAAAAAHd3AAAAAAAAAAAAAAAAAARERAAAAAAAREREQAAAAARHd0REAAAABHd0REQAAABER0REREAAAEREREREQAAARFREREcAAAAERERFd3AAAARERER3cAAAAABERHd3cAAAAAAAB3d3AAAAAAAHd3dwAAAAAAB3d3AAAAAAAAB3AAAAAAAAAAAAAGZmZmZmZgBmZ3ZmZmZmZmBnZmZmZmYGYGdmZmZmZgZgZ2ZmZmZmBgZmZmZmZmZgAAZmZmZmYAAAAGZmZmYAAAAABmZmYAAAAAAAZmYAAAAAAAAGYAAAAAAAAAZgAAAAAAAGZmZgAAAAAEREREQAAAAARERERAAAAAREREREQAAAAAAAAAAAAAAAAAAAAAAABmZmZmZmZmAGZmZmZmZmYAYzNjM2M2MwBjM2MzYzYzAGMzYzNjNjMAZmZmZmM2ZgRGZmZmYzZndGZmZmZjNmZwYiIiIiIiJgAAFxAAABcQAAAREAAAERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAABERAAAAAAAAEREAAAAAAAERERAAAAAAAREREAAAAAABHEXQAAAAAAEMzNAAAAAAAQzM0AAAAAABHEXQAAAAABEd3dEAAAABER3d0RAAAAER3d3dEAAAERAd3cERAAAAABmZgAAAAAAAAZgAAAAAAAABmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREAAAAAAAF3dxEAAAARF3d3dxEAAXd3d3d3dxABd3dxd3F3EBd3d3F3cXdxd3d3V3d3V3d3d3d3F3F3EXd3d3dxF3EAERF3d3d3cQAAABEREREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABERAAAAAAARGZmRAAAAARGIiJkQAAARGIzMyZEAARGIxERMmRABGIxVVUTJkBEYjFQBRMmREYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZEYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZEYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZAAAAGZmYAAAAAAGZmYAAAAAAAZmZgAAAAAAZmZgAAAAAABmZgAAAAAABmZmAAAAAAAGZmZmYAAAAGZmZmYAAAAAZmZmYAAAAAZmZmYAAAAAAABmYAAAAAAABmZgAAAAAAAGZgAAAAAAAAZgAAAAAAAAZgAAAAAAAABgAAAAAAAAAAAHdwAAAAAAAAd3cAAAAAAAAHdwAAAAAAAAd3cAAAAAAAB3dwAAAAAABnd3dgAAAABmZ3dmYAAAAGBmZmBgAAAAYAZmYGAAAABgBmZgAAAAAAAGZmAAAAAAAAZmYAAAAAAAZmYAAAAAAAZmZgAAAAAABmZgAAAAAAACIAAAAAAAAAAAAAAAAAAARAAARAAAAERUQARFRAAERFREREVEQEREREREREREREREREREREQEREREREREQABEQAAABEQABEREREREREBERERERERERARERERERERAAERERERERAAAAEREREQAAAAAAEREAAAAAAAAAAAAAAAAAAAAAAAAAAAAREQAAAAAAEREREQAAAAARUREVAAAAARERmREQAAABERGZERAAAAEVERERUAAAABEVEVEAAAAAEREREQAAAAABEREQAAAAAAAAiAAAAAAACIiIiIAAAAiIiIiIiIAAAIiIiIiIAAAAAIiIiAAAAAAAAIgAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzAAMzAAAAMzMwMzNgYAAzMzAzMzYAADMzMDMzNgAAAzZmZmZmAAAAZgZgZmZgAAZmBmBmAGZmZmYGYGZmYABmZgZgZmZgAAZmBmBmZgAAAGYGYGYAAAAABmZmYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmZgAAAAAABmZmYAAAAAAEY2ZgAAAABERmZmAAAAAAREZmAAAAAAAAZmBmZgYAAAZmZmZmdgAAZmZ2ZmdmAABmZnd3dmYAAGZmZmZmZgAABmZmZmZgAAAAZmZmZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAGAAAAAGYAAGYAAAAAB3d3cAAAAAB3d3d3AAB3d3cAd3d3d3VXdwd3d3VXB3d3d3d3d3AAB3d3d3dwAAAHcHd3B3AAAAd3d3d3cAAAAFVVVVUAAAAAUFVVBQAAAAB1VVVXAAAAAAdVVXAAAAAAAAAAAAAAAAAAYiAAAAAAAAIiIgAAAAAAAiJiAAAAAiACIiIAAAAiYgIiIgACICIiAiJiACIgYiICIiIAIiAiJiIiIgAiIAIiImIiACIgAGIiIiIiJiAAAiIiJiIiAAAAAiIiJiAAAAACIiIAAAAAAAYiIgAAAAAAAiYiAAAAAAAAIiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEzMTEAAAAAEzIzExAAAAd3d3d3dwAAcXFxcXFxcAAAERERERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARERAAAAAAATMxMQAAAAATMjMTEAAAB3d3d3d3AABxcXFxcXFwAAAREREREAAAAABmZmAAAAAAAGZmYAAAAAAAZmZgAAAAAABmZmAAAAAAAGZmYAAAAAAAZmZgAAAAAABmZmAAAAAAAAAAAAAAAAAAIiIiAAAAACIiIiIiAAACIiIiIiIgACIiIiIiIiIAIiIiIiIiIgAiIAIiIAIiAAIgACIAAiAAAiIAIgAiIAAAIiIiIiIAAAACIiIiIAAAAAAiIiIAAAAAAAIiIAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAZgAAAAAAAAZmAAAAAAAAZjYAAAAAAABGZgAAAAAAAAZmYAAAAAZgBmZgAAAGZmYGZmZmZmZmZgZmZmZmZmZgBmZmZmZmZmAGZmZmZmZmAABmZmZmZmAAAAZmZmZmAAAAAGZmZmAAAAAAAEAEAAAAAAAAQAQAAAAAAARARAAAAAAiIgAAIiIAAid3IAJ3ciACJwcgAnByIAIndyACd3IgACIiIiIiIgACIiIiIiIiICIiIiIiIiIiIiIiIiIiIiIiICIiIiICIgIiAiIiICIgACIgAAACIgAAAiIiIiIgAAACJmZmYiAAACImZmZiIgACICIiIiICICIgAiIiIAIiAAAAAzAAAAAAAAAzMwAAAAAAAzMzMAAAAAAzMzMzAAAAAzMzMzMwAAAzMzMzMzMAAzMzMzMzMzAzMzMzMzMzMzMzMzMzMzMzAzMzMzMzMzAAMzMzMzMzAAADMzMzMzAAAAAzMzMzAAAAAAMzMzAAAAAAADMzAAAAAAAAAzAAAAAHBwBwBwBwcHcHAAdwAHB3AHAHB3BwBwB3BwB3dwBwdwAAcAdwBwAAAHAHB3BwBwBwBwB3dwBwBwd3d3d3d3dwB3d3d3d3d3BwBwB3dwBwBwBwBwdwcAcAAABwB3AHAAB3BwB3dwBwdwBwBwdwcAcAdwcAB3AAcHcHBwBwBwBwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzMzAAADMzMzMzMwADMzMzMzMzMAAzMTMzEzMAAAMzEzEzMAAAADMzMzMAAAAAAzMzMAAAAAAAMzMAAAAAAAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAIAACIAACAAAiAAIgACIAACIAAiAAIgAAAgACIAAgAAAAIAIgAgAAAAAgIiICAAAAACAiIgIAAAAAAiIiIAAAIiICIiIgIiIAIiIiIiIiAAAAACIiAAAAAAACAiAgAAAAIiACIAIiAAAAAAIgAAAAAAAAAiAAAAAAAAAAAABwAAAAAAA3cAcwAAAAAABzAHAAAAAAADcAcwAAAAAABzADAAAAAAADcAcAAAAAAABzMAAAAAAAADcHAAAAAAAABzAAAAAAAAADcAAAAAAAAAAAZmZnd3d3d1RmZmd3d3d3ZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAADdwBzAAAAAAAHMAcAAAAAAANwBzAAAAAAAHMAMAAAAAAANwBwAAAAAAAHMwAAAAAAAANwcAAAAAAAAHMAAAAAAAAANwAAAAAAAAAABmYiIiIiIiVGZiIiIiIiJkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAIgAAAAAAAAAiAAAAAAAAACIAAAAAAAAAIgAAAAAgAAAiAAACACIAACIAACIAIiAAIgACIgACIgAiACIgAAAiICICIgAAAAIiIiIgAAAAACIiIgAAAAAAAiIgAAAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAIiIAAAAAAAIiIiAAAAAAIiIiIgAAAAIiAiAiIAAAIiACIAIiAAIiAAIgACIgAiAAAiAAAiACAAACIAAAIAAAAAIgAAAAAAAAAiAAAAAAAAACIAAAAAAAAAIgAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIiIiIiIiACIiIiIiIiIAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgACIiIiIiIiIAIiIiIiIiIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAAAAAAAAABmAAAGYAAAZmZgAAZgAAZmBmYABmAAZmAAZmAAAAZmAAAGAAZgAGAAAAAGZmZgAAAAAAZmZmAAAGZgZmZmZgZmZmBmZmZmBmYAAAZmZmAAAAAABmZmYAAAAAYABmAAYAAAZmAAAAZmAAZmAAZgAGZgZmAABmAABmZmAAAGYAAAZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAEREAAAAAAAERERAAAAAAAREREAAAAAAAEREAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFUAAAAAAAAAMwAAAAAAAAMzMAAAAAAAAzMwAAAAAAADMzAAAAAAADMzMwAAAAAAMzMzAAAAAAAzMzMAAAAAAHd3dwAAAAAAERERAAAAAAAREREAAAAAABEREQAAAAAAERERAAAAAAAREREAAAAAAHd3dwAAAAAAMzMzAAAAAAAAAAAAAAAAd3d3d3cAAHd3d3d3d3cAAHd3d3d3AAAAAAAAAAAAAAAAAAAAAAAAB3d3d3d3cAd3d3d3d3d3d3d3d3d3d3dwB3d3d3d3cAAAAAAAAAAAAAAAAAAAAAAAAHd3d3d3AAB3d3d3d3d3AAB3d3d3dwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN3AEQAAAAAAAc0RAAAAAAAA0RHMAAAAAAERAAwAAAAAERHAHAAAAAERAczAAAAAERAA3BwAAAERAAAcwAAAERAAAA3AAAERAAAAAAGZkRHd3d3dUZkRHd3d3d2QERAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3cARAAAAAAABzREAAAAAAADREcwAAAAAAREADAAAAAAREcAcAAAAAREBzMAAAAAREADcHAAAAREAABzAAAAREAAADcAAAREAAAAAAZmREIiIiIlRmREIiIiIiZAREAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGczAAAAAABWZzM3AAAABXZnMzdmAABEdmczdmZwAHRHZzN2Z2QER0dnM3Z2RAREdnZ3ZnREBURHdndnREAAVEdnd3REAAAFVHd3REAAAAAFR3dEAAAAAABWdEAAAAAAAAZmAAAAAAAABmYAAAAAAAAAAAAAAAAAAAAAAAAAAABVVVAAAAAABVZmZQAAAABWd2ZmUAAABVZmZmZlAAAFRmVGQ0UAAAVFVVUzRQAABUVVUzM1AAAFVVQzM1UAAABVMzM0UAAAAAVUNFUAAAAAAFVVUAAAAAAAAHcAAAAAAAAAB3AAAAAAAAAAdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVQAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAABVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3cAd3cAdEAHAHBwAAdEQAd3AHdwBEQABwBwcABEQAAHAHBwBEQAAAcAcHdEQHdwAAAABEQAAAAAAABEQAAAAAd3BER3AHdwBwBEQAAHAAAHdER3cAcAAAdEQHAABwAABERwcAAHAAAEQHB3dwB3cAAAAAAAAAAARERERERERERERERERERERERERERERERERERERERERERERERHdERERERERHd3RERERERHd3d0RERERHd3d3dERERHd3d3d3RERHd3d3d3d0RHd3d3d3d3dHd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3cAABEQAAAAAAAAERAAAAAAAAAzMAAAAAAABzM3AAAAAABzMzNwAAAABzMzMzcAAAAHMzMzNwAAAAczMzM3AAAABzMzMzcAAAAHERERFwAAAAcREREXAAAABxERERcAAAAHERERFwAAAAcREREXAAAAB3d3d3cAAAAAAAAAAAAAAAAAABAAAAAAAAABMQAAAAAAAAExAAAAAAAAEzMQAAAAAAATMxAAAAAAATMzMQAAAAABMzMxAAAAABN3MzMQAAAAE3czMxAAAAE3czMzMQAAATMzMzMxAAATMzMzMzMQABMzMzMzMxAAATMzMzMxAAAAExERExAAAAAAEREQAAAAAAAAAwAAAAAAAAA3MAAAAAAAAHdwAAAAAAAAd3AAAAAAAAB3cAAAAAAAAHdwAAAAAAADd3MAAAAAAzd3dzMAAAM3d3d3dzMAN3d3d3d3dzADM3d3d3MzAAAAAHNwAAAAAAAAcXAAAAAAADNxczAAAAADd3F3cwAAAAAAMzAAAAAAAAAAAAAAAAAAAAAAAAAAAABmZmAAAAAAAGdmYAAAAAAAZmZgAAAAAARmZmQAAAAABGZmZAAAAABGZmZmQAAABGZmZmZkAAAEZgBgBmQAAARmZmZmZAAAAERmZmRAAAAAAEREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3cAAAAAAHd3d3AAAAAAcAAAcAAAB3BwAABwAAB3AHAAAHAAAHAAcAAAcAAHAHd3d3dwAAcAcHd3d3AAcABwd3d3cABwAHB3d3dwBwAAcHd3d3AHAABwd3d3cHAAAHB3d3dwcAAAcHd3d3AHAABwd3d3cAB3dwB3d3dwAAB3d3d3AAAAB3d3d3dwAAB3AAAAAHcAAHAAAAAABwAAcAAAAAAHAAd3d3d3d3dwB3d3d3d3d3B3d3d3d3d3d3dwd3d3dwd3dwAHd3dwAHd3cHd3d3cHdwd3d3d3d3dwB3d3d3d3d3AAd3AAAAd3AAB3cAAAB3cAAAcAAAAAcAAAAABgAAAAAAAABgYAAAAAAAAGZmAAAAAAAGZmZgAAAAAGZmZmYAAAAGYGZmBmAAAAZmZmZmYAAABmZkRmZgAABmZmRGZmYABmZmZmZmZmAGZmZmZmZmYABmZmZmZmYAAAAGZmZgAAAAAARABEAAAAAAREAERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIiIiIgAAACYiIiIiAAAAJiIiIiJ3d3AmIiIiInMzcCYiIiIiczNwJiIiIiJ3d3AmIiIiIhd3cCYiIiIid3dgJ3d3d3d3d3cAFxAAAAFxAAAREAAAAREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAMDAwAAAAMDMDMwMwMAADMAAwADMAAAADADADAAAAADAzMzAwAAAAAAd3AAAAAAAAB3cAAAAAADAzMzAwAAAAAwAwAwAAAAMwADAAMwAAMDMDMwMwMAAAADAwMAAAAAAAADAAAAAAAAAAMAAAAAAAAAAAAERERAAAAABERmZmAAAAREZmYiIAAARGZiIiIgAARGYiIjMzAARGYiIzMREARGYiMzEREQBGYiMxEVVVBEYiMxEVVQAEZiIxFVUAAERiIzEVAAAARmIjEVUAAABGYjMVUAAAAEYiMRVQAAAARiIxFQAAAABGIjEVAAAAAAAAAAAAAAAAAAAAAAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVSIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiEREREREREREREREREREREREREREREREREREREREREREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzMzMzMzMzMzMzMzMzNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV3d3d3d3d3d3d3d3d3d3d3VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVMzMzMzMzMzMzMzMzMzMzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERERERERERERERERERERERERFERERERERERERERmZmZEREREREZEZERERERERkRmRERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAABEAAAAB3d3dkZHd3d3d3d0ZGd3d3AAAGZmZgAAAAAAZmZmAAAHd3IiIiInd3d3IiIiIiJ3cAEREQARERAAAREQAAEREAdVVXd3d1VVdVVVd3d3VVVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREREREREREREREREZGRkZGRkZGZGRkZGRkZGRmZmZmZmZmZmZmZmZmZmZmIiIiIiIiIiIiIiIiIiIiIhERERERERERERERERERERFVVVVVVVVVVVVVVVVVVVVVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3dwAAAAZmd3d3ZmAAZmZ3d3dmZgZmZnd3d2ZmZmZnd3d3dmZmZmcHd3B2ZmBmZ3d3d3ZmAGZnd3d3dmYABmd3AHd2YAAAB3cAd3AAAAAHcFUHcAAAAAB3VXcAAAAAAAd3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzAAAAAAMzMzMAAAAAAwAAAwAAAAADAAADAAAAAAMAAAMAAAAAAwAAAwAAAAADAAADAAAAAAMAAAMAAAAAAwAAAwAAAAADADMzAAAAMzMDMzMAAAMzMwAzMwAAADMzAAAwAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAFAABVAAAAAFUABVRFAABURVAFVEVVVVRFUABUVVVVVUUAAFVVVVVVVQAAVXdVVXdVAABVcFVVB1UAAFVVd3dVVQAAVFd3d3VFAABVd1d1d1UAAAVXV3V1UAAAAFV3d1UAAAAAAFVVAAAAAAAAAAAAAAAAAAd3cAAAAAB3d3d3AAAAB3d3d3dwAAAHd3d3d3cAAAd3d3d3dwAAB3d2ZndwAAAHZmZmdnd3AAdnZnZmd3dwB2dmdmZ2B3AHZ2Z2ZnYHcAdnZnZmd3dwB2dmdmZ3dwAHZmZmZnAAAAd3d3d3cAAAB3d3d3dwAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAAAAAzNzMAAAAAAzNzMzAAAAAzMzczMwAAADczczNzAAAAM3MzNzMAAAMzNzNzMzAAAzMzMzMzMAAHM3AzBzNwADNwcHcHBzMAMzcAdwBzMwAzMHd3dwMzA3dwB3dwB3czMzd3d3dzMzAAAAAAAAAAA="};
+const RB_ASSET_DATA = {"normal": "QQAHAAAAAAgAFAAiAEEAQQBBAH8AQQBBAEEAQQBBAAAAAABCAAcAAAAAfgBBAEEAQQBBAEIAfABCAEEAQQBBAH4AAAAAAEMABwAAAAA+AEEAQABAAEAAQABAAEAAQABAAEEAPgAAAAAARAAHAAAAAHwAQgBBAEEAQQBBAEEAQQBBAEEAQgB8AAAAAABFAAcAAAAAfwBAAEAAQABAAEAAfwBAAEAAQABAAH8AAAAAAEYABwAAAAB/AEAAQABAAEAAQAB/AEAAQABAAEAAQAAAAAAARwAHAAAAAD4AQQBAAEAAQABAAEAARwBBAEEAQQA+AAAAAABIAAcAAAAAQQBBAEEAQQBBAH8AQQBBAEEAQQBBAEEAAAAAAEkAAQAAAAABAAEAAQABAAEAAQABAAEAAQABAAEAAQAAAAAASgAHAAAAAAEAAQABAAEAAQABAAEAAQABAEEAQQA+AAAAAABLAAcAAAAAQQBCAEQASABQAGAAYABQAEgARABCAEEAAAAAAEwABwAAAABAAEAAQABAAEAAQABAAEAAQABAAEAAfwAAAAAATQAHAAAAAEEAYwBjAFUAVQBJAEkAQQBBAEEAQQBBAAAAAABOAAcAAAAAQQBhAGEAUQBRAEkASQBFAEUAQwBDAEEAAAAAAE8ABwAAAAAcACIAQQBBAEEAQQBBAEEAQQBBACIAHAAAAAAAUAAHAAAAAH4AQQBBAEEAQQBBAH4AQABAAEAAQABAAAAAAABRAAcAAAAAPgBBAEEAQQBBAEEAQQBBAEEARQBCAD0AAAAAAFIABwAAAAB+AEEAQQBBAEEAQgB8AFAASABEAEIAQQAAAAAAUwAHAAAAAD4AQQBBAEAAQAAwAA4AAQABAEEAQQA+AAAAAABUAAcAAAAAfwAIAAgACAAIAAgACAAIAAgACAAIAAgAAAAAAFUABwAAAABBAEEAQQBBAEEAQQBBAEEAQQBBACIAHAAAAAAAVgAHAAAAAEEAQQBBAEEAQQBBAEEAQQBBACIAFAAIAAAAAABXAAcAAAAAQQBBAEEAQQBBAEkASQBJAEkAVQBVACIAAAAAAFgABwAAAABBAEEAIgAiABQACAAIABQAIgAiAEEAQQAAAAAAWQAHAAAAAEEAQQBBACIAIgAUAAgACAAIAAgACAAIAAAAAABaAAcAAAAAfwABAAIABAAEAAgAEAAQACAA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", "bold": "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", "symbols": "AGYAAAAAAAAERAAAAAAAAEQUAAAAAAAAZEQAAAAAAAAEREAAAAAGYAREQAAABmRGBERGRkZERmQEREZGRkZkQARERkZEREZgBEREZGZGZAAARERGRERAAAAEREZmRgAAAABERERAAAAAAABgBgAAAAAAAGAGAAAAAAAGYGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAGYAAAAAAAAGZmAAAAAAAAZmYAAAAAAAZmZmAAAAZmZmZmZmZgAGZmZmZmZgAAAGZmZmYAAAAABmZmYAAAAABmZmZmAAAAAGYAAGYAAAAAZgAAZgAAAAYAAAAAYAAAAAAAAAAAAAAAAAYAAAAAAGAABgAAYAAGYGBgYGBmAAAGBmAGBgAAAGBgBgZgYAAABgBmYAYAAABmBgAGBmAAZgBmBgZgBmAAZgYABgZgAAAGAGZgBgAAAGBgBgBgYAAABgZgZgYAAAZgYGBgYGYAAGAABgAAYAAAAAAGAAAAAAAAAAAAAAAAAARAAAAEQAAAREQAAEREAAREREAERERAREREQARERERERERERERERERERERERERERERERERERERERERERERERARERERERERAAERERERERAAABERERERAAAAARERERAAAAAAERERAAAAAAABERAAAAAAAAARAAAAAAAAAAAAAAAAAAEREREQAAABEREREREQABEREREREREAERAAAAABEQABEAAAAAEQAAAAAREQAAAAAAEREREQAAAAEREREREAAAEREd3dERAAEREcAd3REQARERwd3dERABERHAAd0REAERER3d0REQABEREREREQAAAREREREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd3cAAHd3AAB3dwAAd3cAB3d3cAd3d3AHd3FwB3dxcAd3ERAHdxEQB3cQEAd3EBAHdxAQB3cQEAd3cXAHd3FwB3d3cAd3d3AAd3cAAHd3AAB3dwAAd3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAEQAAAAAAAAEREAAAAAAAAREQAAAAAAAREREAAAAAABEd0QAAAAABER3REAAAAAERHdEQAAAAEREd0REAAAARER3REQAAARERHdEREAABEREREREQABERER3REREAERERHdEREQEREREREREREREREREREREQAAAABEAAAAAAAABERAAAAAAAAFmEAAAAAAAEWYRAAAAAAAWZmEAAAAAARZmZhAAAAABZhFmEAAAABFmEWYRAAAAFmYRZmEAAAEWZhFmYRAAAWZmZmZmEAARZmYRZmYRABZmZhFmZmEBZmZmZmZmZhFmZmZmZmZmEREREREREREQAAAARAAAAAAAAAREQAAAAAAABERAAAAAAABEREQAAAAAAEQARAAAAAAERABEQAAAAARAAARAAAAAREAABEQAAABEAAAARAAABEQAAABEQAAEQAAAAARAAERAAAAABEQARAAAAAAARARAAAAAAAAEREREREREREREREREREREREAAAAAAAAAAAAAAAAAAAAAAAGZmZmZmAAAGZmZmZmZgAGZmZmZmZmYGZVZmZmZlVmZVVndmd2VVZlVWcHcHZVVgZVZ3d3dlVgAGZnd3d2ZgAABmcHcHZgAAAAZ3d3dgAAAABmdVdmAAAAAAZmZmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAMAAABmYAAAAzAAAGZjMAADMwAGZmYzMAMzMDMzMzMzAzMzMzEzMDMzMzMzETEzMzMzMxERETMzMzMzMRERMzMzMwAzEzMzMwMwAAZmZjMwAwAAAGZjMAAAAAAAZmAAAAAAAAAGAAAAAAAAAAYAAAAAAAAAAAAAAAAEREAABERAAERAAAAABEQARERAAARERAREAAAAAABEREAAAwAwAAREQARERERABEBEREREREREAABERERERAAAAEREREREAAAERERERERABEAEREREQARAAAQARABAAABEQAAAAAREAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAiAiIAAAAAACIiIiAAAAAAAiIiAAAABEREREQAAABEREREREAABEd0RERERAAEd0REREREAER3RERERERAREREREREREBEREREREREQERERERERERABERERERERAAEREREREREAABEREREREAAAABERERAAAAAAAAAAAAAAAAAICIgAAAAAAICAAIAAAAAAAIRAAAAAAABEVUREAAAABVRVRVRAAAAFVERFVEAAAABERVREAAAAAFVFVERAAAAAVUREVUQAAAAFVERVRAAAAAVUVURAAAAAAEVFREAAAAAABURVRAAAAAAAQFVEAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAREAAAAAAAABYQAAAAAAABYRAAAAAAARZhEBEREREWZhYQFmZmYWZmFhABZhEWZmYWEBERZmZmYWYRZmZmZmYWZhFmZmZmYWZmEBZmZmYWZmEAAREREWZmEAAAFmZmZmEAAAABZmZhEAAAAAARERAAAAAAAAMzMAAAAAAAMzMzAAAAAzMzMzMzMAAzMzMzMzMzAzEzMzMzMxMzETMDMzAzETMRMzMzMzMRMxEzMzMzMxEzERMzMzMxETAxEzMzMzETAAM3MzMzczAAAABzMzcAAAAAAHAzBwAAAAAAADMDAAAAAAAAMzAAAAAAAAAAAAAAAAAAdwAAAAAAAAd3cAAAAAAAd3d3AAAAAAB3d3cAAAAAB3d3d3AAAAAHd3d3cAAAAHd3d3d3AAAAd3d3d3cAAAd3d3d3d3AAB3d3d3d3cAAHd3d3d3dwAAd3d3d3d3AAAHd3d3d3AAAAd3d3d3cAAAAHd3d3cAAAAAAHd3AAAAAAAAAAAAAAAAAARERAAAAAAAREREQAAAAARHd0REAAAABHd0REQAAABER0REREAAAEREREREQAAARFREREcAAAAERERFd3AAAARERER3cAAAAABERHd3cAAAAAAAB3d3AAAAAAAHd3dwAAAAAAB3d3AAAAAAAAB3AAAAAAAAAAAAAGZmZmZmZgBmZ3ZmZmZmZmBnZmZmZmYGYGdmZmZmZgZgZ2ZmZmZmBgZmZmZmZmZgAAZmZmZmYAAAAGZmZmYAAAAABmZmYAAAAAAAZmYAAAAAAAAGYAAAAAAAAAZgAAAAAAAGZmZgAAAAAEREREQAAAAARERERAAAAAREREREQAAAAAAAAAAAAAAAAAAAAAAABmZmZmZmZmAGZmZmZmZmYAYzNjM2M2MwBjM2MzYzYzAGMzYzNjNjMAZmZmZmM2ZgRGZmZmYzZndGZmZmZjNmZwYiIiIiIiJgAAFxAAABcQAAAREAAAERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAABERAAAAAAAAEREAAAAAAAERERAAAAAAAREREAAAAAABHEXQAAAAAAEMzNAAAAAAAQzM0AAAAAABHEXQAAAAABEd3dEAAAABER3d0RAAAAER3d3dEAAAERAd3cERAAAAABmZgAAAAAAAAZgAAAAAAAABmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREAAAAAAAF3dxEAAAARF3d3dxEAAXd3d3d3dxABd3dxd3F3EBd3d3F3cXdxd3d3V3d3V3d3d3d3F3F3EXd3d3dxF3EAERF3d3d3cQAAABEREREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABERAAAAAAARGZmRAAAAARGIiJkQAAARGIzMyZEAARGIxERMmRABGIxVVUTJkBEYjFQBRMmREYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZEYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZEYjFQAAUTJkRiMVAABRMmRGIxUAAFEyZAAAAGZmYAAAAAAGZmYAAAAAAAZmZgAAAAAAZmZgAAAAAABmZgAAAAAABmZmAAAAAAAGZmZmYAAAAGZmZmYAAAAAZmZmYAAAAAZmZmYAAAAAAABmYAAAAAAABmZgAAAAAAAGZgAAAAAAAAZgAAAAAAAAZgAAAAAAAABgAAAAAAAAAAAHdwAAAAAAAAd3cAAAAAAAAHdwAAAAAAAAd3cAAAAAAAB3dwAAAAAABnd3dgAAAABmZ3dmYAAAAGBmZmBgAAAAYAZmYGAAAABgBmZgAAAAAAAGZmAAAAAAAAZmYAAAAAAAZmYAAAAAAAZmZgAAAAAABmZgAAAAAAACIAAAAAAAAAAAAAAAAAAARAAARAAAAERUQARFRAAERFREREVEQEREREREREREREREREREREQEREREREREQABEQAAABEQABEREREREREBERERERERERARERERERERAAERERERERAAAAEREREQAAAAAAEREAAAAAAAAAAAAAAAAAAAAAAAAAAAAREQAAAAAAEREREQAAAAARUREVAAAAARERmREQAAABERGZERAAAAEVERERUAAAABEVEVEAAAAAEREREQAAAAABEREQAAAAAAAAiAAAAAAACIiIiIAAAAiIiIiIiIAAAIiIiIiIAAAAAIiIiAAAAAAAAIgAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzAAMzAAAAMzMwMzNgYAAzMzAzMzYAADMzMDMzNgAAAzZmZmZmAAAAZgZgZmZgAAZmBmBmAGZmZmYGYGZmYABmZgZgZmZgAAZmBmBmZgAAAGYGYGYAAAAABmZmYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmZgAAAAAABmZmYAAAAAAEY2ZgAAAABERmZmAAAAAAREZmAAAAAAAAZmBmZgYAAAZmZmZmdgAAZmZ2ZmdmAABmZnd3dmYAAGZmZmZmZgAABmZmZmZgAAAAZmZmZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAGAAAAAGYAAGYAAAAAB3d3cAAAAAB3d3d3AAB3d3cAd3d3d3VXdwd3d3VXB3d3d3d3d3AAB3d3d3dwAAAHcHd3B3AAAAd3d3d3cAAAAFVVVVUAAAAAUFVVBQAAAAB1VVVXAAAAAAdVVXAAAAAAAAAAAAAAAAAAYiAAAAAAAAIiIgAAAAAAAiJiAAAAAiACIiIAAAAiYgIiIgACICIiAiJiACIgYiICIiIAIiAiJiIiIgAiIAIiImIiACIgAGIiIiIiJiAAAiIiJiIiAAAAAiIiJiAAAAACIiIAAAAAAAYiIgAAAAAAAiYiAAAAAAAAIiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEzMTEAAAAAEzIzExAAAAd3d3d3dwAAcXFxcXFxcAAAERERERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARERAAAAAAATMxMQAAAAATMjMTEAAAB3d3d3d3AABxcXFxcXFwAAAREREREAAAAABmZmAAAAAAAGZmYAAAAAAAZmZgAAAAAABmZmAAAAAAAGZmYAAAAAAAZmZgAAAAAABmZmAAAAAAAAAAAAAAAAAAIiIiAAAAACIiIiIiAAACIiIiIiIgACIiIiIiIiIAIiIiIiIiIgAiIAIiIAIiAAIgACIAAiAAAiIAIgAiIAAAIiIiIiIAAAACIiIiIAAAAAAiIiIAAAAAAAIiIAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAZgAAAAAAAAZmAAAAAAAAZjYAAAAAAABGZgAAAAAAAAZmYAAAAAZgBmZgAAAGZmYGZmZmZmZmZgZmZmZmZmZgBmZmZmZmZmAGZmZmZmZmAABmZmZmZmAAAAZmZmZmAAAAAGZmZmAAAAAAAEAEAAAAAAAAQAQAAAAAAARARAAAAAAiIgAAIiIAAid3IAJ3ciACJwcgAnByIAIndyACd3IgACIiIiIiIgACIiIiIiIiICIiIiIiIiIiIiIiIiIiIiIiICIiIiICIgIiAiIiICIgACIgAAACIgAAAiIiIiIgAAACJmZmYiAAACImZmZiIgACICIiIiICICIgAiIiIAIiAAAAAzAAAAAAAAAzMwAAAAAAAzMzMAAAAAAzMzMzAAAAAzMzMzMwAAAzMzMzMzMAAzMzMzMzMzAzMzMzMzMzMzMzMzMzMzMzAzMzMzMzMzAAMzMzMzMzAAADMzMzMzAAAAAzMzMzAAAAAAMzMzAAAAAAADMzAAAAAAAAAzAAAAAHBwBwBwBwcHcHAAdwAHB3AHAHB3BwBwB3BwB3dwBwdwAAcAdwBwAAAHAHB3BwBwBwBwB3dwBwBwd3d3d3d3dwB3d3d3d3d3BwBwB3dwBwBwBwBwdwcAcAAABwB3AHAAB3BwB3dwBwdwBwBwdwcAcAdwcAB3AAcHcHBwBwBwBwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzMzAAADMzMzMzMwADMzMzMzMzMAAzMTMzEzMAAAMzEzEzMAAAADMzMzMAAAAAAzMzMAAAAAAAMzMAAAAAAAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAIAACIAACAAAiAAIgACIAACIAAiAAIgAAAgACIAAgAAAAIAIgAgAAAAAgIiICAAAAACAiIgIAAAAAAiIiIAAAIiICIiIgIiIAIiIiIiIiAAAAACIiAAAAAAACAiAgAAAAIiACIAIiAAAAAAIgAAAAAAAAAiAAAAAAAAAAAABwAAAAAAA3cAcwAAAAAABzAHAAAAAAADcAcwAAAAAABzADAAAAAAADcAcAAAAAAABzMAAAAAAAADcHAAAAAAAABzAAAAAAAAADcAAAAAAAAAAAZmZnd3d3d1RmZmd3d3d3ZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAADdwBzAAAAAAAHMAcAAAAAAANwBzAAAAAAAHMAMAAAAAAANwBwAAAAAAAHMwAAAAAAAANwcAAAAAAAAHMAAAAAAAAANwAAAAAAAAAABmYiIiIiIiVGZiIiIiIiJkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAIgAAAAAAAAAiAAAAAAAAACIAAAAAAAAAIgAAAAAgAAAiAAACACIAACIAACIAIiAAIgACIgACIgAiACIgAAAiICICIgAAAAIiIiIgAAAAACIiIgAAAAAAAiIgAAAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAIiIAAAAAAAIiIiAAAAAAIiIiIgAAAAIiAiAiIAAAIiACIAIiAAIiAAIgACIgAiAAAiAAAiACAAACIAAAIAAAAAIgAAAAAAAAAiAAAAAAAAACIAAAAAAAAAIgAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIAAAAAAAAiIiIiIiIiACIiIiIiIiIAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgAAAAAAAAAiIAAAAAAAAAIiAAAAAAAAACIgACIiIiIiIiIAIiIiIiIiIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAACIgAAAAAAAAAAAAAABmAAAGYAAAZmZgAAZgAAZmBmYABmAAZmAAZmAAAAZmAAAGAAZgAGAAAAAGZmZgAAAAAAZmZmAAAGZgZmZmZgZmZmBmZmZmBmYAAAZmZmAAAAAABmZmYAAAAAYABmAAYAAAZmAAAAZmAAZmAAZgAGZgZmAABmAABmZmAAAGYAAAZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAEREAAAAAAAERERAAAAAAAREREAAAAAAAEREAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFUAAAAAAAAAMwAAAAAAAAMzMAAAAAAAAzMwAAAAAAADMzAAAAAAADMzMwAAAAAAMzMzAAAAAAAzMzMAAAAAAHd3dwAAAAAAERERAAAAAAAREREAAAAAABEREQAAAAAAERERAAAAAAAREREAAAAAAHd3dwAAAAAAMzMzAAAAAAAAAAAAAAAAd3d3d3cAAHd3d3d3d3cAAHd3d3d3AAAAAAAAAAAAAAAAAAAAAAAAB3d3d3d3cAd3d3d3d3d3d3d3d3d3d3dwB3d3d3d3cAAAAAAAAAAAAAAAAAAAAAAAAHd3d3d3AAB3d3d3d3d3AAB3d3d3dwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN3AEQAAAAAAAc0RAAAAAAAA0RHMAAAAAAERAAwAAAAAERHAHAAAAAERAczAAAAAERAA3BwAAAERAAAcwAAAERAAAA3AAAERAAAAAAGZkRHd3d3dUZkRHd3d3d2QERAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3cARAAAAAAABzREAAAAAAADREcwAAAAAAREADAAAAAAREcAcAAAAAREBzMAAAAAREADcHAAAAREAABzAAAAREAAADcAAAREAAAAAAZmREIiIiIlRmREIiIiIiZAREAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGczAAAAAABWZzM3AAAABXZnMzdmAABEdmczdmZwAHRHZzN2Z2QER0dnM3Z2RAREdnZ3ZnREBURHdndnREAAVEdnd3REAAAFVHd3REAAAAAFR3dEAAAAAABWdEAAAAAAAAZmAAAAAAAABmYAAAAAAAAAAAAAAAAAAAAAAAAAAABVVVAAAAAABVZmZQAAAABWd2ZmUAAABVZmZmZlAAAFRmVGQ0UAAAVFVVUzRQAABUVVUzM1AAAFVVQzM1UAAABVMzM0UAAAAAVUNFUAAAAAAFVVUAAAAAAAAHcAAAAAAAAAB3AAAAAAAAAAdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVQAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAAVVAAAAAAAABVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3cAd3cAdEAHAHBwAAdEQAd3AHdwBEQABwBwcABEQAAHAHBwBEQAAAcAcHdEQHdwAAAABEQAAAAAAABEQAAAAAd3BER3AHdwBwBEQAAHAAAHdER3cAcAAAdEQHAABwAABERwcAAHAAAEQHB3dwB3cAAAAAAAAAAARERERERERERERERERERERERERERERERERERERERERERERERHdERERERERHd3RERERERHd3d0RERERHd3d3dERERHd3d3d3RERHd3d3d3d0RHd3d3d3d3dHd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3cAABEQAAAAAAAAERAAAAAAAAAzMAAAAAAABzM3AAAAAABzMzNwAAAABzMzMzcAAAAHMzMzNwAAAAczMzM3AAAABzMzMzcAAAAHERERFwAAAAcREREXAAAABxERERcAAAAHERERFwAAAAcREREXAAAAB3d3d3cAAAAAAAAAAAAAAAAAABAAAAAAAAABMQAAAAAAAAExAAAAAAAAEzMQAAAAAAATMxAAAAAAATMzMQAAAAABMzMxAAAAABN3MzMQAAAAE3czMxAAAAE3czMzMQAAATMzMzMxAAATMzMzMzMQABMzMzMzMxAAATMzMzMxAAAAExERExAAAAAAEREQAAAAAAAAAwAAAAAAAAA3MAAAAAAAAHdwAAAAAAAAd3AAAAAAAAB3cAAAAAAAAHdwAAAAAAADd3MAAAAAAzd3dzMAAAM3d3d3dzMAN3d3d3d3dzADM3d3d3MzAAAAAHNwAAAAAAAAcXAAAAAAADNxczAAAAADd3F3cwAAAAAAMzAAAAAAAAAAAAAAAAAAAAAAAAAAAABmZmAAAAAAAGdmYAAAAAAAZmZgAAAAAARmZmQAAAAABGZmZAAAAABGZmZmQAAABGZmZmZkAAAEZgBgBmQAAARmZmZmZAAAAERmZmRAAAAAAEREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3cAAAAAAHd3d3AAAAAAcAAAcAAAB3BwAABwAAB3AHAAAHAAAHAAcAAAcAAHAHd3d3dwAAcAcHd3d3AAcABwd3d3cABwAHB3d3dwBwAAcHd3d3AHAABwd3d3cHAAAHB3d3dwcAAAcHd3d3AHAABwd3d3cAB3dwB3d3dwAAB3d3d3AAAAB3d3d3dwAAB3AAAAAHcAAHAAAAAABwAAcAAAAAAHAAd3d3d3d3dwB3d3d3d3d3B3d3d3d3d3d3dwd3d3dwd3dwAHd3dwAHd3cHd3d3cHdwd3d3d3d3dwB3d3d3d3d3AAd3AAAAd3AAB3cAAAB3cAAAcAAAAAcAAAAABgAAAAAAAABgYAAAAAAAAGZmAAAAAAAGZmZgAAAAAGZmZmYAAAAGYGZmBmAAAAZmZmZmYAAABmZkRmZgAABmZmRGZmYABmZmZmZmZmAGZmZmZmZmYABmZmZmZmYAAAAGZmZgAAAAAARABEAAAAAAREAERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIiIiIgAAACYiIiIiAAAAJiIiIiJ3d3AmIiIiInMzcCYiIiIiczNwJiIiIiJ3d3AmIiIiIhd3cCYiIiIid3dgJ3d3d3d3d3cAFxAAAAFxAAAREAAAAREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAMDAwAAAAMDMDMwMwMAADMAAwADMAAAADADADAAAAADAzMzAwAAAAAAd3AAAAAAAAB3cAAAAAADAzMzAwAAAAAwAwAwAAAAMwADAAMwAAMDMDMwMwMAAAADAwMAAAAAAAADAAAAAAAAAAMAAAAAAAAAAAAERERAAAAABERmZmAAAAREZmYiIAAARGZiIiIgAARGYiIjMzAARGYiIzMREARGYiMzEREQBGYiMxEVVVBEYiMxEVVQAEZiIxFVUAAERiIzEVAAAARmIjEVUAAABGYjMVUAAAAEYiMRVQAAAARiIxFQAAAABGIjEVAAAAAAAAAAAAAAAAAAAAAAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVSIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiEREREREREREREREREREREREREREREREREREREREREREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzMzMzMzMzMzMzMzMzNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV3d3d3d3d3d3d3d3d3d3d3VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVMzMzMzMzMzMzMzMzMzMzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERERERERERERERERERERERERFERERERERERERERmZmZEREREREZEZERERERERkRmRERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAABEAAAAB3d3dkZHd3d3d3d0ZGd3d3AAAGZmZgAAAAAAZmZmAAAHd3IiIiInd3d3IiIiIiJ3cAEREQARERAAAREQAAEREAdVVXd3d1VVdVVVd3d3VVVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREREREREREREREREZGRkZGRkZGZGRkZGRkZGRmZmZmZmZmZmZmZmZmZmZmIiIiIiIiIiIiIiIiIiIiIhERERERERERERERERERERFVVVVVVVVVVVVVVVVVVVVVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3dwAAAAZmd3d3ZmAAZmZ3d3dmZgZmZnd3d2ZmZmZnd3d3dmZmZmcHd3B2ZmBmZ3d3d3ZmAGZnd3d3dmYABmd3AHd2YAAAB3cAd3AAAAAHcFUHcAAAAAB3VXcAAAAAAAd3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMzAAAAAAMzMzMAAAAAAwAAAwAAAAADAAADAAAAAAMAAAMAAAAAAwAAAwAAAAADAAADAAAAAAMAAAMAAAAAAwAAAwAAAAADADMzAAAAMzMDMzMAAAMzMwAzMwAAADMzAAAwAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVQAAAAAAVVVUVQAAAFVFUFVVVVVVVVUAVVVVVVVVVQVVVVVVVVVVVVVQVVVVBVVVVVVVVVVVVVBVVVRERVVVAFVVREREVVUAVVVARARVVQAFVURERFVQAABVVERFVQAAAAVVVVVQAAAAAAAAAAAAAAAAAAAAAAAAAAd3cAAAAAB3d3d3AAAAB3d3d3dwAAAHd3d3d3cAAAd3d3d3dwAAB3d2ZndwAAAHZmZmdnd3AAdnZnZmd3dwB2dmdmZ2B3AHZ2Z2ZnYHcAdnZnZmd3dwB2dmdmZ3dwAHZmZmZnAAAAd3d3d3cAAAB3d3d3dwAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAAAAAzNzMAAAAAAzNzMzAAAAAzMzczMwAAADczczNzAAAAM3MzNzMAAAMzNzNzMzAAAzMzMzMzMAAHM3AzBzNwADNwcHcHBzMAMzcAdwBzMwAzMHd3dwMzA3dwB3dwB3czMzd3d3dzMzAAAAAAAAAAA="};
 const $=id=>document.getElementById(id);
 const COLORS=[['Rot',4,'#ff4141'],['Gelb',6,'#fff04c'],['Grün',2,'#39ed55'],['Cyan',3,'#4fe5e5'],['Blau',1,'#6571ff'],['Magenta',5,'#eb5bf2'],['Weiß',7,'#ffffff']];
 const FONT_FALLBACK=[14,17,1,2,4,0,4];
@@ -1218,6 +1227,7 @@ const SYMBOL_TABLE=[
  [71,'🚚','LKW','Fahrzeuge & Weltall',0,0,'truck,laster,lastwagen'],
  [66,'✈️','Flugzeug','Fahrzeuge & Weltall',0,0,'plane,airplane,fliegen,flug'],
  [20,'🚀','Rakete','Fahrzeuge & Weltall',0,0,'rocket,weltall,space'],
+ [59,'🎈','Heißluftballon','Fahrzeuge & Weltall',0,0,'balloon,ballon,luftballon,heissluftballon,fliegen'],
  [68,'⛽','Zapfsäule','Fahrzeuge & Weltall',8,0,'tankstelle,tanken,fuel,gas,benzin,zapfsaule'],
  [31,'🛸','UFO','Fahrzeuge & Weltall',0,0,'ufo,flying saucer,untertasse'],
  [32,UFO_BEAM,'UFO mit Strahl','Fahrzeuge & Weltall',0,0,'ufo,beam,traktorstrahl'],
@@ -1231,7 +1241,7 @@ const SYMBOL_TABLE=[
  [73,'🌦️','Halber Regenbogen','Natur',0,0,'rainbow,regenbogen'],
  [23,'⚡','Blitz','Natur',0,0,'lightning,flash,strom,gewitter'],
  [2,'❄️','Schneeflocke gelb','Natur',0,0,'snowflake,schnee,winter,eis'],
- [37,'🌨️','Schneeflocke','Natur',0,0,'snowflake,schnee,winter,eis'],
+ [37,'🌨️','Schneeflocke weiß','Natur',0,0,'snowflake,schnee,winter,eis,weiss'],
  [72,'🧊','Schneeflocke blau','Natur',0,0,'snowflake,schnee,winter,eis,kalt'],
  [65,'💦','Wassertropfen','Natur',0,0,'water,tropfen,drop,wasser,regen'],
  [1,'⭐','Stern','Formen',0,0,'star'],
@@ -1256,7 +1266,6 @@ const SYMBOL_TABLE=[
  [40,'🚬','Zigarette','Festival',0,0,'cigarette,kippe,zigarre,rauchen,smoke'],
  [41,'🌿','Joint','Festival',0,0,'weed,tüte,tute,rauchen'],
  [63,'🔻','Ecke','Festival',0,0,'kante,spitze,corner'],
- [59,'🪭','Fächer','Festival',0,0,'fan,facher,wedel'],
  [84,'⛲','Brunnen','Festival',0,0,'fountain,springbrunnen,wasser'],
  [60,'🍭','Lolli','Festival',0,0,'lollipop,lutscher,suesses,candy'],
  [18,'🏆','Pokal','Festival',0,0,'trophy,cup,sieger,gewinner,winner'],
@@ -1276,7 +1285,7 @@ const SYMBOL_TABLE=[
  [78,'🏁','Straight-Ally-Flagge','Flaggen',0,12,'flag,ally,straight ally,verbuendeter,lgbtq,csd']
 ];
 /* Alt-Zeichen, die weiter richtig gezeichnet werden, aber nicht mehr im Menü stehen. */
-const RB_LEGACY_SYMBOLS=[['🌹',26],['💛',3],['💚',3],['🩵',3],['💙',3],['💜',3],['🤍',3]];
+const RB_LEGACY_SYMBOLS=[['🪭',59],['🌹',26],['💛',3],['💚',3],['🩵',3],['💙',3],['💜',3],['🤍',3]];
 const HEART_COLORS=new Map([['❤️',4],['💛',6],['💚',2],['🩵',3],['💙',1],['💜',5],['🤍',7]].map(([s,n])=>[s.codePointAt(0),n]));
 const RB_SYM_BY_CP=new Map(),RB_SYM_INFO=new Map(),RB_CH=new Map(),RB_SYM_DEF=new Map();
 (function(){
@@ -1306,7 +1315,7 @@ function hexColor(n){return COLORS.find(c=>c[1]===Number(n))?.[2]||'#ffffff';}
 function esc(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));}
 function samplePage(){return {line1:'',line2:'',layout:3,align:1,color1:6,color2:7,duration:7};}
 function makeSwatches(root,selected,onChange){root.replaceChildren();for(const [name,code,hex] of COLORS){const b=document.createElement('button');b.type='button';b.className='swatch'+(Number(selected)===code?' selected':'');b.style.background=hex;b.setAttribute('aria-label',name);b.title=name;b.dataset.color=code;b.addEventListener('click',()=>onChange(code));root.append(b);}}
-function setTab(next){tab=next;if(next==='pages'&&rbHX.page.idx<0)rbHReset();try{localStorage.setItem('rb03-tab',tab);}catch(e){}$('tabScroll').classList.toggle('active',next==='scroll');$('tabPages').classList.toggle('active',next==='pages');$('scrollEditor').classList.toggle('hidden',next!=='scroll');$('pagesEditor').classList.toggle('hidden',next!=='pages');$('previewTools').classList.toggle('hidden',next==='pages');$('previewSpeedHint').classList.toggle('hidden',next==='pages');$('previewCaption').textContent='';rbRevUi();restartPreview();draw();v42EditorMode(v42EditorOrigin); }
+function setTab(next){tab=next;if(next==='pages'&&rbHX.page.idx<0)rbHReset();try{localStorage.setItem('rb03-tab',tab);}catch(e){}$('tabScroll').classList.toggle('active',next==='scroll');$('tabPages').classList.toggle('active',next==='pages');$('scrollEditor').classList.toggle('hidden',next!=='scroll');$('pagesEditor').classList.toggle('hidden',next!=='pages');$('previewTools').classList.toggle('hidden',next==='pages');$('previewSpeedHint').classList.toggle('hidden',next==='pages');$('previewCaption').textContent='';restartPreview();draw();v42EditorMode(v42EditorOrigin); }
 $('tabScroll').onclick=()=>setTab('scroll');$('tabPages').onclick=()=>setTab('pages');
 function drawDots(context,pitch){context.fillStyle='#080b10';context.fillRect(0,0,W*pitch,H*pitch);for(let x=0;x<W;x++)for(let y=0;y<H;y++){context.beginPath();context.arc((x+.5)*pitch,(y+.5)*pitch,pitch*.27,0,Math.PI*2);context.fillStyle='#28303a';context.fill();}}
 function drawLine(context,line,color,align,yTop,scale,pitch,leftOverride=null,style=0){const chars=codepoints(line).map(c=>displayCode(c,style)),width=linePixels(line,style);let x0=leftOverride!==null?leftOverride:align===0?0:align===2?W-width:Math.floor((W-width)/2);function led(x,y,n){if(x<0||x>=W||y<0||y>=H)return;context.fillStyle=hexColor(n);context.beginPath();context.arc((x+.5)*pitch,(y+.5)*pitch,pitch*.34,0,Math.PI*2);context.fill();}for(const c of chars){const icon=iconFor(c);if(icon){const b=bounds[icon.id];for(let y=0;y<16;y++)for(let x=b.min;x<=b.max;x++){const clr=spritePixel(icon.id,x,y);if(clr)led(x0+x-b.min,y,symColor(icon,clr,0));}}else if(style===3||style===4){const g=(style===3?originalFonts.normal:originalFonts.bold)[c.codePointAt(0)];if(g)for(let y=0;y<16;y++)for(let x=0;x<g.width;x++)if(g.rows[y]&(1<<(g.width-1-x)))led(x0+x,y,color);}else{const rows=glyph(c);for(let ry=0;ry<7;ry++)for(let rx=0;rx<5;rx++){if(!(rows[ry]&(1<<(4-rx))))continue;for(let dy=0;dy<scale;dy++)led(x0+rx,yTop+ry*scale+dy,color);}}x0+=tokenWidth(c,style)+tokenGap(c);}}
@@ -1319,8 +1328,7 @@ function drawPage(context,p,pitch){drawDots(context,pitch);if(!fontReady||!p)ret
  const al=style===2?1:Number(p.align);
  for(const [key,color,top] of (style===1?[['line1',p.color1,0],['line2',p.color2,8]]:[['line1',p.color1,rbTop(style)]])){
   const tokens=rbPageLineTokens(p[key],Number(color),style),w=rbTokenX(tokens).width,left=al===0?0:al===2?W-w:Math.floor((W-w)/2);
-  if(rbDecode(p.line1,style).rev)rbRevDraw(context,tokens,style,top,left,pitch,style===1?(key==='line1'?[0,8]:[8,16]):[0,16],Number(color),false);
-  else rbDrawTokens(context,tokens,style,top,left,pitch);}}
+  rbDrawTokens(context,tokens,style,top,left,pitch);}}
 function draw(){if(tab==='pages')drawPage(ctx,pages[selected],PITCH);else{drawDots(ctx,PITCH);if(fontReady){const st=Number($('scrollLayout').value);rbDrawStyled(ctx,'a',PITCH,previewX);if(st===1)rbDrawStyled(ctx,'b',PITCH,previewX);}}}
 function restartPreview(){previewClock=0;previewX=W;previewPage=selected;draw();}
 function tick(now){if(!lastTick)lastTick=now;const dt=Math.min(90,now-lastTick);lastTick=now;if(previewPlaying&&fontReady){if(tab==='scroll'){{previewX-=dt/1000*(4+Number($('scrollSpeed').value)*.26)*previewRate;if(previewX<-Math.max(rbLineWidth('a'),Number($('scrollLayout').value)===1?rbLineWidth('b'):0)-8)previewX=W;}draw();}}requestAnimationFrame(tick);}
@@ -1349,9 +1357,7 @@ function rbPageLoad(){
     $(key).value=d.text;st.chars=codepoints(d.text);
     if(d.c.length===st.chars.length){st.c=d.c.slice();st.f=d.f.slice();}
     else{st.c=Array(st.chars.length).fill(0);st.f=Array(st.chars.length).fill(-1);}
-    if(k==='a')RBSX.page.rev=!!d.rev;
   }
-  rbRevUi();
   if(tab==='pages')rbHReset();else RBHX_PAGE_RESET();
 }
 const RBHX_PAGE_RESET=()=>{rbHX.page.idx=-1;};
@@ -1376,7 +1382,6 @@ let blockDraftDirty=false;
 function changed(){dirty=true;blockDraftDirty=true;$('dirty').textContent='Nicht in Bibliothek gespeichert';updateWarning();renderRail();draw();}
 ['line1','line2','pageLayout','pageAlign'].forEach(id=>$(id).addEventListener('input',()=>{const p=pages[selected];if(!p)return;
  if(id==='line1')rbSync('a');if(id==='line2')rbSync('b');
- rbRevUi();
  if(id==='pageLayout'&&(RBS.a.f.some(x=>x>=0)||RBS.b.f.some(x=>x>=0))){rbSnapshot();RBS.a.f.fill(-1);RBS.b.f.fill(-1);}
  p.layout=Number($('pageLayout').value);p.align=Number($('pageAlign').value);rbPageStore(p);
  document.querySelectorAll('#secondRow,#secondColors').forEach(e=>e.classList.toggle('hidden',p.layout!==1));$('pageAlign').disabled=false;v43PaintAlignment();changed();}));
@@ -1421,8 +1426,8 @@ $('pageDelete').onclick=async()=>{if(pages.length<=1){notify('Mindestens eine Se
 $('pageShow').onclick=async()=>{if(!(await saveCurrent()))return;try{const j=await api('/api/program/show',{index:selected});notify(j.message);}catch(e){notify(e.message);}};
 function makeScrollSwatches(){makeSwatches($('scrollColors'),scrollColor,c=>rbGlobalColor('a',c));makeSwatches($('scrollColors2'),scrollColor2,c=>rbGlobalColor('b',c));rbAddPaletteButton();}makeScrollSwatches();
 function scrollCapacity(){const layout=Number($('scrollLayout').value),t1=$('scrollText').value,t2=layout===1?$('scrollLine2').value:'';const chars=codepoints(t1).length+codepoints(t2).length;const cols=Math.max(W,rbLineWidth('a'),layout===1?rbLineWidth('b'):0);const bytes=IMAGE_HEADER_BYTES+BYTES_PER_COLUMN*cols;return {chars,cols,bytes,exceeded:bytes>MAX_IMAGE_BYTES};}
-function updateScrollCapacity(){const m=scrollCapacity();$('scrollCount').textContent=m.chars.toLocaleString('de-DE')+' Zeichen · '+m.cols.toLocaleString('de-DE')+' Spalten · '+m.bytes.toLocaleString('de-DE')+' / '+MAX_IMAGE_BYTES.toLocaleString('de-DE')+' Bytes ('+Math.round(100*m.bytes/MAX_IMAGE_BYTES)+' %)';$('scrollCount').classList.toggle('over-limit',m.exceeded);$('capacityFill').style.width=Math.min(100,100*m.bytes/MAX_IMAGE_BYTES)+'%';$('capacityFill').classList.toggle('over-limit',m.exceeded);$('sendScroll').disabled=m.exceeded;return m;}
-$('scrollText').oninput=()=>{rbSync('a');rbRevUi();try{localStorage.setItem('rb03-scroll-draft',$('scrollText').value);}catch(e){}rbSaveDraftStyle();updateScrollCapacity();restartPreview();};
+function updateScrollCapacity(){const m=scrollCapacity();$('scrollCount').textContent=m.chars.toLocaleString('de-DE')+' Zeichen · '+m.cols.toLocaleString('de-DE')+' Spalten · '+m.bytes.toLocaleString('de-DE')+' / '+MAX_IMAGE_BYTES.toLocaleString('de-DE')+' Bytes ('+Math.round(100*m.bytes/MAX_IMAGE_BYTES)+' %)';$('scrollCount').classList.toggle('over-limit',m.exceeded);$('capacityFill').style.width=Math.min(100,100*m.bytes/MAX_IMAGE_BYTES)+'%';$('capacityFill').classList.toggle('over-limit',m.exceeded);$('sendScroll').disabled=m.exceeded||!rbScrollHasText();return m;}
+$('scrollText').oninput=()=>{rbSync('a');try{localStorage.setItem('rb03-scroll-draft',$('scrollText').value);}catch(e){}rbSaveDraftStyle();updateScrollCapacity();restartPreview();};
 $('scrollLayout').onchange=()=>{rbGlobalFontReset();const mini=Number($('scrollLayout').value)===1;$('scrollSecondWrap').classList.toggle('hidden',!mini);$('scrollSecondColors').classList.toggle('hidden',!mini);$('scrollColorLabel').textContent=mini?'Farbe · Zeile 1':'Farbe';$('scrollText').dispatchEvent(new Event('input'));restartPreview();};$('scrollLine2').oninput=()=>{rbSync('b');try{localStorage.setItem('rb032-scroll-line2',$('scrollLine2').value);}catch(e){}$('scrollText').dispatchEvent(new Event('input'));restartPreview();};
 $('scrollSpeed').oninput=()=>{$('speedLabel').textContent=$('scrollSpeed').value+' / 100';syncGlobalControls('speed',$('scrollSpeed').value);queueLive('speed',{speed:$('scrollSpeed').value});};
 $('brightness').oninput=()=>{$('brightLabel').textContent=$('brightness').value+' %';$('v42SettingsBackup').appendChild($('v42BackupFooter'));
@@ -1475,6 +1480,7 @@ function rbSymRender(){
   let items,empty='';
   if(q.trim()){items=rbSymMatches(q);if(!items.length)empty='Kein Symbol gefunden.';}
   else if(rbSymTab==='__recent'){items=rbSymRecent().map(id=>RB_SYM_INFO.get(id));if(!items.length)empty='Noch keine Symbole benutzt.';}
+  else if(rbSymTab==='__all')items=SYMBOL_TABLE.map(e=>RB_SYM_INFO.get(e[0]));
   else items=SYMBOL_TABLE.map(e=>RB_SYM_INFO.get(e[0])).filter(i=>i.cat===rbSymTab);
   if(empty){const p=document.createElement('p');p.className='sym-empty';p.textContent=empty;root.append(p);return;}
   const grid=document.createElement('div');grid.className='symbol-grid';
@@ -1483,7 +1489,7 @@ function rbSymRender(){
 }
 const RB_SYM_CAT_ICON={Liebe:'heart',Tiere:'paw-print','Fahrzeuge & Weltall':'car',Natur:'leaf',Formen:'shapes',Essen:'utensils',Festival:'party-popper',Hinweise:'triangle-alert',Flaggen:'flag'};
 function rbSymTabs(){
-  const root=$('symTabs');root.replaceChildren();
+  const root=$('symTabs'),keep=root.scrollLeft;root.replaceChildren();
   const add=(key,label,icon)=>{
     const c=document.createElement('button');c.type='button';c.className='chip'+(key===rbSymTab&&!$('symSearch').value.trim()?' on':'');c.setAttribute('role','tab');
     c.dataset.tab=key;if(icon){c.dataset.rbIcon=icon;c.dataset.rbOnly=label?'0':'1';}
@@ -1492,13 +1498,20 @@ function rbSymTabs(){
     root.append(c);
   };
   add('__recent','','clock');
+  add('__all','Alle Symbole','layout-grid');
   for(const cat of RB_CATS)add(cat,cat.replace(' & Weltall',''),RB_SYM_CAT_ICON[cat]);
   rb43PaintIcons();
+  root.onscroll=rbSymTabFade;root.scrollLeft=keep;
+  const on=root.querySelector('.chip.on');if(on){const a=on.offsetLeft,b=a+on.offsetWidth;if(a<root.scrollLeft+30)root.scrollLeft=Math.max(0,a-30);else if(b>root.scrollLeft+root.clientWidth-30)root.scrollLeft=b-root.clientWidth+30;}
+  rbSymTabFade();
 }
+function rbSymTabFade(){const r=$('symTabs');if(!r)return;const max=r.scrollWidth-r.clientWidth;r.classList.toggle('fade-l',r.scrollLeft>4);r.classList.toggle('fade-r',max>4&&r.scrollLeft<max-4);}
+window.addEventListener('resize',()=>rbSymTabFade());
 function rbSymOpen(){
   $('symSearch').value='';$('symFlash').textContent='';$('symFlash').classList.remove('show');
   if(!rbSymTab||(rbSymTab==='__recent'&&!rbSymRecent().length))rbSymTab=rbSymRecent().length?'__recent':RB_CATS[0];
   rbSymTabs();rbSymRender();$('symbolCategories').scrollTop=0;
+  setTimeout(rbSymTabFade,0);setTimeout(rbSymTabFade,250);
 }
 function buildSymbolPicker(){
   $('symSearch').addEventListener('input',()=>{rbSymTabs();rbSymRender();});
@@ -1686,7 +1699,7 @@ function navigate(view){
  // Listen aus dem Speicher zeigen und nur bei Bedarf (aelter als 60 s) im Hintergrund auffrischen.
  if(view==='library'){renderLibrary();if(Date.now()-rbFresh.lib>60000)refreshLibrary();}
  if(view==='programs'){v42ShowPrograms();if(Date.now()-rbFresh.prog>60000)v42RefreshPrograms();}
- if(view==='animations'){animShowList();if(Date.now()-(rbFresh.anim||0)>60000)animRefresh();}else animStopAll();
+ if(view==='animations'){animShowList('grid');if(Date.now()-(rbFresh.anim||0)>60000)animRefresh();}else animStopAll();
 }
 document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
 $('editShortcuts').addEventListener('click',()=>{shortcutsEditing=!shortcutsEditing;const b=$('editShortcuts');b.setAttribute('aria-pressed',String(shortcutsEditing));b.classList.toggle('is-active',shortcutsEditing);b.dataset.rbIcon=shortcutsEditing?'pencil-off':'pencil';b.title=shortcutsEditing?'Bearbeitungsmodus beenden':'Kurzwahlen bearbeiten';b.setAttribute('aria-label',b.title);document.querySelectorAll('.shortcut').forEach(tile=>tile.classList.toggle('editing',shortcutsEditing));rb43PaintIcons();});
@@ -1749,10 +1762,12 @@ function rbOnMark(el){el.classList.toggle('on-board',!!rbOn&&rbOn.kind>0&&Number
 function rbOnTag(el,kind,id){
  if(!kind||!id){delete el.dataset.onKind;delete el.dataset.onId;el.classList.remove('on-board');const o=el.querySelector(':scope>.rb-on-badge');if(o)o.remove();return;}
  el.dataset.onKind=kind;el.dataset.onId=id;
- if(!el.querySelector(':scope>.rb-on-badge')){const b=document.createElement('span');b.className='rb-on-badge';
-  if(el.classList.contains('library-row')){b.title='auf der Tafel';b.setAttribute('role','img');b.setAttribute('aria-label','auf der Tafel');const ic=rb43Lucide('shield-check');if(ic)b.appendChild(ic);}   // Zeilen sind eng: Schild-Symbol statt Text
-  else b.textContent='auf der Tafel';
-  el.appendChild(b);}
+ if(!el.querySelector(':scope>.rb-on-badge')){
+  // 0.6.1.9: einheitlich ein Flugzeug (Lucide „plane“) in Mint. Listenzeilen: blankes Symbol links von den Pfeilen; Karten/Kacheln/Tasten: Punkt oben rechts.
+  const b=document.createElement('span');b.className='rb-on-badge';b.title='auf der Tafel';b.setAttribute('role','img');b.setAttribute('aria-label','auf der Tafel');
+  b.dataset.rbIcon='plane';b.dataset.rbOnly='1';   // gemalt vom Icon-Beobachter (rb43PaintIcons)
+  if(el.classList.contains('library-row')){const first=el.querySelector(':scope>button:not(.lib-pick)');if(first)el.insertBefore(b,first);else el.appendChild(b);}
+  else el.appendChild(b);}
  rbOnMark(el);
 }
 function rbOnApply(){document.querySelectorAll('[data-on-kind]').forEach(rbOnMark);}
@@ -1883,14 +1898,16 @@ function libraryMoveTo(id,to){const index=libraryItems.findIndex(x=>x.id===id);i
  const [it]=libraryItems.splice(index,1);libraryItems.splice(to,0,it);librarySelected=id;renderLibrary();rbFlashMoved(id);rbQueueMove('/api/library/move',id,to,refreshLibrary);}
 function libraryMove(id,dir){const index=libraryItems.findIndex(x=>x.id===id);if(index<0)return;libraryMoveTo(id,index+dir);}
 function libraryReadEditor(){const layout=Number($('scrollLayout').value);return {name:'',text:rbEncode('a'),line2:layout===1?rbEncode('b'):'',layout,color1:scrollColor,color2:scrollColor2,mode:2,favorite:0};}
-function libraryEditorIndicator(){const r=libraryItems.find(x=>x.id===libraryEditorId);$('libEditorInfo').textContent=r?'Bibliothekseintrag „'+r.name+'“ geöffnet · Aktualisieren überschreibt ihn; „Als neuen Eintrag speichern“ behält das Original.':'Ungespeicherter Entwurf – unabhängig von der Bibliothek.';v42EditorMode(v42EditorOrigin);}
+function libraryEditorIndicator(){v42EditorMode(v42EditorOrigin);}
 async function libraryOpenEditor(id){const data=await api('/api/library/get?id='+id);if(data.kind==='block'){if(blockDraftDirty&&!confirm('Ungespeicherten Blocktext durch die Bibliotheksvorlage ersetzen?'))return;libraryEditorId=0;libraryCurrentRecord=null;libraryEditorIndicator();await api('/api/block/load',{id});v42BlockEditorId=id;await refreshPages();blockDraftDirty=false;setTab('pages');navigate('editor');v42BlockEditorLabel();v42BlockSnapshot=JSON.stringify(pages);v42EditorMode('library');return;}libraryEditorId=data.id;libraryCurrentRecord=data;
  const rbDecA=rbDecode(data.text,Number(data.layout)),rbDecB=rbDecode(data.line2||'',Number(data.layout));$('scrollText').value=rbDecA.text;$('scrollLine2').value=rbDecB.text;$('scrollLayout').value=String(data.layout);
- scrollColor=Number(data.color1);scrollColor2=Number(data.color2);makeScrollSwatches();$('scrollLayout').dispatchEvent(new Event('change'));$('scrollText').dispatchEvent(new Event('input'));rbApplyDecoded('a',rbDecA);rbApplyDecoded('b',rbDecB);RBSX.scroll.rev=!!rbDecA.rev;rbRevUi();rbHReset();rbGrowAll();rbSaveDraftStyle();updateScrollCapacity();draw();libraryEditorIndicator();
+ scrollColor=Number(data.color1);scrollColor2=Number(data.color2);makeScrollSwatches();$('scrollLayout').dispatchEvent(new Event('change'));$('scrollText').dispatchEvent(new Event('input'));rbApplyDecoded('a',rbDecA);rbApplyDecoded('b',rbDecB);rbHReset();rbGrowAll();rbSaveDraftStyle();updateScrollCapacity();draw();libraryEditorIndicator();
  setTab('scroll');navigate('editor');v42EditorSnapshot=v42TextSnapshot();v42EditorMode('library');}
 
 /* ---- 0.6.1.8 WEB-14: Vorschau-Kasten der Bibliothek (nur Laptop-Breite). Lauftext läuft mit dem Tempo, Standbild steht, Blocktext blättert. ---- */
-var libPrev={id:0,rec:null,pages:null,x:W,t:0,page:0,pageAt:0,seq:0,cache:new Map(),last:0};
+var libPrev={id:0,rec:null,pages:null,x:W,t:0,page:0,pageAt:0,seq:0,cache:new Map(),last:0,rate:1};
+function libPrevRateIcon(){const b=$('libPrevSpeed');if(!b)return;b.dataset.rbIcon=libPrev.rate===1?'snail':libPrev.rate===2?'bird':'rabbit';b.title=libPrev.rate+'× Vorschaugeschwindigkeit';b.setAttribute('aria-label',b.title);}
+$('libPrevSpeed').onclick=()=>{libPrev.rate=libPrev.rate===1?2:libPrev.rate===2?4:1;libPrevRateIcon();};
 var libPrevOn=()=>activeView==='library'&&window.matchMedia('(min-width:1000px)').matches&&$('libPreview').offsetParent!==null;
 async function libPrevUpdate(){
  if(!$('libPreview'))return;const it=librarySelectedItem();
@@ -1901,23 +1918,23 @@ async function libPrevUpdate(){
  try{
   if(!rec){rec=await api('/api/library/get?id='+it.id);if(rec.kind==='block')rec.pages=(await api('/api/block/get?id='+it.id)).pages||[];libPrev.cache.set(it.id,rec);}
   if(my!==libPrev.seq)return;libPrev.rec=rec;libPrev.pages=rec.kind==='block'?rec.pages:null;libPrev.page=0;libPrev.pageAt=performance.now();libPrevShow(it);
- }catch(e){if(my===libPrev.seq){$('libPrevHint').textContent='Vorschau: '+e.message;$('libPrevHint').hidden=false;$('libPrevMeta').hidden=true;$('libPrevTempo').hidden=true;}}
+ }catch(e){if(my===libPrev.seq){$('libPrevHint').textContent='Vorschau: '+e.message;$('libPrevHint').hidden=false;$('libPrevMeta').hidden=true;$('libPrevSpeed').hidden=true;}}
 }
 var libPrevColorName=c=>(COLORS.find(x=>x[1]===Number(c))||['?'])[0];
 function libPrevShow(it){
  const meta=$('libPrevMeta'),hint=$('libPrevHint');
- if(!it||!libPrev.rec){meta.hidden=true;$('libPrevTempo').hidden=true;hint.hidden=false;hint.textContent=it?'Vorschau wird geladen …':'Wähle links einen Eintrag.';if(!it){const c=$('libPrevCanvas').getContext('2d');drawDots(c,8);}return;}
+ if(!it||!libPrev.rec){meta.hidden=true;$('libPrevSpeed').hidden=true;hint.hidden=false;hint.textContent=it?'Vorschau wird geladen …':'Wähle links einen Eintrag.';if(!it){const c=$('libPrevCanvas').getContext('2d');drawDots(c,8);}return;}
  const rec=libPrev.rec,block=rec.kind==='block',style=Number(rec.layout);
  hint.hidden=true;meta.hidden=false;
  $('libPrevName').textContent=it.name;
  $('libPrevKind').textContent=block?'Blocktext · '+(libPrev.pages?libPrev.pages.length:it.pages||0)+' Seiten':rec.mode===1?'Standbild':'Lauftext';
  let col;
  if(block)col='je Seite';
- else{const mk=/[\u0091-\u0097\u009d]/,marked=mk.test(rec.text||'')||mk.test(rec.line2||'');col=style===1?'Zeile 1: '+libPrevColorName(rec.color1)+' · Zeile 2: '+libPrevColorName(rec.color2):libPrevColorName(rec.color1);if(marked)col+=' (mit Zeichenfarben)';if(rbDecode(rec.text||'',style).rev)col+=' · umgekehrt';}
+ else{const mk=/[\u0091-\u0097\u009d]/,marked=mk.test(rec.text||'')||mk.test(rec.line2||'');col=style===1?'Zeile 1: '+libPrevColorName(rec.color1)+' · Zeile 2: '+libPrevColorName(rec.color2):libPrevColorName(rec.color1);if(marked)col+=' (mit Zeichenfarben)';}
  $('libPrevColor').textContent=col;
  const slots=(v42Shortcuts||[]).flatMap((x,k)=>x&&x.type===1&&x.id===it.id?[k+1]:[]);
  $('libPrevShort').textContent=slots.length?slots.map(k=>'Kurzwahl '+k).join(', '):'nicht belegt';
- $('libPrevTempo').hidden=block||rec.mode===1;
+ $('libPrevSpeed').hidden=!block&&rec.mode===1;libPrevRateIcon();
  rb43PaintIcons();
 }
 function libPrevFrame(now){
@@ -1925,21 +1942,19 @@ function libPrevFrame(now){
  const dt=Math.min(90,now-(libPrev.last||now));libPrev.last=now;
  if(rec.kind==='block'){
   const pg=libPrev.pages||[];if(!pg.length){drawDots(c,8);return;}
-  const cur=pg[libPrev.page%pg.length],hold=Math.min(4000,Math.max(1200,(Number(cur.duration)||2)*1000));
+  const cur=pg[libPrev.page%pg.length],hold=Math.min(4000,Math.max(1200,(Number(cur.duration)||2)*1000))/libPrev.rate;
   if(now-libPrev.pageAt>hold){libPrev.page=(libPrev.page+1)%pg.length;libPrev.pageAt=now;}
   drawPage(c,pg[libPrev.page%pg.length],8);return;
  }
  const style=Number(rec.layout),lines=style===1?[[rec.text,Number(rec.color1),0,[0,8]],[rec.line2||'',Number(rec.color2),8,[8,16]]]:[[rec.text,Number(rec.color1),rbTop(style),[0,16]]];
  const toks=lines.map(l=>rbPageLineTokens(l[0],l[1],style)),widths=toks.map(t=>rbTokenX(t).width),span=Math.max(W,...widths);
- const rev=!!rbDecode(rec.text,style).rev;
  let left;
  if(rec.mode===1){left=0;}   // Standbild: wie die Seiten, einzeilig mittig
- else{libPrev.x-=dt/1000*(4+Number($('scrollSpeed').value||80)*.26);if(libPrev.x<-span)libPrev.x=W;left=libPrev.x;}
+ else{libPrev.x-=dt/1000*(4+Number($('scrollSpeed').value||80)*.26)*libPrev.rate;if(libPrev.x<-span)libPrev.x=W;left=libPrev.x;}
  drawDots(c,8);
  lines.forEach((l,i)=>{
   const w=widths[i],inner=style===1?0:(rec.mode===1?Math.floor((W-Math.min(w,W))/2):(w<W?Math.floor((W-w)/2):0));
-  if(rev)rbRevDraw(c,toks[i],style,l[2],rec.mode===1?0:left,8,l[3],l[1],rec.mode!==1,style===1?Math.max(...widths):0);
-  else rbDrawTokens(c,toks[i],style,l[2],(rec.mode===1?0:left)+inner,8);
+  rbDrawTokens(c,toks[i],style,l[2],(rec.mode===1?0:left)+inner,8);
  });
 }
 setInterval(()=>{if(!libPrevOn())return;if(!libPrev.rec){libPrev.last=0;return;}libPrevFrame(performance.now());},40);
@@ -2063,9 +2078,7 @@ async function v42NewBlockDraft(ask=false){
  try{await api('/api/block/reset',{});v42BlockEditorId=0;blockDraftDirty=false;selected=0;await refreshPages();v42BlockSnapshot=JSON.stringify(pages);v42EditorMode('new');v42BlockEditorLabel();return true;}
  catch(e){notify('Blockeditor: '+e.message);return false;}
 }
-function v42BlockEditorLabel(){const saved=libraryItems.find(r=>r.id===v42BlockEditorId);
- $('v42BlockInfo').textContent=saved?'Bearbeite „'+saved.name+'“. Du kannst diesen Blocktext aktualisieren oder als neuen Eintrag speichern.':'Neuer Blocktext. Beim Speichern werden alle Seiten in LittleFS abgelegt.';
- v42EditorMode(v42EditorOrigin);}
+function v42BlockEditorLabel(){v42EditorMode(v42EditorOrigin);}
 $('v42NewBlock').onclick=async()=>{await v42NewBlockDraft(true);};
 
 $('v42ClearText').onclick=()=>{if(!confirm('Gesamten aktuellen Lauftext inklusive Symbole löschen?'))return;
@@ -2279,6 +2292,7 @@ const RB43_LUCIDE={
 'sunrise':'<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/>',
 'snail':'<path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/>',
 'rabbit':'<path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/>',
+'plane':'<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
 'plane-takeoff':'<path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/>',
 'copy':'<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
 'arrow-up':'<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
@@ -2390,13 +2404,10 @@ function rb43StaticIcons(){
    beim Öffnen aus der Bibliothek wieder in Felder zerlegt. Text ohne Marken (alle bisherigen Einträge) bleibt gültig. */
 /* v0.4.6.0: dasselbe Modell und Fenster auch für Blockseiten. Der Zustand liegt je Bereich getrennt (Lauftext/Seite);
    RBS.a und RBS.b zeigen immer auf den Bereich des gerade sichtbaren Editors (tab). */
-const RBSX={scroll:{rev:false,a:{chars:[],c:[],f:[]},b:{chars:[],c:[],f:[]}},page:{rev:false,a:{chars:[],c:[],f:[]},b:{chars:[],c:[],f:[]}}};
+const RBSX={scroll:{a:{chars:[],c:[],f:[]},b:{chars:[],c:[],f:[]}},page:{a:{chars:[],c:[],f:[]},b:{chars:[],c:[],f:[]}}};
 const rbIsPage=()=>tab==='pages';
 const rbCtxName=()=>rbIsPage()?'page':'scroll';
 const RBS={};
-/* ---- Umkehren (0.6.1.8): Tafel leuchtet in der Zeilenfarbe, Schrift ist aus. Im Text als Marke U+009E am Zeilenanfang,
-   dadurch je Seite einzeln umkehrbar und ohne neues Feld in Bibliothek, Kurzwahl und Programmen. ---- */
-const rbRev=()=>!!RBSX[rbCtxName()].rev;
 for(const k of ['a','b'])Object.defineProperty(RBS,k,{get:()=>RBSX[rbCtxName()][k],enumerable:true});
 const RB_FONT_NAMES=['Original Normal','Original Fett','Engschrift','Mini'];
 const RB_FONT_SHORT=['Normal','Fett','Engschrift','Mini'];
@@ -2456,11 +2467,10 @@ function rbSync(k){
   return true;
 }
 
-function rbSaveDraftStyle(){try{localStorage.setItem('rb440-style',JSON.stringify({a:{c:RBS.a.c,f:RBS.a.f},b:{c:RBS.b.c,f:RBS.b.f}}));localStorage.setItem('rb618-rev',RBSX.scroll.rev?'1':'0');}catch(e){}}
+function rbSaveDraftStyle(){try{localStorage.setItem('rb440-style',JSON.stringify({a:{c:RBS.a.c,f:RBS.a.f},b:{c:RBS.b.c,f:RBS.b.f}}));localStorage.removeItem('rb618-rev');}catch(e){}}
 function rbRestoreDraft(){
   for(const k of ['a','b']){const ch=codepoints(rbInput(k).value);RBS[k].chars=ch;RBS[k].c=Array(ch.length).fill(0);RBS[k].f=Array(ch.length).fill(-1);}
   try{
-    RBSX.scroll.rev=localStorage.getItem('rb618-rev')==='1';
     const d=JSON.parse(localStorage.getItem('rb440-style')||'null');
     if(d)for(const k of ['a','b']){
       const x=d[k],len=RBS[k].chars.length;
@@ -2472,7 +2482,7 @@ function rbRestoreDraft(){
 /* ---- Transport: Felder <-> Text mit Stilmarken ---- */
 function rbEncode(k){
   const s=rbInput(k).value,spans=rbSpans(s),st=RBS[k],base=rbBaseColor(k),twoLine=rbBaseLayout()===1;
-  let col=base,fnt=-1,out=rbRev()?'\u009e':'';
+  let col=base,fnt=-1,out='';
   for(let i=0;i<spans.length;i++){
     const sp=spans[i],icon=rbIsIcon(sp.ch),space=sp.ch===' ';let m='';
     if(icon){
@@ -2486,17 +2496,17 @@ function rbEncode(k){
   return out;
 }
 function rbDecode(enc,layout){
-  let col=0,fnt=-1,pend=false,rev=false,text='';const c=[],f=[];
+  let col=0,fnt=-1,pend=false,text='';const c=[],f=[];
   for(const ch of Array.from(enc||'')){
     const cp=ch.codePointAt(0);
     if(cp===0x9d){pend=true;continue;}
-    if(cp===0x9e){rev=true;continue;}
+    if(cp===0x9e)continue;   // 0.6.1.9: reserviert (frühere Funktion „Umkehren“), wird überlesen
     if(cp>=0x90&&cp<=0x9c){if(cp===0x90)col=0;else if(cp<=0x97)col=cp-0x90;else if(cp<=0x9b)fnt=layout===1?-1:cp-0x98;else fnt=-1;continue;}
     text+=ch;
     if(ch==='︎'||ch==='️')continue;
     c.push(rbSymColorable(ch)?(pend?col:0):col);f.push(fnt);pend=false;
   }
-  return {text,c,f,rev};
+  return {text,c,f};
 }
 function rbApplyDecoded(k,dec){
   const st=RBS[k];st.chars=codepoints(rbInput(k).value);
@@ -2524,17 +2534,7 @@ const rbLineWidth=k=>rbTokenX(rbTokens(k)).width;
 
 function rbDrawStyled(context,k,pitch,left){
   const bl=rbBaseLayout(),top=bl===1?(k==='a'?0:8):rbTop(bl);
-  if(rbRev()&&!rbz.open){rbRevDraw(context,rbTokens(k),bl,top,left,pitch,bl===1?(k==='a'?[0,8]:[8,16]):[0,16],rbBaseColor(k),!rbIsPage(),bl===1?Math.max(rbLineWidth('a'),rbLineWidth('b')):0);return;}
   rbDrawTokens(context,rbTokens(k),bl,top,left,pitch);
-}
-/* Umkehren in der Vorschau: Fläche in Zeilenfarbe, Schriftpixel dunkel. Lauftext: Fläche so breit wie das Bild (mind. 64 Spalten; einzeilig Text mittig, Mini zweizeilig links, beide Zeilen gleich breit). */
-function rbRevDraw(context,tokens,bl,top,left,pitch,rows,color,scroll,both){
-  const w=rbTokenX(tokens).width,lit=new Set();
-  const full=scroll?Math.max(w,both||0,W):W,inner=scroll&&bl!==1&&w<W?Math.floor((W-w)/2):0;
-  rbDrawTokens(context,tokens,bl,top,left+inner,pitch,(x,y)=>lit.add(y*W+x));
-  context.fillStyle=hexColor(color);
-  for(let x=scroll?Math.max(0,left):0;x<(scroll?Math.min(W,left+full):W);x++)for(let y=rows[0];y<rows[1];y++){
-    if(lit.has(y*W+x))continue;context.beginPath();context.arc((x+.5)*pitch,(y+.5)*pitch,pitch*.34,0,Math.PI*2);context.fill();}
 }
 function rbDrawTokens(context,tokens,bl,topBase,left,pitch,sink){
   let x0=left;
@@ -2556,8 +2556,8 @@ const rbHX={scroll:{stack:[],idx:-1,sig:'',watch:'',changedAt:0},page:{stack:[],
 const rbH={};
 for(const key of ['stack','idx','sig','watch','changedAt'])Object.defineProperty(rbH,key,{get:()=>rbHX[rbCtxName()][key],set:v=>{rbHX[rbCtxName()][key]=v;}});
 function rbHState(){
-  if(rbIsPage()){const p=pages[selected]||{};return {t:[$('line1').value,$('line2').value],a:{c:RBS.a.c.slice(),f:RBS.a.f.slice()},b:{c:RBS.b.c.slice(),f:RBS.b.f.slice()},sc:p.color1,sc2:p.color2,r:rbRev()};}
-  return {t:[$('scrollText').value,$('scrollLine2').value],a:{c:RBS.a.c.slice(),f:RBS.a.f.slice()},b:{c:RBS.b.c.slice(),f:RBS.b.f.slice()},sc:scrollColor,sc2:scrollColor2,r:rbRev()};}
+  if(rbIsPage()){const p=pages[selected]||{};return {t:[$('line1').value,$('line2').value],a:{c:RBS.a.c.slice(),f:RBS.a.f.slice()},b:{c:RBS.b.c.slice(),f:RBS.b.f.slice()},sc:p.color1,sc2:p.color2};}
+  return {t:[$('scrollText').value,$('scrollLine2').value],a:{c:RBS.a.c.slice(),f:RBS.a.f.slice()},b:{c:RBS.b.c.slice(),f:RBS.b.f.slice()},sc:scrollColor,sc2:scrollColor2};}
 function rbHReset(){const s=rbHState();rbH.stack=[s];rbH.idx=0;rbH.sig=JSON.stringify(s);rbH.watch=rbH.sig;rbH.changedAt=0;rbHButtons();}
 function rbHCommit(){
   const s=rbHState(),g=JSON.stringify(s);rbH.watch=g;
@@ -2584,14 +2584,14 @@ function rbHRestore(s){
     const p=pages[selected];if(!p)return;
     $('line1').value=s.t[0];$('line2').value=s.t[1];
     for(const k of ['a','b']){RBS[k].chars=codepoints(rbInput(k).value);RBS[k].c=s[k].c.slice();RBS[k].f=s[k].f.slice();}
-    RBSX.page.rev=!!s.r;rbRevUi();p.color1=s.sc;p.color2=s.sc2;rbPageStore(p);renderPageColors();changed();
+    p.color1=s.sc;p.color2=s.sc2;rbPageStore(p);renderPageColors();changed();
     rbH.sig=JSON.stringify(s);rbH.watch=rbH.sig;
     if(rbz.open)rbzRefresh();
     rbHButtons(rbH.sig);return;
   }
   $('scrollText').value=s.t[0];$('scrollLine2').value=s.t[1];
   for(const k of ['a','b']){RBS[k].chars=codepoints(rbInput(k).value);RBS[k].c=s[k].c.slice();RBS[k].f=s[k].f.slice();}
-  scrollColor=s.sc;scrollColor2=s.sc2;makeScrollSwatches();RBSX.scroll.rev=!!s.r;rbRevUi();
+  scrollColor=s.sc;scrollColor2=s.sc2;makeScrollSwatches();
   rbH.sig=JSON.stringify(s);rbH.watch=rbH.sig;
   try{localStorage.setItem('rb03-scroll-draft',s.t[0]);localStorage.setItem('rb032-scroll-line2',s.t[1]);}catch(e){}
   rbSaveDraftStyle();rbGrowAll();updateScrollCapacity();restartPreview();
@@ -2607,6 +2607,24 @@ function rbAfterChange(){
   if(rbz.open)rbzRefresh();
 }
 setInterval(rbHTick,250);
+/* ---- 0.6.1.9: Senden/Speichern bleiben inaktiv, solange die Eingabefelder leer sind ---- */
+function rbHasText(t){return String(t||'').replace(/[\u0080-\u009f]/g,'').trim()!=='';}
+function rbScrollHasText(){const mini=Number($('scrollLayout').value)===1;return rbHasText($('scrollText').value)||(mini&&rbHasText($('scrollLine2').value));}
+function rbPageHasText(i){
+  const p=pages[i];if(!p)return false;
+  if(i===selected){const mini=Number($('pageLayout').value)===1;return rbHasText($('line1').value)||(mini&&rbHasText($('line2').value));}
+  return rbHasText(p.line1)||(Number(p.layout)===1&&rbHasText(p.line2));
+}
+function rbEmptyGate(){
+  try{
+    const sc=rbScrollHasText(),cur=pages.length?rbPageHasText(selected):false;
+    let any=false;for(let i=0;i<pages.length&&!any;i++)any=rbPageHasText(i);
+    const set=(id,off)=>{const b=$(id);if(b&&b.disabled!==off)b.disabled=off;};
+    set('pageShow',!cur);set('v42SendDraftBand',!any);set('v42SaveBlock',!any);set('libSaveAs',!sc);
+    const exceeded=scrollCapacity().exceeded;set('sendScroll',exceeded||!sc);
+  }catch(e){}
+}
+setInterval(rbEmptyGate,250);rbEmptyGate();
 
 /* ---- Eingabefelder: wachsen mit dem Text, per Griff größer ziehbar (nur Lauftext) ---- */
 const rbFieldMax=()=>Math.max(160,Math.round(window.innerHeight*.6));
@@ -2644,29 +2662,6 @@ function rbWireFields(){
 }
 
 function rbHasOverrides(k){return RBS[k].c.some(Boolean)||RBS[k].f.some(x=>x>=0);}
-
-/* ---- Umkehren: Schalter, Sperren, Hinweise ---- */
-function rbRevBlockReason(){
-  for(const k of rbLines()){if(RBS[k].chars.some(ch=>rbIsIcon(ch)))return 'Symbole';}
-  for(const k of rbLines()){if(RBS[k].c.some(Boolean)||RBS[k].f.some(x=>x>=0))return 'Zeichen-Gestaltung (Einzelfarben oder -schriften)';}
-  return '';
-}
-function rbRevUi(){
-  const on=rbRev(),page=rbIsPage(),id=page?'P':'S',cb=$('rbRev'+id),hint=$('rbRevHint'+id);if(!cb)return;
-  cb.checked=on;
-  const reason=on?'':rbRevBlockReason();
-  hint.textContent=on?'Im Umkehr-Modus nicht verfügbar: Symbole und „Zeichen gestalten“. Eine Farbe für die ganze Fläche.':reason?'Zum Umkehren zuerst '+reason+' entfernen.':'';
-  hint.classList.toggle('hidden',!hint.textContent);
-  const scope=document.getElementById(page?'pagesEditor':'scrollEditor');
-  if(scope)scope.querySelectorAll('.symbol-open,.swatch-more').forEach(b=>{b.disabled=on;if(on)b.title='Im Umkehr-Modus nicht verfügbar';else if(b.classList.contains('swatch-more'))b.title='Zeichen gestalten';else b.title='Symbole einfügen';});
-}
-function rbRevToggle(want){
-  const reason=want?rbRevBlockReason():'';
-  if(want&&reason){notify('Umkehren geht nur ohne '+reason+'. Bitte zuerst entfernen.');rbRevUi();return;}
-  rbSnapshot();RBSX[rbCtxName()].rev=!!want;rbRevUi();
-  if(rbIsPage())rbAfterChange();else{rbSaveDraftStyle();updateScrollCapacity();restartPreview();rbHCommit();}
-}
-for(const id of ['S','P']){const cb=document.getElementById('rbRev'+id);if(cb)cb.addEventListener('change',()=>rbRevToggle(cb.checked));}
 
 /* ---- Hauptansicht: Palettenknopf, globale Farbe, globale Schrift ---- */
 function rbPaletteButton(id){
@@ -2729,7 +2724,7 @@ function rbzCommon(list,pick){
   for(const e of list){const x=pick(e);if(x===undefined)continue;if(v===undefined)v=x;else if(v!==x)return null;}
   return v===undefined?undefined:v;
 }
-const RBZ_COLOR_NOTE='Färbt Buchstaben und färbbare Symbole (Palette-Zeichen im Symbol-Menü). Bei den Augen färbt sich nur die Iris. Die Gesamtfarbe des Textes ändert Symbole nicht.';
+const RBZ_COLOR_NOTE='Färbt Buchstaben und färbbare Symbole.';
 function rbzPaint(){
   let n=0,total=0;
   for(const k of rbLines()){
@@ -2918,7 +2913,6 @@ async function rbzApplyFlow(){
   })();
   $('rbzClose').addEventListener('click',rbzClose);$('rbzDone').addEventListener('click',rbzClose);
   $('rbz').addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopPropagation();rbzClose();}});
-  $('rbzSend').addEventListener('click',()=>{(rbIsPage()?$('pageShow'):$('sendScroll')).click();});
   $('rbzAll').addEventListener('click',()=>{for(const k of rbLines()){rbz.sel[k]=new Set(RBS[k].chars.map((_,i)=>i));}rbzPaint();});
   $('rbzNone').addEventListener('click',()=>{rbz.sel={a:new Set(),b:new Set()};rbzPaint();});
   $('rbzUndo').addEventListener('click',rbUndo);$('rbzRedo').addEventListener('click',rbRedo);
@@ -3024,8 +3018,8 @@ function renderAnimList(){
  rbMultiPrune('anim',animUI.items.map(x=>x.id));const multi=rbMultiOn('anim');rbMultiBar('anim','animMultiBar','Animationen');const count=animUI.items.length;
  animUI.items.forEach((r,idx)=>{
   const row=document.createElement('div');row.className='library-row anim-row'+(animUI.selected===r.id?' selected':'')+(multi&&rbMulti.anim.has(r.id)?' multi':'');row.setAttribute('role','listitem');row.dataset.id=r.id;
-  const th=document.createElement('canvas');th.className='anim-thumb';th.setAttribute('aria-hidden','true');
-  try{animLed(th,r.broken?null:RbAnim.thumbPixels(RbAnim.b64uDec(r.thumb)),2);}catch(e){animLed(th,null,2);}
+  const th=document.createElement('canvas');th.className='anim-thumb';th.setAttribute('aria-hidden','true');th.dataset.thumbId=r.id;th.dataset.thumbScale=2;
+  animLed(th,r.broken?null:animThumbPx(r),2);
   const pick=document.createElement('button');pick.className='lib-pick';pick.type='button';pick.setAttribute('aria-pressed',String(animUI.selected===r.id||(multi&&rbMulti.anim.has(r.id))));
   const title=document.createElement('strong');title.className='lib-name';title.textContent=r.broken?'⚠ Beschädigte Datei #'+r.id:r.name;
   const info=document.createElement('small');info.textContent=r.broken?'Nur löschen möglich ('+animSizeText(r.bytes)+')':r.frames+' Frames · '+r.ms+' ms · '+animSizeText(r.bytes);
@@ -3044,41 +3038,70 @@ function renderAnimList(){
  animRenderGrid();
  rb43PaintIcons();
 }
-// ---- 0.6.1.8 ANM-26: Raster. Standard auf dem Handy; „Liste“ zeigt die bisherige Ansicht (Vorschau, Reihenfolge, Umbenennen, Löschen, Mehrfachauswahl).
+// ---- 0.6.1.9 ANM-27: Das Raster ist das Schnellmenü (Kachel wählen, Senden, Stift); der „Editor“ ist die bisherige Liste mit Vorschau,
+// Import, Umbenennen, Löschen und Reihenfolge. Über das Menü kommt man immer ins Raster; der Stift wechselt in den Editor.
 const animSecText=(frames,ms)=>(frames*ms/1000).toFixed(1).replace('.',',')+' s';
-function animViewGet(){try{return localStorage.getItem('rb618-anim-view')==='list'?'list':'grid';}catch(e){return 'grid';}}
-function animViewSet(v){try{localStorage.setItem('rb618-anim-view',v);}catch(e){}animViewApply();}
-function animViewApply(){
- const grid=animViewGet()==='grid',pane=$('animListPane');pane.classList.toggle('anim-view-grid',grid);
- const t=$('animViewToggle');t.dataset.rbIcon=grid?'list':'layout-grid';delete t.dataset.rbPainted;t.setAttribute('aria-label',grid?'Zur Listenansicht':'Zum Raster');
- const lab=[...t.childNodes].find(n=>n.nodeType===3);if(lab)lab.textContent=grid?'Liste':'Raster';else t.append(grid?'Liste':'Raster');
- if(grid&&animListPlayer)animListPlayer.set([],100);
- rb43PaintIcons();
+function animModeSet(m){
+ const pane=$('animListPane');pane.classList.toggle('anim-view-grid',m==='grid');
+ if(m==='grid'&&animListPlayer)animListPlayer.set([],100);
+ animGridSync();rb43PaintIcons();
 }
 async function animSendId(id){try{const j=await api('/api/anim/send',{id});notify(j.message);}catch(e){notify('Senden: '+e.message);}}
+function animGridSync(){const sel=animSelectedItem(),ok=!!sel&&!sel.broken&&animUI.ready;$('animGridSend').disabled=!ok;$('animGridEdit').disabled=false;}   // Stift wechselt immer in den Editor (mit Auswahl, wenn eine da ist)
+function animGridPick(id){
+ animUI.selected=animUI.selected===id?0:id;rbMulti.anim.clear();
+ document.querySelectorAll('#animGrid .anim-card').forEach(c=>{const on=Number(c.dataset.id)===animUI.selected;c.classList.toggle('selected',on);c.setAttribute('aria-pressed',String(on));});
+ animGridSync();
+}
 function animRenderGrid(){
  const grid=$('animGrid');grid.replaceChildren();
  if(!animUI.ready||!animUI.items.length){const p=document.createElement('p');p.className='empty-state';p.style.gridColumn='1/-1';
-  p.textContent=!animUI.ready?'Das Dateisystem ist noch nicht eingerichtet. Richte es zuerst in der Bibliothek ein; Animationen liegen im selben Dateisystem.':'Noch keine Animationen. Mit „Import“ ein GIF, Einzelbilder aus einem Bild oder ein Text-Raster importieren.';grid.appendChild(p);}
+  p.textContent=!animUI.ready?'Das Dateisystem ist noch nicht eingerichtet. Richte es zuerst in der Bibliothek ein; Animationen liegen im selben Dateisystem.':'Noch keine Animationen. Im Editor (Stift oben) mit dem Plus-Knopf ein GIF, Einzelbilder aus einem Bild oder ein Text-Raster importieren.';grid.appendChild(p);}
  for(const r of animUI.items){
-  const card=document.createElement('div');card.className='anim-card'+(r.broken?' broken':'');card.setAttribute('role','listitem');card.dataset.id=r.id;
-  const th=document.createElement('canvas');th.className='anim-card-thumb';th.setAttribute('aria-hidden','true');
-  try{animLed(th,r.broken?null:RbAnim.thumbPixels(RbAnim.b64uDec(r.thumb)),3);}catch(e){animLed(th,null,3);}
+  const card=document.createElement('div');card.className='anim-card'+(r.broken?' broken':'')+(animUI.selected===r.id?' selected':'');card.setAttribute('role','button');card.dataset.id=r.id;
+  card.setAttribute('aria-pressed',String(animUI.selected===r.id));card.tabIndex=r.broken?-1:0;
+  const th=document.createElement('canvas');th.className='anim-card-thumb';th.setAttribute('aria-hidden','true');th.dataset.thumbId=r.id;th.dataset.thumbScale=3;
+  animLed(th,r.broken?null:animThumbPx(r),3);
   const name=document.createElement('strong');name.className='anim-card-name';name.textContent=r.broken?'⚠ Beschädigte Datei #'+r.id:r.name;
-  const info=document.createElement('small');info.textContent=r.broken?'Nur in der Liste löschbar':r.frames+' Frames · '+animSecText(r.frames,r.ms);
-  const act=document.createElement('div');act.className='anim-card-actions';
-  const send=document.createElement('button');send.type='button';send.className='anim-card-send';send.dataset.rbIcon='plane-takeoff';send.textContent='Senden';send.disabled=!!r.broken;send.onclick=()=>animSendId(r.id);
-  const edit=document.createElement('button');edit.type='button';edit.className='anim-card-edit secondary';edit.dataset.rbIcon='pencil';edit.dataset.rbOnly='1';edit.title='Bearbeiten';edit.setAttribute('aria-label','Animation „'+(r.name||r.id)+'“ bearbeiten');edit.disabled=!!r.broken;
-  edit.onclick=()=>{animUI.selected=r.id;renderAnimList();$('animEdit').click();};
-  act.append(send,edit);card.append(th,name,info,act);
-  if(!r.broken)rbOnTag(card,4,r.id);
+  const info=document.createElement('small');info.textContent=r.broken?'Nur im Editor löschbar':r.frames+' Frames · '+animSecText(r.frames,r.ms);
+  card.append(th,name,info);
+  if(!r.broken){card.onclick=()=>animGridPick(r.id);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();animGridPick(r.id);}};rbOnTag(card,4,r.id);}
   grid.appendChild(card);
  }
+ animGridSync();
 }
-$('animViewToggle').onclick=()=>animViewSet(animViewGet()==='grid'?'list':'grid');
-$('animImport2').onclick=()=>$('animImport').click();
-animViewApply();
-async function animLoad(){const j=await api('/api/anim/list');rbFresh.anim=Date.now();animUI.ready=!!j.ready;animUI.items=j.items||[];animUI.free=j.free||0;animUI.total=j.total||0;animUI.limit=j.limit||40;animUI.loaded=true;return j;}
+$('animGridSend').onclick=async()=>{const it=animSelectedItem();if(it&&!it.broken)await animSendId(it.id);};
+$('animGridEdit').onclick=()=>{const it=animSelectedItem();animModeSet('editor');renderAnimList();if(it&&!it.broken)animSelect(it.id);};
+$('animBack').onclick=()=>{animModeSet('grid');renderAnimList();};
+animModeSet('grid');
+// ---- 0.6.1.9: Vorschaubilder einzeln holen und merken. Die Liste (/api/anim/list) enthält keine Bilder mehr (13 KB bei 22 Animationen
+// brachten den ESP32 im Hardwaretest 0.6.1.8 an den Rand des Speichers). Je höchstens drei Bilder pro Anfrage; gemerkt wird je ID
+// mit dem Stand der Animation (CRC, Frames, Zeit, Größe), im Speicher und (wenn möglich) im Browser-Speicher des Geräts.
+const ANIM_THUMB_KEY='rb619-athumb',ANIM_THUMB_BATCH=3,ANIM_THUMB_TRIES=80,ANIM_THUMB_WAIT_MS=450;
+var animThumbs=new Map(),animThumbBusy=false;
+try{const o=JSON.parse(localStorage.getItem(ANIM_THUMB_KEY)||'{}');for(const k of Object.keys(o)){const v=o[k];if(Array.isArray(v)&&typeof v[0]==='string'&&typeof v[1]==='string')animThumbs.set(Number(k),{stamp:v[0],b64:v[1],px:null});}}catch(e){}
+function animStamp(r){return (r.rev||'')+':'+r.frames+':'+r.ms+':'+r.bytes;}
+function animThumbEntry(r){const t=animThumbs.get(r.id);return t&&t.stamp===animStamp(r)?t:null;}
+function animThumbPx(r){const t=animThumbEntry(r);if(!t||!t.b64)return null;if(!t.px){try{t.px=RbAnim.thumbPixels(RbAnim.b64uDec(t.b64));}catch(e){t.px=null;}}return t.px;}
+function animThumbPaint(r){const px=animThumbPx(r);document.querySelectorAll('canvas[data-thumb-id="'+r.id+'"]').forEach(c=>animLed(c,px,Number(c.dataset.thumbScale)||2));}
+function animThumbSave(){try{const o={};for(const [id,t] of animThumbs)if(t.b64&&animUI.items.some(r=>r.id===id))o[id]=[t.stamp,t.b64];localStorage.setItem(ANIM_THUMB_KEY,JSON.stringify(o));}catch(e){}}
+async function animThumbsFetch(){
+ if(animThumbBusy)return;animThumbBusy=true;
+ try{
+  for(let tries=0;tries<ANIM_THUMB_TRIES;){
+   const miss=animUI.items.filter(r=>!r.broken&&!animThumbEntry(r));if(!miss.length)break;
+   const batch=miss.slice(0,ANIM_THUMB_BATCH);let j;
+   try{j=await api('/api/anim/thumb?ids='+batch.map(r=>r.id).join(','),null,true);}
+   catch(e){if(e.status===503||e.status===409||e.busy||/Speicher knapp/.test(e.message)){tries++;await new Promise(r=>setTimeout(r,ANIM_THUMB_WAIT_MS));continue;}break;}
+   for(const it of (j.items||[])){const r=animUI.items.find(x=>x.id===it.id);if(!r)continue;animThumbs.set(r.id,{stamp:animStamp(r),b64:String(it.thumb||''),px:null});animThumbPaint(r);}
+   for(const r of batch)if(!animThumbEntry(r))animThumbs.set(r.id,{stamp:animStamp(r),b64:'',px:null});   // nicht geliefert (z. B. beschädigt): nicht endlos wiederholen
+   animThumbSave();
+   await new Promise(r=>setTimeout(r,Number(j.heap)>0&&Number(j.heap)<ANIM_GET_LOW_HEAP?ANIM_GET_PAUSE_LOW_MS:ANIM_GET_PAUSE_MS));
+  }
+ }finally{animThumbBusy=false;}
+}
+function animBusy(d){animUI.busyN=Math.max(0,(animUI.busyN||0)+d);$('view-animations').classList.toggle('anim-busy',animUI.busyN>0);}
+async function animLoad(){const j=await api('/api/anim/list');rbFresh.anim=Date.now();animUI.ready=!!j.ready;animUI.items=j.items||[];animUI.free=j.free||0;animUI.total=j.total||0;animUI.limit=j.limit||40;animUI.loaded=true;animThumbsFetch();return j;}
 function animMove(id,dir){
  const i=animUI.items.findIndex(x=>x.id===id),to=i+dir;if(i<0||to<0||to>=animUI.items.length)return;
  const [it]=animUI.items.splice(i,1);animUI.items.splice(to,0,it);renderAnimList();
@@ -3118,10 +3141,11 @@ async function animSelect(id){
  const it=animSelectedItem();if(!it||it.broken)return;
  try{
   let c=animUI.cache.get(id);
-  if(!c||c.stamp!==it.bytes+':'+it.ms+':'+it.thumb.slice(0,24)){
+  if(!c||c.stamp!==animStamp(it)){
    info.classList.add('loading');info.textContent='Vorschau wird geladen …';
-   const u=RbAnim.unpackPayload((await animFetchPayload(id,(o,t)=>{if(animUI.selected===id)info.textContent='Vorschau wird geladen … '+Math.round(100*o/t)+' %';})).payload);
-   c={frames:u.frames,ms:u.ms,stamp:it.bytes+':'+it.ms+':'+it.thumb.slice(0,24)};animUI.cache.set(id,c);
+   animBusy(1);let u;   // 0.6.1.9: solange geladen wird, sind alle Knöpfe der Animationsansicht gesperrt
+   try{u=RbAnim.unpackPayload((await animFetchPayload(id,(o,t)=>{if(animUI.selected===id)info.textContent='Vorschau wird geladen … '+Math.round(100*o/t)+' %';})).payload);}finally{animBusy(-1);}
+   c={frames:u.frames,ms:u.ms,stamp:animStamp(it)};animUI.cache.set(id,c);
   }
   if(animUI.selected!==id)return;
   info.classList.remove('loading');
@@ -3129,7 +3153,11 @@ async function animSelect(id){
   info.textContent=c.frames.length+' Frames · '+c.ms+' ms je Frame · Schleife '+(c.frames.length*c.ms/1000).toFixed(1).replace('.',',')+' s'+(c.ms<16?' · Vorschau höchstens 16 ms je Frame':'');
  }catch(e){if(animUI.selected===id){info.classList.remove('loading');info.textContent='Vorschau: '+e.message;}}
 }
-function animShowList(){$('animListPane').classList.remove('hidden');$('animImportPane').classList.add('hidden');if(animImpPlayer)animImpPlayer.stop();renderAnimList();if(animUI.selected&&animListPlayer)animSelect(animUI.selected);}
+function animShowList(m){   // m: 'grid' (Schnellmenü, nach dem Menü-Klick) oder 'editor' (Standard: zurück aus Import/Bearbeiten)
+ if(m!=='grid'&&m!=='editor')m='editor';
+ $('animListPane').classList.remove('hidden');$('animImportPane').classList.add('hidden');if(animImpPlayer)animImpPlayer.stop();
+ animModeSet(m);renderAnimList();if(m==='editor'&&animUI.selected&&animListPlayer)animSelect(animUI.selected);
+}
 $('animSend').onclick=async()=>{const it=animSelectedItem();if(!it)return;try{const j=await api('/api/anim/send',{id:it.id});notify(j.message);}catch(e){notify('Senden: '+e.message);}};
 $('animRename').onclick=async()=>{const it=animSelectedItem();if(!it)return;const raw=await v42NamePrompt('Neuer Name',it.name);const name=raw===null?'':animBoundName(raw);if(!name||name===it.name)return;
  try{await api('/api/anim/rename',{id:it.id,name});await animRefresh();notify('Animation umbenannt.');}catch(e){notify('Umbenennen: '+e.message);}};
@@ -3164,6 +3192,7 @@ function animSetSources(kind,sources,delays,name,note){
  $('animFit').value=kind==='raster'&&first.width<=64&&first.height<=16?'orig':'contain';
  $('animDither').value=kind==='raster'?'thresh':'fs';
  $('animThr').value=128;$('animCon').value=0;animFitUi(true);
+ $('animPixelOpts').classList.toggle('hidden',kind==='raster');   // 0.6.1.9: Text-Raster ist 1:1 (64 × 16, Farben exakt): kein Rahmen, keine Voreinstellung, keine Farbumsetzung, keine Regler
  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(name)||'Animation');
  $('animSrcInfo').textContent=note||'';
  $('animAdjust').classList.remove('hidden');$('animImpSub').textContent=n+' Bilder geladen';
@@ -3403,8 +3432,12 @@ function animEditOpen(it,c){
 $('animEdit').onclick=async()=>{
  const it=animSelectedItem();if(!it||it.broken)return;
  try{
-  let c=animUI.cache.get(it.id);const stamp=it.bytes+':'+it.ms+':'+it.thumb.slice(0,24);
-  if(!c||c.stamp!==stamp){const u=RbAnim.unpackPayload((await animFetchPayload(it.id)).payload);c={frames:u.frames,ms:u.ms,stamp};animUI.cache.set(it.id,c);}
+  let c=animUI.cache.get(it.id);const stamp=animStamp(it);
+  if(!c||c.stamp!==stamp){
+   const info=$('animPreviewInfo');info.classList.add('loading');info.textContent='Animation wird geladen …';
+   animBusy(1);let u;
+   try{u=RbAnim.unpackPayload((await animFetchPayload(it.id,(o,t)=>{info.textContent='Animation wird geladen … '+Math.round(100*o/t)+' %';})).payload);}finally{animBusy(-1);info.classList.remove('loading');}
+   c={frames:u.frames,ms:u.ms,stamp};animUI.cache.set(it.id,c);}
   animShowImport();animEditOpen(it,c);
  }catch(e){notify('Bearbeiten: '+e.message);}
 };

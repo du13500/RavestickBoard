@@ -1,4 +1,4 @@
-# Third-party notices — RavestickBoard v0.6.1.8-dev
+# Third-party notices — RavestickBoard v0.6.1.9-dev
 
 ## Lucide Icons
 
@@ -83,3 +83,5 @@ reproduced here.
 ## Symbols (since v0.6.1.8)
 
 The 85 symbol bitmaps (16x16, seven colours) are pixel art supplied by the maintainer and kept as the project's own motifs (see `docs/QUELLEN_UND_LIZENZEN.md`, section "Symbole ab 0.6.1.8"). The flag bitmaps reproduce only the common colour sequences of the flags. Icons in `web/index.html` are Lucide icons (above), new in 0.6.1.8: `layout-grid`, `list`, `image-up`, `file-spreadsheet`, `file-up`, `check`, `minimize-2`, `maximize-2`, `shield-check`, `palette` and a few more taken verbatim from the Lucide repository.
+
+v0.6.1.9-dev adds no third-party material. The monkey (no. 9) and pig (no. 82) bitmaps were redrawn on 14.11.2026 as project artwork and adopted by the maintainer; the balloon (no. 59) is the former fan bitmap, renamed. The new Lucide path used for the "on the board" mark (`plane`) is taken from lucide.dev (ISC) like the other icons.

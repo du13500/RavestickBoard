@@ -370,6 +370,12 @@ Ergebnis: 70 Schritte in Ordnung, 13 nicht getestet, 9 ohne Eintrag. Behandelt i
 - **ANM-25 · P2** Frames durch Verschieben erzeugen (Idee vom 9.11.2026, für den Zeichen-Editor): Bereich oder Streifen pro Frame um n Pixel verschieben (oben, unten, seitlich), mit Umlauf; mehrere Streifen mit eigener Geschwindigkeit (z. B. Slot-Walzen). Entstanden aus dem Zeichnen von „Slots“ in Excel.
 - Weiter offen: SYS-14, SYS-15 (BLE-Hänger), WEB-A2, ANM-23 (J3).
 
+## Stand 0.6.1.9 (14.11.2026) – was gebaut ist und was offen bleibt
+
+- **Gebaut (Compile und Hardware offen):** schlanke Animationsliste mit Vorschau-Route und Zwischenspeicher (Stabilität), Markierung nach abgebrochener Übertragung gelöscht, MAC-Endungen in der Diagnose, ANM-26 neu gefasst (Raster = Schnellmenü, Liste = Editor mit Import, Sperre beim Laden), UI-16 „auf der Tafel“ als Punkt mit Flugzeug, Texteditor-Sperren bei leerem Feld und aufgeräumte Hinweise, Symbole (Heißluftballon, Äffchen, Schwein, „Schneeflocke weiß“, Reiter „Alle Symbole“, weicher Verlauf der Reiterzeile), WEB-14 Stufenknopf, Ambiente am Computer einspaltig.
+- **Verworfen:** „Umkehren“ (Textstil U+009E) – auf Wunsch von Felix im Hardwaretest von 0.6.1.8 komplett entfernt; U+009E bleibt nur als still ignorierte Marke.
+- **Offen:** Ursache der zwei WLAN-Clients bei einem Gerät (Endungen in der Diagnose auswerten); ob die Markierung „auf der Tafel“ in der Bibliothek bei Blocktexten, die ein Programm spielt, erscheint (nicht reproduzierbar); Rückmeldung zur DVD-Logo-Animation (danach als `assets/animationen/dvd_logo.txt` aufnehmen); SYS-15 (Bluetooth-Hänger); ob `/api/library` (etwa 1,7 s) ähnlich geschlankt werden muss (erst nach dem Hardwaretest messen).
+
 ## Stand 0.6.1.8 (14.11.2026) – was gebaut ist und was offen bleibt
 
 - **Gebaut (Compile und Hardware offen):** UI-16 „auf der Tafel“, UI-18 Import-Seite, UI-19 Symbol-Menü, ANM-26 Animations-Raster, WEB-14 Bibliotheks-Vorschau, SYM (85 eigene Symbole, Färbekanäle, Flaggen 16 × 12), „Umkehren“ (Textstil U+009E), aus dem Test von 0.6.1.7: A4, C1/Z3, C4 (nur Hinweis), Z4, Z5, Z1/Z2 (Vermutung), D4.
