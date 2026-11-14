@@ -17,6 +17,9 @@ struct File {
 };
 // 0.6.1.8: Attrappe fuer Preferences ("auf der Tafel" merkt sich Art und Nummer; im Hosttest ohne Wirkung)
 static void rbOnSet(uint8_t, uint32_t) {}   // 0.6.1.8: echte Fassung (NVS) steht hinter rbPhase im Sketch, ausserhalb des Testbereichs
+static void rbOnClear() {}   // 0.6.1.8: stehen im Sketch hinter rbPhase, ausserhalb des Testbereichs
+static void rbOnClearIf(uint8_t, uint32_t) {}
+static void rbOnPending(uint8_t, uint32_t) {}
 struct Preferences {
   bool begin(const char *, bool = false) { return false; }
   void end() {}

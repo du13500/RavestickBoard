@@ -165,9 +165,9 @@ static uint8_t rbOnKind = 0, rbPendKind = 0;
 static uint32_t rbOnId = 0, rbPendId = 0;
 static void rbOnLoad();     // Definition hinter RamStage/rbPhase (Arduino setzt die Prototypen vor die erste Funktion)
 static void rbOnSet(uint8_t kind, uint32_t id);
-static inline void rbOnClear() { rbOnSet(0, 0); }
-static inline void rbOnClearIf(uint8_t kind, uint32_t id) { if (rbOnKind == kind && rbOnId == id) rbOnClear(); }
-static inline void rbOnPending(uint8_t kind, uint32_t id) { rbPendKind = kind; rbPendId = id; }
+static void rbOnClear();    // Definitionen aller rbOn*-Funktionen stehen hinter RamStage/rbPhase
+static void rbOnClearIf(uint8_t kind, uint32_t id);
+static void rbOnPending(uint8_t kind, uint32_t id);
 static uint8_t rb60LastAck = 0xFF;       // Status der letzten gelesenen Antwort, 0xFF = keine/unlesbar
 static uint16_t rb60LastAckIndex = 0;
 static bool rb60AckStrict = false;       // nur Animationstest: Status != 0 macht sendPacket() falsch
@@ -255,6 +255,9 @@ static void rbOnSet(uint8_t kind, uint32_t id) {
   p.putUChar("k", kind); p.putUInt("i", id);
   p.end();
 }
+static void rbOnClear() { rbOnSet(0, 0); }
+static void rbOnClearIf(uint8_t kind, uint32_t id) { if (rbOnKind == kind && rbOnId == id) rbOnClear(); }
+static void rbOnPending(uint8_t kind, uint32_t id) { rbPendKind = kind; rbPendId = id; }
 static void rbPhase(const char *phase) {
   const uint32_t now = millis();
   rbBeat = now;

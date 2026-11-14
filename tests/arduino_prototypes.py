@@ -1,4 +1,5 @@
 """Emuliert die Prototyp-Erzeugung der Arduino-IDE: Alle Prototypen landen vor der ERSTEN Funktionsdefinition.
+Auch einzeilige Definitionen (`f() { ... }`) zaehlen als Funktion (Lehre aus 0.6.1.8).
 Jeder selbstdefinierte Typ, der in irgendeiner Funktionssignatur vorkommt, muss davor definiert (oder vorab deklariert) sein."""
 import re, sys
 from pathlib import Path
@@ -15,7 +16,7 @@ def check(text):
     funcs = []
     depth = 0
     for i, l in enumerate(lines):
-        if depth == 0 and l and not l[0].isspace() and not l.startswith(kw) and re.search(r'\)\s*(const\s*)?\{\s*(//.*)?$', l) and '(' in l and '=' not in l.split('(')[0]:
+        if depth == 0 and l and not l[0].isspace() and not l.startswith(kw) and (re.search(r'\)\s*(const\s*)?\{\s*(//.*)?$', l) or re.search(r'\)\s*(const\s*)?\{.*\}\s*(//.*)?$', l)) and '(' in l and '=' not in l.split('(')[0]:
             funcs.append((i, l))
         depth += l.count('{') - l.count('}')
     if not funcs: return ['keine Funktion gefunden']
