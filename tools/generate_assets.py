@@ -19,7 +19,7 @@ import base64, json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FW = ROOT / 'firmware' / 'RavestickBoard_v0_6_1_9' / 'RavestickBoard_Assets.h'
+FW = ROOT / 'firmware' / 'RavestickBoard_v0_6_1_10' / 'RavestickBoard_Assets.h'
 SRC = ROOT / 'assets' / 'symbole_0618.txt'
 WEB = ROOT / 'web' / 'index.html'
 PAL = {'.': 0, 'B': 1, 'G': 2, 'C': 3, 'R': 4, 'M': 5, 'Y': 6, 'W': 7}

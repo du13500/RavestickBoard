@@ -1,6 +1,12 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 14.11.2026 für v0.6.1.9-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 15.11.2026 für v0.6.1.10-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.10 – Bluetooth-Unterbau NimBLE, was zu messen ist (15.11.2026)
+
+- **Neu in der Diagnose:** In der START-AUFTEILUNG steht hinter „Sketch-Groesse …“ jetzt „BLE-Stack=NimBLE (Verbindungs-Timeout 7000 ms)“. Neue Meldung nur im Fehlerfall: „Benachrichtigungen konnten nicht angemeldet werden“ (Bereich BLE).
+- **Messen und vergleichen (0.6.1.9 mit Bluedroid):** START-AUFTEILUNG „Vor BLE-Init“ → „Nach BLE-Init“ (187.180 → 114.348 Byte, also etwa 73 KB), „Nach WLAN-AP“ (54.444 Byte), Leerlauf mit einem bzw. zwei Geräten (etwa 33 KB bzw. 28 KB), System-Minimum (160 Byte), Heap während der Übertragungen, Größe des Sketches (1.638.885 Byte; globale Variablen 84.016 Byte; 0.6.1.10 kompiliert mit 1.578.171 Byte und 88.800 Byte), Dauer der Animationen („Taxi long“, 11 Frames: 9,3 s; „flame“, 30 Frames: 20,7 s).
+- **Typische Fehlerbilder und ihre Zeilen:** Tafel nicht gesehen: „Vor-Scan: Tafel NICHT gesehen nach … ms“ (ohne Verbindungsversuch). Verbindung scheitert nach gesehener Tafel: „Verbindungsversuch fehlgeschlagen“, im Verdacht Adressart oder SYS-15; Phase `ble_connect`. MTU zu klein: „MTU ungueltig (…), Neuverbindung einmalig“. Keine Bestätigung: „keine Notification zum Paket …“.
 
 ## Diagnose-Ergänzung v0.6.1.9 – WLAN-Clients mit Endungen, Animationsliste im Test (14.11.2026)
 

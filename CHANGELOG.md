@@ -2,6 +2,17 @@
 
 # RavestickBoard · Versionsgeschichte / Changelog
 
+## v0.6.1.10-dev – Bluetooth-Unterbau: NimBLE statt Bluedroid (15.11.2026)
+
+- **Anlass:** Hardwaretest von 0.6.1.9 (kein ungeplanter Neustart, aber das System-Minimum fiel weiter auf 160 Byte; Bluedroid belegt nach dem Start etwa 73 KB) und Go von Felix am 15.11.2026 für einen Build **nur mit NimBLE** (Plan in `Plan_0.6.1.10_NimBLE`).
+- **Neu:** `RavestickBoard_Ble.h` bündelt alles, was von der NimBLE-Version abhängt (Rückruf-Typ, Scan starten, Verbinden mit Timeout, MTU abwarten, Benachrichtigungen anmelden). `RB_NIMBLE_V1` (Standard 0) schaltet auf NimBLE-Arduino 1.4.x um.
+- **Geändert im Sketch:** `BLEDevice`, `BLEClient`, `BLEScan`, `BLEAddress`, `BLEUUID`, `BLERemoteCharacteristic` und `registerForNotify` sind durch die NimBLE-Entsprechungen ersetzt (`subscribe`). Vor-Scan und Tafelsuche starten den Scan nicht blockierend und warten selbst; beim Treffer stoppt nicht mehr der Rückruf. Die Adressart der Tafel wird gemerkt und beim Verbinden mitgegeben. Die MTU wird bis zu 1,5 s abgewartet (asynchrone Aushandlung), bevor die einmalige Neuverbindung geprüft wird. Verbindungs-Timeout 7 s statt 10 s (NimBLE ab 2.5 versucht bis zu dreimal; 3 × 7 s < 25 s Wächter). Neu nur im Fehlerfall: „Benachrichtigungen konnten nicht angemeldet werden“; in der Diagnose die Zeile „BLE-Stack=NimBLE“.
+- **Unverändert:** Oberfläche, Bedienung, Abläufe, Meldungen; Vor-Scan-Meldungen, „MTU=…“-Zeile, Bestätigung je Paket mit Zeitgrenze, Abbruch-Logik (`rbTxDataStarted`), alle Auftragsarten, Hang-Wächter, Absturzspur, RAM-Phasen.
+- **Voraussetzung:** Bibliothek NimBLE-Arduino (h2zero, Apache-2.0) über den Bibliotheksverwalter; dort getestete Version notieren.
+- **Compile (15.11.2026, von Felix gemeldet):** der Sketch **kompiliert** mit NimBLE-Arduino. Sketch 1.578.171 Byte (75 %), globale Variablen 88.800 Byte (27 %) (0.6.1.9: 1.638.885 Byte und 84.016 Byte): rund 60 KB weniger Programm, etwa 4,8 KB mehr globale Variablen. Ob NimBLE zur Laufzeit Arbeitsspeicher spart, zeigt erst der Hardwaretest.
+- **Tests:** `host_scan_06110.py` und `host_sign_06110.py` (echter Sketch-Code mit echter Hilfsdatei gegen Attrappen der NimBLE-2.x-Klassen), `test_build_06110.py` (u. a. keine Bluedroid-Reste), übrige Tests aus 0.6.1.9 übernommen. **Nicht am Rechner möglich war:** Arduino-Compile und Hardware; der Compile gelang danach bei Felix (siehe oben), die Hardware ist offen.
+- **Beobachten auf der Hardware:** Speicher (START-AUFTEILUNG, System-Minimum), Verbindungsaufbau und Vor-Scan, MTU, Abbruch mitten in der Übertragung, SYS-15 (Verbindungsfehler direkt nach dem Vor-Scan).
+
 ## v0.6.1.9-dev – Stabilität zuerst: schlanke Animationsliste, Raster als Schnellmenü, „auf der Tafel“ neu, Texteditor, Symbole (14.11.2026)
 
 - **Anlass:** Hardwaretest von 0.6.1.8 (14.11.2026: 54 Schritte in Ordnung, 2 nicht in Ordnung; Excel, Seriallog mit 12.167 Zeilen, RAM- und HTTP-Export, Wunschliste, zwei Mockups) und Go von Felix am selben Tag („gern alles zusammen in 0619“, Reihenfolge: Stabilität zuerst, dann Oberfläche). Compile von 0.6.1.8 sauber (1.636.691 Byte, 78 %). **Nicht gemacht:** Arduino-Compile, Hardware, Safari. Alles Weitere wurde am Rechner geprüft (siehe Tests).

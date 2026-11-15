@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.9.md`](TESTPLAN_v0.6.1.9.md) (Stabilität der Animationsliste und Vorschaubilder, Raster als Schnellmenü und Liste als Editor, abgebrochene Übertragung und „auf der Tafel“, Texteditor, Symbole, Bibliotheks-Vorschau, Ambiente, WLAN-Clients; als Excel `RavestickBoard_Hardwaretest_v0.6.1.9.xlsx`). Vorgänger: [`archive/TESTPLAN_v0.6.1.8.md`](archive/TESTPLAN_v0.6.1.8.md).
+> **Neuester Testplan:** [`TESTPLAN_v0.6.1.10.md`](TESTPLAN_v0.6.1.10.md) (Bluetooth-Unterbau NimBLE: Speicher, Verbinden und Vor-Scan, Senden jeder Auftragsart, Abbruch, Dauerlauf; als Excel `RavestickBoard_Hardwaretest_v0.6.1.10.xlsx`). Der Plan von 0.6.1.9 liegt in [`archive/TESTPLAN_v0.6.1.9.md`](archive/TESTPLAN_v0.6.1.9.md).
 
 ## Ergänzung v0.3.5
 

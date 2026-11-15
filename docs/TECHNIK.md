@@ -1,3 +1,15 @@
+## Technischer Nachtrag v0.6.1.10: Bluetooth-Unterbau NimBLE (15.11.2026)
+
+**Stand:** im Quellcode vorhanden; am Rechner geprüft mit `tests/host_scan_06110.py` und `tests/host_sign_06110.py` (echter Sketch-Code und echte Hilfsdatei gegen eine Attrappe der NimBLE-2.x-Klassen in `tests/host/nimble/`) und `tests/test_build_06110.py`. Der **Arduino-Compile gegen die echte Bibliothek gelang** (15.11.2026, Felix); der **Hardwaretest steht aus.**
+
+- **Bibliothek:** NimBLE-Arduino (h2zero, Apache-2.0), Bibliotheksverwalter. Standard ist Version 2.x; `#define RB_NIMBLE_V1 1` vor dem Include schaltet die Hilfsdatei auf 1.4.x. Die Bluedroid-Includes (`BLEDevice.h` usw.) und alle `BLE…`-Typen sind aus dem Sketch entfernt (Build-Test).
+- **Hilfsdatei `RavestickBoard_Ble.h`:** `RbScanCallbacksBase`/`RbAdvArg` (Rückruf-Basisklasse und Parametertyp je Version), `rbBleScanConfig` (Rückrufe, aktiv/passiv, Intervall 100, Fenster 99, `setMaxResults(0)`: nur Rückrufe, keine Ergebnisliste), `rbBleScanBegin` (nicht blockierend; 2.x in ms, 1.4.x in Sekunden), `rbBleScanWait` (wartet höchstens Dauer + 1,5 s oder bis der Treffer-Merker gesetzt ist, stoppt dann selbst), `rbBleAddress` (Adresse + Adressart), `rbBleConnect` (Timeout `RB_BLE_CONNECT_MS` 7000 ms), `rbBleWaitMtu` (bis zu 1,5 s auf MTU ≥ `DATA_CHUNK + 32` warten), `rbBleSubscribe` (ersetzt `registerForNotify`).
+- **Adressart:** NimBLE verbindet nur mit der richtigen Adressart (0 = public, 1 = random). Sie kommt aus `dev->getAddressType()` im Vor-Scan bzw. in der Tafelsuche (`bleSignAddrType`). Ohne Treffer gilt public. *Risiko:* Wird die Tafel nie gehört (Ergebnis „ohne Aussage“) und nutzt sie random, scheitert das Verbinden.
+- **Verbindungs-Timeout:** 7 s statt 10 s, weil NimBLE ab 2.5 einen fehlgeschlagenen Verbindungsaufbau selbst bis zu zweimal wiederholt (3 × 7 s = 21 s < `RB_HANG_RESTART_MS` 25 s). Ältere 2.x-Stände wiederholen nicht.
+- **MTU:** `NimBLEDevice::setMTU(247)` vor dem Verbinden; die Aushandlung läuft asynchron, daher wird in `rbBleWaitMtu` gewartet, bevor die einmalige Neuverbindung bei ungültiger MTU geprüft wird. Die Zeile `MTU=… Text-Payload=… Pakete=…` bleibt.
+- **Scan-Rückruf:** setzt nur Merker (`scanSignSeen`, `scanAnyAdv`, `scanRssiRaw`, `bleSignAddrType`); `stop()` wird nie aus dem Rückruf aufgerufen (in älteren 2.x-Ständen riskant).
+- **Unverändert:** Bestätigung je Paket (Benachrichtigung, Zeitgrenze), Abbruch-Logik und `rbTxDataStarted`, Hang-Wächter, Absturzspur, RAM-Phasen, alle Auftragsarten, Web-Oberfläche und alle HTTP-Routen.
+
 ## Technischer Nachtrag v0.6.1.9: schlanke Animationsliste, Vorschau-Route, Abbruch-Merker, Stationsendungen (14.11.2026)
 
 **Stand:** im Quellcode vorhanden und am Rechner geprüft (Hosttest `tests/host_animfs_0619.py` mit dem echten Code aus `RavestickBoard_Anim.h`, Chromium, Render-Parität). Arduino-Compile und Hardware offen.
