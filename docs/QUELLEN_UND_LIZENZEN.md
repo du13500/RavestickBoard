@@ -47,3 +47,9 @@ Wir haben Adam Schulz am 23.10.2026 um eine Erlaubnis zur Einbeziehung geeignete
 Wir dokumentieren für zusätzliche Quellen künftig URL/Urheber/Lizenzstand, konkrete Verwendung und ggf. abweichende Nutzungsbedingungen. Externe Beiträge nehmen wir erst dann unter MIT an, wenn deren Weiterlizenzierung geklärt ist. Bei eigenen Copyright-Hinweisen und der Verteilung der Software erhalten wir die MIT-Hinweise.
 
 Unsere Diagnoseexports enthalten bewusst keine persönlichen Texte, WLAN-Zugangsdaten oder Bluetooth-Geräteadressen. Das derzeit im Quelltext enthaltene Standard-WLAN-Passwort gilt als öffentliche Beispielkonfiguration und sollte vor einem breiteren Einsatz angepasst werden.
+
+## Bibliotheken, die der Sketch nutzt, aber nicht ausliefert (seit 0.6.1.10)
+
+- **NimBLE-Arduino** von h2zero (https://github.com/h2zero/NimBLE-Arduino), Apache-2.0, aufbauend auf **Apache Mynewt NimBLE** (https://github.com/apache/mynewt-nimble), Apache-2.0. Installation über den Arduino-Bibliotheksverwalter, Version 2.x; die getestete Version steht im CHANGELOG, sobald Felix sie gemeldet hat. Es wird kein Quelltext der Bibliothek in dieses Repository kopiert; `RavestickBoard_Ble.h` ruft nur ihre öffentliche Schnittstelle auf. Wer eine fertige Firmware-Binärdatei weitergibt, die die Bibliothek enthält, muss den Apache-2.0-Lizenztext und die Hinweise der Bibliothek beilegen. Eine solche Weitergabe gibt es derzeit nicht (nur Quelltext).
+- **Arduino-ESP32** (Espressif, Boardpaket 3.3.12): WLAN, Webserver, Preferences, LittleFS und die übrigen Kernfunktionen; wird in der Arduino IDE installiert und nicht mitgeliefert.
+- Danksagung in der README: Adam Schulz (OpenSign) und h2zero (NimBLE-Arduino).
