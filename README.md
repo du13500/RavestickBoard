@@ -11,7 +11,7 @@ Entstanden aus einer Festival-Banane und dem Wunsch, mehr aus der ursprüngliche
 <img alt="Mission" src="https://img.shields.io/badge/mission-hugs%20and%20love-ff69b4">
 </p>
 
-> **Aktueller Entwicklungskandidat: v0.6.1.10-dev (15.11.2026).** *Neu gegenüber 0.6.1.9:* **nur der Bluetooth-Unterbau.** Die Firmware spricht jetzt per **NimBLE** (Bibliothek *NimBLE-Arduino* von h2zero) mit der Tafel statt per Bluedroid, um Arbeitsspeicher zu sparen. Oberfläche, Bedienung und Abläufe bleiben unverändert. **Kompiliert** (1.578.171 Byte, 75 %; globale Variablen 88.800 Byte, 27 %); der ausführliche Hardwaretest steht noch aus. *Vor dem Flashen:* Bibliothek NimBLE-Arduino installieren (siehe Installation). 0.6.1.9 bleibt die Rückfallversion.
+> **Aktueller Entwicklungskandidat: v0.6.1.10-dev (15.11.2026).** *Neu gegenüber 0.6.1.9:* **nur der Bluetooth-Unterbau.** Die Firmware spricht jetzt per **NimBLE** (Bibliothek *NimBLE-Arduino* von h2zero) mit der Tafel statt per Bluedroid, um Arbeitsspeicher zu sparen. Oberfläche, Bedienung und Abläufe bleiben unverändert. **Kompiliert** (1.578.171 Byte, 75 %; globale Variablen 88.800 Byte, 27 %); der Hardwaretest (iPhone, Safari, echte Tafel) ist bestanden, siehe unten. *Vor dem Flashen:* Bibliothek NimBLE-Arduino installieren (siehe Installation). 0.6.1.9 bleibt die Rückfallversion.
 
 ## Was ist RavestickBoard?
 
@@ -22,7 +22,7 @@ Das iPhone oder ein anderer Browser verbindet sich mit dem WLAN `RavestickBoard`
 Die Hersteller-App läuft auf einem Handy und hält die Bluetooth-Verbindung selbst. RavestickBoard verlegt das auf einen kleinen ESP32 an der Tafel und bietet dafür mehr:
 
 - **Keine App, kein Bluetooth am Handy:** Jeder Browser im WLAN `RavestickBoard` genügt, auch der Laptop; zwei Geräte gleichzeitig. Alles läuft offline.
-- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert sie.
+- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert Bibliothek, Programme und Kurzwahlen (Animationen sind darin noch nicht enthalten).
 - **Schnell bei der Veranstaltung:** acht Kurzwahl-Kacheln, Programme, die Einträge nacheinander oder als Laufband abspielen, Ambiente-Farben auf Fingertipp.
 - **Mehr Gestaltung:** Farbe und Schrift **pro Zeichen**, Original-Schriften, Engschrift und Mini (ein- oder zweizeilig), **85 eigene Symbole** mit Suche, Blocktexte mit bis zu 40 Seiten.
 - **Eigene Animationen:** GIF, Einzelbilder aus einem Bild oder Text-Raster importieren, zuschneiden, auf die sieben LED-Farben bringen, speichern und senden.
@@ -48,13 +48,14 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 ## Aktuell: v0.6.1.10-dev – Bluetooth-Unterbau NimBLE statt Bluedroid
 
 - **Neu:** Scannen, Verbinden, MTU, Schreiben und die Bestätigung je Paket laufen über **NimBLE-Arduino** (h2zero, Apache-2.0). Alles Versionsabhängige steht in der neuen Datei `RavestickBoard_Ble.h` (acht Dateien im Sketch-Ordner). Reihenfolge, Zeiten und Meldungen des Sendens bleiben wie in 0.6.1.9.
-- **Anlass:** Bluedroid belegte nach dem Start etwa 73 KB; im Test von 0.6.1.9 lag das System-Minimum bei nur 160 Byte. Wie viel NimBLE tatsächlich frei macht, zeigt der Hardwaretest.
+- **Anlass:** Bluedroid belegte nach dem Start etwa 73 KB; im Test von 0.6.1.9 lag das System-Minimum bei nur 160 Byte. Gemessen im Hardwaretest: Der Bluetooth-Start kostet jetzt rund 64 KB statt 73 KB, es werden also nur etwa 9 KB frei. Das System-Minimum fiel im Test mit zwei Geräten trotzdem bis auf rund 3 KB; das eigentliche Speicherproblem liegt bei großen Antworten und WLAN-Puffern und wird in 0.6.1.11 angegangen.
 - **Kompiliert:** 1.578.171 Byte (75 %, 0.6.1.9: 1.638.885), globale Variablen 88.800 Byte (27 %, 0.6.1.9: 84.016).
 - **Kleine Anpassungen:** Adressart der Tafel aus dem Scan, MTU wird abgewartet, Verbindungs-Timeout 7 s (NimBLE ab 2.5 wiederholt Verbindungen selbst), kein `stop()` im Scan-Rückruf. Details in [`docs/TECHNIK.md`](docs/TECHNIK.md).
 - **Notausgang:** `#define RB_NIMBLE_V1 1` vor dem Include schaltet auf NimBLE-Arduino 1.4.x.
 - **Nicht in diesem Stand:** Play-Taste, Heap-Schutz für große Antworten, Kleinkram (kommen mit 0.6.1.11, siehe [Roadmap](docs/ROADMAP.md)).
 - **Entwicklungsschalter:** `RB_TEST_HANG` steht noch auf 1 (Test-Auslöser `/api/test/hang`); für eine Freigabe auf 0 setzen.
-- **Offen:** Hardwaretest 0.6.1.10 (Verbinden, Senden jeder Auftragsart, Speicher), JSON-Backup (K2) und WLAN-Beobachtung (J3, J4) aus 0.6.1.9, SYS-15 (Bluetooth-Hänger).
+- **Hardwaretest bestanden (16.11.):** 37 von 37 Verbindungen gelungen (Aufbau meist unter 0,5 s), alle Auftragsarten gesendet, Zeiten wie in 0.6.1.9, 23 Minuten Dauerlauf ohne ungeplanten Neustart, Hänger-Wächter greift sauber, JSON-Backup (K2) in Ordnung. Getestet mit NimBLE-Arduino 2.5.2 und Arduino-ESP32 3.3.12.
+- **Offen:** zweite Tafel (C7), Programm-Synchronisation (D9), WLAN-Beobachtung, SYS-15 (Bluetooth-Hänger). Die Reviews zu diesem Stand (zwei KI-gestützte Audits) sind ausgewertet und fließen in 0.6.1.11 ein.
 
 ## Frühere Versionen im Überblick
 
@@ -92,7 +93,7 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 - **Hardwaretest 0.6.1.10:** [Testplan](docs/TESTPLAN_v0.6.1.10.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.6.1.10.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
 - **Älter:** [Bibliotheksformat](docs/archive/BIBLIOTHEK_v0.4.1.md), [letzte ausführliche Installationsanleitung](docs/archive/INSTALLATION_v0.4.2.4.1.md)
 
-**Teststand v0.6.1.10 (Tests mit Endung `06110`):** Entscheidungslogik von Vor-Scan und Tafelsuche läuft mit dem echten Sketch-Code und der echten Hilfsdatei `RavestickBoard_Ble.h` gegen eine Attrappe der NimBLE-Klassen; dazu Build-, Browser-, Parität- und Hosttests wie in 0.6.1.9 (Einzelheiten und frühere Stände: [tests/README.md](tests/README.md)). Der Sketch **kompiliert** mit NimBLE-Arduino; **Hardware, iPhone und Safari sind noch nicht geprüft.**
+**Teststand v0.6.1.10 (Tests mit Endung `06110`):** Entscheidungslogik von Vor-Scan und Tafelsuche läuft mit dem echten Sketch-Code und der echten Hilfsdatei `RavestickBoard_Ble.h` gegen eine Attrappe der NimBLE-Klassen; dazu Build-, Browser-, Parität- und Hosttests wie in 0.6.1.9 (Einzelheiten und frühere Stände: [tests/README.md](tests/README.md)). Der Sketch **kompiliert** mit NimBLE-Arduino und wurde auf echter Hardware mit iPhone, Safari und Tafel getestet (siehe oben).
 
 ## Mitmachen und Sicherheit
 
@@ -108,7 +109,7 @@ RavestickBoard ist eine eigenständige C++-/HTML-/JavaScript-Implementierung. Di
 
 **Danksagung:** Besonderer Dank an **Adam Schulz**, [OpenSign](https://github.com/schulzad/coolled-sign-controller), für den freundlichen Austausch und die technischen Hinweise zu nativer Animation (`0x04`) und BLE-Bestätigungen. Adam hat uns per E-Mail ausdrücklich erlaubt, seine Arbeit zu nutzen, zu verändern und zu portieren, und weitere Hinweise gegeben (Datenlimit, Ablauf der Bestätigungen, Zeit je Frame). Auf diesen Erkenntnissen und dem dokumentierten Format beruht der Animationstest ab 0.6.0.0. Der Code dafür ist **eigenständig geschrieben, kein OpenSign-Code wurde übernommen**; Nutzdaten und Paketierung wurden lokal gegen OpenSigns Kodierer abgeglichen (byte-identisch). OpenSign steht inzwischen unter der MIT-Lizenz (Copyright © 2026 Adam Schulz); bei einer späteren Codeübernahme bleibt der Hinweis zu erhalten, siehe [`docs/QUELLEN_UND_LIZENZEN.md`](docs/QUELLEN_UND_LIZENZEN.md).
 
-Ebenfalls herzlichen Dank an **h2zero (Ryan Powell)** und alle Mitwirkenden von **[NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino)**, die den schlanken Bluetooth-Stack der Apache-**[Mynewt-NimBLE](https://github.com/apache/mynewt-nimble)**-Bibliothek für Arduino nutzbar machen. Seit 0.6.1.10 steckt unsere gesamte Bluetooth-Verbindung zur Tafel darauf; sie schafft im knappen Arbeitsspeicher des ESP32-C3 den Platz, den das Projekt dringend braucht. NimBLE-Arduino steht unter der Apache-Lizenz 2.0 und wird **nicht** mit diesem Repository ausgeliefert, sondern über den Arduino-Bibliotheksverwalter installiert.
+Ebenfalls herzlichen Dank an **h2zero** und alle Mitwirkenden von **[NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino)**, die den schlanken Bluetooth-Stack der Apache-**[Mynewt-NimBLE](https://github.com/apache/mynewt-nimble)**-Bibliothek für Arduino nutzbar machen. Seit 0.6.1.10 steckt unsere gesamte Bluetooth-Verbindung zur Tafel darauf; sie schafft im knappen Arbeitsspeicher des ESP32-C3 den Platz, den das Projekt dringend braucht. NimBLE-Arduino steht unter der Apache-Lizenz 2.0 und wird **nicht** mit diesem Repository ausgeliefert, sondern über den Arduino-Bibliotheksverwalter installiert.
 
 **Bausteine von anderen, die RavestickBoard nutzt:**
 
