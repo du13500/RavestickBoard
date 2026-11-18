@@ -1,6 +1,6 @@
 # RavestickBoard · Quellen, Lizenzumfang und Rechte
 
-**Aktueller Stand: 15.11.2026 (v0.6.1.10-dev; Funktionsübersicht: `FUNKTIONEN.md`; neu: Bibliothek NimBLE-Arduino von h2zero, Apache-2.0, nicht im Repository, siehe `THIRD_PARTY_NOTICES.md`) · Seit 0.6.1.8 sind die Symbole eigene Pixelgrafiken (siehe Abschnitt „Symbole ab 0.6.1.8“). Projektcode unter MIT. Die neun Beispiel-Animationen unter `assets/animationen/` (seit 0.6.1.6) sind eigene Gestaltung, mit `tools/beispiel_animationen.py` erzeugt, ebenfalls MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
+**Aktueller Stand: 17.11.2026 (v0.6.1.11-dev; keine neuen Abhängigkeiten gegenüber 0.6.1.10; getestet mit NimBLE-Arduino 2.5.2; Funktionsübersicht: `FUNKTIONEN.md`; neu: Bibliothek NimBLE-Arduino von h2zero, Apache-2.0, nicht im Repository, siehe `THIRD_PARTY_NOTICES.md`) · Seit 0.6.1.8 sind die Symbole eigene Pixelgrafiken (siehe Abschnitt „Symbole ab 0.6.1.8“). Projektcode unter MIT. Die neun Beispiel-Animationen unter `assets/animationen/` (seit 0.6.1.6) sind eigene Gestaltung, mit `tools/beispiel_animationen.py` erzeugt, ebenfalls MIT. Seit 0.6.1.0 enthält die Weboberfläche einen **selbst geschriebenen GIF-Decoder** und Bildumwandlungen (kein Fremdcode; als Prüfreferenz dienen Pillow und der `ImageDecoder` von Chromium nur im Test, nicht im Produkt).** Diese Übersicht trennt von uns lizenzierbare Bestandteile, fremde Werke und technische Gerätefakten. Sie ersetzt keine individuelle rechtliche Prüfung.
 
 ## MIT ab v0.4.0-dev
 
@@ -48,8 +48,12 @@ Wir dokumentieren für zusätzliche Quellen künftig URL/Urheber/Lizenzstand, ko
 
 Unsere Diagnoseexports enthalten bewusst keine persönlichen Texte, WLAN-Zugangsdaten oder Bluetooth-Geräteadressen. Das derzeit im Quelltext enthaltene Standard-WLAN-Passwort gilt als öffentliche Beispielkonfiguration und sollte vor einem breiteren Einsatz angepasst werden.
 
+## Beispiel-Animation „DVD-Logo“ (seit 0.6.1.11)
+
+`assets/animationen/dvd_logo.txt`, `dvd_logo_ecke_unten_rechts.txt` und `dvd_logo_ohne_ecke.txt` zeigen eine eigene 11 × 6-Pixel-Zeichnung der Buchstaben „DVD“ (Vorlage von Felix, erzeugt mit `tools/beispiel_animationen.py`) als Anspielung auf den bekannten springenden Bildschirmschoner. Es ist nicht das offizielle Logo; „DVD“ ist eine Marke ihres Inhabers, RavestickBoard steht in keiner Verbindung dazu.
+
 ## Bibliotheken, die der Sketch nutzt, aber nicht ausliefert (seit 0.6.1.10)
 
-- **NimBLE-Arduino** von h2zero (https://github.com/h2zero/NimBLE-Arduino), Apache-2.0, aufbauend auf **Apache Mynewt NimBLE** (https://github.com/apache/mynewt-nimble), Apache-2.0. Installation über den Arduino-Bibliotheksverwalter, Version 2.x; die getestete Version steht im CHANGELOG, sobald Felix sie gemeldet hat. Es wird kein Quelltext der Bibliothek in dieses Repository kopiert; `RavestickBoard_Ble.h` ruft nur ihre öffentliche Schnittstelle auf. Wer eine fertige Firmware-Binärdatei weitergibt, die die Bibliothek enthält, muss den Apache-2.0-Lizenztext und die Hinweise der Bibliothek beilegen. Eine solche Weitergabe gibt es derzeit nicht (nur Quelltext).
+- **NimBLE-Arduino** von h2zero (https://github.com/h2zero/NimBLE-Arduino), Apache-2.0, aufbauend auf **Apache Mynewt NimBLE** (https://github.com/apache/mynewt-nimble), Apache-2.0. Installation über den Arduino-Bibliotheksverwalter, Version 2.x; getestet ist Version **2.5.2** (Hardwaretest 0.6.1.10 am 16.11.2026). Es wird kein Quelltext der Bibliothek in dieses Repository kopiert; `RavestickBoard_Ble.h` ruft nur ihre öffentliche Schnittstelle auf. Wer eine fertige Firmware-Binärdatei weitergibt, die die Bibliothek enthält, muss den Apache-2.0-Lizenztext und die Hinweise der Bibliothek beilegen. Eine solche Weitergabe gibt es derzeit nicht (nur Quelltext).
 - **Arduino-ESP32** (Espressif, Boardpaket 3.3.12): WLAN, Webserver, Preferences, LittleFS und die übrigen Kernfunktionen; wird in der Arduino IDE installiert und nicht mitgeliefert.
 - Danksagung in der README: Adam Schulz (OpenSign) und h2zero (NimBLE-Arduino).

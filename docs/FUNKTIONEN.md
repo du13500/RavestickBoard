@@ -1,6 +1,6 @@
 # RavestickBoard · Funktionen nach Themen
 
-**Stand: 15.11.2026 (v0.6.1.10-dev).** Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
+**Stand: 17.11.2026 (v0.6.1.11-dev).** Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
 
 ## Inhalt
 
@@ -21,7 +21,7 @@
 
 ## 1. So arbeitet das System
 
-- Ein **ESP32-C3 Super Mini** öffnet das WLAN `RavestickBoard` (bis 0.6.1.4 `CoolLED1248`, Passwort unverändert). Handy oder Laptop rufen **http://192.168.4.1** auf. Die Oberfläche ist eine einzige, komprimiert ausgelieferte Webseite (gzip, ETag); sie braucht **kein Internet** und **keine App**.
+- Ein **ESP32-C3 Super Mini** öffnet das WLAN `RavestickBoard` (bis 0.6.1.4 `CoolLED1248`; das Passwort lässt sich seit 0.6.1.11 in den Einstellungen ändern). Handy oder Laptop rufen **http://192.168.4.1** auf. Die Oberfläche ist eine einzige, komprimiert ausgelieferte Webseite (gzip, ETag); sie braucht **kein Internet** und **keine App**.
 - Der ESP32 spricht per **Bluetooth Low Energy** (Dienst `FFF0`, Merkmal `FFF1`) mit der **CoolLEDX-Tafel**. Die Tafel braucht keine veränderte Herstellerfirmware und wiederholt einmal hochgeladene Inhalte selbstständig. Das Handy selbst braucht kein Bluetooth.
 - Der ESP32 verbindet sich nur für einen Auftrag, sendet und trennt wieder. Seit 0.6.1.10 nutzt er dafür **NimBLE** (Bibliothek NimBLE-Arduino von h2zero) statt des Bluedroid-Stacks der Arduino-Boardpakete.
 - Texte, Bibliothek, Programme, Kurzwahlen und Animationen liegen **im ESP32** (NVS und LittleFS), nicht im Browser. Deshalb sehen alle verbundenen Geräte dasselbe.
@@ -63,10 +63,10 @@ Bis zu **40 feste Seiten** mit Ausrichtung und Anzeigedauer je Seite, als Ganzes
 
 Ein eigener Bereich, getrennt von Lauftext, Blocktext und Programmen. Die Tafel speichert die Animation und spielt sie **selbst in Dauerschleife**, auch nach dem Ausschalten, bis etwas anderes gesendet wird.
 
-- **Import:** drei gleichberechtigte Wege auf der Import-Seite: **GIF**, **Einzelbilder aus einem Bild** (früher „Bildstreifen“) und **Text-Raster** (`.RGBCMYW`, ein Zeichen je Pixel; neun fertige Beispiele in [`assets/animationen/`](../assets/animationen/LIESMICH.md)).
+- **Import:** drei gleichberechtigte Wege auf der Import-Seite: **GIF**, **Einzelbilder aus einem Bild** (früher „Bildstreifen“) und **Text-Raster** (`.RGBCMYW`, ein Zeichen je Pixel; zwölf fertige Beispiele, darunter das DVD-Logo in drei Fassungen, in [`assets/animationen/`](../assets/animationen/LIESMICH.md)).
 - **Anpassen:** Ausschnitt-Rahmen im festen Seitenverhältnis 4 : 1 auf dem Quellbild (verschieben, Ecken ziehen, Mausrad, Zwei-Finger-Zoom; Voreinstellungen Einpassen, Füllen, Strecken, Original), Farbreduktion auf die sieben LED-Farben, Bildbereich, jedes n-te Bild, „Hin und zurück“, **Rückwärts abspielen**, Zeit je Bild, Name. Text-Raster sind 1 : 1 (kein Rahmen, keine Farbumsetzung).
 - **Speichern und senden:** bis zu **40 Animationen** im ESP32, je höchstens **79 Bilder** (80 lehnt die Tafel ab). Senden aus der Datei, auch „Nur senden“ ohne Speichern; „Speichern“ überschreibt unter derselben Nummer (Kurzwahlen bleiben gültig), „Als Kopie speichern“ legt eine neue an. Dateien tragen eine CRC-32-Prüfsumme; beim Ersetzen bleibt die alte Datei erhalten, bis die neue vollständig ist. Neue Animationen bekommen die kleinste freie Nummer, Löschen lässt Kurzwahlen unberührt.
-- **Oberfläche:** Das **Raster** ist die Standardansicht und ein Schnellmenü: Kachel markieren (lädt nichts), oben **Senden** oder **Stift**. Der Stift öffnet die **Liste als Editor** (große Vorschau, Leiste mit Plus für den Import, Senden, Bearbeiten, Umbenennen, Löschen; Sortieren mit Pfeilen, die Reihenfolge liegt im ESP32). Die Liste ist schlank; Vorschaubilder werden einzeln nachgeladen und im Browser gemerkt. Während eine Animation lädt, sind alle Schaltflächen gesperrt.
+- **Oberfläche:** Das **Raster** ist die Standardansicht und ein Schnellmenü: Kachel markieren (lädt nichts), oben **Senden** oder **Stift**. Der Stift öffnet die **Liste als Editor** (große Vorschau, Leiste mit Plus für den Import, Senden, Bearbeiten, Umbenennen, Löschen; Sortieren mit Pfeilen, die Reihenfolge liegt im ESP32). Die Liste ist schlank; Vorschaubilder werden einzeln nachgeladen und im Browser gemerkt. Während eine Animation lädt, sind alle Schaltflächen gesperrt. **Seit 0.6.1.11** lädt das Antippen einer Zeile in der Liste nichts: die Vorschau zeigt das Standbild, die **Play-Taste** daneben lädt die Animation einmal und spielt sie, bis eine andere Zeile gewählt wird.
 - **Verhalten auf der Tafel:** Tempo-Regler und Anzeigemodus wirken bei Animationen nicht (die Geschwindigkeit steckt in der Zeit je Bild). Das Senden dauert je nach Länge bis etwa eine Minute (79 Bilder: 52 s). Nach einer Animation setzt der erste Text-, Block- oder Ambiente-Auftrag den Modus hinter den Daten noch einmal.
 - **Animationstest** (Einstellungen): sendet eingebaute Testmuster (Frame-Nummern, Vollbildfarben, Balken) als gespeicherte Animation und zeigt die Antwortcodes der Tafel in der Diagnose.
 
@@ -96,7 +96,8 @@ Der ESP32-C3 hat wenig Arbeitsspeicher; vieles in der Firmware dient dem Schutz 
 - **Heap-Schutz:** Lesende Listen antworten bei knappem freiem Heap mit **503** (der Browser wiederholt unsichtbar, schreibende Anfragen nie); die Startseite zeigt dann eine kleine Warteseite, die sich selbst neu lädt. Große Antworten (Animationsabruf in 1200-Byte-Stücken, Vorschaubilder zu je drei) prüfen freien Heap und größten freien Block vor dem Antworten.
 - **Höchstens zwei WLAN-Geräte** gleichzeitig (Firmware-Konstante), damit der Speicher reicht.
 - **Sparsame Exporte:** `http.txt`, `ram.txt` und der Diagnosebericht werden in kleinen Stücken ausgegeben und warten bei knappem Heap.
-- **Bluetooth-Unterbau:** NimBLE belegt deutlich weniger Arbeitsspeicher als Bluedroid (der Gewinn wird im Hardwaretest 0.6.1.10 gemessen).
+- **Bluetooth-Unterbau:** NimBLE belegt beim Start rund 64 KB statt 73 KB wie Bluedroid (gemessen im Hardwaretest 0.6.1.10).
+- **Speicher sparen (seit 0.6.1.11):** Das Seitenband für Blocktexte entsteht erst beim Senden; Listenantworten gehen in Stücken bis 1 KB; die Oberfläche holt jede Liste beim Start nur einmal; bei knappem Speicher antworten Listen mit „bitte gleich noch einmal“, die Oberfläche fragt selbst erneut.
 
 ## 12. Diagnose
 
@@ -104,7 +105,8 @@ Menü → Diagnose, Export als Textdatei: Ereignisprotokoll (Aufträge, Bluetoot
 
 ## 13. Datensicherung und mehrere Geräte
 
-- **JSON-Backup:** Backup exportieren und wieder importieren (Einträge, Programme und Kurzwahlen kommen zurück; Symbole stehen richtig). Vor jedem Firmware-Wechsel ein Backup ziehen.
+- **JSON-Backup:** Backup exportieren und wieder importieren: Einträge, Blocktexte, Programme, **Animationen** (seit 0.6.1.11) und Kurzwahlen kommen zurück; Symbole stehen richtig. Der Import legt nichts doppelt an (gleiche Namen und Inhalte werden erkannt) und verknüpft Kurzwahlen mit den neuen Nummern. Das WLAN-Passwort ist nie im Backup. Vor jedem Firmware-Wechsel ein Backup ziehen.
+- **WLAN-Passwort (seit 0.6.1.11):** Einstellungen → WLAN-Passwort, 8 bis 63 Zeichen ohne Umlaute; danach startet das WLAN neu. Vergessen: BOOT-Taste am ESP32 im laufenden Betrieb 5 Sekunden halten (nicht beim Einstecken), dann gilt wieder das Standardpasswort.
 - **Mehrere Geräte:** Änderungen eines Geräts erscheinen auf den anderen nach „Menü → Webinterface neu laden“; Bibliothek und Programme werden beim Seitenwechsel außerdem im Hintergrund aufgefrischt, wenn sie älter als 60 s sind. Gleichzeitiges Bearbeiten desselben Eintrags kann Änderungen überschreiben.
 - **Blocktext-Format:** Seit 0.6.1.6 speichert die Firmware Blocktexte mit 40 Seitenplätzen; Stände bis 0.6.1.5 lesen sie danach nicht mehr (darum vorher ein Backup ziehen).
 

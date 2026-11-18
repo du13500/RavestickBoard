@@ -1,6 +1,12 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 15.11.2026 für v0.6.1.10-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 17.11.2026 für v0.6.1.11-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.6.1.11 – neue Zeilen und Messziel (17.11.2026)
+
+- **Neue Zeilen:** „WLAN-Passwort: eigenes Passwort aktiv / Standardpasswort (oeffentlich) | geaendert seit Start | per BOOT-Taste zurueckgesetzt“ (nie das Passwort selbst), „Build: Entwicklung / Freigabe | 20-ms-Heap-Messung: an/aus“, „NimBLE-Arduino: <Version> (getestet: 2.5.2)“ oder „Version nicht abfragbar“, „Seitenband (Blocktext, ca. 8 KB): angelegt/frei | zu wenig Speicher seit Start: n“. JSON-Feld `wifiCustom`.
+- **Messziel (ADR-2026-11-17-B):** mit einem Gerät unter Last System-Minimum deutlich über 10 KB; mit zwei Geräten kein Neustart, „HTTP-Anfragen wegen knappem Heap vertagt (503)“ darf steigen. START-AUFTEILUNG „Nach WLAN-AP“: erwartet rund 9 KB mehr als 0.6.1.10 (59.148 Byte), weil das Seitenband nicht mehr fest im RAM liegt (Rechnung).
+- **Ereignisse:** `PROGRAM` „Programm beendet: anderer Inhalt wurde gesendet“, `BAND` „Zu wenig Arbeitsspeicher fuer das Seitenband …“, `WLAN` „Eigenes WLAN-Passwort gespeichert“, „BOOT-Taste gehalten: Standardpasswort wiederhergestellt“, „WLAN startet neu …“.
 
 ## Diagnose-Ergänzung v0.6.1.10 – Bluetooth-Unterbau NimBLE, was zu messen ist (15.11.2026)
 

@@ -1,3 +1,5 @@
+> **Lesehilfe (17.11.2026, v0.6.1.11-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
+
 > v0.4.2.5.2-dev: Bibliotheksfavoriten-Oberfläche entfernt; acht neu belegbare Kurzwahlen und Startseitentempo umgesetzt. Nicht mehr als offene UI-Forderung führen; Hardware-Abnahme und RAM-Problematik bleiben offen.
 
 ## 29.10.2026 – Stability / UI-01
@@ -6,7 +8,7 @@
 - A/B-Erkenntnis: gzip und HTTP 304 funktionieren, kritischer systemweiter Heap-Tiefstand bleibt in B sogar bei einem Client nachgewiesen. Ursachenklärung offen.
 - Für nächste Versionen: Adam Schulz/OpenSign, Opcode 0x04, Fehlerbestätigungen – noch keine Codeübernahme.
 
-# Aktueller Themenstatus · v0.4.2.4.2-dev-A/B (29.10.2026)
+# Historischer Themenstatus · v0.4.2.4.2-dev-A/B (29.10.2026; Kästchen werden nicht mehr gepflegt)
 
 ## Hardwarebestätigt unter v0.4.2.4.1-dev
 - [x] Boot/Compile ohne Panic; LittleFS-Bibliothek und Kurzwahlen nach Update erhalten.
@@ -369,6 +371,12 @@ Ergebnis: 70 Schritte in Ordnung, 13 nicht getestet, 9 ohne Eintrag. Behandelt i
 - **UI-15 · P3** *Optional:* Kontrast leicht anheben (Rahmen der Kacheln, kleine Grautexte). Am echten Bildschirm war die Lesbarkeit besser als im Menü-Screenshot vermutet; nur bei Bedarf.
 - **ANM-25 · P2** Frames durch Verschieben erzeugen (Idee vom 9.11.2026, für den Zeichen-Editor): Bereich oder Streifen pro Frame um n Pixel verschieben (oben, unten, seitlich), mit Umlauf; mehrere Streifen mit eigener Geschwindigkeit (z. B. Slot-Walzen). Entstanden aus dem Zeichnen von „Slots“ in Excel.
 - Weiter offen: SYS-14, SYS-15 (BLE-Hänger), WEB-A2, ANM-23 (J3).
+
+## Stand 0.6.1.11 (17.11.2026) – was gebaut ist und was offen bleibt
+
+- **Gebaut (Compile und Hardware offen):** Stabilität (gebündelte Antworten, Seitenband nur bei Bedarf, Heap-Schutz mit Blockprüfung, Startpuffer der Bibliothek nur beim Start, keine doppelten Listenabrufe), Korrekturen aus den Reviews (Adressart nach dem Vor-Scan, Programmstopp bei Bibliothekstext und Seitenversand, Markierung erst nach Erfolg, Abbruch bei abgelehnter Anmeldung, Textgrenze, Live-Wert, Standbild-Modus, GIF-Teilbild, Timer nur im Editor, tote Handler), Animationen im JSON-Backup (Format 3), WLAN-Passwort mit BOOT-Taste, Play-Taste (Idee 15.11.), Äffchen ohne Nasenlöcher, DVD-Logo im Repository plus zwei Varianten (Ecke unten rechts, ohne Ecke; `assets/animationen/`), „Seite duplizieren“ dahinter, Abbruchtext je Auftragsart, Blocktexte aus der Bibliothek mit Nummer (E7), Diagnosezeilen, Freigabe-Schalter `RB_RELEASE`, Werkzeuge finden den neuesten Firmware-Ordner.
+- **Entschieden (Felix 16.11.):** SSID bleibt; BOOT-Taste als Reset; Animationen ins Backup; ein Gerät ist der Normalfall (Messkriterium in der Roadmap); Design: kein Zoom, keine 44-px-Flächen, Eingaberand `#66748a`, gleiche Funktion = gleiche Farbe (beide Grüntöne `#3ddc97`, Gelb vereinheitlichen), Tokenmigration mit Typografie im nächsten Build; Themes (Farben wählbar) als Idee danach.
+- **Offen:** Hardwaretest 0.6.1.11; Vereinheitlichung der Oberfläche; gemeinsamer Editorentwurf zweier Geräte (Review F-043, vor dem Zeichen-Editor 0.6.2.0 zu entscheiden); ACK-Zuordnung je Paket erst messen (Review F-007); Bibliotheksliste bei 100+ Einträgen messen (bei 43 schon 1,4 bis 1,75 s); Upload-Besitz bei zwei Geräten (Review F-003/F-032); Umbenennen von Animationen schreibt den Kopf an Ort und Stelle (Review ChatGPT F-015); zweite Tafel (C7); SYS-15; Herkunft einer unbekannten WLAN-Station im Log von 0.6.1.10.
 
 ## Stand 0.6.1.9 (14.11.2026) – was gebaut ist und was offen bleibt
 

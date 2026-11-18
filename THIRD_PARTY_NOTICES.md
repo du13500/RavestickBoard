@@ -1,4 +1,4 @@
-# Third-party notices — RavestickBoard v0.6.1.10-dev
+# Third-party notices — RavestickBoard v0.6.1.11-dev
 
 ## Lucide Icons
 
@@ -86,4 +86,4 @@ The 85 symbol bitmaps (16x16, seven colours) are pixel art supplied by the maint
 
 v0.6.1.9-dev adds no third-party material. The monkey (no. 9) and pig (no. 82) bitmaps were redrawn on 14.11.2026 as project artwork and adopted by the maintainer; the balloon (no. 59) is the former fan bitmap, renamed. The new Lucide path used for the "on the board" mark (`plane`) is taken from lucide.dev (ISC) like the other icons.
 
-v0.6.1.10-dev adds one third-party dependency, **not bundled** in this repository: the Arduino library **NimBLE-Arduino** by h2zero (https://github.com/h2zero/NimBLE-Arduino), licensed under Apache-2.0, which itself builds on Apache Mynewt NimBLE. It is installed by the user through the Arduino Library Manager and replaces the Bluedroid-based BLE classes of the Arduino ESP32 board package for the Bluetooth link to the sign. No source code of the library is copied into this project; `RavestickBoard_Ble.h` only calls its public API.
+v0.6.1.10-dev adds one third-party dependency, **not bundled** in this repository: the Arduino library **NimBLE-Arduino** by h2zero (https://github.com/h2zero/NimBLE-Arduino), licensed under Apache-2.0, which itself builds on Apache Mynewt NimBLE. It is installed by the user through the Arduino Library Manager and replaces the Bluedroid-based BLE classes of the Arduino ESP32 board package for the Bluetooth link to the sign. No source code of the library is copied into this project; `RavestickBoard_Ble.h` only calls its public API. v0.6.1.11-dev adds no further dependency; it was tested with NimBLE-Arduino 2.5.2.

@@ -191,6 +191,40 @@ for t in range(N):
     fr.append(f)
 anims.append(('smileys', 'Smileys', fr, 130, 'vier Smileys, reihum zwinkert einer und streckt kurz die Zunge raus'))
 
+# 10-12 DVD-Logo (0.6.1.11) --------------------------------------------------------------------------------
+# Logo 11 x 6 nach Felix' Vorlage. Die Bahn ist die der Fassung vom 14.11.2026, die Felix im Test von 0.6.1.9 gefallen hat:
+# volle Tafel, 78 Bilder, Schritte so verteilt, dass die Schleife nahtlos schliesst; trifft einmal pro Runde die Ecke oben links.
+# Wunsch aus dem Test: zwei Varianten, eine mit anderem Eckentreffer, eine ganz ohne.
+DVD = ['##..#.#.##.', '#.#.#.#.#.#', '#.#.#.#.#.#', '##...#..##.', '...........', '###########']
+DVD_X = [0, 1, 3, 4, 5, 7, 8, 10, 11, 12, 14, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 29, 30, 31, 33, 34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 48, 49, 50, 52, 53,
+         52, 50, 49, 48, 46, 45, 43, 42, 41, 39, 38, 37, 35, 34, 33, 31, 30, 29, 27, 26, 24, 23, 22, 20, 19, 18, 16, 15, 14, 12, 11, 10, 8, 7, 5, 4, 3, 1]
+DVD_Y = [0, 1, 2, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 9, 8, 8, 7, 6, 5, 4, 3, 2, 2, 1, 0, 1, 2, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 9, 9, 8, 7, 6, 6, 5, 4, 4, 3, 2, 1, 1,
+         0, 1, 1, 2, 3, 4, 4, 5, 6, 6, 7, 8, 9, 9, 10, 9, 9, 8, 7, 6, 6, 5, 4, 4, 3, 2, 1, 1]
+assert len(DVD_X) == len(DVD_Y) == 78
+def dvd_frames(xs, ys, pal):
+    """Farbe wechselt bei jedem Abprall (Bild an einer Wand). Die Zahl der Abpraller je Runde muss zur Farbliste passen,
+    sonst springt die Farbe beim Neustart der Schleife; das prueft die Zusicherung."""
+    n = len(xs); walls = [t for t in range(n) if xs[t] in (0, 53) or ys[t] in (0, 10)]
+    assert len(walls) % len(pal) == 0, (len(walls), len(pal))
+    ci, fr = len(pal) - 1, []
+    for t in range(n):
+        if t in walls: ci = (ci + 1) % len(pal)
+        f = blank(); bitmap(f, DVD, xs[t], ys[t], pal[ci]); fr.append(f)
+    return fr
+def dvd_corners(xs, ys): return [(t, xs[t], ys[t]) for t in range(len(xs)) if xs[t] in (0, 53) and ys[t] in (0, 10)]
+# Original (Ecke oben links in Bild 1). 7 Abpraller je Runde (der Eckentreffer zaehlt einmal) -> 7 Farben.
+assert dvd_corners(DVD_X, DVD_Y) == [(0, 0, 0)]
+anims.append(('dvd_logo', 'DVD-Logo', dvd_frames(DVD_X, DVD_Y, [Wt, R, G, B, C, M, Y]), 60, 'DVD-Logo prallt ab und wechselt die Farbe; einmal pro Runde trifft es die Ecke oben links (Fassung vom 14.11.2026)'))
+# Anderer Eckentreffer: dieselbe Bahn um 180 Grad gedreht -> trifft die Ecke unten rechts.
+DX2 = [53 - x for x in DVD_X]; DY2 = [10 - y for y in DVD_Y]
+assert dvd_corners(DX2, DY2) == [(0, 53, 10)]
+anims.append(('dvd_logo_ecke_unten_rechts', 'DVD-Logo Ecke unten rechts', dvd_frames(DX2, DY2, [Wt, R, G, B, C, M, Y]), 60, 'wie das DVD-Logo, trifft aber einmal pro Runde die Ecke unten rechts'))
+# Ohne Eckentreffer: die senkrechte Bewegung um ein Bild versetzt (beide Bewegungen wiederholen sich nach 78 Bildern, die
+# Schleife bleibt nahtlos). Links verfehlt das Logo die Ecke um 1 Pixel. 8 Abpraller je Runde -> 8 Farbschritte.
+DY3 = DVD_Y[1:] + DVD_Y[:1]
+assert dvd_corners(DVD_X, DY3) == [] and min(min(y, 10 - y) for x, y in zip(DVD_X, DY3) if x in (0, 53)) == 1
+anims.append(('dvd_logo_ohne_ecke', 'DVD-Logo ohne Ecke', dvd_frames(DVD_X, DY3, [Wt, R, G, B, C, M, Y, G]), 60, 'wie das DVD-Logo, verfehlt die Ecke aber jedes Mal knapp (1 Pixel)'))
+
 # ---- Ausgabe: Text-Raster -------------------------------------------------------------------
 for name, title, frames, ms, desc in anims:
     assert 2 <= len(frames) <= 79, name
@@ -200,7 +234,7 @@ for name, title, frames, ms, desc in anims:
 # ---- Vorschau: ein GIF mit allen acht, gemeinsamer Takt 10 ms -----------------------------
 RGB = [(24, 28, 38), (60, 110, 255), (50, 225, 95), (50, 225, 225), (255, 60, 50), (255, 60, 240), (255, 218, 50), (255, 255, 255)]
 P = 5; CW, CHh = W * P, H * P; LAB = 22; PAD = 14
-cols, rows = 2, 5
+cols, rows = 2, 6
 SW = cols * CW + (cols + 1) * PAD; SH = rows * (CHh + LAB) + (rows + 1) * PAD
 font = ImageFont.truetype('/usr/share/fonts/opentype/inter/Inter-SemiBold.otf', 14) if Path('/usr/share/fonts/opentype/inter/Inter-SemiBold.otf').exists() else ImageFont.load_default()
 STEP = 20; TOTAL = 4800

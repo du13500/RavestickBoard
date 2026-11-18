@@ -4,14 +4,14 @@
 <p align="center"><strong>Offline-Webcontroller für die 64 × 16-Pixel-LED-Tafel CoolLEDX / CoolLED1248 mit ESP32-C3.</strong><br>
 Entstanden aus einer Festival-Banane und dem Wunsch, mehr aus der ursprünglichen CoolLED1248-App herauszuholen.</p>
 <p align="center">
-<img alt="Version" src="https://img.shields.io/badge/version-v0.6.1.10--dev-7056d8">
+<img alt="Version" src="https://img.shields.io/badge/version-v0.6.1.11--dev-7056d8">
 <img alt="Hardware" src="https://img.shields.io/badge/hardware-ESP32--C3-007c91">
 <img alt="Status" src="https://img.shields.io/badge/status-dev%20hardware%20test%20pending-f3b653">
 <img alt="Lizenz" src="https://img.shields.io/badge/license-MIT-brightgreen">
 <img alt="Mission" src="https://img.shields.io/badge/mission-hugs%20and%20love-ff69b4">
 </p>
 
-> **Aktueller Entwicklungskandidat: v0.6.1.10-dev (15.11.2026).** *Neu gegenüber 0.6.1.9:* **nur der Bluetooth-Unterbau.** Die Firmware spricht jetzt per **NimBLE** (Bibliothek *NimBLE-Arduino* von h2zero) mit der Tafel statt per Bluedroid, um Arbeitsspeicher zu sparen. Oberfläche, Bedienung und Abläufe bleiben unverändert. **Kompiliert** (1.578.171 Byte, 75 %; globale Variablen 88.800 Byte, 27 %); der Hardwaretest (iPhone, Safari, echte Tafel) ist bestanden, siehe unten. *Vor dem Flashen:* Bibliothek NimBLE-Arduino installieren (siehe Installation). 0.6.1.9 bleibt die Rückfallversion.
+> **Aktueller Entwicklungskandidat: v0.6.1.11-dev (17.11.2026).** *Neu gegenüber 0.6.1.10:* weniger Speicherspitzen (gebündelte Antworten, Seitenband nur bei Bedarf, keine doppelten Listenabrufe), Korrekturen aus zwei Code-Reviews, **Animationen im JSON-Backup**, **WLAN-Passwort in den Einstellungen änderbar** (Zurücksetzen über die BOOT-Taste), Play-Taste in der Animationsliste und Kleinigkeiten aus dem Test von 0.6.1.9. Am Rechner geprüft, **noch nicht kompiliert und noch nicht auf der Hardware getestet.** 0.6.1.10 bleibt die Rückfallversion.
 
 ## Was ist RavestickBoard?
 
@@ -22,7 +22,7 @@ Das iPhone oder ein anderer Browser verbindet sich mit dem WLAN `RavestickBoard`
 Die Hersteller-App läuft auf einem Handy und hält die Bluetooth-Verbindung selbst. RavestickBoard verlegt das auf einen kleinen ESP32 an der Tafel und bietet dafür mehr:
 
 - **Keine App, kein Bluetooth am Handy:** Jeder Browser im WLAN `RavestickBoard` genügt, auch der Laptop; zwei Geräte gleichzeitig. Alles läuft offline.
-- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert Bibliothek, Programme und Kurzwahlen (Animationen sind darin noch nicht enthalten).
+- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert Bibliothek, Programme, Animationen und Kurzwahlen (seit 0.6.1.11 auch die Animationen).
 - **Schnell bei der Veranstaltung:** acht Kurzwahl-Kacheln, Programme, die Einträge nacheinander oder als Laufband abspielen, Ambiente-Farben auf Fingertipp.
 - **Mehr Gestaltung:** Farbe und Schrift **pro Zeichen**, Original-Schriften, Engschrift und Mini (ein- oder zweizeilig), **85 eigene Symbole** mit Suche, Blocktexte mit bis zu 40 Seiten.
 - **Eigene Animationen:** GIF, Einzelbilder aus einem Bild oder Text-Raster importieren, zuschneiden, auf die sieben LED-Farben bringen, speichern und senden.
@@ -44,18 +44,18 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 - **Tafelverwaltung:** „Meine Tafel“, Suche mit Signalstärke, fremde Tafel mit Rückweg, Vor-Scan.
 - **Tafelsteuerung:** Helligkeit, Tempo, an/aus, Anzeigeverhalten; Sperre aller Geräte während einer Übertragung.
 - **Diagnose:** RAM-Messung, HTTP-Spur, Absturzspur, Export als Textdatei.
+- **Einstellungen:** WLAN-Passwort ändern (Zurücksetzen per BOOT-Taste), JSON-Backup mit Bibliothek, Programmen, Animationen und Kurzwahlen.
 
-## Aktuell: v0.6.1.10-dev – Bluetooth-Unterbau NimBLE statt Bluedroid
+## Aktuell: v0.6.1.11-dev – Stabilität, Korrekturen, Backup mit Animationen, WLAN-Passwort
 
-- **Neu:** Scannen, Verbinden, MTU, Schreiben und die Bestätigung je Paket laufen über **NimBLE-Arduino** (h2zero, Apache-2.0). Alles Versionsabhängige steht in der neuen Datei `RavestickBoard_Ble.h` (acht Dateien im Sketch-Ordner). Reihenfolge, Zeiten und Meldungen des Sendens bleiben wie in 0.6.1.9.
-- **Anlass:** Bluedroid belegte nach dem Start etwa 73 KB; im Test von 0.6.1.9 lag das System-Minimum bei nur 160 Byte. Gemessen im Hardwaretest: Der Bluetooth-Start kostet jetzt rund 64 KB statt 73 KB, es werden also nur etwa 9 KB frei. Das System-Minimum fiel im Test mit zwei Geräten trotzdem bis auf rund 3 KB; das eigentliche Speicherproblem liegt bei großen Antworten und WLAN-Puffern und wird in 0.6.1.11 angegangen.
-- **Kompiliert:** 1.578.171 Byte (75 %, 0.6.1.9: 1.638.885), globale Variablen 88.800 Byte (27 %, 0.6.1.9: 84.016).
-- **Kleine Anpassungen:** Adressart der Tafel aus dem Scan, MTU wird abgewartet, Verbindungs-Timeout 7 s (NimBLE ab 2.5 wiederholt Verbindungen selbst), kein `stop()` im Scan-Rückruf. Details in [`docs/TECHNIK.md`](docs/TECHNIK.md).
-- **Notausgang:** `#define RB_NIMBLE_V1 1` vor dem Include schaltet auf NimBLE-Arduino 1.4.x.
-- **Nicht in diesem Stand:** Play-Taste, Heap-Schutz für große Antworten, Kleinkram (kommen mit 0.6.1.11, siehe [Roadmap](docs/ROADMAP.md)).
-- **Entwicklungsschalter:** `RB_TEST_HANG` steht noch auf 1 (Test-Auslöser `/api/test/hang`); für eine Freigabe auf 0 setzen.
-- **Hardwaretest bestanden (16.11.):** 37 von 37 Verbindungen gelungen (Aufbau meist unter 0,5 s), alle Auftragsarten gesendet, Zeiten wie in 0.6.1.9, 23 Minuten Dauerlauf ohne ungeplanten Neustart, Hänger-Wächter greift sauber, JSON-Backup (K2) in Ordnung. Getestet mit NimBLE-Arduino 2.5.2 und Arduino-ESP32 3.3.12.
-- **Offen:** zweite Tafel (C7), Programm-Synchronisation (D9), WLAN-Beobachtung, SYS-15 (Bluetooth-Hänger). Die Reviews zu diesem Stand (zwei KI-gestützte Audits) sind ausgewertet und fließen in 0.6.1.11 ein.
+- **Speicher:** Blocktexte, Programme und Kurzwahlen werden in Stücken bis 1 KB gesendet statt in Dutzenden Kleinstpaketen; das Seitenband für Blocktexte (rund 8 KB) entsteht erst beim Senden und wird danach freigegeben; zwei nur beim Start gebrauchte Puffer (rund 1,6 KB) liegen nicht mehr dauerhaft im RAM; der Heap-Schutz verlangt jetzt 22.000 Byte frei und einen zusammenhängenden Block von 8.000 Byte. Die Oberfläche holt beim Start jede Liste nur noch einmal und mit kurzen Pausen dazwischen.
+- **Korrekturen aus den Reviews:** Adressart der Tafel erst nach dem Vor-Scan, Programm stoppt bei Bibliothekstext und „Seite senden“, Markierung „auf der Tafel“ verschwindet nur noch nach Erfolg, Abbruch bei abgelehnter Anmeldung für Bestätigungen, Längengrenze für Freitext, Live-Einstellungen gehen nicht mehr verloren, Standbild bleibt beim Bearbeiten Standbild.
+- **Backup:** enthält jetzt auch die Animationen (Format 3); der Import erkennt vorhandene wieder und verknüpft Animations-Kurzwahlen neu. Das WLAN-Passwort ist nie im Backup.
+- **WLAN-Passwort:** unter Einstellungen änderbar (8 bis 63 Zeichen, ohne Umlaute); der Name `RavestickBoard` bleibt. Vergessen? **BOOT-Taste im laufenden Betrieb 5 Sekunden halten** (nicht beim Einstecken), dann gilt wieder das Standardpasswort.
+- **Aus dem Test von 0.6.1.9:** Play-Taste in der Animationsliste (Antippen lädt nichts mehr), Äffchen ohne Nasenlöcher, DVD-Logo als Beispiel-Animation in drei Fassungen (Original mit Eckentreffer oben links, Ecke unten rechts, ohne Eckentreffer), „Seite duplizieren“ legt die Kopie direkt hinter das Original, Abbruchmeldung nennt die Auftragsart, Blocktexte aus der Bibliothek tragen ihre Nummer („auf der Tafel“).
+- **Diagnose:** Build-Art, NimBLE-Version (soweit die Bibliothek sie meldet), Zustand des Seitenbands, WLAN-Passwort nur als „Standard ja/nein“. Neuer Freigabe-Schalter `RB_RELEASE` (schaltet Test-Auslöser und Heap-Messung ab, der Hänger-Wächter bleibt immer an); im Entwicklungsstand steht er auf 0.
+- **Nicht in diesem Stand:** Vereinheitlichung von Farben, Schriftgrößen und Ausrichtung der Oberfläche (folgt im nächsten Build mit Screenshot-Vergleich), Zeichen-Editor.
+- **Prüfung am Rechner:** alle Tests mit Endung `06111` grün, darunter neue Hosttests für die Markierung und ein neuer Browsertest für Backup, WLAN-Passwort und Korrekturen. Kein Arduino-Compile, keine Hardware, kein Safari.
 
 ## Frühere Versionen im Überblick
 
@@ -63,6 +63,7 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 
 | Version | Datum | Stichworte |
 |---|---|---|
+| 0.6.1.10 | 15.11. | Bluetooth-Unterbau NimBLE-Arduino statt Bluedroid (rund 9 KB weniger RAM beim Start, 60 KB weniger Programm); Hardwaretest am 16.11. ohne ungeplante Fehler |
 | 0.6.1.9 | 14.11. | Schlanke Animationsliste mit nachgeladenen Vorschaubildern (Anlass: Wächter-Neustart in `/api/anim/list`), Raster als Schnellmenü, „auf der Tafel“ als Punkt mit Flugzeug, Texteditor sperrt bei leerem Feld, Heißluftballon/Äffchen/Schwein, WLAN-Endungen in der Diagnose; Umkehren verworfen |
 | 0.6.1.8 | 14.11. | 85 eigene Symbole und neues Symbol-Menü, Symbole umfärben, Animations-Raster, Import-Seite, „auf der Tafel“, Bibliotheks-Vorschau |
 | 0.6.1.7 | 12.11. | Rahmen an den echten Fensterkanten (iPhone), Hinweis nur bei Datenübertragungen, Neustart-Meldung, Backup-Signal, sparsamere Exporte |
@@ -80,9 +81,9 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 ## Installation und Datensicherheit
 
 1. Vorab ein JSON-Backup aus der aktuell laufenden Firmware erstellen und lokal aufbewahren. Die bisherige Firmware als Rückfallversion sichern.
-2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_6_1_10/RavestickBoard_v0_6_1_10.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
+2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_6_1_11/RavestickBoard_v0_6_1_11.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
 3. Arduino IDE: **ESP32C3 Dev Module**, Espressif **3.3.12**, **USB CDC On Boot: Enabled**, **No OTA (2MB APP/2MB SPIFFS)**. Bestehendes Partitionsschema **nicht ändern**, **Erase All Flash deaktiviert** lassen.
-4. Nach dem Flashen mit WLAN `RavestickBoard` verbinden (seit 0.6.1.5; bis 0.6.1.4 `CoolLED1248`, Passwort unverändert), `http://192.168.4.1` aufrufen. Bibliothek nicht neu formatieren; das Bibliotheksformat ist unverändert. Ausnahme seit 0.6.1.6: Blocktexte werden beim nächsten Speichern mit 40 Seitenplätzen abgelegt und sind danach für 0.6.1.5 und älter nicht mehr lesbar (JSON-Backup!). Für Animationen muss das Dateisystem eingerichtet sein (wie für die Bibliothek); der Ordner `/rb-anim` wird beim Start angelegt. Falls das Homescreen-Icon nicht übernommen wird, die Verknüpfung über Safari erneut hinzufügen.
+4. Nach dem Flashen mit WLAN `RavestickBoard` verbinden (seit 0.6.1.5; bis 0.6.1.4 `CoolLED1248`). Das Standardpasswort steht im Sketch (`WIFI_PASSWORD`) und ist damit öffentlich; seit 0.6.1.11 lässt es sich unter **Einstellungen → WLAN-Passwort** ändern, die BOOT-Taste (im Betrieb 5 s halten) stellt das Standardpasswort wieder her. Dann `http://192.168.4.1` aufrufen. Bibliothek nicht neu formatieren; das Bibliotheksformat ist unverändert. Ausnahme seit 0.6.1.6: Blocktexte werden beim nächsten Speichern mit 40 Seitenplätzen abgelegt und sind danach für 0.6.1.5 und älter nicht mehr lesbar (JSON-Backup!). Für Animationen muss das Dateisystem eingerichtet sein (wie für die Bibliothek); der Ordner `/rb-anim` wird beim Start angelegt. Falls das Homescreen-Icon nicht übernommen wird, die Verknüpfung über Safari erneut hinzufügen.
 5. Nach Änderungen an `web/index.html`: `python tools/sync_web.py` erzeugt den gzip-Webheader neu.
 
 ## Dokumentation
@@ -90,10 +91,10 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 - **Funktionen nach Themen:** [docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)
 - **Technik und Formate:** [docs/TECHNIK.md](docs/TECHNIK.md) · **Diagnose:** [docs/DIAGNOSE.md](docs/DIAGNOSE.md) · **Entscheidungen:** [docs/ENTSCHEIDUNGEN.md](docs/ENTSCHEIDUNGEN.md)
 - **Roadmap und Themenspeicher:** [docs/ROADMAP.md](docs/ROADMAP.md), [docs/THEMENSPEICHER.md](docs/THEMENSPEICHER.md) · **Quellen und Lizenzen:** [docs/QUELLEN_UND_LIZENZEN.md](docs/QUELLEN_UND_LIZENZEN.md)
-- **Hardwaretest 0.6.1.10:** [Testplan](docs/TESTPLAN_v0.6.1.10.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.6.1.10.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
+- **Hardwaretest 0.6.1.11:** [Testplan](docs/TESTPLAN_v0.6.1.11.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.6.1.11.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
 - **Älter:** [Bibliotheksformat](docs/archive/BIBLIOTHEK_v0.4.1.md), [letzte ausführliche Installationsanleitung](docs/archive/INSTALLATION_v0.4.2.4.1.md)
 
-**Teststand v0.6.1.10 (Tests mit Endung `06110`):** Entscheidungslogik von Vor-Scan und Tafelsuche läuft mit dem echten Sketch-Code und der echten Hilfsdatei `RavestickBoard_Ble.h` gegen eine Attrappe der NimBLE-Klassen; dazu Build-, Browser-, Parität- und Hosttests wie in 0.6.1.9 (Einzelheiten und frühere Stände: [tests/README.md](tests/README.md)). Der Sketch **kompiliert** mit NimBLE-Arduino und wurde auf echter Hardware mit iPhone, Safari und Tafel getestet (siehe oben).
+**Teststand v0.6.1.11 (Tests mit Endung `06111`):** wie 0.6.1.10, dazu Hosttests für die Markierung „auf der Tafel“ bei Fehlern (echter Code aus `RavestickBoard_Anim.h`), ein neuer Browsertest `test_browser_neu_06111.py` (Backup mit Animationen, WLAN-Passwort, Seite duplizieren, zusammengefasste Abrufe, Live-Wert, Standbild) und Prüfungen der Play-Taste; die Quelltext-Invarianten stehen in `test_build_06111.py` (Einzelheiten: [tests/README.md](tests/README.md)). **Kein Arduino-Compile, keine Hardware, kein Safari:** Das prüft erst der Hardwaretest.
 
 ## Mitmachen und Sicherheit
 

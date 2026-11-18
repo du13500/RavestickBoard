@@ -4,10 +4,7 @@ RavestickBoard ist ein experimenteller, offline nutzbarer Webcontroller mit WLAN
 
 ## Unterstützung
 
-| Version | Status |
-|---|---|
-| v0.4.2.4-dev | Entwicklungsstand, keine zugesagte Sicherheitswartung |
-| frühere Entwicklungsstände | archiviert, keine zugesagte Sicherheitswartung |
+Gepflegt wird nur der **jeweils neueste Entwicklungsstand im Hauptzweig** (zurzeit die Version oben in der [README](README.md)). Eine Sicherheitswartung ist nicht zugesagt, auch nicht für ältere Stände unter `firmware/`; sie bleiben nur zum Nachvollziehen und als Rückfallversion im Repository.
 
 ## Sicherheitslücke melden
 
@@ -17,7 +14,9 @@ Sinnvolle Angaben sind Firmwareversion, Bedrohungsszenario, reproduzierbare Schr
 
 ## Sicherheitsgrenzen
 
-- Der voreingestellte WLAN-AP und seine Zugangsdaten sind derzeit **nicht** als individuelle, starke Absicherung gedacht. Eine individuell konfigurierbare Absicherung steht auf der Roadmap.
-- Websteuerung und BLE-Befehle sind nicht Ende-zu-Ende-authentifiziert. Der ESP32 ist **nicht** als Netzwerk-Gateway für andere Geräte vorgesehen.
+- **Das Standardpasswort des WLANs ist öffentlich.** Es steht im Quelltext (`WIFI_PASSWORD`) und damit in diesem Repository. Bis es geändert wird, kann sich jeder verbinden, der es kennt; mit höchstens zwei gleichzeitigen Geräten kann ein Fremder so auch den zweiten Platz belegen.
+- **Seit v0.6.1.11 lässt sich das Passwort ändern** (Einstellungen → WLAN-Passwort, 8 bis 63 Zeichen ohne Umlaute). Es liegt im NVS des ESP32 und steht nie in Status, Diagnose, Exporten oder im JSON-Backup. Wer im WLAN ist, darf es ändern; es gibt kein zweites Login. Vergessen? BOOT-Taste im laufenden Betrieb 5 Sekunden halten, dann gilt wieder das Standardpasswort (wer das Board in der Hand hat, kann es also zurücksetzen).
+- Websteuerung und BLE-Befehle sind nicht Ende-zu-Ende-authentifiziert. Die Webrouten prüfen keine Herkunft (Origin); der ESP32 ist **nicht** als Netzwerk-Gateway für andere Geräte vorgesehen.
+- Der Entwicklungsstand enthält einen Test-Auslöser (`/api/test/hang`, `RB_TEST_HANG`), der das Board absichtlich hängen lässt. Für eine Freigabe `RB_RELEASE 1` setzen; das schaltet ihn ab (der Hänger-Wächter bleibt).
 - Firmwareupdates werden nur über USB durchgeführt. **Kein OTA**, kein Ferneingriff in die Herstellerfirmware.
 - Neue Abhängigkeiten und Drittanbieterdaten müssen getrennt geprüft werden.

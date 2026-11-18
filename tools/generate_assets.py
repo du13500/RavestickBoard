@@ -19,7 +19,25 @@ import base64, json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FW = ROOT / 'firmware' / 'RavestickBoard_v0_6_1_10' / 'RavestickBoard_Assets.h'
+
+def newest_firmware_dir(root):
+    """Neuester Ordner firmware/RavestickBoard_v0_6_* (nach Versionsnummer, nicht alphabetisch).
+    Mit --fw <Ordnername> laesst sich ein bestimmter Ordner waehlen."""
+    import sys, re
+    if '--fw' in sys.argv:
+        return root / 'firmware' / sys.argv[sys.argv.index('--fw') + 1]
+    best = None
+    for d in (root / 'firmware').glob('RavestickBoard_v*'):
+        m = re.fullmatch(r'RavestickBoard_v(\d+(?:_\d+)*)', d.name)
+        if not m or not d.is_dir():
+            continue
+        key = tuple(int(x) for x in m.group(1).split('_'))
+        if best is None or key > best[0]:
+            best = (key, d)
+    if best is None:
+        raise SystemExit('Kein Firmware-Ordner gefunden.')
+    return best[1]
+FW = newest_firmware_dir(ROOT) / 'RavestickBoard_Assets.h'   # 0.6.1.11: neuester Ordner statt festem Pfad
 SRC = ROOT / 'assets' / 'symbole_0618.txt'
 WEB = ROOT / 'web' / 'index.html'
 PAL = {'.': 0, 'B': 1, 'G': 2, 'C': 3, 'R': 4, 'M': 5, 'Y': 6, 'W': 7}

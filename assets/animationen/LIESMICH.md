@@ -1,6 +1,6 @@
 # Beispiel-Animationen
 
-Neun fertige Animationen für die 64 × 16-Tafel, jeweils als **Text-Raster** (ein Zeichen pro LED, Bilder durch `---` getrennt). Sie entstanden als Platzhalter im Entwurf der Animations-Übersicht (12.11.2026) und sind mit `tools/beispiel_animationen.py` erzeugt.
+Zwölf fertige Animationen für die 64 × 16-Tafel, jeweils als **Text-Raster** (ein Zeichen pro LED, Bilder durch `---` getrennt). Sie entstanden als Platzhalter im Entwurf der Animations-Übersicht (12.11.2026) und sind mit `tools/beispiel_animationen.py` erzeugt.
 
 ![Vorschau aller Beispiel-Animationen](vorschau.gif)
 
@@ -21,6 +21,9 @@ Neun fertige Animationen für die 64 × 16-Tafel, jeweils als **Text-Raster** (e
 | `pfeile_links.txt` | Pfeile nach links | 11 | 40 ms | Spiegelbild: Winkel laufen nach links und werden nach links heller |
 | `lagerfeuer.txt` | Lagerfeuer | 24 | 70 ms | Flammen flackern, Funken steigen auf |
 | `smileys.txt` | Smileys | 16 | 130 ms | Reihum zwinkert einer und streckt kurz die Zunge raus |
+| `dvd_logo.txt` | DVD-Logo | 78 | 60 ms | Logo prallt über die ganze Tafel und wechselt bei jedem Abprall die Farbe; einmal pro Runde trifft es die Ecke oben links (Fassung vom 14.11.2026, seit 0.6.1.11 im Repository) |
+| `dvd_logo_ecke_unten_rechts.txt` | DVD-Logo Ecke unten rechts | 78 | 60 ms | Dieselbe Bahn um 180 Grad gedreht: der Eckentreffer liegt unten rechts (seit 0.6.1.11) |
+| `dvd_logo_ohne_ecke.txt` | DVD-Logo ohne Ecke | 78 | 60 ms | Dieselbe Bahn, die senkrechte Bewegung um ein Bild versetzt: das Logo verfehlt die Ecke jedes Mal um 1 Pixel (seit 0.6.1.11) |
 
 Alle laufen als saubere Schleife. Die Vorschau im Browser ist eine Näherung; wie flüssig die Tafel 40 ms (Pfeile) wirklich abspielt, zeigt erst der Hardwaretest.
 
