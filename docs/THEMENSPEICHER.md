@@ -1,4 +1,4 @@
-> **Lesehilfe (17.11.2026, v0.6.1.11-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
+> **Lesehilfe (21.11.2026, v0.7.0-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
 
 > v0.4.2.5.2-dev: Bibliotheksfavoriten-Oberfläche entfernt; acht neu belegbare Kurzwahlen und Startseitentempo umgesetzt. Nicht mehr als offene UI-Forderung führen; Hardware-Abnahme und RAM-Problematik bleiben offen.
 
@@ -371,6 +371,12 @@ Ergebnis: 70 Schritte in Ordnung, 13 nicht getestet, 9 ohne Eintrag. Behandelt i
 - **UI-15 · P3** *Optional:* Kontrast leicht anheben (Rahmen der Kacheln, kleine Grautexte). Am echten Bildschirm war die Lesbarkeit besser als im Menü-Screenshot vermutet; nur bei Bedarf.
 - **ANM-25 · P2** Frames durch Verschieben erzeugen (Idee vom 9.11.2026, für den Zeichen-Editor): Bereich oder Streifen pro Frame um n Pixel verschieben (oben, unten, seitlich), mit Umlauf; mehrere Streifen mit eigener Geschwindigkeit (z. B. Slot-Walzen). Entstanden aus dem Zeichnen von „Slots“ in Excel.
 - Weiter offen: SYS-14, SYS-15 (BLE-Hänger), WEB-A2, ANM-23 (J3).
+
+## Stand 0.7.0 (21.11.2026) – was gebaut ist und was offen bleibt
+
+- **Gebaut (Compile und Hardware offen):** WLAN-Puffer mit Umschalter (Ursache der Speichereinbrüche aus dem Test von 0.6.1.11), Senden während Programm (D2), Import ohne Doppelte (F3), Design-Tokens und Typografie (Punkt 7), Quelltext ohne Versionsmarken, Export-Auswahl (F1), Kurzbefehle iPhone/Android mit festen Routen, WPA2/WPA3 wählbar, Audit-Reste (Dialoge mit Escape und Fokus, echte Sperre, Ladehinweis Kurzwahl, verlassener Upload, sicheres Umbenennen, Upload von zwei Geräten, Symbole gegen Lucide), Kleinkram aus dem Test (Umlaute, Dateinamen, Standardpasswort im Klartext, Play/Stop, DVD 5 Pixel, Importfortschritt).
+- **Offen:** Hardwaretest 0.7.0 (Speichervergleich begrenzt/Standard mit 1 und 2 Geräten); FRC-Orange (Test von Felix steht aus, danach Ambiente-Mischfarben); ältere englische Kommentare übersetzen; Standardpasswort pro Gerät; echte Bluetooth-Adresse aus dem aktuellen Stand der Git-Geschichte (Felix prüft GitHub); gemeinsamer Editorentwurf zweier Geräte (Review F-043) vor dem Zeichen-Editor.
+- **Als Nächstes (Vorschlag, nicht bestätigt):** 0.8.0 Zeichen-Editor Frame für Frame (ANM-06), 0.9.0 Schriftimport BDF, danach Mehrsprachigkeit DE/EN.
 
 ## Stand 0.6.1.11 (17.11.2026) – was gebaut ist und was offen bleibt
 

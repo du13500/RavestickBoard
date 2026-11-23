@@ -4,14 +4,14 @@
 <p align="center"><strong>Offline-Webcontroller für die 64 × 16-Pixel-LED-Tafel CoolLEDX / CoolLED1248 mit ESP32-C3.</strong><br>
 Entstanden aus einer Festival-Banane und dem Wunsch, mehr aus der ursprünglichen CoolLED1248-App herauszuholen.</p>
 <p align="center">
-<img alt="Version" src="https://img.shields.io/badge/version-v0.6.1.11--dev-7056d8">
+<img alt="Version" src="https://img.shields.io/badge/version-v0.7.0--dev-7056d8">
 <img alt="Hardware" src="https://img.shields.io/badge/hardware-ESP32--C3-007c91">
 <img alt="Status" src="https://img.shields.io/badge/status-dev%20hardware%20test%20pending-f3b653">
 <img alt="Lizenz" src="https://img.shields.io/badge/license-MIT-brightgreen">
 <img alt="Mission" src="https://img.shields.io/badge/mission-hugs%20and%20love-ff69b4">
 </p>
 
-> **Aktueller Entwicklungskandidat: v0.6.1.11-dev (17.11.2026).** *Neu gegenüber 0.6.1.10:* weniger Speicherspitzen (gebündelte Antworten, Seitenband nur bei Bedarf, keine doppelten Listenabrufe), Korrekturen aus zwei Code-Reviews, **Animationen im JSON-Backup**, **WLAN-Passwort in den Einstellungen änderbar** (Zurücksetzen über die BOOT-Taste), Play-Taste in der Animationsliste und Kleinigkeiten aus dem Test von 0.6.1.9. Am Rechner geprüft, **noch nicht kompiliert und noch nicht auf der Hardware getestet.** 0.6.1.10 bleibt die Rückfallversion.
+> **Aktueller Entwicklungskandidat: v0.7.0-dev (21.11.2026).** *Neu gegenüber 0.6.1.11:* **WLAN-Puffer mit Umschalter** (begrenzt gegen Arduino-Standard, für den Speichervergleich), **Senden während eines Programms** (das Programm endet nach dem laufenden Schritt, dein Inhalt folgt von selbst), einheitliche Farben und Schriftgrößen, **Backup-Export mit Auswahl**, **Kurzbefehle für iPhone und Android**, WPA2/WPA3 wählbar, aufgeräumter Quelltext und Reste aus den Audits. Am Rechner geprüft, **noch nicht kompiliert und noch nicht auf der Hardware getestet.** 0.6.1.11 bleibt die Rückfallversion.
 
 ## Was ist RavestickBoard?
 
@@ -22,7 +22,7 @@ Das iPhone oder ein anderer Browser verbindet sich mit dem WLAN `RavestickBoard`
 Die Hersteller-App läuft auf einem Handy und hält die Bluetooth-Verbindung selbst. RavestickBoard verlegt das auf einen kleinen ESP32 an der Tafel und bietet dafür mehr:
 
 - **Keine App, kein Bluetooth am Handy:** Jeder Browser im WLAN `RavestickBoard` genügt, auch der Laptop; zwei Geräte gleichzeitig. Alles läuft offline.
-- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert Bibliothek, Programme, Animationen und Kurzwahlen (seit 0.6.1.11 auch die Animationen).
+- **Deine Inhalte liegen im Gerät:** Bibliothek, Programme, Kurzwahlen und Animationen stehen im ESP32 und sind auf allen Geräten gleich; ein JSON-Backup sichert Bibliothek, Programme, Animationen und Kurzwahlen, ganz oder nach Auswahl.
 - **Schnell bei der Veranstaltung:** acht Kurzwahl-Kacheln, Programme, die Einträge nacheinander oder als Laufband abspielen, Ambiente-Farben auf Fingertipp.
 - **Mehr Gestaltung:** Farbe und Schrift **pro Zeichen**, Original-Schriften, Engschrift und Mini (ein- oder zweizeilig), **85 eigene Symbole** mit Suche, Blocktexte mit bis zu 40 Seiten.
 - **Eigene Animationen:** GIF, Einzelbilder aus einem Bild oder Text-Raster importieren, zuschneiden, auf die sieben LED-Farben bringen, speichern und senden.
@@ -44,18 +44,21 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 - **Tafelverwaltung:** „Meine Tafel“, Suche mit Signalstärke, fremde Tafel mit Rückweg, Vor-Scan.
 - **Tafelsteuerung:** Helligkeit, Tempo, an/aus, Anzeigeverhalten; Sperre aller Geräte während einer Übertragung.
 - **Diagnose:** RAM-Messung, HTTP-Spur, Absturzspur, Export als Textdatei.
-- **Einstellungen:** WLAN-Passwort ändern (Zurücksetzen per BOOT-Taste), JSON-Backup mit Bibliothek, Programmen, Animationen und Kurzwahlen.
+- **Einstellungen:** WLAN-Passwort ändern (Zurücksetzen per BOOT-Taste), WLAN-Puffer und WPA2/WPA3, JSON-Backup mit Auswahl (Bibliothek, Programme, Animationen, Kurzwahlen).
+- **Kurzbefehle:** Lauftext, Kurzwahl oder Animation ohne Browser auslösen, mit der Kurzbefehle-App/Siri am iPhone oder einer App unter Android ([docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)).
 
-## Aktuell: v0.6.1.11-dev – Stabilität, Korrekturen, Backup mit Animationen, WLAN-Passwort
+## Aktuell: v0.7.0-dev – WLAN-Puffer, Senden während Programm, Design, Export-Auswahl, Kurzbefehle
 
-- **Speicher:** Blocktexte, Programme und Kurzwahlen werden in Stücken bis 1 KB gesendet statt in Dutzenden Kleinstpaketen; das Seitenband für Blocktexte (rund 8 KB) entsteht erst beim Senden und wird danach freigegeben; zwei nur beim Start gebrauchte Puffer (rund 1,6 KB) liegen nicht mehr dauerhaft im RAM; der Heap-Schutz verlangt jetzt 22.000 Byte frei und einen zusammenhängenden Block von 8.000 Byte. Die Oberfläche holt beim Start jede Liste nur noch einmal und mit kurzen Pausen dazwischen.
-- **Korrekturen aus den Reviews:** Adressart der Tafel erst nach dem Vor-Scan, Programm stoppt bei Bibliothekstext und „Seite senden“, Markierung „auf der Tafel“ verschwindet nur noch nach Erfolg, Abbruch bei abgelehnter Anmeldung für Bestätigungen, Längengrenze für Freitext, Live-Einstellungen gehen nicht mehr verloren, Standbild bleibt beim Bearbeiten Standbild.
-- **Backup:** enthält jetzt auch die Animationen (Format 3); der Import erkennt vorhandene wieder und verknüpft Animations-Kurzwahlen neu. Das WLAN-Passwort ist nie im Backup.
-- **WLAN-Passwort:** unter Einstellungen änderbar (8 bis 63 Zeichen, ohne Umlaute); der Name `RavestickBoard` bleibt. Vergessen? **BOOT-Taste im laufenden Betrieb 5 Sekunden halten** (nicht beim Einstecken), dann gilt wieder das Standardpasswort.
-- **Aus dem Test von 0.6.1.9:** Play-Taste in der Animationsliste (Antippen lädt nichts mehr), Äffchen ohne Nasenlöcher, DVD-Logo als Beispiel-Animation in drei Fassungen (Original mit Eckentreffer oben links, Ecke unten rechts, ohne Eckentreffer), „Seite duplizieren“ legt die Kopie direkt hinter das Original, Abbruchmeldung nennt die Auftragsart, Blocktexte aus der Bibliothek tragen ihre Nummer („auf der Tafel“).
-- **Diagnose:** Build-Art, NimBLE-Version (soweit die Bibliothek sie meldet), Zustand des Seitenbands, WLAN-Passwort nur als „Standard ja/nein“. Neuer Freigabe-Schalter `RB_RELEASE` (schaltet Test-Auslöser und Heap-Messung ab, der Hänger-Wächter bleibt immer an); im Entwicklungsstand steht er auf 0.
-- **Nicht in diesem Stand:** Vereinheitlichung von Farben, Schriftgrößen und Ausrichtung der Oberfläche (folgt im nächsten Build mit Screenshot-Vergleich), Zeichen-Editor.
-- **Prüfung am Rechner:** alle Tests mit Endung `06111` grün, darunter neue Hosttests für die Markierung und ein neuer Browsertest für Backup, WLAN-Passwort und Korrekturen. Kein Arduino-Compile, keine Hardware, kein Safari.
+- **Speicher (Hauptfrage des Tests):** Das WLAN reserviert sich ab Werk bis zu 32 Empfangspuffer zu je rund 1,6 KB. Neu lässt sich das in den Einstellungen auf 8 begrenzen (Voreinstellung) oder auf den Arduino-Standard stellen; die Änderung wirkt nach einem Neustart. So lassen sich beide Fälle im selben Build messen. Diagnose, `ram.txt` und `http.txt` nennen die aktive Einstellung.
+- **Senden während ein Programm läuft:** Lauftext, Bibliothek, Blocktext, Kurzwahl, Ambiente und Animation beenden ein laufendes Programm nach dem aktuellen Schritt; die Oberfläche sendet deinen Inhalt danach von selbst. Helligkeit, Tempo und Ein/Aus lassen das Programm weiterlaufen.
+- **Design:** Farben und Schriftgrößen als feste Werte an einer Stelle (gleiche Funktion = gleiche Farbe): ein Gelb, ein Grün für Senden und „auf der Tafel“, hellerer Rand der Eingabefelder (`#66748a`), gleiche Seitenüberschriften und Feldbeschriftungen. Vorher/Nachher-Bilder aus dem echten Quelltext.
+- **Backup:** Export mit Auswahl (Bibliothek, Programme, Animationen, Kurzwahlen); was Programme und Kurzwahlen brauchen, kommt automatisch mit. Import mit Fortschritt im Knopf und Abschlussmeldung; vorhandene Animationen aus älteren Dateien ohne Prüfsumme werden nicht mehr doppelt angelegt.
+- **Kurzbefehle:** Anleitung für iPhone (Kurzbefehle-App, Siri) und Android ([docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)). Für einen Lauftext reicht das Feld `text`; Animationen haben eine feste ID, die jetzt in der Liste steht.
+- **WLAN:** Das Standardpasswort steht in den Einstellungen im Klartext; WPA2/WPA3 gemischt lässt sich einschalten (fällt bei Problemen von selbst auf WPA2 zurück, die BOOT-Taste stellt auch das zurück).
+- **Animationen:** Play wird zur Stop-Taste; ein Upload von einem zweiten Gerät bricht einen laufenden Upload nicht mehr ab; verlassene Uploads verschwinden nach 60 s; Umbenennen schreibt nicht mehr in die Datei hinein, sondern legt eine neue an. DVD-Logo „ohne Ecke“ verfehlt jetzt um 5 Pixel.
+- **Kleinigkeiten:** echte Umlaute in der Diagnose, Dateinamen beim Herunterladen mit der aktuellen Version, Fenster schließen mit Escape, gesperrte Knöpfe auch für die Tastatur gesperrt, Ladehinweis im Kurzwahl-Fenster, Symbole gegen Lucide geprüft.
+- **Quelltext:** kurze deutsche Dateiköpfe, Versionsmarken aus den Kommentaren entfernt; ein Test verhindert neue. Ältere englische Kommentare sind noch nicht übersetzt.
+- **Prüfung am Rechner:** alle Tests mit Endung `0700` grün, darunter neue Hosttests für die WLAN-Einstellungen, den Upload von zwei Geräten und die Kurzbefehl-Routen. Kein Arduino-Compile, keine Hardware, kein Safari.
 
 ## Frühere Versionen im Überblick
 
@@ -63,6 +66,7 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 
 | Version | Datum | Stichworte |
 |---|---|---|
+| 0.6.1.11 | 17.11. | Gebündelte Antworten, Seitenband nur bei Bedarf, Korrekturen aus zwei Code-Reviews, Animationen im JSON-Backup, WLAN-Passwort änderbar (BOOT-Taste), Play-Taste; Hardwaretest am 17.11. ohne Neustart, Speichereinbrüche auf die WLAN-Empfangspuffer eingegrenzt |
 | 0.6.1.10 | 15.11. | Bluetooth-Unterbau NimBLE-Arduino statt Bluedroid (rund 9 KB weniger RAM beim Start, 60 KB weniger Programm); Hardwaretest am 16.11. ohne ungeplante Fehler |
 | 0.6.1.9 | 14.11. | Schlanke Animationsliste mit nachgeladenen Vorschaubildern (Anlass: Wächter-Neustart in `/api/anim/list`), Raster als Schnellmenü, „auf der Tafel“ als Punkt mit Flugzeug, Texteditor sperrt bei leerem Feld, Heißluftballon/Äffchen/Schwein, WLAN-Endungen in der Diagnose; Umkehren verworfen |
 | 0.6.1.8 | 14.11. | 85 eigene Symbole und neues Symbol-Menü, Symbole umfärben, Animations-Raster, Import-Seite, „auf der Tafel“, Bibliotheks-Vorschau |
@@ -81,9 +85,9 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 ## Installation und Datensicherheit
 
 1. Vorab ein JSON-Backup aus der aktuell laufenden Firmware erstellen und lokal aufbewahren. Die bisherige Firmware als Rückfallversion sichern.
-2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_6_1_11/RavestickBoard_v0_6_1_11.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
+2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_7_0/RavestickBoard_v0_7_0.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
 3. Arduino IDE: **ESP32C3 Dev Module**, Espressif **3.3.12**, **USB CDC On Boot: Enabled**, **No OTA (2MB APP/2MB SPIFFS)**. Bestehendes Partitionsschema **nicht ändern**, **Erase All Flash deaktiviert** lassen.
-4. Nach dem Flashen mit WLAN `RavestickBoard` verbinden (seit 0.6.1.5; bis 0.6.1.4 `CoolLED1248`). Das Standardpasswort steht im Sketch (`WIFI_PASSWORD`) und ist damit öffentlich; seit 0.6.1.11 lässt es sich unter **Einstellungen → WLAN-Passwort** ändern, die BOOT-Taste (im Betrieb 5 s halten) stellt das Standardpasswort wieder her. Dann `http://192.168.4.1` aufrufen. Bibliothek nicht neu formatieren; das Bibliotheksformat ist unverändert. Ausnahme seit 0.6.1.6: Blocktexte werden beim nächsten Speichern mit 40 Seitenplätzen abgelegt und sind danach für 0.6.1.5 und älter nicht mehr lesbar (JSON-Backup!). Für Animationen muss das Dateisystem eingerichtet sein (wie für die Bibliothek); der Ordner `/rb-anim` wird beim Start angelegt. Falls das Homescreen-Icon nicht übernommen wird, die Verknüpfung über Safari erneut hinzufügen.
+4. Nach dem Flashen mit WLAN `RavestickBoard` verbinden (seit 0.6.1.5; bis 0.6.1.4 `CoolLED1248`). Das Standardpasswort steht im Sketch (`WIFI_PASSWORD`) und ist damit öffentlich; es lässt sich unter **Einstellungen → WLAN-Passwort** ändern, die BOOT-Taste (im Betrieb 5 s halten) stellt das Standardpasswort und WPA2 wieder her. Dann `http://192.168.4.1` aufrufen. Bibliothek nicht neu formatieren; das Bibliotheksformat ist unverändert. Ausnahme seit 0.6.1.6: Blocktexte werden beim nächsten Speichern mit 40 Seitenplätzen abgelegt und sind danach für 0.6.1.5 und älter nicht mehr lesbar (JSON-Backup!). Für Animationen muss das Dateisystem eingerichtet sein (wie für die Bibliothek); der Ordner `/rb-anim` wird beim Start angelegt. Falls das Homescreen-Icon nicht übernommen wird, die Verknüpfung über Safari erneut hinzufügen.
 5. Nach Änderungen an `web/index.html`: `python tools/sync_web.py` erzeugt den gzip-Webheader neu.
 
 ## Dokumentation
@@ -91,10 +95,11 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 - **Funktionen nach Themen:** [docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)
 - **Technik und Formate:** [docs/TECHNIK.md](docs/TECHNIK.md) · **Diagnose:** [docs/DIAGNOSE.md](docs/DIAGNOSE.md) · **Entscheidungen:** [docs/ENTSCHEIDUNGEN.md](docs/ENTSCHEIDUNGEN.md)
 - **Roadmap und Themenspeicher:** [docs/ROADMAP.md](docs/ROADMAP.md), [docs/THEMENSPEICHER.md](docs/THEMENSPEICHER.md) · **Quellen und Lizenzen:** [docs/QUELLEN_UND_LIZENZEN.md](docs/QUELLEN_UND_LIZENZEN.md)
-- **Hardwaretest 0.6.1.11:** [Testplan](docs/TESTPLAN_v0.6.1.11.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.6.1.11.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
+- **Hardwaretest 0.7.0:** [Testplan](docs/TESTPLAN_v0.7.0.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.7.0.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
+- **Kurzbefehle (iPhone, Android):** [docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)
 - **Älter:** [Bibliotheksformat](docs/archive/BIBLIOTHEK_v0.4.1.md), [letzte ausführliche Installationsanleitung](docs/archive/INSTALLATION_v0.4.2.4.1.md)
 
-**Teststand v0.6.1.11 (Tests mit Endung `06111`):** wie 0.6.1.10, dazu Hosttests für die Markierung „auf der Tafel“ bei Fehlern (echter Code aus `RavestickBoard_Anim.h`), ein neuer Browsertest `test_browser_neu_06111.py` (Backup mit Animationen, WLAN-Passwort, Seite duplizieren, zusammengefasste Abrufe, Live-Wert, Standbild) und Prüfungen der Play-Taste; die Quelltext-Invarianten stehen in `test_build_06111.py` (Einzelheiten: [tests/README.md](tests/README.md)). **Kein Arduino-Compile, keine Hardware, kein Safari:** Das prüft erst der Hardwaretest.
+**Teststand v0.7.0 (Tests mit Endung `0700`):** wie 0.6.1.11, dazu `host_wifi_0700.py` (WLAN-Puffer, WPA2/WPA3 mit Rückfall, Neustart, Passwort, BOOT-Taste; echter Sketch-Code), `host_routes_0700.py` (feste Routen für Kurzbefehle gegen `docs/KURZBEFEHLE.md`), Upload von zwei Geräten, verlassener Upload und sicheres Umbenennen in `host_animfs_0700.py`, Export-Auswahl, Senden während Programm, WLAN-Einstellungen und Design-Tokens in `test_browser_neu_0700.py`, Vorher/Nachher-Bilder mit `design_shots_0700.py`; `test_build_0700.py` prüft zusätzlich, dass keine Versionsnummern in Kommentaren stehen (Einzelheiten: [tests/README.md](tests/README.md)). **Kein Arduino-Compile, keine Hardware, kein Safari:** Das prüft erst der Hardwaretest.
 
 ## Mitmachen und Sicherheit
 

@@ -1,6 +1,6 @@
 # RavestickBoard · Funktionen nach Themen
 
-**Stand: 17.11.2026 (v0.6.1.11-dev).** Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
+**Stand: 21.11.2026 (v0.7.0-dev).** Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
 
 ## Inhalt
 
@@ -105,8 +105,11 @@ Menü → Diagnose, Export als Textdatei: Ereignisprotokoll (Aufträge, Bluetoot
 
 ## 13. Datensicherung und mehrere Geräte
 
-- **JSON-Backup:** Backup exportieren und wieder importieren: Einträge, Blocktexte, Programme, **Animationen** (seit 0.6.1.11) und Kurzwahlen kommen zurück; Symbole stehen richtig. Der Import legt nichts doppelt an (gleiche Namen und Inhalte werden erkannt) und verknüpft Kurzwahlen mit den neuen Nummern. Das WLAN-Passwort ist nie im Backup. Vor jedem Firmware-Wechsel ein Backup ziehen.
+- **JSON-Backup:** Backup exportieren (ganz oder nach Auswahl: Bibliothek, Programme, Animationen, Kurzwahlen; was Programme und Kurzwahlen brauchen, kommt automatisch mit) und wieder importieren (mit Fortschritt im Knopf): Einträge, Blocktexte, Programme, **Animationen** und Kurzwahlen kommen zurück; Symbole stehen richtig. Der Import legt nichts doppelt an (gleiche Namen und Inhalte werden erkannt) und verknüpft Kurzwahlen mit den neuen Nummern. Das WLAN-Passwort ist nie im Backup. Vor jedem Firmware-Wechsel ein Backup ziehen.
 - **WLAN-Passwort (seit 0.6.1.11):** Einstellungen → WLAN-Passwort, 8 bis 63 Zeichen ohne Umlaute; danach startet das WLAN neu. Vergessen: BOOT-Taste am ESP32 im laufenden Betrieb 5 Sekunden halten (nicht beim Einstecken), dann gilt wieder das Standardpasswort.
+- **WLAN-Puffer und Sicherheit:** Einstellungen → „WLAN-Puffer und Sicherheit“: Empfangspuffer „begrenzt“ (weniger Speicher, Voreinstellung) oder „Arduino-Standard“, wirkt nach einem Neustart; WPA2/WPA3 gemischt (fällt bei Problemen auf WPA2 zurück). Das Standardpasswort steht in den Einstellungen im Klartext.
+- **Kurzbefehle:** Lauftext (nur Text), Kurzwahl 1 bis 8 oder eine Animation per ID ohne Browser auslösen, mit der Kurzbefehle-App/Siri am iPhone oder der App „HTTP Shortcuts“ unter Android. Anleitung: [KURZBEFEHLE.md](KURZBEFEHLE.md).
+- **Programm und Senden:** Wer während eines laufenden Programms etwas sendet, beendet das Programm nach dem aktuellen Schritt; der neue Inhalt kommt danach von selbst.
 - **Mehrere Geräte:** Änderungen eines Geräts erscheinen auf den anderen nach „Menü → Webinterface neu laden“; Bibliothek und Programme werden beim Seitenwechsel außerdem im Hintergrund aufgefrischt, wenn sie älter als 60 s sind. Gleichzeitiges Bearbeiten desselben Eintrags kann Änderungen überschreiben.
 - **Blocktext-Format:** Seit 0.6.1.6 speichert die Firmware Blocktexte mit 40 Seitenplätzen; Stände bis 0.6.1.5 lesen sie danach nicht mehr (darum vorher ein Backup ziehen).
 

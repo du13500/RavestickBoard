@@ -219,11 +219,11 @@ anims.append(('dvd_logo', 'DVD-Logo', dvd_frames(DVD_X, DVD_Y, [Wt, R, G, B, C, 
 DX2 = [53 - x for x in DVD_X]; DY2 = [10 - y for y in DVD_Y]
 assert dvd_corners(DX2, DY2) == [(0, 53, 10)]
 anims.append(('dvd_logo_ecke_unten_rechts', 'DVD-Logo Ecke unten rechts', dvd_frames(DX2, DY2, [Wt, R, G, B, C, M, Y]), 60, 'wie das DVD-Logo, trifft aber einmal pro Runde die Ecke unten rechts'))
-# Ohne Eckentreffer: die senkrechte Bewegung um ein Bild versetzt (beide Bewegungen wiederholen sich nach 78 Bildern, die
-# Schleife bleibt nahtlos). Links verfehlt das Logo die Ecke um 1 Pixel. 8 Abpraller je Runde -> 8 Farbschritte.
-DY3 = DVD_Y[1:] + DVD_Y[:1]
-assert dvd_corners(DVD_X, DY3) == [] and min(min(y, 10 - y) for x, y in zip(DVD_X, DY3) if x in (0, 53)) == 1
-anims.append(('dvd_logo_ohne_ecke', 'DVD-Logo ohne Ecke', dvd_frames(DVD_X, DY3, [Wt, R, G, B, C, M, Y, G]), 60, 'wie das DVD-Logo, verfehlt die Ecke aber jedes Mal knapp (1 Pixel)'))
+# Ohne Eckentreffer: die senkrechte Bewegung versetzt (beide Bewegungen wiederholen sich nach 78 Bildern, die Schleife
+# bleibt nahtlos). An den Seitenwaenden steht das Logo mittig, also 5 Pixel von jeder Ecke. 8 Abpraller je Runde -> 8 Farbschritte.
+DY3 = DVD_Y[18:] + DVD_Y[:18]   # gleiche Bahn, um 18 Bilder versetzt: an beiden Seitenwaenden genau in der Mitte
+assert dvd_corners(DVD_X, DY3) == [] and min(min(y, 10 - y) for x, y in zip(DVD_X, DY3) if x in (0, 53)) == 5
+anims.append(('dvd_logo_ohne_ecke', 'DVD-Logo ohne Ecke', dvd_frames(DVD_X, DY3, [Wt, R, G, B, C, M, Y, G]), 60, 'wie das DVD-Logo, verfehlt die Ecken aber jedes Mal deutlich (5 Pixel)'))
 
 # ---- Ausgabe: Text-Raster -------------------------------------------------------------------
 for name, title, frames, ms, desc in anims:

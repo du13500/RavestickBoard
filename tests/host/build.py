@@ -12,8 +12,8 @@ def find(prefix,start=0):
     raise SystemExit('missing '+prefix)
 g0=find('struct Glyph'); g1=find('static const uint8_t UNKNOWN_GLYPH')
 c0=find('// Decode short NVS block-page fields only'); c1=find('size_t renderBlockPage')
-a0=find('// ---- v0.6.0.0: gespeicherte Animation'); a0e=find('// (Die Funktionen rb60NumberPixel')
-a1s=find('// ---- v0.6.0.2: Funktionen der Animation'); a1=find('// ---- Ende v0.6.0.0 Animation')
+a0=find('// ---- Gespeicherte Animation (Opcode 0x04)'); a0e=find('// (Die Funktionen rb60NumberPixel')
+a1s=find('// ---- Funktionen der Animation'); a1=find('// ---- Ende Animation')
 anim='\n'.join(ino[a0:a0e+1]+ino[a1s:a1])   # ab 0.6.0.0 liest copyPayloadSlice() den Animationszweig; ab 0.6.0.2 liegen Konstanten oben, Funktionen hinter RamStage
 body=anim+'\n'+'\n'.join(ino[g0:g1+1])+'\n'+'\n'.join(ino[c0:c1])
 assets=(fw/'RavestickBoard_Assets.h').read_text(encoding='utf8')

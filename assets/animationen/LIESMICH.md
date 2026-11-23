@@ -23,7 +23,7 @@ Zwölf fertige Animationen für die 64 × 16-Tafel, jeweils als **Text-Raster** 
 | `smileys.txt` | Smileys | 16 | 130 ms | Reihum zwinkert einer und streckt kurz die Zunge raus |
 | `dvd_logo.txt` | DVD-Logo | 78 | 60 ms | Logo prallt über die ganze Tafel und wechselt bei jedem Abprall die Farbe; einmal pro Runde trifft es die Ecke oben links (Fassung vom 14.11.2026, seit 0.6.1.11 im Repository) |
 | `dvd_logo_ecke_unten_rechts.txt` | DVD-Logo Ecke unten rechts | 78 | 60 ms | Dieselbe Bahn um 180 Grad gedreht: der Eckentreffer liegt unten rechts (seit 0.6.1.11) |
-| `dvd_logo_ohne_ecke.txt` | DVD-Logo ohne Ecke | 78 | 60 ms | Dieselbe Bahn, die senkrechte Bewegung um ein Bild versetzt: das Logo verfehlt die Ecke jedes Mal um 1 Pixel (seit 0.6.1.11) |
+| `dvd_logo_ohne_ecke.txt` | DVD-Logo ohne Ecke | 78 | 60 ms | Dieselbe Bahn, die senkrechte Bewegung versetzt: An den Seitenwänden steht das Logo mittig und verfehlt die Ecken jedes Mal deutlich (5 Pixel). |
 
 Alle laufen als saubere Schleife. Die Vorschau im Browser ist eine Näherung; wie flüssig die Tafel 40 ms (Pfeile) wirklich abspielt, zeigt erst der Hardwaretest.
 

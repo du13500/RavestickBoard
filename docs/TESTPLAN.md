@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.6.1.10.md`](TESTPLAN_v0.6.1.10.md) (Bluetooth-Unterbau NimBLE: Speicher, Verbinden und Vor-Scan, Senden jeder Auftragsart, Abbruch, Dauerlauf; als Excel `RavestickBoard_Hardwaretest_v0.6.1.10.xlsx`). Der Plan von 0.6.1.9 liegt in [`archive/TESTPLAN_v0.6.1.9.md`](archive/TESTPLAN_v0.6.1.9.md).
+> **Neuester Testplan:** [`TESTPLAN_v0.7.0.md`](TESTPLAN_v0.7.0.md) (WLAN-Puffer im Vergleich, Test mit 1 Gerät und mit 2 Geräten, Senden während Programm, Animationen, Backup-Auswahl, WPA2/WPA3, Kurzbefehle, Design; als Excel `RavestickBoard_Hardwaretest_v0.7.0.xlsx`). Ältere Pläne liegen in [`archive/`](archive/).
 
 ## Ergänzung v0.3.5
 

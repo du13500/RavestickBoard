@@ -1,6 +1,15 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 17.11.2026 für v0.6.1.11-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 21.11.2026 für v0.7.0-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Diagnose-Ergänzung v0.7.0 – WLAN-Puffer, Sicherheit, Programmstopp (21.11.2026)
+
+- **Wo die Zeilen stehen:** Die ausführlichen Zeilen gibt es nur in der Textdatei (Diagnose → **TXT herunterladen** oder **Log kopieren**, `/api/diagnostics.txt`), nicht in den Kacheln der Diagnose-Seite. Dateinamen kommen vom ESP32 und tragen die aktuelle Version (`RavestickBoard_Diagnose_v0.7.0-dev.txt`, `RavestickBoard_RAM_v…`, `RavestickBoard_HTTP_v…`).
+- **Neue Zeilen im Kopf** (unter „WLAN-Passwort“): „WLAN-Puffer: begrenzt (4 statisch, 8 dynamisch)“ bzw. „Arduino-Standard (4 statisch, 32 dynamisch)“, bei abweichender Einstellung mit „ab Neustart …“, bei gescheiterter Initialisierung mit Fehlercode; „WLAN-Sicherheit: WPA2“ oder „WPA2/WPA3“, mit „(WPA2/WPA3 eingestellt, Start fehlgeschlagen)“ beim Rückfall. Dieselbe Angabe steht in der zweiten Zeile von `ram.txt` und im Kopf von `http.txt`; JSON: `wifiBuf`, `wifiBufActive`, `wifiSec`, `wifiSecActive`.
+- **Zähler seit Boot:** „Programm durch Senden beendet (Anfragen)“.
+- **Ereignisse:** `WLAN` „WLAN-Puffer: … gespeichert (ab Neustart)“, „WLAN-Sicherheit: … gespeichert“; `ANIM` „Verlassener Animations-Upload nach 60 s ohne Daten verworfen“.
+- **Messziel 0.7.0:** „Minimal freier Heap“ und „RAMTRACE niedrigstes System-Minimum“ mit beiden Puffer-Einstellungen, je mit einem und mit zwei Geräten (Testplan B und C). Erwartung nach EleksTubeIPS PR #100: mit „begrenzt“ deutlich höhere Minima.
+- **Umlaute:** Alle Meldungen und Zeilen der Diagnose verwenden echte Umlaute (bisher Ersatzschreibung wie „oeffentlich“).
 
 ## Diagnose-Ergänzung v0.6.1.11 – neue Zeilen und Messziel (17.11.2026)
 

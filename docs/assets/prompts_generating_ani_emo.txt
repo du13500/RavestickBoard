@@ -1,0 +1,81 @@
+Erstelle ein Pixel-Symbol („Emoji“) für eine LED-Tafel als Text-Raster.
+
+TECHNISCHE VORGABEN (genau einhalten)
+- Größe: höchstens 16 × 16 Pixel. Breite und Höhe dürfen kleiner sein (z. B. 9 × 12),
+  alle Zeilen gleich lang. Kleinere Motive werden auf der Tafel senkrecht mittig gesetzt.
+- Keine leeren Randspalten und -zeilen: Das Raster endet genau am Motiv (links, rechts, oben, unten).
+- Ein Zeichen = ein LED-Pixel. Erlaubt sind NUR diese 8 Zeichen:
+  . = aus (schwarz/durchsichtig)
+  R = rot
+  G = grün
+  B = blau
+  C = cyan
+  M = magenta
+  Y = gelb
+  W = weiß
+  Keine anderen Zeichen, keine Leerzeichen, keine Abstufungen oder Mischfarben.
+- Genau EIN Bild, keine Animation, keine Trennzeilen.
+- Keine leeren Spalten links und rechts am Rand (den Abstand zum Text setzt die Tafel selbst);
+  oben und unten darf leer bleiben, das Motiv soll aber die Höhe gut nutzen.
+
+GESTALTUNG
+- Das Symbol steht mitten im Lauftext zwischen Buchstaben: auf einen Blick erkennbar, klare Umrisse,
+  kräftige Flächen, keine Einzelpixel-Krümel.
+- Wenige Farben mit gutem Kontrast; Schwarz (.) ist Teil der Zeichnung (Augen, Konturen, Lücken).
+- Stil: einfache Pixel-Art wie klassische 16×16-Icons, keine Fotorealistik.
+- Symmetrisch, wo das Motiv symmetrisch ist.
+
+AUSGABE
+1. Das Raster in EINEM Codeblock (oder als Datei name.txt), nichts anderes darin.
+2. Darunter kurz: Name des Symbols, Breite × Höhe, vorgeschlagene Kategorie
+   (Liebe & Emotionen, Tiere & Figuren, Weltall & Fahrzeuge, Natur & Wetter, Formen & Richtungen
+   oder eine neue).
+3. Prüfe vor der Ausgabe selbst: 16 Zeilen, alle Zeilen gleich lang (höchstens 16 Zeichen),
+   nur erlaubte Zeichen, keine leeren Randspalten links und rechts.
+
+MOTIV
+- Was: [z. B. Banane mit Sonnenbrille / Bierglas / Tatra-Front …]
+- Farben/Details: [z. B. gelbe Banane, schwarze Brille, weißer Glanzpunkt …]
+- Breite: [z. B. volle 16 Spalten / so schmal wie möglich]
+
+
+___________________________________________
+
+
+Erstelle eine Animation für eine LED-Tafel als Text-Raster.
+
+TECHNISCHE VORGABEN (genau einhalten)
+- Bildgröße: genau 64 Spalten × 16 Zeilen. Jede Zeile hat exakt 64 Zeichen, jedes Bild exakt 16 Zeilen.
+- Ein Zeichen = ein LED-Pixel. Erlaubt sind NUR diese 8 Zeichen:
+  . = aus (schwarz)
+  R = rot
+  G = grün
+  B = blau
+  C = cyan
+  M = magenta
+  Y = gelb
+  W = weiß
+  Keine anderen Zeichen, keine Leerzeichen, keine Abstufungen oder Mischfarben.
+- Mehrere Bilder (Frames) werden durch eine eigene Zeile getrennt, die nur aus drei Bindestrichen besteht: ---
+- Keine Leerzeile zwischen den Zeilen eines Bildes, keine Nummern, keine Kommentare in der Datei.
+- Mindestens 2, höchstens 79 Bilder.
+- Die Animation läuft in Dauerschleife: Das letzte Bild soll nahtlos ins erste übergehen (kein Ruckeln beim Neustart).
+- Alle Bilder haben dieselbe Zeit je Bild; „Pausen“ entstehen nur durch wiederholte Bilder.
+
+GESTALTUNG
+- Die Tafel ist sehr niedrig (16 Pixel): Motive einfach, kräftig und gut erkennbar halten, klare Umrisse, keine Einzelpixel-Krümel.
+- Gleichbleibende Größe des Motivs über alle Bilder; Bewegung in gleichmäßigen Schritten (z. B. 1–3 Pixel pro Bild).
+- Was im Hintergrund stillsteht (z. B. Boden, Schienen, Schwellen), bleibt in allen Bildern an derselben Stelle.
+- Farben sparsam und mit Kontrast einsetzen; Schwarz (.) ist die wichtigste „Farbe“.
+
+AUSGABE
+1. Das komplette Raster in EINEM Codeblock (oder als Datei name.txt), nichts anderes darin.
+2. Darunter kurz: Anzahl der Bilder, empfohlene Zeit je Bild in Millisekunden (zwischen 40 und 300 ms) und ein Satz, was passiert.
+3. Prüfe vor der Ausgabe selbst: 16 Zeilen pro Bild, 64 Zeichen pro Zeile, nur erlaubte Zeichen, Trennzeilen genau „---“.
+
+MOTIV
+- Was: [z. B. tanzende Banane / Tatra T4D Doppeltraktion / …]
+- Bewegung: [z. B. fährt einmal von rechts nach links durchs Bild / hüpft auf der Stelle / blinkt …]
+- Farben/Details: [z. B. gelber Wagenkasten, weißer Streifen, blaue Drehgestelle …]
+- Hintergrund: [z. B. Fahrleitung oben in Cyan, Schiene weiß, Schwellen blau und stehend]
+- Länge/Tempo: [z. B. etwa 40 Bilder, eher ruhig]
