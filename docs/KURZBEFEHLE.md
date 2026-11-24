@@ -7,7 +7,7 @@ Wichtig vorab:
 - Das Handy muss mit dem WLAN **RavestickBoard** verbunden sein. Ohne diese Verbindung erreicht der Kurzbefehl das Board nicht.
 - Das Board hat immer die Adresse **http://192.168.4.1**.
 - Dieses WLAN hat kein Internet. Das Handy bleibt trotzdem verbunden, wenn du beim Hinweis „Kein Internetzugang“ die Verbindung behältst. Siri braucht für die Spracherkennung meist mobile Daten; die Anfrage an das Board läuft trotzdem über das WLAN.
-- Nicht auf echter Hardware geprüft (Stand v0.7.0). Bitte beim Hardwaretest ausprobieren.
+- Nicht auf echter Hardware geprüft (Stand v0.7.1). Bitte beim Hardwaretest ausprobieren.
 
 ## Was geht
 
@@ -23,7 +23,7 @@ Alle drei sind **POST**-Anfragen mit den Feldern als Formular.
 
 **Kurzwahl:** Die Kacheln der Startseite zählen von links oben nach rechts unten: 1 und 2 in der ersten Reihe, 3 und 4 in der zweiten, bis 7 und 8 in der letzten. Unbelegte Kacheln zeigen ihre Nummer. Was auf der Kachel liegt (Text, Blocktext, Programm, Ambiente oder Animation), startet der Kurzbefehl.
 
-**Animation:** Die ID steht in der Oberfläche unter **Animationen** in der Zeile der Animation und unter der Vorschau („ID 3“). Sie bleibt gleich, wenn du die Animation umbenennst, verschiebst oder bearbeitest. Nach dem Löschen kann eine neue Animation die frei gewordene ID bekommen; dann passt der Kurzbefehl nicht mehr. Eine Kurzwahl ist deshalb oft die bessere Wahl: Sie zeigt immer auf das, was du ihr zugewiesen hast.
+**Animation:** Die ID steht nicht mehr in der Oberfläche. Du findest sie, wenn du im Browser `http://192.168.4.1/api/anim/list` öffnest (WLAN der Tafel); dort steht zu jeder Animation `id` und `name`. Sie bleibt gleich, wenn du die Animation umbenennst, verschiebst oder bearbeitest. Nach dem Löschen kann eine neue Animation die frei gewordene ID bekommen; dann passt der Kurzbefehl nicht mehr. Eine Kurzwahl ist deshalb oft die bessere Wahl: Sie zeigt immer auf das, was du ihr zugewiesen hast.
 
 ## iPhone: Kurzbefehle-App
 
@@ -78,7 +78,7 @@ Falls Android die Anfrage über mobile Daten schickt und sie deshalb nicht ankom
 
 ## Für Entwickler: feste Routen
 
-Diese Routen und Felder bleiben über Versionen gleich. Der Test `tests/host_routes_0700.py` prüft sie gegen den Sketch.
+Diese Routen und Felder bleiben über Versionen gleich. Der Test `tests/host_routes_0701.py` prüft sie gegen den Sketch.
 
 <!-- ROUTEN-ANFANG -->
 | Methode | Pfad | Pflichtfelder | Optionale Felder |

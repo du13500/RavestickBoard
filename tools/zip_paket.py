@@ -1,7 +1,7 @@
 """Baut das Lieferpaket als ZIP aus einer festen Dateiliste statt aus dem ganzen Ordner.
 Hinein kommen nur Dateien, die git kennt (versioniert oder neu und nicht ignoriert), und unter firmware/ nur der
 angegebene Firmware-Ordner. So geraten keine lokalen Dateien (Diagnosen, Exporte, Zwischenstände) ins Paket.
-Aufruf: python tools/zip_paket.py <Firmware-Ordner, z. B. RavestickBoard_v0_7_0> <Ziel.zip>"""
+Aufruf: python tools/zip_paket.py <Firmware-Ordner, z. B. RavestickBoard_v0_7_1> <Ziel.zip>"""
 import subprocess, sys, zipfile
 from pathlib import Path
 

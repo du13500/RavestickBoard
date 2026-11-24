@@ -1,6 +1,6 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 21.11.2026 für v0.7.0-dev (neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 21.11.2026 für v0.7.1-dev (keine neuen Diagnosezeilen gegenüber 0.7.0; neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
 
 ## Diagnose-Ergänzung v0.7.0 – WLAN-Puffer, Sicherheit, Programmstopp (21.11.2026)
 

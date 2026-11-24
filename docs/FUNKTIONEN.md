@@ -1,6 +1,6 @@
 # RavestickBoard · Funktionen nach Themen
 
-**Stand: 21.11.2026 (v0.7.0-dev).** Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
+**Stand: 23.11.2026 (v0.7.1-dev).** Programme laufen fest mit Tempo 80 (der Regler springt beim Start auf 80); die Kurzwahl meldet beim Antippen nur Fehler; Animationen zeigen keine ID mehr (für Kurzbefehle `/api/anim/list`). Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
 
 ## Inhalt
 

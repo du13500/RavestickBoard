@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.7.0.md`](TESTPLAN_v0.7.0.md) (WLAN-Puffer im Vergleich, Test mit 1 Gerät und mit 2 Geräten, Senden während Programm, Animationen, Backup-Auswahl, WPA2/WPA3, Kurzbefehle, Design; als Excel `RavestickBoard_Hardwaretest_v0.7.0.xlsx`). Ältere Pläne liegen in [`archive/`](archive/).
+> **Neuester Testplan:** [`TESTPLAN_v0.7.1.md`](TESTPLAN_v0.7.1.md) (Programmtempo 80, Kurzwahl ohne Meldungen, Animationen, Backup, Design, Mischfarben, offene Punkte aus 0.7.0; als Excel `RavestickBoard_Hardwaretest_v0.7.1.xlsx`). Ältere Pläne liegen in [`archive/`](archive/).
 
 ## Ergänzung v0.3.5
 

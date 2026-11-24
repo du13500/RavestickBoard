@@ -1,3 +1,10 @@
+## Technischer Nachtrag v0.7.1: Programmtempo, Oberfläche (23.11.2026)
+
+- **Programmtempo:** `RB42_PROGRAM_SPEED` (80) in `RavestickBoard_v042.h`; `v042RunCollection()` und `v042RunShortcut()` setzen `pendingSpeed` und `rb42ProgramSpeed` beim Programmstart. Der Status meldet `speed=pendingSpeed`, die Oberfläche gleicht den Regler daran an (`syncGlobalControls`). Während eines Programms bleibt der Regler gesperrt; die Blocktext-Dauer ist nur bei 60 bis 90 gemessen, bei fester 80 ist sie damit gedeckt.
+- **Senden im Programm (Klarstellung):** `rbProgStopReply` antwortet mit 409 nur, solange der Zustand `queued` oder `sending` ist (ein Programmschritt wird gerade übertragen). Wartet das Programm in der Anzeigedauer, geht der gesendete Inhalt sofort hinaus und beendet das Programm ohne Meldung; der Zähler „Programm durch Senden beendet“ zählt nur den ersten Fall.
+- **Oberfläche:** `#scrollColors2` mit acht Spalten wie `#scrollColors` (Palettenknopf als achter Platz in Zeile 1); `animPlaySync()` sperrt Play bei `controllerBusy`; `body.rb-prog-edit` blendet das Bedienfeld in der Programm-Maske aus; das Kurzwahl-Fenster hat Escape, Tabulator-Falle und Fokusrückgabe.
+- **Mischfarben:** `docs/farbmischung/` (Text-Raster, 64 × 16, Bilder durch `---`).
+
 ## Technischer Nachtrag v0.7.0: WLAN-Puffer, Senden während Programm, Upload-Schutz, Kurzbefehle (21.11.2026)
 
 - **WLAN-Puffer:** `wifiBuffersInit()` vor `WiFi.softAP()`: bei Einstellung „begrenzt“ `Network.begin()` und `esp_wifi_init()` mit `WIFI_INIT_CONFIG_DEFAULT()` plus `static_rx_buf_num` 4, `dynamic_rx_buf_num` 8, `dynamic_tx_buf_num` 32, `tx_buf_type` 1, `cache_tx_buf_num` 4 (wie Arduino bis auf die 8). Arduinos `wifiLowLevelInit()` ruft danach `esp_wifi_init()` erneut auf und bekommt `ESP_OK`, weil das WLAN schon initialisiert ist (arduino-esp32 3.3.12 / IDF 5.5 im Quelltext geprüft). Bei „Arduino-Standard“ tut die Firmware nichts. Fehler → `wifiBufInitErr`, Arduino-Standard bleibt aktiv.

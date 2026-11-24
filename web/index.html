@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.7.0-dev</title>
+<title>RavestickBoard · v0.7.1-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -212,6 +212,8 @@ body[data-rb-view='home'] .rb-dock-edit{display:flex}
 body[data-rb-view='ambience'] .rb-dock-modes{display:none}
 body[data-rb-view='ambience'] .rb-dock-speed{display:none}
 body[data-rb-view='diagnostics'] .rb-dock,body[data-rb-view='settings'] .rb-dock{display:none}
+body.rb-prog-edit[data-rb-view='programs'] .rb-dock{display:none}
+body.rb-prog-edit[data-rb-view='programs']{padding-bottom:18px!important}
 body[data-rb-view='diagnostics'],body[data-rb-view='settings']{padding-bottom:30px!important}
 .rb-legacy-controls{display:none!important}
 #view-editor .pixel-range{display:none!important}
@@ -341,7 +343,7 @@ body.home-active #rbDock{flex:0 0 auto;margin:8px auto 0!important}
 .rb-dock .pixel-range input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:#3a475b}
 .rb-dock .pixel-range input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--rb-accent);border:3px solid #1c2533}
 /* Palettenknopf neben den Farben */
-#scrollColors{grid-template-columns:repeat(8,minmax(0,1fr))}
+#scrollColors,#scrollColors2{grid-template-columns:repeat(8,minmax(0,1fr))}
 .swatch-more{width:clamp(26px,7.5vw,39px);height:clamp(26px,7.5vw,39px);padding:0;border-radius:50%;border:3px solid #303948;background:var(--rb-btn);color:var(--rb-ink);display:inline-flex;align-items:center;justify-content:center;justify-self:center}
 .swatch-more svg{width:62%;height:62%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(min-width:760px){.swatch-more svg{width:84%;height:84%}}
@@ -629,8 +631,6 @@ button.rb-working{opacity:1!important;cursor:progress}
 html.rb-down .rb-tx-pill span{color:#ffc2c9;border-color:#ff8a9877}
 #status.rb-long{max-height:none!important;line-height:1.4;padding:11px 14px}
 html.rb-down .rb-tx-pill i{background:#ff7385;box-shadow:0 0 0 4px rgba(255,115,133,.18)}
-button.rb-working svg{animation:rbTxPulse 1.4s ease-in-out infinite}
-@media(prefers-reduced-motion:reduce){button.rb-working svg{animation:none}}
 
 /* „auf der Tafel“ – einheitlich grün, Text „auf der Tafel“ */
 :root{--rb-on:var(--rb-send);--rb-on-ink:var(--rb-send-ink)}
@@ -646,7 +646,7 @@ button.rb-working svg{animation:rbTxPulse 1.4s ease-in-out infinite}
 #ambienceColors button>.rb-on-badge{position:absolute;top:6px;right:8px}
 
 /* Animations-Raster (Handy: 2 Spalten) mit Listenansicht als Alternative */
-.rb-anim-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
+.rb-anim-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:2px}
 .rb-anim-head h2{margin:0}.rb-anim-head-btns{display:flex;gap:6px}
 .rb-anim-head-btns button{width:auto!important;flex:none;min-height:42px;min-width:68px;padding:6px 16px;display:inline-flex;align-items:center;justify-content:center}
 .rb-anim-head-btns .rb-lucide{width:20px;height:20px}
@@ -713,7 +713,7 @@ body.rb-no-dock #rbDock{display:none!important}
 .rb-tx-pill span{max-width:calc(100% - 20px);text-align:center;line-height:1.25}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.7.0-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.7.1-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -921,7 +921,7 @@ body.rb-no-dock #rbDock{display:none!important}
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.7.0-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.7.1-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -1674,7 +1674,7 @@ async function poll(){
   if(rbJobWatch&&d.state!=='queued'&&d.state!=='sending'){rbJobWatch=false;if(d.state==='error')notify('Fehler: '+(statusMessage||'Der Sendeauftrag ist fehlgeschlagen.'));}
   programRunning=!!d.programPlaying;rbAnimActive=!!d.animActive;document.querySelectorAll('input[data-global="speed"],#scrollSpeed').forEach(x=>{x.disabled=programRunning||rbAnimActive;if(rbAnimActive&&!programRunning)x.title='Das Tempo wirkt bei Animationen nicht: Die Tafel spielt sie selbst ab (Zeit je Frame steckt in der Animation).';else x.removeAttribute('title');});
   document.querySelectorAll('.v43-force-btn[data-mode]').forEach(x=>{if(x.dataset.t0===undefined)x.dataset.t0=x.title;x.disabled=rbAnimActive;x.title=rbAnimActive?x.dataset.t0+' (gesperrt, solange eine Animation läuft: die Tafel spielt sie selbst ab)':x.dataset.t0;});
-  controllerBusy=d.state==='queued'||d.state==='sending';boardCurrent=d.current||0;
+  controllerBusy=d.state==='queued'||d.state==='sending';boardCurrent=d.current||0;if(typeof animPlaySync==='function')animPlaySync();
   showPowerState(!!d.powerKnown,!!d.powerOn);syncDashboardPower(!!d.powerKnown,!!d.powerOn);rbBleShow(d);
   if(!globalSliderEditing){if(Number.isFinite(Number(d.brightness)))syncGlobalControls('brightness',d.brightness);if(Number.isFinite(Number(d.speed)))syncGlobalControls('speed',d.speed);}
   renderProgramState(d);
@@ -1724,7 +1724,7 @@ function navigate(view){
 }
 document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
 $('editShortcuts').addEventListener('click',()=>{shortcutsEditing=!shortcutsEditing;const b=$('editShortcuts');b.setAttribute('aria-pressed',String(shortcutsEditing));b.classList.toggle('is-active',shortcutsEditing);b.dataset.rbIcon=shortcutsEditing?'pencil-off':'pencil';b.title=shortcutsEditing?'Bearbeitungsmodus beenden':'Kurzwahlen bearbeiten';b.setAttribute('aria-label',b.title);document.querySelectorAll('.shortcut').forEach(tile=>tile.classList.toggle('editing',shortcutsEditing));rb43PaintIcons();});
-document.querySelectorAll('.shortcut').forEach(b=>b.addEventListener('click',async()=>{const slot=Number(b.dataset.shortcut);if(shortcutsEditing||!v42Shortcuts[slot-1]?.type){await v42OpenShortcut(slot);return;}try{const j=await api('/api/shortcuts/run',{slot});notify(j.message);}catch(e){notify('Kurzwahl: '+e.message);}}));
+document.querySelectorAll('.shortcut').forEach(b=>b.addEventListener('click',async()=>{const slot=Number(b.dataset.shortcut);if(shortcutsEditing||!v42Shortcuts[slot-1]?.type){await v42OpenShortcut(slot);return;}try{await api('/api/shortcuts/run',{slot});}catch(e){notify('Kurzwahl: '+e.message);}}));
 
 // Gespeicherte Textbibliothek. The ESP32 is the source of truth, not
 // localStorage; draft/editor, stored record and current LED display are separate.
@@ -2159,7 +2159,7 @@ function v43ProgDirty(){return !$('v43ProgEditPane').classList.contains('hidden'
 function v43ProgHeading(){const name=$('v42ProgramName').value.trim();const n=v42ProgramSteps.length;
  $('v43ProgHeading').textContent=v42ProgramId?(name||'Programm'):(name||'Neues Programm');
  $('v43ProgSub').textContent=(v42ProgramId?'Programm bearbeiten':'Noch nicht gespeichert')+' · '+n+(n===1?' Eintrag':' Einträge');}
-function v43ProgShowEdit(show){$('v43ProgListPane').classList.toggle('hidden',show);$('v43ProgEditPane').classList.toggle('hidden',!show);if(show)v43ProgHeading();window.scrollTo(0,0);}
+function v43ProgShowEdit(show){$('v43ProgListPane').classList.toggle('hidden',show);$('v43ProgEditPane').classList.toggle('hidden',!show);document.body.classList.toggle('rb-prog-edit',!!show);if(show)v43ProgHeading();window.scrollTo(0,0);}
 function v43ProgReset(){v42ProgramId=0;v42ProgramSteps=[];$('v42ProgramName').value='';$('v42ProgramSeconds').value='20';$('v43Playback').value='0';v43PlaybackHelp();v43ProgSnapshot();v42RenderProgramSteps();v42ShowPrograms();}
 async function v43SelectProgram(id){
  try{const p=await api('/api/collections/get?id='+id);v42ProgramId=id;v42ProgramSteps=p.ids||[];$('v42ProgramName').value=p.name;$('v42ProgramSeconds').value=p.seconds;$('v43Playback').value=String(p.playback||0);v43PlaybackHelp();v43ProgSnapshot();v42RenderProgramSteps();v42ShowPrograms();}
@@ -2222,6 +2222,14 @@ function v42ShortcutUpdate(){const type=Number($('v42ShortcutType').value),id=Nu
 function v42ShortcutCount(){const i=$('v42ShortcutLabel');i.value=v42BoundName(i.value);$('v42ShortcutBytes').textContent=v42Bytes(i.value)+' / 47 UTF-8-Bytes';}
 $('v42ShortcutLabel').addEventListener('input',v42ShortcutCount);
 $('v42ShortcutCancel').onclick=()=>$('v42ShortcutDialog').classList.add('hidden');
+// Fokus und Escape für die Kurzwahl-Belegung: beim Öffnen in den Dialog, mit Escape oder beim Schließen zurück zum Auslöser
+(function(){const d=$('v42ShortcutDialog');if(!d)return;let back=null,was=false;
+ new MutationObserver(()=>{const open=!d.classList.contains('hidden');if(open===was)return;was=open;
+  if(open){back=document.activeElement&&document.activeElement!==document.body?document.activeElement:back;setTimeout(()=>{try{(d.querySelector('input,select,button')||d).focus();}catch(e){}},0);}
+  else if(back&&back.isConnected&&typeof back.focus==='function'){back.focus();}}).observe(d,{attributes:true,attributeFilter:['class']});
+ d.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();d.classList.add('hidden');return;}
+  if(e.key!=='Tab')return;const f=[...d.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])')].filter(x=>x.offsetParent!==null);if(!f.length)return;
+  const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}});})();
 $('v42ShortcutDelete').onclick=async()=>{if(!v42Shortcuts[v42ShortcutSlot-1]?.type)return;if(!confirm('Kurzwahl '+v42ShortcutSlot+' vollständig löschen, einschließlich Beschriftung?'))return;try{await api('/api/shortcuts/set',{slot:v42ShortcutSlot,type:0,id:0,label:''});$('v42ShortcutDialog').classList.add('hidden');await v42RefreshShortcuts();notify('Kurzwahl entfernt.');}catch(e){$('v42ShortcutMsg').textContent='Kurzwahl: '+e.message;}};
 $('v42ShortcutSave').onclick=async()=>{const type=Number($('v42ShortcutType').value),id=type?Number($('v42ShortcutTarget').value):0;
  if(!type||!id){$('v42ShortcutMsg').textContent='Bitte zuerst Quelle und Inhalt auswählen.';return;}
@@ -2277,7 +2285,7 @@ function v42ExportChoice(){return new Promise(resolve=>{
  });}
 $('libExport').onclick=async()=>{try{const btn=$('libExport'),label=[...btn.childNodes].find(n=>n.nodeType===3);
  const sel=await v42ExportChoice();if(!sel)return;
- const backup=await v42Backup(t=>{if(label)label.textContent='Backup: '+t+' …';},sel);
+ const backup=await v42Backup(t=>{if(label)label.textContent='Backup: '+t;},sel);
  const blob=new Blob([JSON.stringify(backup)],{type:'application/json'}),url=URL.createObjectURL(blob);   // ohne Einrueckung (Animationen machen die Datei sonst unnoetig gross)
  const a=document.createElement('a');a.href=url;a.download='RavestickBoard_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
  notify('Backup erstellt: '+backup.items.length+' Bibliothekseinträge, '+backup.collections.length+' Programme, '+backup.animations.length+' Animationen'+(sel.shortcuts?', Kurzwahlen':', ohne Kurzwahlen')+(backup.animSkipped?' ('+backup.animSkipped+' beschädigte Animation'+(backup.animSkipped>1?'en':'')+' nicht gesichert)':'')+'.');}
@@ -2289,7 +2297,7 @@ async function v42WritePageSet(source){await api('/api/block/reset',{});
 function rbImportProgress(t){const l=document.querySelector('label[for="libImport"]');if(!l)return;
  const n=[...l.childNodes].find(x=>x.nodeType===3);if(!l.dataset.label)l.dataset.label=n?n.textContent:'Backup zusammenführen';
  if(t===null){if(n)n.textContent=l.dataset.label;l.classList.remove('rb-working');l.removeAttribute('aria-busy');return;}
- if(n)n.textContent='Import: '+t+' …';l.classList.add('rb-working');l.setAttribute('aria-busy','true');}
+ if(n)n.textContent='Import: '+t;l.classList.add('rb-working');l.setAttribute('aria-busy','true');}
 $('libImport').onchange=async e=>{const file=e.target.files?.[0];e.target.value='';if(!file)return;if(file.size>4500000){notify('Backup größer als 4,5 MB.');return;}   // Platz für bis zu 40 Animationen
  let oldPages=null,doneMsg='';
  try{const obj=JSON.parse(await file.text());if(obj.format!=='RavestickBoard-library'||![1,2,3].includes(obj.schema)||!Array.isArray(obj.items)||obj.items.length>192)throw Error('Unbekanntes Backupformat.');
@@ -3178,7 +3186,7 @@ function renderAnimList(){
   animLed(th,r.broken?null:animThumbPx(r),2);
   const pick=document.createElement('button');pick.className='lib-pick';pick.type='button';pick.setAttribute('aria-pressed',String(animUI.selected===r.id||(multi&&rbMulti.anim.has(r.id))));
   const title=document.createElement('strong');title.className='lib-name';title.textContent=r.broken?'⚠ Beschädigte Datei #'+r.id:r.name;
-  const info=document.createElement('small');info.textContent=r.broken?'Nur löschen möglich ('+animSizeText(r.bytes)+')':r.frames+' Frames · '+r.ms+' ms · '+animSizeText(r.bytes)+' · ID '+r.id;
+  const info=document.createElement('small');info.textContent=r.broken?'Nur löschen möglich ('+animSizeText(r.bytes)+')':r.frames+' Frames · '+r.ms+' ms · '+animSizeText(r.bytes);
   pick.append(title,info);pick.onclick=ev=>{if(rbMultiClick('anim',r.id,ev,animUI.items.map(x=>x.id),animUI.selected)){RB_MULTI.anim.settle();renderAnimList();return;}animSelect(animUI.selected===r.id?0:r.id);};
   // Reihenfolge mit Pfeilen ändern (wie in der Bibliothek); der ESP32 speichert sie in order.bin
   const up=v43IconBtn('arrow-up','Nach oben',idx===0||multi,()=>animMove(r.id,-1)),down=v43IconBtn('arrow-down','Nach unten',idx===count-1||multi,()=>animMove(r.id,1));
@@ -3294,22 +3302,22 @@ async function animFetchPayload(id,progress){
 // Eine Zeile antippen laedt NICHTS. Die Vorschau zeigt das gemerkte Vorschaubild als Standbild;
 // erst die Play-Taste daneben holt die Animation (einmal, danach aus dem Zwischenspeicher) und spielt sie ab, bis eine andere Zeile
 // gewaehlt wird. Umbenennen, Loeschen und Senden laden keine Einzelbilder; Bearbeiten nutzt die schon geladenen Daten.
-function animInfoText(it){return it.frames+' Frames · '+it.ms+' ms je Frame · Schleife '+(it.frames*it.ms/1000).toFixed(1).replace('.',',')+' s'+(it.id?' · ID '+it.id:'');}   // ID: fest, für Kurzbefehle (docs/KURZBEFEHLE.md)
+function animInfoText(it){return it.frames+' Frames · '+it.ms+' ms je Frame · Schleife '+(it.frames*it.ms/1000).toFixed(1).replace('.',',')+' s';}
 function animSelect(id){
  animUI.selected=id;animUI.playing=0;renderAnimList();
  const info=$('animPreviewInfo');info.classList.remove('loading');info.textContent='';
  const it=animSelectedItem();if(!it||it.broken){if(animListPlayer)animListPlayer.set([],100);return;}
  const px=animThumbPx(it);if(animListPlayer)animListPlayer.set(px?[px]:[],1000);   // Standbild (erstes Bild) aus dem Zwischenspeicher
- info.textContent=animInfoText(it)+' · Play spielt sie ab';
+ info.textContent=animInfoText(it);
  animPlaySync();
 }
 // Ein Knopf: Play startet die Vorschau, während sie läuft wird er zu Stop (zurück zum Standbild)
 function animPlaySync(){const it=animSelectedItem(),b=$('animPlay');if(!b)return;
- const on=!!it&&!it.broken&&animUI.playing===it.id;b.disabled=!it||it.broken;
+ const on=!!it&&!it.broken&&animUI.playing===it.id;b.disabled=!it||it.broken||(controllerBusy&&!on);
  b.dataset.rbIcon=on?'square':'play';b.title=on?'Anhalten':'Abspielen';b.setAttribute('aria-label',on?'Animation anhalten':'Animation abspielen');
  b.setAttribute('aria-pressed',on?'true':'false');rb43PaintIcons();}
 function animStop(){const it=animSelectedItem();animUI.playing=0;
- if(it&&!it.broken){const px=animThumbPx(it);if(animListPlayer)animListPlayer.set(px?[px]:[],1000);$('animPreviewInfo').textContent=animInfoText(it)+' · Play spielt sie ab';}
+ if(it&&!it.broken){const px=animThumbPx(it);if(animListPlayer)animListPlayer.set(px?[px]:[],1000);$('animPreviewInfo').textContent=animInfoText(it);}
  animPlaySync();}
 async function animPlay(){
  const it=animSelectedItem();if(!it||it.broken)return;const id=it.id,info=$('animPreviewInfo');
@@ -3733,7 +3741,7 @@ init();
 // Das Backup holt jeden Eintrag einzeln vom ESP32 und dauert deshalb einige Sekunden.
 (function(){const b=$('libExport');if(!b)return;const run=b.onclick;if(!run)return;
  b.onclick=async()=>{if(b.dataset.working)return;b.dataset.working='1';b.disabled=true;b.classList.add('rb-working');
-  const label=[...b.childNodes].find(n=>n.nodeType===3),old=label?label.textContent:'';if(label)label.textContent='Backup wird erstellt …';
+  const label=[...b.childNodes].find(n=>n.nodeType===3),old=label?label.textContent:'';if(label)label.textContent='Backup wird erstellt';
   try{await run();}finally{if(label)label.textContent=old;b.classList.remove('rb-working');b.disabled=false;delete b.dataset.working;}};})();
 
 // ---- ESP32 hängt / hat neu gestartet (z. B. Wächter-Neustart nach Bluetooth-Hänger) ----------------

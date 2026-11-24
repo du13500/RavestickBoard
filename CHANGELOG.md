@@ -2,6 +2,17 @@
 
 # RavestickBoard · Versionsgeschichte / Changelog
 
+## v0.7.1-dev – Programmtempo 80, Kurzwahl ohne Erfolgsmeldung, Aufräumer aus dem Test von 0.7.0 (23.11.2026)
+
+- **Anlass:** Hardwaretest von 0.7.0 (23.11.2026: kein ungeplanter Neustart, 36 BLE-Aufträge je Lauf ohne Fehler; WLAN-Puffer „begrenzt“ gegen „Arduino-Standard“ ohne messbaren Unterschied, „Nach WLAN-AP“ 68.452 Byte in beiden Fällen; WPA2/WPA3 kostet etwa 8 KB Ruhe-Heap) und Go von Felix am 23.11.2026.
+- **Programmtempo:** `RB42_PROGRAM_SPEED` = 80; `v042RunCollection()` und `v042RunShortcut()` (Typ Programm) setzen `pendingSpeed` und `rb42ProgramSpeed` beim Start auf 80. Die Oberfläche übernimmt den Wert aus dem Status. Einzelsendungen ändern das Tempo nicht.
+- **Kurzwahl:** Der Klick auf eine Kurzwahl zeigt keine Erfolgsmeldung mehr, Fehler bleiben. Antworttexte der Firmware unverändert.
+- **Oberfläche:** Palettenknopf bei „Mini - Zweizeilig“ (beide Zeilen acht Spalten, Variante A); Play der Animationen gesperrt während einer Übertragung; Hinweis „Play spielt sie ab“ und ID in Liste und Vorschau entfernt; Meldungen von Export und Import ohne „…“, kein Pulsieren am Symbol der Knöpfe; Überschrift der Animationsseite bündig; Programm-Maske ohne unteres Bedienfeld; Kurzwahl-Fenster mit Escape und Fokusrückgabe.
+- **Mischfarben:** `docs/farbmischung/` mit 15 Textraster-Dateien.
+- **Dokumentation:** Testplan 0.7.1 mit Klarstellung zu D1 bis D3 und D5 (die Meldung „Das Programm wird beendet“ erscheint nur, solange gerade ein Programmschritt übertragen wird; in der Anzeigedauer wird sofort gesendet und das Programm endet still).
+- **Offen aus dem Test:** Beschriftung „Text · Zeile 2“ (I3) im Browser nicht reproduzierbar (Größe, Farbe und Ausrichtung gemessen gleich); Kurzbefehle (H1 bis H6) noch in Testung; ob die WLAN-Pufferbegrenzung wirkt, ist nicht belegt.
+- **Prüfung:** alle Tests mit Endung `0701` am Rechner grün. Nicht geprüft: Arduino-Compile, Hardware, Safari.
+
 ## v0.7.0-dev – WLAN-Puffer, Senden während Programm, Design-Tokens, Export-Auswahl, Kurzbefehle, Quelltext-Bereinigung (21.11.2026)
 
 - **Anlass:** Hardwaretest von 0.6.1.11 (17.11.2026: kein Neustart, aber System-Minimum bis 2,8 KB, Einbrüche im Leerlauf kurz nach WLAN-Anmeldungen), Recherche zur Ursache (Arduino-ESP32 setzt in `wifiLowLevelInit()` 32 dynamische Empfangspuffer; EleksTubeIPS PR #100 mit demselben Befund), offene Punkte aus den Audits und Go von Felix am 21.11.2026 für den zusammengelegten Build (Plan 0.6.1.12 und 0.7.0).
