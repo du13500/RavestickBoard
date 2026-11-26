@@ -4,9 +4,9 @@ import re,subprocess,gzip,hashlib,sys
 from playwright.sync_api import sync_playwright
 root=Path(__file__).resolve().parents[1]
 h=(root/'web/index.html').read_text()
-ino=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v0_7_2.ino').read_text()
-header=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_WebUI.h').read_text()
-assert 'FW_VERSION[] = "0.7.2-dev"' in ino
+ino=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v0_8_0.ino').read_text()
+header=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_WebUI.h').read_text()
+assert 'FW_VERSION[] = "0.8.0-dev"' in ino
 assert 'out.reserve(11000)' not in ino and 'json.reserve(5000)' not in ino
 # --- v0.4.3.3: RAM-Experiment (Messung + Versuchsschalter) ---
 assert ino.count('= ESP.getSketchSize();')==1 and ino.count('ESP.getSketchSize();')==1   # Aufruf nur einmal, in setup()
@@ -43,7 +43,7 @@ assert 'Abmelden vor Wächter-Neustart' in ino and '\\"hangDeauth\\"' in ino
 assert 'static char rbPrevText[200]' in ino
 assert '/api/test/hang' not in h                                      # kein Knopf in der Oberflaeche
 # --- v0.4.4.0: Farbe und Schrift pro Zeichen (Stilmarken U+0090..U+009C) ---
-v042=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v042.h').read_text()
+v042=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v042.h').read_text()
 assert ino.index('struct TextStyle {')<ino.index('bool runJob(Job job')          # Struktur vor dem ersten Funktionsprototyp (Arduino-sicher)
 assert 'static inline bool styleApply(TextStyle &st, uint32_t cp)' in ino and 'static const uint8_t RB_STYLE_FONT_LAYOUT[4] = {3, 4, 0, 2};' in ino
 assert ino.count('if (styleApply(st, raw)) continue;')==3                          # measureText, drawInlineUtf8, drawInlineUtf8Window
@@ -163,8 +163,8 @@ with sync_playwright() as pw:
  browser.close()
 
 # v0.4.6.0: Verträge für Blockseiten mit Zeichenstilen und Bluetooth-Übertragungszeichen
-_ino=next((root/'firmware').glob('RavestickBoard_v0_7_2/*.ino')).read_text(encoding='utf8')
-_h=next((root/'firmware').glob('RavestickBoard_v0_7_2/RavestickBoard_v042.h')).read_text(encoding='utf8')
+_ino=next((root/'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
+_h=next((root/'firmware').glob('RavestickBoard_v0_8_0/RavestickBoard_v042.h')).read_text(encoding='utf8')
 _web=(root/'web/index.html').read_text(encoding='utf8')
 for need in ['rbLineHasMarks','rbPageLineWidth','rbPageLineChars','rbPageDrawLine']:
     assert need in _ino,need
@@ -177,7 +177,7 @@ assert "xfer:['bluetooth-connected'" in _web
 # v0.5.0.0: Tafelverwaltung – keine Adresse mehr im Code, Speicher im NVS, Routen, Status
 _addr='ff:00:'+'00:03'   # Adresse der Entwicklungstafel darf nirgends mehr im Code stehen
 assert 'SIGN_ADDRESS' not in _ino and _addr not in _ino and _addr not in _web and _addr not in _h, 'Tafeladresse steht noch im Code'
-assert 'FW_VERSION[] = "0.7.2-dev"' in _ino
+assert 'FW_VERSION[] = "0.8.0-dev"' in _ino
 for need in ['struct SignRef','signLoad();','p.begin("rbsign", false)','/api/sign/scan','/api/sign/save','/api/sign/use','/api/sign/back','\\"signKind\\":%u','Keine Tafel eingerichtet','RB_SIGN_SCAN_S']:
     assert need in _ino,need
 assert _ino.index('struct SignRef')<_ino.index('uint8_t pendingLayout'),'SignRef muss vor den automatischen Prototypen stehen'
@@ -212,7 +212,7 @@ for need in ['id="rbAnimTestSection"','data-anim="colors"','data-anim="bar" data
     assert need in h,need
 assert 'id="rbAnimMode"' not in h, 'Anzeigemodus-Auswahl ist ab 0.6.0.2/0.6.1.0 entfallen'
 # --- v0.6.1.0: Animationen als eigener Bereich (Dateien in LittleFS, Import im Browser) ---
-anim_h=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_Anim.h').read_text(encoding='utf-8')
+anim_h=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_Anim.h').read_text(encoding='utf-8')
 assert ino.index('#include "RavestickBoard_Library.h"')<ino.index('#include "RavestickBoard_v042.h"')<ino.index('#include "RavestickBoard_Anim.h"')   # Anim.h braucht rb42ProgramPlaying aus v042.h (Compile-Fehler 0.6.1.0)
 assert ino.index('rb61AnimBegin();')>ino.index('libraryBegin();')
 for rt in ['list','get','put','send','rename','delete','move']:
@@ -237,7 +237,7 @@ assert 'touch-action:none' in h and 'pointerdown' in h and 'setPointerCapture' i
 assert 'RB61_TEMP_ID = 60000' in anim_h and 'RB61_TEMP_PATH' in anim_h and 'void rb61DropTemp()' in anim_h
 assert 'bool rb61AnimExists(uint32_t id)' in anim_h and 'bool rb61QueueAnim(uint32_t id)' in anim_h
 assert ino.index('void rb61DropTemp();')<ino.index('rb61DropTemp();',ino.index('void rb61DropTemp();')+10)          # Vorwaertsdeklaration vor erster Verwendung
-v42_h=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v042.h').read_text(encoding='utf-8')
+v42_h=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v042.h').read_text(encoding='utf-8')
 assert 'rb61AnimExists' in v42_h and 'rb61QueueAnim' in v42_h and 'type>4' in v42_h.replace(' ','') or 'type > 4' in v42_h
 assert 'bool rb61AnimExists(uint32_t id);' in ino and 'bool rb61QueueAnim(uint32_t id);' in ino
 for need in ['id="animEdit"','id="animSaveCopy"','id="animSourcePick"','id="animPixelOpts"','animEditOpen','animImp.stored',"replace:String(replaceId)","animSaveImport('copy')"]:
@@ -271,7 +271,7 @@ assert _np.index('LittleFS.remove(RB61_TMP)')<_np.index('rb61FreeFor(')
 # N10 + M5
 assert '"Animation startet"' in ino
 assert 'uxTaskGetStackHighWaterMark(nullptr)' in ino and '\\"minStack\\"' in ino and 'Kleinster freier Stapel' in ino and 'Stapel min=' in ino
-assert 'v0.4.2.4.1' not in v42_h[:300] and 'v0.4.2.1-dev' not in (root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_Library.h').read_text(encoding='utf-8')[:200]
+assert 'v0.4.2.4.1' not in v42_h[:300] and 'v0.4.2.1-dev' not in (root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_Library.h').read_text(encoding='utf-8')[:200]
 print('PASS: 0.6.1.3 (CRC-32, Lesefehler-Abbruch, Ersetzen ueber .bak, Reste vor Platzpruefung, Stapelanzeige).')
 # --- v0.6.1.4: Abruf in Teilen mit Heap-Schutz, kleinste freie ID, Loeschen ohne Kurzwahl-Eingriff, gesperrte Anzeige-Tasten ---
 assert 'rb61DetachShortcuts' not in anim_h and 'next.types[i] == 4' not in anim_h, 'Loeschen leert keine Kurzwahlen mehr (ADR-2026-11-04-J)'
@@ -317,7 +317,7 @@ _tx=ino[ino.index('ramTraceMark(RT_TX_END, (uint16_t)payloadLen);'):]
 assert _tx.index('if (job != ANIM && rb61LastKind != 1) {')<_tx.index('[STREAM] Fertig'), 'Modus nach den Daten erneut setzen (H2/J14)'
 assert 'sendSimple(c, 0x06, actualMode);' in _tx[:900]
 # Weboberflaeche
-assert '<title>RavestickBoard · v0.7.2-dev</title>' in h and 'for CoolLEDX ·' not in h
+assert '<title>RavestickBoard · v0.8.0-dev</title>' in h and 'for CoolLEDX ·' not in h
 assert 'const ANIM_GET_LEN=1200' in h and "'&len='+ANIM_GET_LEN,null,true" in h and 'ANIM_GET_PAUSE_LOW_MS' in h
 assert 'const RB_503_TRIES=8' in h and 'e.status!==503||data||noRetry' in h, 'nur lesende Anfragen werden bei 503 wiederholt'
 assert "if(opt.reverse)order.reverse();" in h and h.index('if(opt.reverse)order.reverse();')<h.index('if(opt.ping&&order.length>2)')
@@ -429,7 +429,7 @@ assert ino.index('enum RamStage')<ino.index('static void rbPhase(')             
 assert ino.index('static bool rb60NumberPixel(')>ino.index('static void rbPhase(')   # Animationsfunktionen hinter den Typen
 import importlib.util as _iu2
 _s2=_iu2.spec_from_file_location('decl_order', root/'tests/decl_order.py'); _do=_iu2.module_from_spec(_s2); _s2.loader.exec_module(_do)
-_dp=_do.check(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v0_7_2.ino')
+_dp=_do.check(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v0_8_0.ino')
 assert not _dp, 'Name vor seiner Deklaration benutzt (Reihenfolge der Einbindungen): '+'; '.join(_dp[:3])
 print('PASS: Deklarationsreihenfolge des zusammengesetzten Sketchs (decl_order).')
 print('PASS: Prototyp-Reihenfolge (kein Typ in einer Signatur vor seiner Definition).')
@@ -437,7 +437,7 @@ print('PASS: Animationstest-Invarianten (Opcode, Aufraeumen, Modus nach Upload, 
 print('PASS: Tafelverwaltung-Invarianten (keine Adresse im Code), JS parse, gzip/ETag, firmware version, Stilmarken-Verträge, JSON diagnostics only once, 7 one-column colors, disabled/active block actions, 3 mobile viewports.')
 
 # --- v0.6.1.10: Bluetooth-Stack NimBLE-Arduino statt Bluedroid ---
-_ble=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_Ble.h').read_text()
+_ble=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_Ble.h').read_text()
 import re as _re
 _code=_re.sub(r'//[^\n]*','',ino)
 assert '#include "RavestickBoard_Ble.h"' in ino and '#include <NimBLEDevice.h>' in _ble
@@ -459,9 +459,9 @@ assert 'NimBLE-Arduino' in (root/'README.md').read_text() and 'NimBLE-Arduino' i
 print('PASS NimBLE-Umstellung (statisch)')
 
 # --- v0.6.1.11: Stabilitaet, kleine Korrekturen aus den Audits, Backup mit Animationen, WLAN-Passwort, Release-Schalter ---
-lib_h=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_Library.h').read_text()
-v42=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v042.h').read_text()
-anim_h=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_Anim.h').read_text()
+lib_h=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_Library.h').read_text()
+v42=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v042.h').read_text()
+anim_h=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_Anim.h').read_text()
 # Adressart erst nach dem Vor-Scan (ChatGPT F-001), Tafelwechsel setzt sie zurueck, Subscribe-Fehler bricht ab (ChatGPT F-012)
 assert ino.index('if (!reused && bleScanForSign() == 0)') < ino.index('const NimBLEAddress address = rbBleAddress(signActive.addr, bleSignAddrType);')
 _sa=ino[ino.index('static void signApply('):ino.index('static String signJson()')]
@@ -529,7 +529,7 @@ for f in ('dvd_logo.txt','dvd_logo_ecke_unten_rechts.txt','dvd_logo_ohne_ecke.tx
 sys.path.insert(0, str(root / 'tests' / 'host'))
 import kommentare as _km
 _hist = re.compile(r'(?<![\w.])v?0\.\d+\.\d|\bF-\d{3}\b|\bP-\d{3}\b|\b(?:Hardware-?test|Audit|Felix|Celine|ChatGPT)\b')
-_fwdir = root / 'firmware' / 'RavestickBoard_v0_7_2'
+_fwdir = root / 'firmware' / 'RavestickBoard_v0_8_0'
 for _p in sorted(_fwdir.glob('*.ino')) + sorted(x for x in _fwdir.glob('*.h') if x.name != 'RavestickBoard_WebUI.h') + [root / 'web' / 'index.html']:
     _s = _p.read_text(encoding='utf8')
     _cs = _km.web_comments(_s) if _p.suffix == '.html' else _km.cpp_comments(_s)
@@ -540,22 +540,22 @@ import os
 if os.environ.get("RB_SKIP_DOCS") != "1":
     # --- Dokumentation: Version und Reihenfolge ---
     import re as _re
-    VER='0.7.2'
+    VER='0.8.0'
     readme=(root/'README.md').read_text(encoding='utf-8')
-    assert f'version-v{VER.replace(".", ".")}--dev' in readme and 'version-v0.7.2--dev-' in readme
-    assert 'firmware/RavestickBoard_v0_7_2/RavestickBoard_v0_7_2.ino' in readme and 'RavestickBoard_v0_5_0_1' not in readme
-    assert readme.index('<h1')<readme.index('> **Aktueller Entwicklungskandidat: v0.7.2-dev')   # Banner unter Kopf, GIF, Foto und Titel
+    assert f'version-v{VER.replace(".", ".")}--dev' in readme and 'version-v0.8.0--dev-' in readme
+    assert 'firmware/RavestickBoard_v0_8_0/RavestickBoard_v0_8_0.ino' in readme and 'RavestickBoard_v0_5_0_1' not in readme
+    assert readme.index('<h1')<readme.index('> **Aktueller Entwicklungskandidat: v0.8.0-dev')   # Banner unter Kopf, GIF, Foto und Titel
     assert readme.index('board-gif.gif')<readme.index('totem.jpg')<readme.index('<h1')
-    assert '## Aktuell: v0.7.2-dev' in readme and '**Teststand v0.7.2' in readme and 'docs/KURZBEFEHLE.md' in readme and 'RavestickBoard_Anim.h' in readme
+    assert '## Aktuell: v0.8.0-dev' in readme and '**Teststand v0.8.0' in readme and 'docs/KURZBEFEHLE.md' in readme and 'RavestickBoard_Anim.h' in readme
     changelog=(root/'CHANGELOG.md').read_text(encoding='utf-8')
-    assert changelog.index('## v0.7.2-dev')<changelog.index('## v0.6.1.11-dev')<changelog.index('## v0.6.1.9-dev')<changelog.index('## v0.6.1.6-dev')<changelog.index('## v0.6.1.5-dev')<changelog.index('## v0.6.1.4-dev')<changelog.index('## v0.6.1.3-dev')<changelog.index('## v0.6.1.2-dev')<changelog.index('## v0.6.1.1-dev')<changelog.index('## v0.6.1.0-dev')<changelog.index('## v0.6.0.2-dev')<changelog.index('## v0.6.0.1-dev')<changelog.index('## v0.6.0.0-dev')<changelog.index('## v0.5.0.1-dev')
+    assert changelog.index('## v0.8.0-dev')<changelog.index('## v0.7.2-dev')<changelog.index('## v0.6.1.11-dev')<changelog.index('## v0.6.1.9-dev')<changelog.index('## v0.6.1.6-dev')<changelog.index('## v0.6.1.5-dev')<changelog.index('## v0.6.1.4-dev')<changelog.index('## v0.6.1.3-dev')<changelog.index('## v0.6.1.2-dev')<changelog.index('## v0.6.1.1-dev')<changelog.index('## v0.6.1.0-dev')<changelog.index('## v0.6.0.2-dev')<changelog.index('## v0.6.0.1-dev')<changelog.index('## v0.6.0.0-dev')<changelog.index('## v0.5.0.1-dev')
     vg=(root/'VERSIONSGESCHICHTE.md').read_text(encoding='utf-8')
-    assert '| v0.6.0.2-dev |' in vg and '| v0.6.1.0-dev |' in vg and '| v0.6.1.1-dev |' in vg and '| v0.6.1.2-dev |' in vg and '| v0.6.1.3-dev |' in vg and '| v0.6.1.4-dev |' in vg and '| v0.6.1.5-dev |' in vg and '| v0.6.1.6-dev |' in vg and '| v0.6.1.9-dev |' in vg and '| v0.6.1.11-dev |' in vg and '| v0.7.2-dev |' in vg and 'Offene Punkte (Stand v0.6.1.11-dev)' in vg
-    assert (root/'docs/TESTPLAN_v0.7.2.md').exists() and 'TESTPLAN_v0.7.2.md' in readme and not (root/'docs/TESTPLAN_v0.6.1.11.md').exists() and (root/'docs/archive/TESTPLAN_v0.6.1.11.md').exists() and not (root/'docs/TESTPLAN_v0.6.1.10.md').exists() and (root/'docs/archive/TESTPLAN_v0.6.1.10.md').exists()
+    assert '| v0.6.0.2-dev |' in vg and '| v0.6.1.0-dev |' in vg and '| v0.6.1.1-dev |' in vg and '| v0.6.1.2-dev |' in vg and '| v0.6.1.3-dev |' in vg and '| v0.6.1.4-dev |' in vg and '| v0.6.1.5-dev |' in vg and '| v0.6.1.6-dev |' in vg and '| v0.6.1.9-dev |' in vg and '| v0.6.1.11-dev |' in vg and '| v0.7.2-dev |' in vg and '| v0.8.0-dev |' in vg and 'Offene Punkte (Stand v0.6.1.11-dev)' in vg
+    assert (root/'docs/TESTPLAN_v0.8.0.md').exists() and 'TESTPLAN_v0.8.0.md' in readme and not (root/'docs/TESTPLAN_v0.7.2.md').exists() and (root/'docs/archive/TESTPLAN_v0.7.2.md').exists() and not (root/'docs/TESTPLAN_v0.6.1.11.md').exists() and (root/'docs/archive/TESTPLAN_v0.6.1.11.md').exists() and not (root/'docs/TESTPLAN_v0.6.1.10.md').exists() and (root/'docs/archive/TESTPLAN_v0.6.1.10.md').exists()
     assert readme.count('<h1')==1
     assert 'WLAN `RavestickBoard`' in readme and 'WLAN `CoolLED1248`' not in readme.split('## Kurz zurückgeblickt')[0]
     for name in ['docs/ROADMAP.md','docs/TECHNIK.md','docs/DIAGNOSE.md','docs/QUELLEN_UND_LIZENZEN.md','docs/ENTSCHEIDUNGEN.md','THIRD_PARTY_NOTICES.md','tests/README.md']:
-        assert '0.7.2' in (root/name).read_text(encoding='utf-8'), name
+        assert '0.8.0' in (root/name).read_text(encoding='utf-8'), name
     # keine Tafeladresse, keine E-Mail-Adresse, keine Zugangsdaten in Dokumenten
     _mac=_re.compile(r'\b[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}\b')
     _mail=_re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}')
@@ -565,7 +565,7 @@ if os.environ.get("RB_SKIP_DOCS") != "1":
         assert not [m for m in _mail.findall(t) if not m.endswith('@users.noreply.github.com') and m!='noreply@anthropic.com'], f   # keine E-Mail-Adresse ausser noreply
     print('PASS: Dokumentation (Version, Banner unter Titel, Installationspfad, Verweise, keine Adressen).')
 # --- v0.7.1: Programmtempo fest, Kurzwahl ohne Erfolgsmeldung, Palette A, Sperren, Hinweise weg ---
-v42=(root/'firmware/RavestickBoard_v0_7_2/RavestickBoard_v042.h').read_text()
+v42=(root/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v042.h').read_text()
 assert 'static constexpr uint8_t RB42_PROGRAM_SPEED = 80;' in v42 and v42.count('pendingSpeed=RB42_PROGRAM_SPEED;rb42ProgramSpeed=RB42_PROGRAM_SPEED;')==2 and 'rb42ProgramSpeed=pendingSpeed' not in v42
 assert "await api('/api/shortcuts/run',{slot});}catch(e){notify('Kurzwahl: '+e.message);}" in h and 'notify(j.message);}catch(e){notify(\'Kurzwahl' not in h
 assert '#scrollColors,#scrollColors2{grid-template-columns:repeat(8,minmax(0,1fr))}' in h
@@ -573,26 +573,39 @@ assert 'Play spielt sie ab' not in h and "' · ID '" not in h and "' · ID " not
 assert 'button.rb-working svg{animation' not in h and '(controllerBusy&&!on)' in h
 assert "body.rb-prog-edit[data-rb-view='programs'] .rb-dock{display:none}" in h and "document.body.classList.toggle('rb-prog-edit',!!show)" in h
 assert ".rb-anim-head{display:flex;align-items:flex-start" in h and "const d=$('v42ShortcutDialog')" in h and "e.key==='Escape'" in h
-assert 'FW_VERSION[] = "0.7.2-dev"' in ino
+assert 'FW_VERSION[] = "0.8.0-dev"' in ino
 print('PASS: 0.7.1 (Programmtempo 80 fest, Kurzwahl ohne Erfolgsmeldung, Palette A, Play-Sperre, Hinweise entfernt, Programm-Maske ohne Dock, Kurzwahl-Dialog mit Escape).')
 # --- v0.7.2: Überschrift Ambiente, Arbeitsanzeige am Backup, Kalibrierhinweis weg, Mischfarben, Firmware sonst unverändert ---
 assert '#view-library h2,#view-programs h2,#view-ambience h2{margin:0 0 8px}' in h
 assert '#view-ambience .inner-panel{padding-top:9px!important;padding-left:10px!important;padding-right:10px!important}' in h
-assert '#v42BackupFooter .rb-working::after' in h and '@keyframes rbWorkBar' in h and 'animation:rbWorkBar 1.2s' in h and 'var(--rb-accent)!important' in h
+assert '#v42BackupFooter .rb-working::after' in h and '@keyframes rbWorkBar' in h and 'animation:rbWorkBar 1.2s' in h and 'button.rb-working{opacity:1!important;cursor:progress}' in h and '#v42BackupFooter .rb-working{position:relative;overflow:hidden}' in h   # 0.8.0: nur der Laufbalken, keine gelbe Knopffarbe
 assert 'Blocktexte sind bei Tempo 60' not in h and 'v42-hint">Blocktexte' not in h
 _fm = sorted(p.name for p in (root/'docs/farbmischung').glob('*.txt'))
 assert _fm == ['hellblau_blau_weiss.txt','himmelblau_blau_cyan.txt','limette_gruen_gelb.txt','orange_rot_gelb.txt','orange_rotlastig_rot_rot_gelb.txt','pastellgruen_gruen_weiss.txt','pastellrot_rot_weiss.txt'], _fm
 _fmr = (root/'docs/farbmischung/README.md').read_text(encoding='utf-8')
 assert all(n in _fmr for n in _fm) and 'ab 8 ms' in _fmr.lower().replace('Ab 8 ms','ab 8 ms')
-# Firmware: gegenüber 0.7.1 nur die Versionszeile und der Web-Header (Oberfläche) ändern sich
-_old = root/'firmware/RavestickBoard_v0_7_1'
+# Firmware: gegenüber 0.7.2 nur die Versionszeile und der Web-Header (Oberfläche) ändern sich
+_old = root/'firmware/RavestickBoard_v0_7_2'
 if _old.exists():
-    _new = root/'firmware/RavestickBoard_v0_7_2'
+    _new = root/'firmware/RavestickBoard_v0_8_0'
     for _f in sorted(_new.iterdir()):
-        _o = _old/_f.name.replace('0_7_2','0_7_1')
+        _o = _old/_f.name.replace('0_8_0','0_7_2')
         assert _o.exists(), _f.name
         if _f.name == 'RavestickBoard_WebUI.h': continue
         _a, _b = _o.read_text(encoding='utf8'), _f.read_text(encoding='utf8')
-        assert _a.replace('0.7.1-dev','0.7.2-dev') == _b, f'{_f.name} weicht von 0.7.1 ab'
-print('PASS: 0.7.2 (Überschrift Ambiente, Arbeitsanzeige am Backup, Kalibrierhinweis entfernt, sieben Mischfarben-Dateien, Firmware gegenüber 0.7.1 nur Version und Web-Header).')
+        assert _a.replace('0.7.2-dev','0.8.0-dev') == _b, f'{_f.name} weicht von 0.7.2 ab'
+print('PASS: 0.7.2 (Überschrift Ambiente, Arbeitsanzeige am Backup, Kalibrierhinweis entfernt, sieben Mischfarben-Dateien).')
+print('PASS: 0.8.0 (Firmware gegenüber 0.7.2 nur Version und Web-Header).')
 print('PASS: 0.6.1.11 (Adressart, Programmstopp, Markierung nach Erfolg, Textgrenze, gebuendelte Antworten, Seitenband, WLAN-Passwort, Release-Schalter, Backup mit Animationen, Play-Taste, Werkzeuge, DVD-Logo).')
+
+# --- v0.8.0: Schwenk, Frame-Editor, Kleinpaket ---
+for ident in ['animFilePan','animPanOpts','animPanN','animPanSx','animPanEx','animPanDx','animPanWrap','animPanSeam','animDrawNew','animEditFrames','animDraw','adStrip','adCanvas','adColors','adBlock','adUndo','adRedo','adDone','adBack','adMorePanel']:
+    assert h.count('id="'+ident+'"')==1, ident
+for fn in ['function animPanWindow(','function animPanPos(','function adOpen(','function adApplyLayout(','function adFill(','function adBegin(','function adLift(']:
+    assert h.count(fn)==1, fn
+assert 'AD_MINCELL=6,AD_MAXCELL=60,AD_PHONE_W=600' in h
+assert "touch-action:none" in h[h.index('#adCanvas'):h.index('#adCanvas')+400]
+assert h.index('adBegin();const fr=AD.frames[AD.cur],st=[[x,y]];')>0   # Füllen: Kopie erst nach dem Schnappschuss lesen
+assert 'html{overflow-y:scroll;scrollbar-gutter:stable}' in h and '.pixel-range.rb-fixed b::after{content:"fest 80"' in h
+assert (root/'tests/test_browser_editor_0800.py').exists()
+print('PASS: 0.8.0 (Schwenk-, Editor-Bedienelemente und -Funktionen, Zeichengrößen, Füll-Reihenfolge, Scrollbalken-Platz, Tempo-Hinweis).')

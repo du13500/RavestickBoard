@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.7.2-dev</title>
+<title>RavestickBoard · v0.8.0-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -629,8 +629,8 @@ html.rb-tx .rb-tx-pill{opacity:1;visibility:visible;transition:opacity .35s ease
 #status.toast{z-index:1200}   /* Meldungen auch über Dialogen sichtbar */
 #v42ShortcutMsg:empty{display:none}
 button.rb-working{opacity:1!important;cursor:progress}
-#v42BackupFooter .rb-working{position:relative;overflow:hidden;background:var(--rb-accent)!important;color:var(--rb-accent-ink)!important;border-color:transparent!important}
-#v42BackupFooter .rb-working::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:38%;border-radius:2px;background:currentColor;opacity:.55;animation:rbWorkBar 1.2s ease-in-out infinite}
+#v42BackupFooter .rb-working{position:relative;overflow:hidden}
+#v42BackupFooter .rb-working::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:38%;border-radius:2px;background:var(--rb-accent);opacity:.95;animation:rbWorkBar 1.2s ease-in-out infinite}
 @keyframes rbWorkBar{0%{transform:translateX(-100%)}100%{transform:translateX(265%)}}
 @media(prefers-reduced-motion:reduce){#v42BackupFooter .rb-working::after{animation:none;width:100%;opacity:.3}}
 html.rb-down .rb-tx-pill span{color:#ffc2c9;border-color:#ff8a9877}
@@ -716,9 +716,44 @@ body.rb-no-dock #rbDock{display:none!important}
 }
 
 .rb-tx-pill span{max-width:calc(100% - 20px);text-align:center;line-height:1.25}
+
+/* Frame-Editor (Vollbild, Querformat) und Schwenk */
+html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:none}
+#animDraw{position:fixed;inset:0;z-index:400;background:var(--rb-bg);display:flex;flex-direction:column;gap:6px;padding:max(6px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+#animDraw.hidden{display:none!important}
+#animDraw button{min-height:0;padding:0;width:36px;height:36px;border-radius:9px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+#animDraw button.primary,#animDraw button.on{background:var(--rb-accent);color:var(--rb-accent-ink)}
+#animDraw button.secondary,#animDraw .ad-tools button:not(.on){background:var(--rb-btn);color:var(--rb-ink)}
+#animDraw button:disabled{opacity:.4}
+.ad-top{display:flex;align-items:center;gap:6px}
+.ad-strip{flex:1 1 auto;min-width:0;display:flex;gap:6px;overflow-x:auto;padding:2px;touch-action:pan-x;scrollbar-width:none}
+.ad-strip::-webkit-scrollbar{display:none}
+.ad-strip .ad-th{flex:0 0 auto;padding:3px;border-radius:7px;background:#111924;border:2px solid #2c3646;position:relative;cursor:pointer;touch-action:pan-x}
+.ad-strip .ad-th.cur{border-color:var(--rb-accent)}
+.ad-strip .ad-th canvas{display:block;width:96px;height:24px}
+.ad-strip .ad-th i{position:absolute;left:4px;top:3px;font:700 9px system-ui;font-style:normal;color:#fff;background:#0009;border-radius:4px;padding:0 3px}
+.ad-stage{flex:1 1 auto;min-height:0;position:relative;display:flex}
+#adCanvas{flex:1 1 auto;min-width:0;width:100%;height:100%;display:block;touch-action:none;border:1px solid #2c3646;border-radius:8px;background:#080b10;cursor:crosshair}
+.ad-block{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:#11141cf0;border-radius:8px;color:var(--rb-ink);font-size:15px;line-height:1.5}
+.ad-block.hidden{display:none}
+.ad-bottom{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap}
+.ad-tools{display:flex;align-items:center;gap:5px;min-width:0}
+.ad-tools .tiny{min-width:42px;text-align:center}
+.ad-colors{display:flex;gap:7px;align-items:center}
+.ad-colors button{width:32px;height:32px;border-radius:50%;border:3px solid #303948;padding:0}
+.ad-colors button.sel{outline:2px solid #fff;outline-offset:2px}
+.ad-more{position:absolute;right:auto;left:0;bottom:46px;display:flex;gap:6px;padding:7px;border-radius:11px;background:var(--rb-panel);border:1px solid var(--rb-panel-line);box-shadow:0 8px 24px #000a}
+.ad-more.hidden{display:none}
+#animPanView{display:block;max-width:100%;border:1px solid #2c3646;border-radius:8px;background:#05080d}
+@media(max-width:700px){.ad-colors button{width:28px;height:28px}.ad-colors{gap:5px}#animDraw button{width:34px;height:34px}.ad-tools{gap:4px}}
+#animDraw.ad-blocked .ad-bottom,#animDraw.ad-blocked .ad-strip,#animDraw.ad-blocked #adAdd,#animDraw.ad-blocked #adDel,#animDraw.ad-blocked #adLeft,#animDraw.ad-blocked #adRight,#animDraw.ad-blocked #adCount{display:none}
+#animDraw .ad-top{justify-content:space-between}
+.pixel-range.rb-fixed b{font-size:0;line-height:0}.pixel-range.rb-fixed b::after{content:"fest 80";font-size:13px;line-height:1.2}
+#animEditFrames,#animPanSeam{width:100%;margin:6px 0}
+@media(min-width:1000px){html{overflow-y:scroll;scrollbar-gutter:stable}}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.7.2-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.0-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -795,8 +830,10 @@ body.rb-no-dock #rbDock{display:none!important}
 <label class="anim-src" for="animFileGif" data-rb-icon="image-up">GIF importieren</label><input type="file" id="animFileGif" class="visually-hidden" accept="image/gif,.gif"/>
 <label class="anim-src" for="animFileStrip" data-rb-icon="layout-grid">Einzelbilder aus einem Bild</label><input type="file" id="animFileStrip" class="visually-hidden" accept="image/*"/>
 <button type="button" class="anim-src" id="animRasterTile" data-rb-icon="file-spreadsheet" aria-expanded="false" aria-controls="animRasterBox">Text-Raster</button>
+<label class="anim-src" for="animFilePan" data-rb-icon="move-right">Schwenk über großes Bild</label><input type="file" id="animFilePan" class="visually-hidden" accept="image/*"/>
+<button type="button" class="anim-src" id="animDrawNew" data-rb-icon="pencil-line">Neu zeichnen</button>
 </div>
-<p class="tiny muted">Einzelbilder aus einem Bild: Ein PNG, JPG oder WebP enthält mehrere gleich große Bilder nebeneinander oder untereinander; daraus werden die Frames der Animation.</p>
+<p class="tiny muted">Einzelbilder aus einem Bild: Ein PNG, JPG oder WebP enthält mehrere gleich große Bilder nebeneinander oder untereinander; daraus werden die Frames der Animation. Schwenk über großes Bild: Ein Fenster in Tafelgröße wandert Bild für Bild über ein größeres Bild. Neu zeichnen: Frames von Hand im Editor malen (nur im Querformat).</p>
 <div id="animStripOpts" class="anim-grid hidden">
 <label>Anzahl Einzelbilder<input type="number" id="animStripN" min="1" max="300" step="1" inputmode="numeric"/></label>
 <label>Anordnung<select id="animStripDir"><option value="h">nebeneinander</option><option value="v">untereinander</option></select></label>
@@ -809,13 +846,33 @@ body.rb-no-dock #rbDock{display:none!important}
 </div></div>
 <p class="tiny muted" id="animSrcInfo" aria-live="polite"></p>
 <div id="animAdjust" class="hidden">
-<div id="animPixelOpts"><div class="label">Ausschnitt</div>
+<div id="animPanOpts" class="hidden">
+<div class="label">Quellbild mit Fenster (64 × 16)</div>
+<div class="anim-crop-wrap"><canvas id="animPanView" width="340" height="120" role="img" aria-label="Quellbild mit dem Fenster der Tafel an Start, Ende und dazwischen"></canvas></div>
+<p class="tiny muted">Gelb: erstes Bild · weiß gestrichelt: letztes Bild · blass: dazwischen. Bild: <span id="animPanSize"></span>.</p>
+<div class="anim-grid">
+<label>Bildgröße<select id="animPanScale"><option value="orig">Original (1 Pixel = 1 Tafelpixel)</option><option value="h16">Höhe auf 16 Pixel</option><option value="h32">Höhe auf 32 Pixel</option><option value="h48">Höhe auf 48 Pixel</option><option value="h64">Höhe auf 64 Pixel</option><option value="w64">Breite auf 64 Pixel</option></select></label>
+<label>Rand<select id="animPanWrap"><option value="stop">Stoppen am Rand</option><option value="wrap">Umlauf (nahtlos)</option></select></label>
+<label>Anzahl Frames<input type="number" id="animPanN" min="2" max="79" step="1" inputmode="numeric" value="2"/></label>
+<span></span>
+<label>Start X<input type="number" id="animPanSx" step="any" inputmode="decimal" value="0"/></label>
+<label>Start Y<input type="number" id="animPanSy" step="any" inputmode="decimal" value="0"/></label>
+<label>Ende X<input type="number" id="animPanEx" step="any" inputmode="decimal" value="0"/></label>
+<label>Ende Y<input type="number" id="animPanEy" step="any" inputmode="decimal" value="0"/></label>
+<label>Versatz X je Frame<input type="number" id="animPanDx" step="any" inputmode="decimal" value="0"/></label>
+<label>Versatz Y je Frame<input type="number" id="animPanDy" step="any" inputmode="decimal" value="0"/></label>
+</div>
+<button type="button" id="animPanSeam" class="secondary wide hidden">Versatz für eine nahtlose Schleife setzen</button>
+<p class="tiny muted" id="animPanInfo" aria-live="polite"></p>
+</div>
+<div id="animPixelOpts"><div id="animCropBlock"><div class="label">Ausschnitt</div>
 <div class="anim-crop-wrap"><canvas id="animCrop" width="340" height="170" role="img" aria-label="Quellbild mit Ausschnitt-Rahmen. Rahmen ziehen zum Verschieben, an den Ecken oder mit zwei Fingern zum Vergrößern und Verkleinern."></canvas></div>
 <div class="anim-grid"><button type="button" id="animCropSmaller" class="secondary" data-rb-icon="minimize-2" data-rb-only="1" title="Rahmen kleiner (mehr Vergrößerung)" aria-label="Rahmen kleiner (mehr Vergrößerung)"></button><button type="button" id="animCropBigger" class="secondary" data-rb-icon="maximize-2" data-rb-only="1" title="Rahmen größer" aria-label="Rahmen größer"></button></div>
 <p class="tiny muted">Der Rahmen zeigt, was auf die Tafel kommt. Mit dem Finger oder Stift verschieben, an den Ecken oder mit zwei Fingern in der Größe ändern; das Seitenverhältnis bleibt 4 : 1 wie die Tafel. Außerhalb des Bildes ist die Tafel schwarz.</p>
+</div>
 <div class="label">Anpassen</div>
 <div class="anim-grid">
-<label>Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
+<label id="animFitWrap">Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
 <label>Farbumsetzung<select id="animDither"><option value="thresh">Schwelle</option><option value="fs">Floyd-Steinberg</option><option value="bayer">Geordnet</option></select></label>
 </div>
 <p class="tiny muted">Einpassen zeigt das ganze Bild, Füllen schneidet zu, Strecken verzerrt, Original zeigt es unskaliert in der Mitte; jede Voreinstellung setzt nur den Rahmen, den du danach noch verschieben kannst. Schwelle ergibt flächige Farben, die beiden Rasterungen täuschen Zwischentöne mit Punktmustern vor. Die Tafel kennt nur acht Farben (je Farbkanal an oder aus).</p>
@@ -834,6 +891,7 @@ body.rb-no-dock #rbDock{display:none!important}
 <label class="anim-check wide"><input type="checkbox" id="animPing"/> Hin und zurück (Bilder rückwärts anhängen)</label>
 <label class="anim-check wide hidden" id="animVarWrap"><input type="checkbox" id="animVar"/> Unterschiedliche Bildzeiten des GIFs nachbilden (wiederholt Bilder)</label>
 </div>
+<button type="button" id="animEditFrames" class="secondary wide hidden" data-rb-icon="pencil">Einzelne Bilder bearbeiten (nur Querformat)</button>
 <canvas id="animImpPreview" class="anim-screen" width="512" height="128" role="img" aria-label="Vorschau der Animation"></canvas>
 <p class="tiny muted" id="animInfo" aria-live="polite"></p>
 <p class="rb-anim-err" id="animErr" role="alert"></p>
@@ -926,7 +984,7 @@ body.rb-no-dock #rbDock{display:none!important}
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.7.2-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.0-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -978,6 +1036,42 @@ body.rb-no-dock #rbDock{display:none!important}
 <p class="rb-anim-err" id="v42ShortcutMsg" role="alert"></p>
 <div class="v42-row" id="v42ShortcutActions"><button class="secondary danger" id="v42ShortcutDelete" type="button" data-rb-only="1" data-rb-icon="trash" title="Kurzwahl löschen" aria-label="Kurzwahl löschen" data-rb-painted="trash"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button><button class="secondary" id="v42ShortcutCancel" type="button" data-rb-only="1" data-rb-icon="undo-dot" title="Abbrechen" aria-label="Abbrechen" data-rb-painted="undo-dot"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/><path d="M3 7v6h6"/><circle cx="12" cy="17" r="1"/></svg></button><button class="primary" id="v42ShortcutSave" type="button" data-rb-only="1" data-rb-icon="star-check" title="Kurzwahl speichern" aria-label="Kurzwahl speichern" data-rb-painted="star-check"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19.06 12.501 2.78-2.707a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014"/><path d="m15 18 2 2 4-4"/></svg></button></div></div></div>
 <div aria-live="polite" class="toast" id="status" role="status" aria-atomic="true" hidden></div><div aria-label="Symbole auswählen" aria-modal="true" class="symbol-modal hidden" id="symbolOverlay" role="dialog"><div class="symbol-sheet"><div class="symbol-head"><b>Symbol einfügen<span id="symFlash" aria-live="polite"></span></b><button aria-label="Symbolauswahl schließen" class="secondary" id="symbolClose" type="button" title="Schließen" data-rb-icon="x" data-rb-only="1"></button></div><div class="sym-tabs" id="symTabs" role="tablist" aria-label="Kategorien"></div><label class="sym-search"><span data-rb-icon="search" data-rb-only="1" aria-hidden="true"></span><input id="symSearch" type="search" placeholder="Suchen …" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Symbole suchen"></label><div class="sym-scroll" id="symbolCategories"></div></div></div></main>
+<div id="animDraw" class="hidden" role="dialog" aria-modal="true" aria-label="Bilder zeichnen">
+<div class="ad-top">
+<button id="adBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Abbrechen" aria-label="Abbrechen"></button>
+<div id="adStrip" class="ad-strip" role="list" aria-label="Bilder"></div>
+<button id="adAdd" type="button" class="secondary" data-rb-icon="plus" data-rb-only="1" title="Neues Bild als Kopie des aktuellen" aria-label="Neues Bild als Kopie des aktuellen"></button>
+<button id="adDel" type="button" class="secondary" data-rb-icon="trash" data-rb-only="1" title="Bild löschen" aria-label="Bild löschen"></button>
+<button id="adLeft" type="button" class="secondary" data-rb-icon="chevron-left" data-rb-only="1" title="Bild nach links" aria-label="Bild nach links"></button>
+<button id="adRight" type="button" class="secondary" data-rb-icon="chevron-right" data-rb-only="1" title="Bild nach rechts" aria-label="Bild nach rechts"></button>
+<span id="adCount" class="tiny muted"></span>
+<button id="adDone" type="button" class="primary" data-rb-icon="check" data-rb-only="1" title="Fertig" aria-label="Fertig"></button>
+</div>
+<div class="ad-stage" id="adStage"><canvas id="adCanvas" aria-label="Zeichenfeld, 64 mal 16 Pixel"></canvas><div id="adBlock" class="ad-block hidden"><p id="adBlockText"></p></div></div>
+<div class="ad-bottom" id="adBottom">
+<div class="ad-tools" id="adTools">
+<button type="button" data-tool="pen" data-rb-icon="pencil" data-rb-only="1" title="Stift" aria-label="Stift"></button>
+<button type="button" data-tool="eraser" data-rb-icon="eraser" data-rb-only="1" title="Radierer" aria-label="Radierer"></button>
+<button type="button" data-tool="fill" data-rb-icon="paint-bucket" data-rb-only="1" title="Füllen" aria-label="Füllen"></button>
+<button type="button" data-tool="pipette" data-rb-icon="pipette" data-rb-only="1" title="Pipette" aria-label="Pipette"></button>
+<button type="button" data-tool="select" data-rb-icon="square-dashed" data-rb-only="1" title="Auswahl: aufziehen, dann verschieben" aria-label="Auswahl"></button>
+<button type="button" data-tool="pan" data-rb-icon="move" data-rb-only="1" title="Ansicht verschieben" aria-label="Ansicht verschieben"></button>
+<button type="button" id="adZoomOut" data-rb-icon="zoom-out" data-rb-only="1" title="Verkleinern" aria-label="Verkleinern"></button>
+<span id="adZoomTxt" class="tiny muted">100 %</span>
+<button type="button" id="adZoomIn" data-rb-icon="zoom-in" data-rb-only="1" title="Vergrößern" aria-label="Vergrößern"></button>
+<button type="button" id="adUndo" data-rb-icon="undo-2" data-rb-only="1" title="Rückgängig" aria-label="Rückgängig"></button>
+<button type="button" id="adRedo" data-rb-icon="redo-2" data-rb-only="1" title="Wiederherstellen" aria-label="Wiederherstellen"></button>
+<button type="button" id="adMore" data-rb-icon="chevron-up" data-rb-only="1" title="Mehr" aria-label="Mehr Werkzeuge" aria-expanded="false"></button>
+</div>
+<div class="ad-colors" id="adColors" role="radiogroup" aria-label="Farbe"></div>
+<div class="ad-more hidden" id="adMorePanel">
+<button type="button" id="adFlipH" data-rb-icon="arrow-left-right" data-rb-only="1" title="Spiegeln links/rechts (Auswahl oder ganzes Bild)" aria-label="Spiegeln links/rechts"></button>
+<button type="button" id="adFlipV" data-rb-icon="arrow-up-down" data-rb-only="1" title="Spiegeln oben/unten (Auswahl oder ganzes Bild)" aria-label="Spiegeln oben/unten"></button>
+<button type="button" id="adClear" data-rb-icon="brush-cleaning" data-rb-only="1" title="Leeren (Auswahl oder ganzes Bild)" aria-label="Leeren"></button>
+<button type="button" id="adOnion" data-rb-icon="layers-2" data-rb-only="1" title="Zwiebelschicht: vorheriges Bild blass zeigen" aria-label="Zwiebelschicht" aria-pressed="false"></button>
+</div>
+</div>
+</div>
 <script>
 /* ==== Animationen: reine Funktionen (ohne DOM, in Node testbar) ==== */
 const RbAnim=(()=>{
@@ -1677,7 +1771,7 @@ async function poll(){
   // Status belongs in the status view/diagnostics, never as a repeated toast.
   statusMessage=d.message||'';rbOnFromStatus(d);
   if(rbJobWatch&&d.state!=='queued'&&d.state!=='sending'){rbJobWatch=false;if(d.state==='error')notify('Fehler: '+(statusMessage||'Der Sendeauftrag ist fehlgeschlagen.'));}
-  programRunning=!!d.programPlaying;rbAnimActive=!!d.animActive;document.querySelectorAll('input[data-global="speed"],#scrollSpeed').forEach(x=>{x.disabled=programRunning||rbAnimActive;if(rbAnimActive&&!programRunning)x.title='Das Tempo wirkt bei Animationen nicht: Die Tafel spielt sie selbst ab (Zeit je Frame steckt in der Animation).';else x.removeAttribute('title');});
+  programRunning=!!d.programPlaying;rbAnimActive=!!d.animActive;document.querySelectorAll('input[data-global="speed"],#scrollSpeed').forEach(x=>{x.disabled=programRunning||rbAnimActive;const pr=x.closest('.pixel-range');if(pr)pr.classList.toggle('rb-fixed',programRunning);if(programRunning)x.title='Im Programm ist das Tempo fest auf 80. Die Zeit je Schritt steht im Programm.';else if(rbAnimActive)x.title='Das Tempo wirkt bei Animationen nicht: Die Tafel spielt sie selbst ab (Zeit je Frame steckt in der Animation).';else x.removeAttribute('title');});
   document.querySelectorAll('.v43-force-btn[data-mode]').forEach(x=>{if(x.dataset.t0===undefined)x.dataset.t0=x.title;x.disabled=rbAnimActive;x.title=rbAnimActive?x.dataset.t0+' (gesperrt, solange eine Animation läuft: die Tafel spielt sie selbst ab)':x.dataset.t0;});
   controllerBusy=d.state==='queued'||d.state==='sending';boardCurrent=d.current||0;if(typeof animPlaySync==='function')animPlaySync();
   showPowerState(!!d.powerKnown,!!d.powerOn);syncDashboardPower(!!d.powerKnown,!!d.powerOn);rbBleShow(d);
@@ -2423,6 +2517,20 @@ const RB43_LUCIDE={
 'heart-plus':'<path d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49"/><path d="M15 15h6"/><path d="M18 12v6"/>',
 'trash':'<path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
 'save':'<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/>',
+'paint-bucket':'<path d="M11 7 6 2"/><path d="M18.992 12H2.041"/><path d="M21.145 18.38A3.34 3.34 0 0 1 20 16.5a3.3 3.3 0 0 1-1.145 1.88c-.575.46-.855 1.02-.855 1.595A2 2 0 0 0 20 22a2 2 0 0 0 2-2.025c0-.58-.285-1.13-.855-1.595"/><path d="m8.5 4.5 2.148-2.148a1.205 1.205 0 0 1 1.704 0l7.296 7.296a1.205 1.205 0 0 1 0 1.704l-7.592 7.592a3.615 3.615 0 0 1-5.112 0l-3.888-3.888a3.615 3.615 0 0 1 0-5.112L5.67 7.33"/>',
+'pipette':'<path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"/><path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z"/><path d="m2 22 .414-.414"/>',
+'undo-2':'<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/>',
+'redo-2':'<path d="m15 14 5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13"/>',
+'zoom-in':'<circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>',
+'zoom-out':'<circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/>',
+'move':'<path d="M12 2v20"/><path d="m15 19-3 3-3-3"/><path d="m19 9 3 3-3 3"/><path d="M2 12h20"/><path d="m5 9-3 3 3 3"/><path d="m9 5 3-3 3 3"/>',
+'square-dashed':'<path d="M5 3a2 2 0 0 0-2 2"/><path d="M19 3a2 2 0 0 1 2 2"/><path d="M21 19a2 2 0 0 1-2 2"/><path d="M5 21a2 2 0 0 1-2-2"/><path d="M9 3h1"/><path d="M9 21h1"/><path d="M14 3h1"/><path d="M14 21h1"/><path d="M3 9v1"/><path d="M21 9v1"/><path d="M3 14v1"/><path d="M21 14v1"/>',
+'arrow-left-right':'<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
+'arrow-up-down':'<path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/>',
+'layers-2':'<path d="M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"/><path d="m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"/>',
+'type':'<path d="M12 4v16"/><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2"/><path d="M9 20h6"/>',
+'brush-cleaning':'<path d="m16 22-1-4"/><path d="M19 14a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v1a1 1 0 0 0 1 1"/><path d="M19 14H5l-1.973 6.767A1 1 0 0 0 4 22h16a1 1 0 0 0 .973-1.233z"/><path d="m8 22 1-4"/>',
+'move-right':'<path d="M18 8L22 12L18 16"/><path d="M2 12H22"/>',
 'eraser':'<path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/>',
 'folder-plus':'<path d="M12 10v6"/><path d="M9 13h6"/><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
 'clipboard-copy':'<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/>',
@@ -3359,7 +3467,8 @@ $('animDelete').onclick=async()=>{if(rbMultiOn('anim')){await rbMultiDelete('ani
 function animShrink(c,max){const m=Math.max(c.width,c.height);if(m<=max)return c;const s=max/m,o=document.createElement('canvas');o.width=Math.max(1,Math.round(c.width*s));o.height=Math.max(1,Math.round(c.height*s));
  const x=o.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(c,0,0,o.width,o.height);return o;}
 function animReset(){
- animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.strip=null;animImp.frames=null;animImp.problem='';animImp.saveError='';
+ animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.strip=null;animImp.frames=null;animImp.problem='';animImp.saveError='';animImp.drawn=false;
+ $('animPanOpts').classList.add('hidden');$('animCropBlock').classList.remove('hidden');$('animFitWrap').classList.remove('hidden');$('animEditFrames').classList.add('hidden');
  animImp.editId=0;animImp.stored=null;$('animSourcePick').classList.remove('hidden');$('animPixelOpts').classList.remove('hidden');$('animImpTitle').textContent='Animation importieren';$('animSaveCopy').classList.add('hidden');$('animSaveCopy').disabled=true;
  $('animAdjust').classList.add('hidden');$('animStripOpts').classList.add('hidden');$('animSrcInfo').textContent='';$('animErr').textContent='';$('animInfo').textContent='';
  $('animSave').disabled=true;$('animSaveSend').disabled=true;$('animSendOnly').disabled=true;animImp.crop=null;animImp.limitProblem='';if(animImpPlayer)animImpPlayer.set([],100);
@@ -3629,7 +3738,7 @@ function animEditOpen(it,c){
  $('animFrom').value=1;$('animTo').value=n;$('animFrom').max=n;$('animTo').max=n;$('animStep').value=1;$('animPing').checked=false;$('animRev').checked=false;$('animMs').value=c.ms;
  $('animVarWrap').classList.add('hidden');$('animVar').checked=false;
  $('animName').value=it.name;$('animSrcInfo').textContent='';
- $('animSaveCopy').classList.remove('hidden');$('animAdjust').classList.remove('hidden');
+ $('animSaveCopy').classList.remove('hidden');$('animAdjust').classList.remove('hidden');$('animEditFrames').classList.remove('hidden');
  animSchedule(0);
 }
 $('animEdit').onclick=async()=>{
@@ -3646,6 +3755,348 @@ $('animEdit').onclick=async()=>{
 };
 animListPlayer=animMakePlayer($('animPreview'));animImpPlayer=animMakePlayer($('animImpPreview'));
 animLed($('animPreview'),null,8);animLed($('animImpPreview'),null,8);
+/* ==== Schwenk über ein großes Bild ==== */
+// Ein Fenster in Tafelgröße (64 × 16) wandert Frame für Frame über ein größeres Bild. Die Fenster werden als Quellbilder
+// in die normale Import-Pipeline gegeben (Farbumsetzung, Bereich, Zeit, Speichern wie beim GIF-Import).
+const animPan={img:null,big:null,bw:0,bh:0,ow:0,oh:0,n:2,sx:0,sy:0,ex:0,ey:0,dx:0,dy:0,wrap:'stop'};
+const animPanCv=$('animPanView'),animPanG=animPanCv.getContext('2d');
+const animPanFmt=v=>String(Math.round(v*100)/100);
+const animPanVal=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:0;};
+function animPanMax(){return {x:Math.max(0,animPan.bw-RbAnim.W),y:Math.max(0,animPan.bh-RbAnim.H)};}
+function animPanBuildBig(){
+ const o=animPan.img,m=$('animPanScale').value;let s=1;
+ if(m==='h16')s=16/o.height;else if(m==='h32')s=32/o.height;else if(m==='h48')s=48/o.height;else if(m==='h64')s=64/o.height;else if(m==='w64')s=64/o.width;
+ const w=Math.max(1,Math.round(o.width*s)),h=Math.max(1,Math.round(o.height*s));
+ if(w===o.width&&h===o.height)animPan.big=o;
+ else{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(o,0,0,w,h);animPan.big=c;}
+ animPan.bw=animPan.big.width;animPan.bh=animPan.big.height;
+ $('animPanSize').textContent=animPan.bw+' × '+animPan.bh+' Pixel'+(m==='orig'?'':' (Original '+animPan.ow+' × '+animPan.oh+')');
+}
+function animPanStep(){const k=Math.max(1,animPan.n-1);animPan.dx=(animPan.ex-animPan.sx)/k;animPan.dy=(animPan.ey-animPan.sy)/k;}
+function animPanDefaults(){
+ const m=animPanMax();animPan.sx=0;animPan.sy=0;
+ if(m.x>=m.y){animPan.ex=m.x;animPan.ey=0;}else{animPan.ex=0;animPan.ey=m.y;}
+ const travel=Math.max(Math.abs(animPan.ex-animPan.sx),Math.abs(animPan.ey-animPan.sy));
+ animPan.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(travel)+1));animPanStep();
+}
+function animPanPos(k){
+ let x=Math.round(animPan.sx+animPan.dx*k),y=Math.round(animPan.sy+animPan.dy*k);
+ if(animPan.wrap==='wrap'){x=((x%animPan.bw)+animPan.bw)%animPan.bw;y=((y%animPan.bh)+animPan.bh)%animPan.bh;}
+ else{const m=animPanMax();x=Math.max(0,Math.min(m.x,x));y=Math.max(0,Math.min(m.y,y));}
+ return [x,y];
+}
+function animPanWindow(k){
+ const [x,y]=animPanPos(k),c=document.createElement('canvas');c.width=RbAnim.W;c.height=RbAnim.H;
+ const g=c.getContext('2d');g.fillStyle='#000';g.fillRect(0,0,RbAnim.W,RbAnim.H);g.imageSmoothingEnabled=false;
+ const big=animPan.big;
+ if(animPan.wrap==='wrap'){const nx=Math.ceil(RbAnim.W/animPan.bw)+1,ny=Math.ceil(RbAnim.H/animPan.bh)+1;for(let j=0;j<ny;j++)for(let i=0;i<nx;i++)g.drawImage(big,-x+i*animPan.bw,-y+j*animPan.bh);}
+ else g.drawImage(big,-x,-y);
+ return c;
+}
+function animPanFields(except){
+ const set=(id,v)=>{if(id!==except)$(id).value=animPanFmt(v);};
+ set('animPanN',animPan.n);set('animPanSx',animPan.sx);set('animPanSy',animPan.sy);set('animPanEx',animPan.ex);set('animPanEy',animPan.ey);set('animPanDx',animPan.dx);set('animPanDy',animPan.dy);
+ $('animPanSeam').classList.toggle('hidden',animPan.wrap!=='wrap');
+}
+function animPanDraw(){
+ if(!animPan.big)return;
+ const avail=Math.max(200,Math.min(440,(animPanCv.parentElement.clientWidth||340))),k=Math.min(avail/animPan.bw,200/animPan.bh);
+ const cw=Math.max(1,Math.round(animPan.bw*k)),ch=Math.max(1,Math.round(animPan.bh*k)),dpr=Math.min(2,window.devicePixelRatio||1);
+ if(animPanCv.width!==Math.round(cw*dpr)||animPanCv.height!==Math.round(ch*dpr)){animPanCv.width=Math.round(cw*dpr);animPanCv.height=Math.round(ch*dpr);}
+ animPanCv.style.width=cw+'px';animPanCv.style.height=ch+'px';
+ const g=animPanG;g.setTransform(dpr,0,0,dpr,0,0);g.fillStyle='#05080d';g.fillRect(0,0,cw,ch);
+ g.imageSmoothingEnabled=k*dpr<1;g.drawImage(animPan.big,0,0,animPan.bw*k,animPan.bh*k);
+ const n=animPan.n,wk=RbAnim.W*k,hk=RbAnim.H*k;
+ g.lineWidth=1;g.strokeStyle='rgba(255,255,255,.28)';
+ for(let i=1;i<n-1;i++){const [x,y]=animPanPos(i);g.strokeRect(x*k+.5,y*k+.5,wk-1,hk-1);}
+ const [lx,ly]=animPanPos(n-1);g.lineWidth=2;g.strokeStyle='#fff';g.setLineDash([6,4]);g.strokeRect(lx*k+1,ly*k+1,wk-2,hk-2);g.setLineDash([]);
+ const [fx,fy]=animPanPos(0);g.strokeStyle='#ffd45c';g.lineWidth=3;g.strokeRect(fx*k+1.5,fy*k+1.5,wk-3,hk-3);
+}
+function animPanRegen(){
+ if(!animPan.big)return;
+ const n=animPan.n,sources=[],prevN=animImp.delays.length;
+ for(let k=0;k<n;k++)sources.push(animPanWindow(k));
+ const ms=Number($('animMs').value)||100;
+ animImp.sources=sources;animImp.delays=sources.map(()=>ms);
+ $('animFrom').max=n;$('animTo').max=n;
+ const to=Number($('animTo').value)||0;if(!(to>=1&&to<n)||to===prevN)$('animTo').value=n;
+ if((Number($('animFrom').value)||1)>n)$('animFrom').value=1;
+ $('animFit').value='orig';animFitUi();
+ const dir=(v,pos,neg)=>v===0?'':animPanFmt(Math.abs(v))+' px nach '+(v>0?pos:neg);
+ const parts=[dir(animPan.dx,'rechts','links'),dir(animPan.dy,'unten','oben')].filter(Boolean);
+ let note=n+' Frames · Versatz '+(parts.length?parts.join(', '):'keiner')+' je Frame.';
+ const m=animPanMax();
+ if(animPan.wrap==='stop'&&m.x===0&&m.y===0)note+=' Das Bild ist nicht größer als die Tafel, es gibt nichts zu schwenken.';
+ else if(animPan.dx===0&&animPan.dy===0)note+=' Start und Ende sind gleich: alle Frames sehen gleich aus.';
+ if(animPan.wrap==='stop'&&(Math.abs(animPanVal('animPanEx')-animPan.ex)>0||false))note+='';
+ $('animPanInfo').textContent=note;$('animImpSub').textContent='Schwenk · '+n+' Bilder';
+ animPanDraw();animSchedule(0);
+}
+function animPanClamp(){
+ if(animPan.wrap!=='stop')return;
+ const m=animPanMax(),c=(v,hi)=>Math.max(0,Math.min(hi,v));
+ animPan.sx=c(animPan.sx,m.x);animPan.sy=c(animPan.sy,m.y);animPan.ex=c(animPan.ex,m.x);animPan.ey=c(animPan.ey,m.y);
+}
+function animPanEdit(which,id){
+ animPan.wrap=$('animPanWrap').value;
+ if(which==='n'){animPan.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(animPanVal('animPanN'))||2));animPanClamp();animPanStep();}
+ else if(which==='start'){animPan.sx=animPanVal('animPanSx');animPan.sy=animPanVal('animPanSy');animPanClamp();animPan.ex=animPan.sx+animPan.dx*(animPan.n-1);animPan.ey=animPan.sy+animPan.dy*(animPan.n-1);animPanClamp();animPanStep();}
+ else if(which==='end'){animPan.ex=animPanVal('animPanEx');animPan.ey=animPanVal('animPanEy');animPanClamp();animPanStep();}
+ else if(which==='step'){animPan.dx=animPanVal('animPanDx');animPan.dy=animPanVal('animPanDy');animPan.ex=animPan.sx+animPan.dx*(animPan.n-1);animPan.ey=animPan.sy+animPan.dy*(animPan.n-1);animPanClamp();animPanStep();}
+ animPanFields(id);animPanRegen();
+}
+for(const [id,w] of [['animPanN','n'],['animPanSx','start'],['animPanSy','start'],['animPanEx','end'],['animPanEy','end'],['animPanDx','step'],['animPanDy','step']])$(id).addEventListener('input',()=>animPanEdit(w,id));
+$('animPanScale').addEventListener('change',()=>{animPanBuildBig();animPanDefaults();animPanFields();animPanRegen();});
+$('animPanWrap').addEventListener('change',()=>{animPan.wrap=$('animPanWrap').value;animPanClamp();animPanStep();animPanFields();animPanRegen();});
+$('animPanSeam').onclick=()=>{   // Frames × Versatz = Bildgröße: das letzte Bild schließt an das erste an
+ const n=animPan.n;
+ if(Math.abs(animPan.dx)>1e-6)animPan.dx=(animPan.dx>0?1:-1)*animPan.bw/n;
+ if(Math.abs(animPan.dy)>1e-6)animPan.dy=(animPan.dy>0?1:-1)*animPan.bh/n;
+ animPan.ex=animPan.sx+animPan.dx*(n-1);animPan.ey=animPan.sy+animPan.dy*(n-1);animPanFields();animPanRegen();
+};
+function animPanColors(c){   // wenige Farben (Pixelgrafik): Schwelle erhält die Flächen, sonst Floyd-Steinberg
+ const t=document.createElement('canvas');t.width=Math.min(c.width,160);t.height=Math.min(c.height,160);const x=t.getContext('2d',{willReadFrequently:true});x.drawImage(c,0,0,t.width,t.height);
+ const d=x.getImageData(0,0,t.width,t.height).data,seen=new Set();for(let i=0;i<d.length&&seen.size<=16;i+=4)seen.add((d[i]<<16)|(d[i+1]<<8)|d[i+2]);
+ return seen.size;
+}
+$('animFilePan').addEventListener('change',async e=>{
+ const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+ animReset();$('animSrcInfo').textContent='Bild wird gelesen …';
+ try{
+  const url=URL.createObjectURL(f);const im=new Image();im.src=url;await im.decode();URL.revokeObjectURL(url);
+  const s=Math.min(1,4096/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+  animPan.img=c;animPan.ow=im.naturalWidth;animPan.oh=im.naturalHeight;animPan.wrap='stop';
+  $('animPanWrap').value='stop';$('animPanScale').value=c.height<=64?'orig':(c.width>=c.height?'h32':'w64');
+  animImp.kind='pan';animImp.nameAuto=true;animImp.stored=null;
+  animPanBuildBig();animPanDefaults();
+  $('animPanOpts').classList.remove('hidden');$('animCropBlock').classList.add('hidden');$('animFitWrap').classList.add('hidden');
+  $('animDither').value=animPanColors(animPan.big)<=16?'thresh':'fs';$('animThr').value=128;$('animCon').value=0;$('animMs').value=100;
+  $('animFrom').value=1;$('animTo').value=animPan.n;$('animStep').value=1;$('animPing').checked=false;$('animRev').checked=false;$('animVarWrap').classList.add('hidden');$('animVar').checked=false;
+  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(f.name.replace(/\.[^.]*$/,''))||'Schwenk');
+  $('animSrcInfo').textContent='Bild '+animPan.ow+' × '+animPan.oh+' Pixel.';
+  $('animAdjust').classList.remove('hidden');animPanFields();animPanRegen();
+ }catch(err){$('animSrcInfo').textContent='';$('animErr').textContent='Bild: '+err.message;}
+});
+
+/* ==== Frame-Editor ==== */
+// Vollbild-Ebene für das Querformat. Arbeitet auf einer Liste von Frames (Uint8Array(64·16), Werte 0..7) und gibt sie beim
+// Fertig zurück; Speichern, Name und Zeit bleiben in der Import-/Bearbeiten-Maske. Jede Änderung legt vorher das Bild neu an
+// (Copy-on-Write), damit Rückgängig nur Verweise merken muss.
+const AD={frames:[],cur:0,tool:'pen',color:4,zoom:1,ox:0,oy:0,base:0,onion:false,undo:[],redo:[],sel:null,flt:null,ptrs:new Map(),gest:null,stroke:null,onDone:null,onCancel:null,dirty:false,penAt:0,blocked:false,open:false};
+const AD_W=64,AD_H=16,AD_MINCELL=6,AD_MAXCELL=60,AD_PHONE_W=600,AD_ORDER=[4,6,2,3,1,5,7],AD_NAMES={4:'Rot',6:'Gelb',2:'Grün',3:'Cyan',1:'Blau',5:'Magenta',7:'Weiß'};
+const ADC=$('adCanvas'),adg=ADC.getContext('2d');
+function adViewport(){const v=window.visualViewport;return {w:v?v.width:window.innerWidth,h:v?v.height:window.innerHeight};}
+function adMetrics(){const st=$('adStage');return {w:st.clientWidth,h:st.clientHeight,dpr:Math.min(2,window.devicePixelRatio||1)};}
+function adCellSize(){return AD.base*AD.zoom;}
+function adClampPan(){const m=adMetrics(),c=adCellSize(),gw=AD_W*c,gh=AD_H*c;
+ AD.ox=gw<=m.w?(m.w-gw)/2:Math.min(0,Math.max(m.w-gw,AD.ox));AD.oy=gh<=m.h?(m.h-gh)/2:Math.min(0,Math.max(m.h-gh,AD.oy));}
+function adZoomMax(){return Math.max(1,AD_MAXCELL/Math.max(1,AD.base));}
+function adSetZoom(z,ax,ay){const c0=adCellSize();z=Math.max(1,Math.min(adZoomMax(),z));const c1=AD.base*z,gx=(ax-AD.ox)/c0,gy=(ay-AD.oy)/c0;AD.zoom=z;AD.ox=ax-gx*c1;AD.oy=ay-gy*c1;adClampPan();adDraw();adUiSync();}
+function adSnap(){return {frames:AD.frames.slice(),cur:AD.cur};}
+function adBegin(){AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.redo.length=0;AD.frames[AD.cur]=AD.frames[AD.cur].slice();AD.dirty=true;}
+function adInSel(x,y){const s=AD.sel;return !!s&&x>=s.x&&x<s.x+s.w&&y>=s.y&&y<s.y+s.h;}
+function adCommitFloat(){
+ const f=AD.flt;if(!f)return;AD.flt=null;const fr=AD.frames[AD.cur];
+ for(let j=0;j<f.h;j++)for(let i=0;i<f.w;i++){const v=f.px[j*f.w+i],x=f.x+i,y=f.y+j;if(v&&x>=0&&x<AD_W&&y>=0&&y<AD_H)fr[y*AD_W+x]=v;}
+ adThumb();
+}
+function adLift(){
+ adBegin();const s=AD.sel,fr=AD.frames[AD.cur],px=new Uint8Array(s.w*s.h);
+ for(let j=0;j<s.h;j++)for(let i=0;i<s.w;i++){const k=(s.y+j)*AD_W+s.x+i;px[j*s.w+i]=fr[k];fr[k]=0;}
+ AD.flt={px,x:s.x,y:s.y,w:s.w,h:s.h};
+}
+function adCell(ev){const r=ADC.getBoundingClientRect(),c=adCellSize();return [Math.floor((ev.clientX-r.left-AD.ox)/c),Math.floor((ev.clientY-r.top-AD.oy)/c)];}
+function adPut(x,y,v){if(x<0||x>=AD_W||y<0||y>=AD_H)return;const fr=AD.frames[AD.cur],i=y*AD_W+x;if(fr[i]!==v){fr[i]=v;if(AD.stroke)AD.stroke.changed=true;}}
+function adLine(x0,y0,x1,y1,v){const dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx+dy;
+ for(let n=0;n<512;n++){adPut(x0,y0,v);if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>=dy){e+=dy;x0+=sx;}if(e2<=dx){e+=dx;y0+=sy;}}}
+function adFill(x,y,v){
+ if(x<0||x>=AD_W||y<0||y>=AD_H)return;const t=AD.frames[AD.cur][y*AD_W+x];if(t===v)return;
+ adBegin();const fr=AD.frames[AD.cur],st=[[x,y]];
+ while(st.length){const [cx,cy]=st.pop();if(cx<0||cx>=AD_W||cy<0||cy>=AD_H||fr[cy*AD_W+cx]!==t)continue;fr[cy*AD_W+cx]=v;st.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]);}
+}
+function adThumb(){const th=$('adStrip').children[AD.cur];if(th)animLed(th.querySelector('canvas'),AD.frames[AD.cur],2);}
+function adRebuildStrip(){
+ const box=$('adStrip');box.textContent='';
+ AD.frames.forEach((fr,i)=>{const d=document.createElement('div');d.className='ad-th'+(i===AD.cur?' cur':'');d.setAttribute('role','listitem');d.setAttribute('aria-label','Bild '+(i+1));
+  const n=document.createElement('i');n.textContent=String(i+1);const c=document.createElement('canvas');c.width=128;c.height=32;d.append(n,c);animLed(c,fr,2);
+  d.addEventListener('click',()=>adSelect(i));box.appendChild(d);});
+ adStripShow();
+}
+function adStripShow(){const box=$('adStrip'),el=box.children[AD.cur];if(!el)return;const l=el.offsetLeft,r=l+el.offsetWidth;if(l<box.scrollLeft)box.scrollLeft=l-4;else if(r>box.scrollLeft+box.clientWidth)box.scrollLeft=r-box.clientWidth+4;}
+function adSelect(i){if(i===AD.cur||i<0||i>=AD.frames.length)return;adCommitFloat();AD.sel=null;AD.cur=i;[...$('adStrip').children].forEach((d,k)=>d.classList.toggle('cur',k===i));adStripShow();adDraw();adUiSync();}
+function adStructural(fn){adCommitFloat();AD.sel=null;AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.redo.length=0;AD.dirty=true;fn();adRebuildStrip();adDraw();adUiSync();}
+function adAdd(){if(AD.frames.length>=RbAnim.MAXF){notify('Höchstens '+RbAnim.MAXF+' Bilder.');return;}adStructural(()=>{AD.frames.splice(AD.cur+1,0,AD.frames[AD.cur].slice());AD.cur++;});}
+function adDel(){if(AD.frames.length<=2){notify('Mindestens 2 Bilder bleiben erhalten.');return;}adStructural(()=>{AD.frames.splice(AD.cur,1);AD.cur=Math.min(AD.cur,AD.frames.length-1);});}
+function adMove(d){const j=AD.cur+d;if(j<0||j>=AD.frames.length)return;adStructural(()=>{const t=AD.frames[AD.cur];AD.frames[AD.cur]=AD.frames[j];AD.frames[j]=t;AD.cur=j;});}
+function adRegion(){return AD.sel?{x:AD.sel.x,y:AD.sel.y,w:AD.sel.w,h:AD.sel.h}:{x:0,y:0,w:AD_W,h:AD_H};}
+function adClear(){adCommitFloat();adBegin();const r=adRegion(),fr=AD.frames[AD.cur];for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++)fr[(r.y+j)*AD_W+r.x+i]=0;adThumb();adDraw();adUiSync();}
+function adFlip(h){adCommitFloat();adBegin();const r=adRegion(),fr=AD.frames[AD.cur],src=fr.slice();
+ for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++){const a=(r.y+j)*AD_W+r.x+i,b=h?(r.y+j)*AD_W+r.x+(r.w-1-i):(r.y+(r.h-1-j))*AD_W+r.x+i;fr[a]=src[b];}
+ adThumb();adDraw();adUiSync();}
+function adUndoDo(){adCommitFloat();if(!AD.undo.length)return;AD.redo.push(adSnap());const s=AD.undo.pop();AD.frames=s.frames.slice();AD.cur=Math.min(s.cur,AD.frames.length-1);AD.sel=null;adRebuildStrip();adDraw();adUiSync();}
+function adRedoDo(){adCommitFloat();if(!AD.redo.length)return;AD.undo.push(adSnap());const s=AD.redo.pop();AD.frames=s.frames.slice();AD.cur=Math.min(s.cur,AD.frames.length-1);AD.sel=null;adRebuildStrip();adDraw();adUiSync();}
+function adSetTool(t){adCommitFloat();if(t!=='select')AD.sel=null;AD.tool=t;adDraw();adUiSync();}
+function adUiSync(){
+ document.querySelectorAll('#adTools [data-tool]').forEach(b=>{const on=b.dataset.tool===AD.tool;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
+ document.querySelectorAll('#adColors button').forEach(b=>{const on=Number(b.dataset.c)===AD.color;b.classList.toggle('sel',on);b.setAttribute('aria-checked',String(on));});
+ $('adUndo').disabled=!AD.undo.length;$('adRedo').disabled=!AD.redo.length;
+ $('adDel').disabled=AD.frames.length<=2;$('adAdd').disabled=AD.frames.length>=RbAnim.MAXF;$('adLeft').disabled=AD.cur<=0;$('adRight').disabled=AD.cur>=AD.frames.length-1;
+ $('adCount').textContent='Bild '+(AD.cur+1)+'/'+AD.frames.length;$('adZoomTxt').textContent=Math.round(AD.zoom*100)+' %';
+ $('adZoomOut').disabled=AD.zoom<=1.001;$('adZoomIn').disabled=AD.zoom>=adZoomMax()-0.001;
+ $('adOnion').classList.toggle('on',AD.onion);$('adOnion').setAttribute('aria-pressed',String(AD.onion));
+ ADC.style.cursor=AD.tool==='pan'?'grab':'crosshair';
+}
+function adDraw(){
+ if(!AD.open)return;
+ const m=adMetrics(),W=Math.round(m.w*m.dpr),H=Math.round(m.h*m.dpr);if(ADC.width!==W||ADC.height!==H){ADC.width=W;ADC.height=H;}
+ const g=adg;g.setTransform(m.dpr,0,0,m.dpr,0,0);g.fillStyle='#080b10';g.fillRect(0,0,m.w,m.h);
+ if(AD.blocked)return;
+ const c=adCellSize(),fr=AD.frames[AD.cur],prev=AD.onion&&AD.cur>0?AD.frames[AD.cur-1]:null,gap=c>=8?1:0;
+ const x0=Math.max(0,Math.floor(-AD.ox/c)),x1=Math.min(AD_W,Math.ceil((m.w-AD.ox)/c)),y0=Math.max(0,Math.floor(-AD.oy/c)),y1=Math.min(AD_H,Math.ceil((m.h-AD.oy)/c));
+ for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+  const v=fr[y*AD_W+x],px=AD.ox+x*c,py=AD.oy+y*c;
+  g.fillStyle=v?RbAnim.CSS[v]:'#10161f';g.fillRect(px,py,c-gap,c-gap);
+  if(!v&&prev&&prev[y*AD_W+x]){g.globalAlpha=.3;g.fillStyle=RbAnim.CSS[prev[y*AD_W+x]];g.fillRect(px,py,c-gap,c-gap);g.globalAlpha=1;}
+ }
+ const f=AD.flt;
+ if(f)for(let j=0;j<f.h;j++)for(let i=0;i<f.w;i++){const v=f.px[j*f.w+i];if(!v)continue;const x=f.x+i,y=f.y+j;if(x<0||x>=AD_W||y<0||y>=AD_H)continue;g.fillStyle=RbAnim.CSS[v];g.fillRect(AD.ox+x*c,AD.oy+y*c,c-gap,c-gap);}
+ const s=AD.sel;
+ if(s){g.lineWidth=2;g.strokeStyle='#fff';g.setLineDash([6,4]);g.strokeRect(AD.ox+s.x*c+1,AD.oy+s.y*c+1,s.w*c-2,s.h*c-2);g.setLineDash([]);}
+}
+function adApplyLayout(){
+ if(!AD.open)return;
+ const vp=adViewport(),availW=vp.w-20,availH=vp.h-116,est=Math.min(availW/AD_W,availH/AD_H);
+ AD.blocked=est<AD_MINCELL||(vp.w<vp.h&&vp.w<AD_PHONE_W);
+ $('animDraw').classList.toggle('ad-blocked',AD.blocked);$('adBlock').classList.toggle('hidden',!AD.blocked);
+ if(AD.blocked){$('adBlockText').textContent=vp.w<vp.h?'Bitte das Handy ins Querformat drehen. Der Editor braucht ein breites Zeichenfeld, damit jedes Pixel mit dem Finger zu treffen ist.':'Der Bildschirm ist zu klein zum Zeichnen. Importieren, Senden und alles andere funktionieren weiter; zum Bearbeiten einzelner Bilder bitte ein größeres Gerät verwenden.';}
+ const m=adMetrics();AD.base=Math.max(1,Math.min((m.w-4)/AD_W,(m.h-4)/AD_H));
+ AD.zoom=Math.max(1,Math.min(adZoomMax(),AD.zoom));adClampPan();adDraw();adUiSync();
+}
+function adOpen(frames,o){
+ AD.frames=frames.map(f=>f.slice());AD.cur=0;AD.undo=[];AD.redo=[];AD.sel=null;AD.flt=null;AD.stroke=null;AD.gest=null;AD.ptrs.clear();AD.zoom=1;AD.ox=0;AD.oy=0;AD.dirty=false;
+ AD.onDone=o.onDone||null;AD.onCancel=o.onCancel||null;AD.open=true;
+ $('adMorePanel').classList.add('hidden');$('adMore').setAttribute('aria-expanded','false');
+ $('animDraw').classList.remove('hidden');document.documentElement.classList.add('ad-lock');
+ adRebuildStrip();adUiSync();adApplyLayout();requestAnimationFrame(adApplyLayout);
+}
+function adClose(){AD.open=false;AD.flt=null;$('animDraw').classList.add('hidden');document.documentElement.classList.remove('ad-lock');}
+$('adBack').onclick=()=>{if(AD.dirty&&!confirm('Änderungen an den Bildern verwerfen?'))return;const cb=AD.onCancel;adClose();if(cb)cb();};
+$('adDone').onclick=()=>{adCommitFloat();const fr=AD.frames.slice(),cb=AD.onDone;adClose();if(cb)cb(fr);};
+$('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>adMove(-1);$('adRight').onclick=()=>adMove(1);
+$('adUndo').onclick=adUndoDo;$('adRedo').onclick=adRedoDo;
+$('adZoomIn').onclick=()=>{const m=adMetrics();adSetZoom(AD.zoom*1.5,m.w/2,m.h/2);};
+$('adZoomOut').onclick=()=>{const m=adMetrics();adSetZoom(AD.zoom/1.5,m.w/2,m.h/2);};
+$('adFlipH').onclick=()=>adFlip(true);$('adFlipV').onclick=()=>adFlip(false);$('adClear').onclick=adClear;
+$('adOnion').onclick=()=>{AD.onion=!AD.onion;adDraw();adUiSync();};
+$('adMore').onclick=()=>{const p=$('adMorePanel'),open=p.classList.contains('hidden');p.classList.toggle('hidden',!open);$('adMore').setAttribute('aria-expanded',String(open));};
+document.querySelectorAll('#adTools [data-tool]').forEach(b=>b.addEventListener('click',()=>adSetTool(b.dataset.tool)));
+AD_ORDER.forEach(v=>{const b=document.createElement('button');b.type='button';b.dataset.c=String(v);b.style.background=RbAnim.CSS[v];b.setAttribute('role','radio');b.setAttribute('aria-label',AD_NAMES[v]);b.title=AD_NAMES[v];b.addEventListener('click',()=>{AD.color=v;if(AD.tool==='eraser'||AD.tool==='pipette'||AD.tool==='pan')AD.tool='pen';adUiSync();});$('adColors').appendChild(b);});
+// Zeigerereignisse: ein Finger/Stift/Maus zeichnet, zwei Finger zoomen und verschieben nur das Zeichenfeld.
+function adStrokeCancel(){if(AD.stroke){AD.frames[AD.cur]=AD.stroke.before;AD.undo.pop();AD.stroke=null;adThumb();}}
+ADC.addEventListener('pointerdown',ev=>{
+ if(!AD.open||AD.blocked)return;
+ if(ev.pointerType==='mouse'&&ev.button!==0)return;
+ if(ev.pointerType==='pen')AD.penAt=Date.now();
+ if(ev.pointerType==='touch'&&Date.now()-AD.penAt<1500)return;   // Handballen neben dem Stift
+ ev.preventDefault();$('adMorePanel').classList.add('hidden');$('adMore').setAttribute('aria-expanded','false');
+ try{ADC.setPointerCapture(ev.pointerId);}catch(e){}
+ AD.ptrs.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});
+ if(AD.ptrs.size>=2){
+  adStrokeCancel();if(AD.gest&&AD.gest.mode==='move')adCommitFloat();
+  const a=[...AD.ptrs.values()],r=ADC.getBoundingClientRect(),mx=(a[0].x+a[1].x)/2-r.left,my=(a[0].y+a[1].y)/2-r.top,c0=adCellSize();
+  AD.gest={mode:'pinch',d0:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,z0:AD.zoom,gx:(mx-AD.ox)/c0,gy:(my-AD.oy)/c0};return;
+ }
+ const [cx,cy]=adCell(ev),t=AD.tool;
+ if(t==='pan'){AD.gest={mode:'pan',x:ev.clientX,y:ev.clientY,ox:AD.ox,oy:AD.oy};ADC.style.cursor='grabbing';return;}
+ if(t==='pen'||t==='eraser'){
+  adCommitFloat();AD.sel=null;const before=AD.frames[AD.cur];adBegin();AD.stroke={before,changed:false};
+  const v=t==='pen'?AD.color:0;adPut(cx,cy,v);AD.gest={mode:'draw',lx:cx,ly:cy};adDraw();return;
+ }
+ if(t==='fill'){adCommitFloat();AD.sel=null;adFill(cx,cy,AD.color);adThumb();adDraw();adUiSync();AD.gest={mode:'dead'};return;}
+ if(t==='pipette'){
+  if(cx>=0&&cx<AD_W&&cy>=0&&cy<AD_H){const v=AD.frames[AD.cur][cy*AD_W+cx];if(v){AD.color=v;AD.tool='pen';}else AD.tool='eraser';adUiSync();}
+  AD.gest={mode:'dead'};return;
+ }
+ if(t==='select'){
+  const x=Math.max(0,Math.min(AD_W-1,cx)),y=Math.max(0,Math.min(AD_H-1,cy));
+  if(AD.sel&&adInSel(x,y)){adLift();AD.gest={mode:'move',dx:x-AD.flt.x,dy:y-AD.flt.y};}
+  else{adCommitFloat();AD.sel={x,y,w:1,h:1};AD.gest={mode:'rect',ax:x,ay:y,moved:false};}
+  adDraw();return;
+ }
+});
+ADC.addEventListener('pointermove',ev=>{
+ if(!AD.ptrs.has(ev.pointerId)||!AD.gest)return;
+ AD.ptrs.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});const gs=AD.gest;
+ if(gs.mode==='pinch'&&AD.ptrs.size>=2){
+  const a=[...AD.ptrs.values()],r=ADC.getBoundingClientRect(),mx=(a[0].x+a[1].x)/2-r.left,my=(a[0].y+a[1].y)/2-r.top;
+  const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,z=Math.max(1,Math.min(adZoomMax(),gs.z0*d/gs.d0)),c1=AD.base*z;
+  AD.zoom=z;AD.ox=mx-gs.gx*c1;AD.oy=my-gs.gy*c1;adClampPan();adDraw();adUiSync();return;
+ }
+ if(AD.ptrs.size>1)return;
+ if(gs.mode==='pan'){AD.ox=gs.ox+ev.clientX-gs.x;AD.oy=gs.oy+ev.clientY-gs.y;adClampPan();adDraw();return;}
+ const [cx,cy]=adCell(ev);
+ if(gs.mode==='draw'){
+  if(cx===gs.lx&&cy===gs.ly)return;
+  adLine(gs.lx,gs.ly,cx,cy,AD.tool==='pen'?AD.color:0);gs.lx=cx;gs.ly=cy;adDraw();return;
+ }
+ if(gs.mode==='rect'){
+  const x=Math.max(0,Math.min(AD_W-1,cx)),y=Math.max(0,Math.min(AD_H-1,cy)),x0=Math.min(gs.ax,x),y0=Math.min(gs.ay,y);
+  AD.sel={x:x0,y:y0,w:Math.abs(x-gs.ax)+1,h:Math.abs(y-gs.ay)+1};if(AD.sel.w>1||AD.sel.h>1)gs.moved=true;adDraw();return;
+ }
+ if(gs.mode==='move'){
+  const nx=Math.max(-AD.flt.w+1,Math.min(AD_W-1,cx-gs.dx)),ny=Math.max(-AD.flt.h+1,Math.min(AD_H-1,cy-gs.dy));
+  AD.flt.x=nx;AD.flt.y=ny;AD.sel={x:nx,y:ny,w:AD.flt.w,h:AD.flt.h};adDraw();
+ }
+});
+function adPointerEnd(ev){
+ if(!AD.ptrs.has(ev.pointerId))return;AD.ptrs.delete(ev.pointerId);const gs=AD.gest;
+ if(gs){
+  if(gs.mode==='draw'&&AD.stroke){if(!AD.stroke.changed){AD.frames[AD.cur]=AD.stroke.before;AD.undo.pop();}AD.stroke=null;adThumb();}
+  else if(gs.mode==='rect'&&!gs.moved){AD.sel=null;}
+  else if(gs.mode==='move'){adCommitFloat();}
+  else if(gs.mode==='pan'){ADC.style.cursor='grab';}
+ }
+ if(AD.ptrs.size===0)AD.gest=null;else AD.gest={mode:'dead'};
+ adDraw();adUiSync();
+}
+ADC.addEventListener('pointerup',adPointerEnd);ADC.addEventListener('pointercancel',adPointerEnd);
+ADC.addEventListener('wheel',ev=>{if(!AD.open||AD.blocked)return;ev.preventDefault();const r=ADC.getBoundingClientRect();adSetZoom(AD.zoom*(ev.deltaY>0?1/1.15:1.15),ev.clientX-r.left,ev.clientY-r.top);},{passive:false});
+$('animDraw').addEventListener('touchmove',ev=>{if(!ev.target.closest||!ev.target.closest('.ad-strip'))ev.preventDefault();},{passive:false});
+document.addEventListener('keydown',ev=>{
+ if(!AD.open)return;
+ const k=ev.key,mod=ev.ctrlKey||ev.metaKey;
+ if(mod&&(k==='z'||k==='Z')){ev.preventDefault();if(ev.shiftKey)adRedoDo();else adUndoDo();}
+ else if(mod&&(k==='y'||k==='Y')){ev.preventDefault();adRedoDo();}
+ else if(k==='Escape'){ev.preventDefault();$('adBack').click();}
+ else if((k==='Delete'||k==='Backspace')&&AD.sel){ev.preventDefault();adClear();}
+ else if(AD.sel&&k.startsWith('Arrow')){ev.preventDefault();adNudge(k==='ArrowLeft'?-1:k==='ArrowRight'?1:0,k==='ArrowUp'?-1:k==='ArrowDown'?1:0);}
+});
+function adNudge(dx,dy){if(!AD.sel)return;if(!AD.flt)adLift();AD.flt.x+=dx;AD.flt.y+=dy;AD.sel={x:AD.flt.x,y:AD.flt.y,w:AD.flt.w,h:AD.flt.h};adDraw();}
+window.addEventListener('resize',()=>{adApplyLayout();});
+window.addEventListener('orientationchange',()=>setTimeout(adApplyLayout,250));
+if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>adApplyLayout());
+// Einstiege: bestehende Animation (Bearbeiten-Maske) und leere Zeichnung (Import-Quelle „Neu zeichnen“)
+function animDrawApply(frames){
+ const n=frames.length;animImp.stored=frames;animImp.drawn=true;
+ animImp.delays=Array(n).fill(Number($('animMs').value)||100);
+ $('animFrom').value=1;$('animTo').value=n;$('animFrom').max=n;$('animTo').max=n;$('animStep').value=1;$('animRev').checked=false;$('animPing').checked=false;
+ $('animImpSub').textContent=n+' Bilder'+(animImp.editId?' (bearbeitet)':'');
+ animSchedule(0);
+}
+$('animEditFrames').onclick=()=>{if(!animImp.stored)return;adOpen(animImp.stored,{onDone:animDrawApply});};
+$('animDrawNew').onclick=()=>{
+ animReset();
+ const blank=()=>new Uint8Array(RbAnim.W*RbAnim.H);
+ animImp.kind='draw';animImp.editId=0;animImp.stored=[blank(),blank()];animImp.delays=[100,100];animImp.nameAuto=false;animImp.drawn=false;
+ $('animImpTitle').textContent='Neu zeichnen';$('animImpSub').textContent='2 Bilder';
+ $('animSourcePick').classList.add('hidden');$('animPixelOpts').classList.add('hidden');
+ $('animFrom').value=1;$('animTo').value=2;$('animFrom').max=2;$('animTo').max=2;$('animStep').value=1;$('animRev').checked=false;$('animPing').checked=false;$('animMs').value=100;
+ $('animVarWrap').classList.add('hidden');$('animName').value=animBoundName('Zeichnung');$('animSrcInfo').textContent='';
+ $('animEditFrames').classList.remove('hidden');$('animAdjust').classList.remove('hidden');animSchedule(0);
+ adOpen(animImp.stored,{onDone:animDrawApply,onCancel:()=>{if(!animImp.drawn)animShowImport();}});
+};
+window.addEventListener('resize',()=>{if(!$('animImportPane').classList.contains('hidden'))animPanDraw();});
 /* ==== Ende Animationen: Oberfläche ==== */
 
 // ---- Übertragung läuft: Sperre auf allen Geräten ------------------------------------------------------------------

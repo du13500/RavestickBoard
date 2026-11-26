@@ -1,4 +1,4 @@
-> **Lesehilfe (26.11.2026, v0.7.2-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
+> **Lesehilfe (26.11.2026, v0.8.0-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
 
 > v0.4.2.5.2-dev: Bibliotheksfavoriten-Oberfläche entfernt; acht neu belegbare Kurzwahlen und Startseitentempo umgesetzt. Nicht mehr als offene UI-Forderung führen; Hardware-Abnahme und RAM-Problematik bleiben offen.
 
@@ -559,6 +559,15 @@ Die bestehenden v0.2.0-NVS-Seiten werden im v0.3.0-Entwurf nicht automatisch gel
 - **Gebaut (Compile und Hardware offen):** Programme fest mit Tempo 80, Kurzwahl ohne Erfolgsmeldungen, Palettenknopf bündig bei zwei Zeilen (Variante A), Play-Sperre bei Übertragung, Hinweis und ID aus der Oberfläche, Programm-Maske ohne Dock, Escape im Kurzwahl-Fenster, 15 Mischfarben-Testdateien.
 - **Offen:** Hardwaretest 0.7.1; Mischfarben (Orange bestätigt, die übrigen Dateien stehen im Testplan); ob die Puffer-Begrenzung wirkt (Idee: aktive Treiberkonfiguration nach dem Start auslesen und in der Diagnose zeigen); Beschriftung „Text · Zeile 2“ (I3); Kurzbefehle (H1 bis H6); Arduino-ESP32 4.0.x später prüfen (Core 4.0.0 vom 23.11.2026; bleibt vorerst bei 3.3.12); ältere englische Kommentare übersetzen.
 - **Als Nächstes (Vorschlag, nicht bestätigt):** 0.8.0 Zeichen-Editor Frame für Frame (ANM-06), 0.9.0 Schriftimport BDF, danach Mehrsprachigkeit DE/EN.
+
+## Stand 0.8.0 (26.11.2026) – was gebaut ist und was offen bleibt
+
+- **Test von 0.7.2 (26.11.2026):** kompiliert (1.600.665 Byte, 76 %), 28 Minuten ohne Fehler und Neustart; Stoppuhr 63,2 s für 40 Blocktext-Seiten gegen berechnete 63,6 s (Formel bleibt). Rückmeldungen: Tempo-Hinweis, Laptop-Breite, Backup-Knopffarbe – alle in 0.8.0.
+- **Gebaut (Compile und Hardware offen):** Schwenk über große Bilder (Importquelle), Frame-Editor (Stift, Radierer, Füllen, Pipette, Auswahl, Spiegeln, Zwiebelschicht, Zoom, Rückgängig; Neu zeichnen und Einzelbilder gespeicherter Animationen; Handy nur quer, ausreichend große Zeichenfläche), Kleinpaket. Firmware nur mit neuer Versionsnummer.
+- **Vorbild Adam (`coolled-sign-controller`, MIT):** Szene verschieben/umlaufen, Spiegeln, Schwenk über eine große Leinwand bis 79 Frames. Übernommen ist die Idee, nicht der Code. Zeitliche Farbmischung (FRC) bleibt eine eigene Sammlung (`Sammlung_Farbmischung_FRC`).
+- **Offen:** Hardwaretest 0.8.0 (Handy quer als Homebildschirm-App, iPad mit Pencil, Laptop; Zwei-Finger-Zoom darf nie die Seite zoomen); Messung von Heap und Dateisystem mit Editor-Animationen, danach **ANM-29** (Grenze von 40 Animationen) und die Chipfrage; Textwerkzeug im Editor (Tafelschriften, später importierte Schriften und Symbole als schwebende Pixel auf einem Bild); Linie/Rechteck/Kreis; nicht getestet aus 0.7.1: D5, F4, L2, L3, L5; Screenshots für die Kurzbefehle-Anleitung (iPhone).
+- **Ideen (nicht geplant):** Uhrzeit-Animation für Festivals (`Sammlung_Uhr_Animation` im Projekt); Mischfarben als „nur senden“ im Ambiente; WLAN-Treiberkonfiguration in der Diagnose lesen.
+- **Als Nächstes:** nach dem Hardwaretest 0.8.1 (Textwerkzeug, Formen), dann 0.9.0 Schriftimport BDF, danach Mehrsprachigkeit DE/EN (siehe „Weg bis 1.0.0“ in der Roadmap).
 
 ## Stand 0.7.2 (26.11.2026) – was gebaut ist und was offen bleibt
 

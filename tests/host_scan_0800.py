@@ -4,11 +4,11 @@ Die echte Bibliothek (Arduino-Core 3.3.x) ist hier nicht verfuegbar: Signaturen 
 from pathlib import Path
 import subprocess, tempfile
 ROOT=Path(__file__).resolve().parents[1]
-ino=next((ROOT/'firmware').glob('RavestickBoard_v0_7_2/*.ino')).read_text(encoding='utf8')
+ino=next((ROOT/'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
 a=ino.index('#if RB_PRESCAN\n// ---- Vor-Scan'); b=ino.index('#endif',a)+6
-src=(ROOT/'tests/host/scan_stub_0702.h').read_text()+ino[a:b]+(ROOT/'tests/host/scan_main_0702.cpp').read_text()
+src=(ROOT/'tests/host/scan_stub_0800.h').read_text()+ino[a:b]+(ROOT/'tests/host/scan_main_0800.cpp').read_text()
 with tempfile.TemporaryDirectory() as d:
     (Path(d)/'t.cpp').write_text(src)
-    subprocess.run(['g++','-std=c++17','-Wall','-Wno-unused','-I',str(ROOT/'tests/host/nimble'),'-I',str(next((ROOT/'firmware').glob('RavestickBoard_v0_7_2'))),'-o',str(Path(d)/'t'),str(Path(d)/'t.cpp')],check=True)
+    subprocess.run(['g++','-std=c++17','-Wall','-Wno-unused','-I',str(ROOT/'tests/host/nimble'),'-I',str(next((ROOT/'firmware').glob('RavestickBoard_v0_8_0'))),'-o',str(Path(d)/'t'),str(Path(d)/'t.cpp')],check=True)
     r=subprocess.run([str(Path(d)/'t')],capture_output=True,text=True,check=True)
 print(r.stdout.strip().splitlines()[-1].replace('PASS scan host','PASS Vor-Scan-Logik (echter Sketch-Code, BLE-Attrappen): gesehen/nicht gesehen/ohne Aussage'))

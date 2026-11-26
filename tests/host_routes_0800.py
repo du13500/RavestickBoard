@@ -1,11 +1,11 @@
 """Hält die festen Routen für Kurzbefehle fest (docs/KURZBEFEHLE.md, Block ROUTEN-ANFANG/-ENDE):
 Jede Route ist im Sketch mit der Methode registriert, der Handler liest die genannten Felder, Lauftext hat
 Standardwerte für fehlende Felder. Ändert jemand Pfad, Methode oder Feldnamen, schlägt der Test fehl.
-Aufruf: python tests/host_routes_0702.py"""
+Aufruf: python tests/host_routes_0800.py"""
 import re, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-FW = ROOT / 'firmware/RavestickBoard_v0_7_2'
+FW = ROOT / 'firmware/RavestickBoard_v0_8_0'
 src = '\n'.join(p.read_text(encoding='utf-8') for p in sorted(FW.glob('*.ino')) + sorted(FW.glob('*.h')) if 'WebUI' not in p.name)
 doc = (ROOT / 'docs/KURZBEFEHLE.md').read_text(encoding='utf-8')
 fails = []

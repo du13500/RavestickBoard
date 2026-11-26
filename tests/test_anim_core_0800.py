@@ -1,5 +1,5 @@
 """v0.6.1.0: Kernfunktionen der Animationsoberflaeche (web/index.html, Block RbAnim) in Node:
- - Nutzlast-Bau gegen die unabhaengige Referenz, die in host_anim_0702.py die Firmware bestaetigt (und die auf der echten Tafel richtig aussah)
+ - Nutzlast-Bau gegen die unabhaengige Referenz, die in host_anim_0800.py die Firmware bestaetigt (und die auf der echten Tafel richtig aussah)
  - Base64, Auspacken, Vorschaubild
  - GIF-Decoder gegen Pillow (Interlace, Teilbilder, Transparenz, Entsorgungsarten, Rauschen mit 12-Bit-Codes, Randgroessen)
  - Text-Raster, Farbumsetzung, Bildfolge-Planung, Fenster, Streifen
@@ -26,7 +26,7 @@ fails = []
 def check(c, m):
     if not c: fails.append(m); print('FAIL', m)
 
-# ---- Referenz aus host_anim_0702.py (Firmware-bestaetigt): Testmuster -> Pixelfelder -> Nutzlast ----------
+# ---- Referenz aus host_anim_0800.py (Firmware-bestaetigt): Testmuster -> Pixelfelder -> Nutzlast ----------
 GLYPH = {'0': ['###', '# #', '# #', '# #', '###'], '1': [' # ', '## ', ' # ', ' # ', '###'], '2': ['###', '  #', '###', '#  ', '###'],
          '3': ['###', '  #', '###', '  #', '###'], '4': ['# #', '# #', '###', '  #', '  #'], '5': ['###', '#  ', '###', '  #', '###'],
          '6': ['###', '#  ', '###', '# #', '###'], '7': ['###', '  #', '  #', ' # ', ' # '], '8': ['###', '# #', '###', '# #', '###'],
@@ -101,7 +101,7 @@ for name, (frames, kw) in gifs.items():
     else: frames[0].save(path, format='GIF', save_all=True, append_images=frames[1:], **kw)
     paths[name] = path
 # Referenz 1: Chromium (ImageDecoder, Browser-Decoder); Referenz 2: Pillow. Weichen beide ab, gilt der Browser (Pillow-Hinweis wird gezaehlt).
-subprocess.run([sys.executable, str(ROOT / 'tests/gif_ref_chromium_0702.py'), str(tmp / 'chromium.json')] + [str(x) for x in paths.values()], check=True)
+subprocess.run([sys.executable, str(ROOT / 'tests/gif_ref_chromium_0800.py'), str(tmp / 'chromium.json')] + [str(x) for x in paths.values()], check=True)
 chromium = json.loads((tmp / 'chromium.json').read_text())
 pillow_diff = []
 def diffpix(mine, ref):

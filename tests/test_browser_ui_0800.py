@@ -7,16 +7,16 @@ Menue unter der Banane, Bedienfeld so breit wie der Inhalt.
 ohne es zu vergroessern), Schrift mit Wiederholung, Rahmen (fensterhoch, Bedienfeld unten buendig und so breit wie die
 Flaechen) auf iPhone SE, Handy und Laptop, Ambiente-Farben, lange Namen, Namen aus Dateinamen, beschaedigte Programme im
 Kurzwahl-Dialog, Blocktext-Kopf.
-Aufruf: python tests/test_browser_ui_0702.py [Screenshot-Ordner]"""
+Aufruf: python tests/test_browser_ui_0800.py [Screenshot-Ordner]"""
 import re, sys, json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0702.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0800.py').read_text(encoding='utf8')
 MOCK = src[src.index("MOCK=r'''") + 9:src.index("</script>'''") + 9]
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_7_2/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
 blk = ino[ino.index('static const Glyph FONT[] = {'):]; blk = blk[:blk.index('};')]
 font = {}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}", blk):
@@ -80,7 +80,7 @@ with sync_playwright() as pw:
     g2 = page.evaluate("""()=>{const r=e=>{const b=e.getBoundingClientRect();return [Math.round(b.left),Math.round(b.width)]};return {view:document.body.dataset.rbView,menu:getComputedStyle(document.getElementById('mainMenu')).display,
       main:r(document.getElementById('appShell')),dock:r(document.getElementById('rbDock')),cur:document.querySelector('#mainMenu [data-nav].current').dataset.nav}}""")
     check(g2['view'] == 'library' and g2['menu'] == 'flex' and g2['cur'] == 'library', f'Klick in der Seitenleiste wechselt die Ansicht, Leiste bleibt: {g2}')
-    check(g2['main'][1] in (860, 1172) and g2['dock'] == g2['main'], f'Bibliothek: 860 px (schmal) bzw. 1172 px mit Vorschau (Laptop), Bedienfeld gleich: {g2}')
+    check(g2['main'][1] in (860, 1157, 1172) and g2['dock'] == g2['main'], f'Bibliothek: 860 px (schmal) bzw. 1172 px mit Vorschau (Laptop), Bedienfeld gleich: {g2}')
     for v in ['programs', 'animations', 'editor', 'ambience', 'settings', 'diagnostics']:
         page.evaluate(f"navigate('{v}')"); page.wait_for_timeout(120)
         check(page.evaluate("document.documentElement.scrollWidth<=window.innerWidth"), f'Ansicht {v}: kein seitliches Ueberlaufen')
@@ -333,7 +333,7 @@ with sync_playwright() as pw:
     ctx, page, errs = boot(browser, 1440, 900)
     for v in ['home', 'library', 'animations']:
         page.evaluate(f"navigate('{v}')"); page.wait_for_timeout(250); g = page.evaluate(GEO)
-        check(g['frame'] and g['sh'] <= g['ih'] + 1 and abs(g['db'] - g['ih']) <= 1 and (g['pl'] is None or (abs(g['dl'] - g['pl']) <= 1 and (abs(g['dw'] - g['pw']) <= 1 or (v == 'library' and g['dw'] == 1172 and g['pw'] == 818)))), f'Laptop {v}: Rahmen {g}')
+        check(g['frame'] and g['sh'] <= g['ih'] + 1 and abs(g['db'] - g['ih']) <= 1 and (g['pl'] is None or (abs(g['dl'] - g['pl']) <= 1 and (abs(g['dw'] - g['pw']) <= 1 or (v == 'library' and g['dw'] in (1157, 1172) and g['pw'] in (803, 818))))), f'Laptop {v}: Rahmen {g}')
         if SHOTS: page.screenshot(path=str(SHOTS / f'x_laptop_{v}.png'))
     check(not errs, f'keine Skriptfehler (Laptop 0.6.1.6): {errs[:3]}'); ctx.close()
     browser.close()

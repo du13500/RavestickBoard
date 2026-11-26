@@ -8,7 +8,7 @@ from pathlib import Path
 import os, subprocess, sys, tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_7_2/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
 
 def func(name, ret='size_t'):
     a = ino.index(f'{ret} {name}(')
@@ -21,8 +21,8 @@ def func(name, ret='size_t'):
 a = ino.index('// ---- Gespeicherte Animation (Opcode 0x04)'); a2 = ino.index('// (Die Funktionen rb60NumberPixel')
 a2 = ino.index('\n', a2) + 1
 c = ino.index('// ---- Funktionen der Animation'); b = ino.index('// ---- Ende Animation')
-src = ((ROOT / 'tests/host/anim_stub_0702.h').read_text() + (ino[a:a2] + ino[c:b]) + 'static bool dummy60=false;\n'
-       + '// Nachbildung von copyPayloadSlice(): nur der Animationszweig; der echte Zweig wird im Quelltext geprueft.\nvoid copyPayloadSlice(size_t offset, size_t length, uint8_t *dest) {\n  if (rb60AnimActive) { rb60CopyAnimSlice(offset, length, dest); return; }\n  assert(!"nur Animationszweig");\n}\n' + func('framePacket') + func('makeChunk') + (ROOT / 'tests/host/anim_main_0702.cpp').read_text())
+src = ((ROOT / 'tests/host/anim_stub_0800.h').read_text() + (ino[a:a2] + ino[c:b]) + 'static bool dummy60=false;\n'
+       + '// Nachbildung von copyPayloadSlice(): nur der Animationszweig; der echte Zweig wird im Quelltext geprueft.\nvoid copyPayloadSlice(size_t offset, size_t length, uint8_t *dest) {\n  if (rb60AnimActive) { rb60CopyAnimSlice(offset, length, dest); return; }\n  assert(!"nur Animationszweig");\n}\n' + func('framePacket') + func('makeChunk') + (ROOT / 'tests/host/anim_main_0800.cpp').read_text())
 tmp = tempfile.mkdtemp()
 (Path(tmp) / 't.cpp').write_text(src)
 subprocess.run(['g++', '-std=c++17', '-Wall', '-Wextra', '-Wno-unused', '-Wno-volatile', '-Wno-unused-parameter', '-o', f'{tmp}/t', f'{tmp}/t.cpp'], check=True)

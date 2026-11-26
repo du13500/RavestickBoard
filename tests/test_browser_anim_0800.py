@@ -1,7 +1,7 @@
 """v0.6.1.0: Bereich „Animationen“ im echten (headless) Chromium mit simulierter API (Dateispeicher im Mock):
 Menü, Liste, Vorschau, Import (GIF, Bildstreifen, Text-Raster), Anpassen, Grenzen (79 Bilder), Speichern in Stücken
 (Nutzlast gegen unabhaengige Referenz), Senden/Umbenennen/Duplizieren/Loeschen, beschaedigte Eintraege, Tempo-Regler.
-Aufruf: python tests/test_browser_anim_0702.py [Screenshot-Ordner]
+Aufruf: python tests/test_browser_anim_0800.py [Screenshot-Ordner]
 Nicht geprueft: iPad-Safari, Apple Pencil, echte ESP32-Antworten."""
 import io, json, re, sys, base64, zlib
 from pathlib import Path
@@ -10,9 +10,9 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0702.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0800.py').read_text(encoding='utf8')
 # Schrift und Basis-Mock aus dem Haupt-Browsertest uebernehmen (dort ebenfalls aus dem Sketch gelesen)
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_7_2/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
 blk = ino[ino.index('static const Glyph FONT[] = {'):]; blk = blk[:blk.index('};')]
 font = {}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}", blk):
@@ -78,7 +78,7 @@ errors = []
 def check(c, m):
     if not c: errors.append(m); print('FAIL', m)
 
-# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0702.py) ---------------------
+# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0800.py) ---------------------
 def ref_payload(frames, ms):   # frames: Liste von 16 Zeilen zu je 64 Farbwerten (0..7)
     n = len(frames); planes = [[], [], []]
     for p, bit in enumerate((4, 2, 1)):

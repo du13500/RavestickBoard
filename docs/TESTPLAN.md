@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.7.2.md`](TESTPLAN_v0.7.2.md) (Aufräumer aus 0.7.1: Überschrift Ambiente, Arbeitsanzeige am Backup, Mischfarben, offene Punkte und Messung der Blocktext-Dauer; als Excel `RavestickBoard_Hardwaretest_v0.7.2.xlsx`). Vorher: [`TESTPLAN_v0.7.1.md`](archive/TESTPLAN_v0.7.1.md) (am 26.11.2026 auf der Hardware durchgeführt). Ältere Pläne liegen in [`archive/`](archive/).
+> **Neuester Testplan:** [`TESTPLAN_v0.8.0.md`](TESTPLAN_v0.8.0.md) (Schwenk über große Bilder, Frame-Editor, Kleinpaket; als Excel `RavestickBoard_Hardwaretest_v0.8.0.xlsx`). Vorher: [`TESTPLAN_v0.7.2.md`](archive/TESTPLAN_v0.7.2.md) (am 26.11.2026 auf der Hardware durchgeführt). Ältere Pläne liegen in [`archive/`](archive/).
 
 ## Ergänzung v0.3.5
 
