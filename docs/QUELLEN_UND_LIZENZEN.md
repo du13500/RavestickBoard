@@ -1,6 +1,6 @@
 # RavestickBoard · Quellen, Lizenzumfang und Rechte
 
-**Aktueller Stand: 23.11.2026 (v0.7.1-dev; keine neuen Abhängigkeiten gegenüber 0.6.1.11; getestet mit NimBLE-Arduino 2.5.2; Funktionsübersicht: `FUNKTIONEN.md`).** Neu als Quelle: Pull Request #100 im GitHub-Projekt EleksTubeIPS (gemergt 12.11.2026) – Befund und Messung zu den WLAN-Empfangspuffern von Arduino-ESP32 (nur als Begründung, kein Code übernommen). Für die Kurzbefehl-Anleitung genannt, nicht eingebunden: die Android-App [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts) (MIT). Symbole weiter aus Lucide (ISC); in 0.7.0 gegen das Original geprüft und mehrere ersetzt.
+**Aktueller Stand: 26.11.2026 (v0.7.2-dev; keine neuen Abhängigkeiten gegenüber 0.6.1.11; getestet mit NimBLE-Arduino 2.5.2; Funktionsübersicht: `FUNKTIONEN.md`).** Neu als Quelle: Pull Request #100 im GitHub-Projekt EleksTubeIPS (gemergt 12.11.2026) – Befund und Messung zu den WLAN-Empfangspuffern von Arduino-ESP32 (nur als Begründung, kein Code übernommen). Für die Kurzbefehl-Anleitung genannt, nicht eingebunden: die Android-App [HTTP Shortcuts](https://github.com/Waboodoo/HTTP-Shortcuts) (MIT). Symbole weiter aus Lucide (ISC); in 0.7.0 gegen das Original geprüft und mehrere ersetzt.
 
 ## MIT ab v0.4.0-dev
 

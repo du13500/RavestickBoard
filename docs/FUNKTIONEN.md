@@ -1,6 +1,6 @@
 # RavestickBoard · Funktionen nach Themen
 
-**Stand: 23.11.2026 (v0.7.1-dev).** Programme laufen fest mit Tempo 80 (der Regler springt beim Start auf 80); die Kurzwahl meldet beim Antippen nur Fehler; Animationen zeigen keine ID mehr (für Kurzbefehle `/api/anim/list`). Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
+**Stand: 26.11.2026 (v0.7.2-dev).** Der Funktionsumfang von v0.7.1 ist im Hardwaretest vom 26.11.2026 bestätigt (stabil, zufriedenstellend); 0.7.2 bringt nur kleine Aufräumer. Programme laufen fest mit Tempo 80 (der Regler springt beim Start auf 80); die Kurzwahl meldet beim Antippen nur Fehler; Animationen zeigen keine ID mehr (für Kurzbefehle `/api/anim/list`). Diese Datei beschreibt, was die Oberfläche und die Firmware können, nach Themen geordnet (nicht nach Versionen). Die Geschichte steht in der [Versionsgeschichte](../VERSIONSGESCHICHTE.md) und im [CHANGELOG](../CHANGELOG.md), technische Formate in [`TECHNIK.md`](TECHNIK.md), Messen und Fehlersuche in [`DIAGNOSE.md`](DIAGNOSE.md), Entscheidungen in [`ENTSCHEIDUNGEN.md`](ENTSCHEIDUNGEN.md). Alles hier ist am Rechner geprüft; was auf der Hardware bestätigt ist, steht in den Testplänen und im CHANGELOG.
 
 ## Inhalt
 
@@ -79,6 +79,7 @@ Ein eigener Bereich, getrennt von Lauftext, Blocktext und Programmen. Die Tafel 
 
 - **Bibliothek:** Lauftexte und Blocktexte speichern, benennen, sortieren, löschen (am Laptop auch mehrere markieren: Strg-/Cmd-Klick, Umschalt-Klick für Bereiche, Strg+A, Esc, Entf, mit Rückfrage und Verwendung). Lange Namen blenden weich aus, laufen beim Auswählen einmal durch und zeigen am Laptop den vollen Namen als Hinweis.
 - **Programme:** Einträge nacheinander abspielen, entweder jeden im Original oder als gemeinsames **Laufband**; mit Pfeilen sortierbar, die Reihenfolge liegt im ESP32 und gilt für alle Geräte. Gemischte Programme laufen mit Gruppenwechsel per Timer.
+- **Tempo und Anzeigedauer im Programm:** Programme laufen immer mit Tempo 80. Nur bei diesem Tempo ist die Anzeigedauer von Blocktexten an der Tafel gemessen (Seitenzahl · 795 ms · (100 − Tempo) / 10, bei 40 Seiten 63,6 s). Geteilte Laufbänder (Texte, die nicht auf die Tafel passen) verwenden eine vorsichtige, noch nicht an der Hardware kalibrierte Zeitabschätzung; lieber wiederholt sich ein Text sichtbar, als dass sein Ende fehlt. Im Test von 0.7.1 erschienen bei einem Blocktext mit 40 Seiten nach der Seite 40 noch die Seiten 1 und 2, bevor der nächste Eintrag kam: die Abstimmung ist recht gut, aber noch nicht perfekt.
 - **Importname:** Beim Import entsteht der Name aus dem Dateinamen (Endung weg, `_`/`-` zu Leerzeichen, großer Anfangsbuchstabe).
 
 ## 10. Tafelverwaltung und Bluetooth
@@ -110,6 +111,7 @@ Menü → Diagnose, Export als Textdatei: Ereignisprotokoll (Aufträge, Bluetoot
 - **WLAN-Puffer und Sicherheit:** Einstellungen → „WLAN-Puffer und Sicherheit“: Empfangspuffer „begrenzt“ (weniger Speicher, Voreinstellung) oder „Arduino-Standard“, wirkt nach einem Neustart; WPA2/WPA3 gemischt (fällt bei Problemen auf WPA2 zurück). Das Standardpasswort steht in den Einstellungen im Klartext.
 - **Kurzbefehle:** Lauftext (nur Text), Kurzwahl 1 bis 8 oder eine Animation per ID ohne Browser auslösen, mit der Kurzbefehle-App/Siri am iPhone oder der App „HTTP Shortcuts“ unter Android. Anleitung: [KURZBEFEHLE.md](KURZBEFEHLE.md).
 - **Programm und Senden:** Wer während eines laufenden Programms etwas sendet, beendet das Programm nach dem aktuellen Schritt; der neue Inhalt kommt danach von selbst.
+- **Sichtbare Arbeit:** Während ein Backup erstellt oder importiert wird, färbt sich der jeweilige Knopf gelb und ein Laufbalken läuft; bei Erfolgs- oder Fehlermeldung ist das wieder weg.
 - **Mehrere Geräte:** Änderungen eines Geräts erscheinen auf den anderen nach „Menü → Webinterface neu laden“; Bibliothek und Programme werden beim Seitenwechsel außerdem im Hintergrund aufgefrischt, wenn sie älter als 60 s sind. Gleichzeitiges Bearbeiten desselben Eintrags kann Änderungen überschreiben.
 - **Blocktext-Format:** Seit 0.6.1.6 speichert die Firmware Blocktexte mit 40 Seitenplätzen; Stände bis 0.6.1.5 lesen sie danach nicht mehr (darum vorher ein Backup ziehen).
 

@@ -1,6 +1,10 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 21.11.2026 für v0.7.1-dev (keine neuen Diagnosezeilen gegenüber 0.7.0; neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 26.11.2026 für v0.7.2-dev (keine neuen Diagnosezeilen gegenüber 0.7.0; neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+
+## Referenzwerte aus dem Hardwaretest von 0.7.1 (26.11.2026)
+
+Nach 73 Minuten Betrieb mit einem Gerät (Puffer „begrenzt“, WPA2, Entwicklungsbuild mit 20-ms-Messung): Neustartgrund „Einschalten“, keine Absturzspur, 67 Aufträge ohne Fehler, 3031 BLE-Writes ohne Fehler, 2928 Bestätigungen ohne Prüfsummenfehler, 0 Notify-Timeouts, 0 Anfragen wegen knappem Heap vertagt. Freier Heap im Leerlauf 38.760 Byte, minimal freier Heap und System-Minimum 19.560 Byte (nach etwa 195 s erreicht, danach unverändert), größter freier Block 31.732 Byte, „Nach WLAN-AP“ 68.476 Byte frei. Längste Webanfrage `/api/library` mit 2.199 ms. Diese Werte dienen als Vergleich für spätere Tests.
 
 ## Diagnose-Ergänzung v0.7.0 – WLAN-Puffer, Sicherheit, Programmstopp (21.11.2026)
 

@@ -4,14 +4,14 @@
 <p align="center"><strong>Offline-Webcontroller für die 64 × 16-Pixel-LED-Tafel CoolLEDX / CoolLED1248 mit ESP32-C3.</strong><br>
 Entstanden aus einer Festival-Banane und dem Wunsch, mehr aus der ursprünglichen CoolLED1248-App herauszuholen.</p>
 <p align="center">
-<img alt="Version" src="https://img.shields.io/badge/version-v0.7.1--dev-7056d8">
+<img alt="Version" src="https://img.shields.io/badge/version-v0.7.2--dev-7056d8">
 <img alt="Hardware" src="https://img.shields.io/badge/hardware-ESP32--C3-007c91">
 <img alt="Status" src="https://img.shields.io/badge/status-dev%20hardware%20test%20pending-f3b653">
 <img alt="Lizenz" src="https://img.shields.io/badge/license-MIT-brightgreen">
 <img alt="Mission" src="https://img.shields.io/badge/mission-hugs%20and%20love-ff69b4">
 </p>
 
-> **Aktueller Entwicklungskandidat: v0.7.1-dev (23.11.2026).** *Neu gegenüber 0.7.0:* **Programme laufen fest mit Tempo 80**, die Kurzwahl meldet nichts mehr beim Antippen (die Pille „Übertragung läuft“ zeigt es), Palettenknopf auch bei zwei Zeilen bündig, Play-Taste der Animationen während einer Übertragung gesperrt, kleine Aufräumer in der Oberfläche und **15 Testdateien für Mischfarben** ([docs/farbmischung](docs/farbmischung/README.md)). Der Hardwaretest von 0.7.0 ist ausgewertet; der Speichervergleich der WLAN-Puffer zeigte keinen messbaren Unterschied. *Davor, in 0.7.0:* *Neu gegenüber 0.6.1.11:* **WLAN-Puffer mit Umschalter** (begrenzt gegen Arduino-Standard, für den Speichervergleich), **Senden während eines Programms** (das Programm endet nach dem laufenden Schritt, dein Inhalt folgt von selbst), einheitliche Farben und Schriftgrößen, **Backup-Export mit Auswahl**, **Kurzbefehle für iPhone und Android**, WPA2/WPA3 wählbar, aufgeräumter Quelltext und Reste aus den Audits. Am Rechner geprüft, **noch nicht kompiliert und noch nicht auf der Hardware getestet.** 0.6.1.11 bleibt die Rückfallversion.
+> **Aktueller Entwicklungskandidat: v0.7.2-dev (26.11.2026).** **v0.7.1 ist auf echter Hardware getestet (26.11.2026): Sie läuft stabil – 73 Minuten Dauerbetrieb mit 67 Aufträgen und über 3000 Bluetooth-Paketen ohne Fehler und ohne Neustart –, und der bisherige Funktionsumfang arbeitet zufriedenstellend. Sie ist die getestete Rückfallversion.** *Neu in 0.7.2:* nur Aufräumer aus diesem Test: **Überschrift der Ambiente-Seite wie die anderen Seiten**, **gelbe Arbeitsanzeige mit Laufbalken an den Backup-Knöpfen**, Kalibrierhinweis aus der Programm-Maske entfernt und nur noch **sieben getestete Mischfarben-Dateien** ([docs/farbmischung](docs/farbmischung/README.md)). Am Rechner geprüft, **noch nicht kompiliert und noch nicht auf der Hardware getestet.**
 
 ## Was ist RavestickBoard?
 
@@ -47,7 +47,20 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 - **Einstellungen:** WLAN-Passwort ändern (Zurücksetzen per BOOT-Taste), WLAN-Puffer und WPA2/WPA3, JSON-Backup mit Auswahl (Bibliothek, Programme, Animationen, Kurzwahlen).
 - **Kurzbefehle:** Lauftext, Kurzwahl oder Animation ohne Browser auslösen, mit der Kurzbefehle-App/Siri am iPhone oder einer App unter Android ([docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)).
 
-## Aktuell: v0.7.1-dev – Programmtempo, ruhigere Kurzwahl, Aufräumer aus dem Test von 0.7.0
+## Aktuell: v0.7.2-dev – Aufräumer aus dem Hardwaretest von 0.7.1
+
+- **Anlass:** Hardwaretest von 0.7.1 am 26.11.2026 (stabil, siehe oben) und die Rückmeldungen daraus. Die Firmware ist gegenüber 0.7.1 bis auf die Versionsnummer unverändert; neu geflasht wird nur, weil die Weboberfläche im Sketch liegt.
+- **Ambiente:** Die Überschrift sitzt jetzt wie bei Bibliothek, Programme und Animationen (auch am Laptop).
+- **Backup:** Während Export oder Import arbeitet, färben sich die beiden Knöpfe gelb und ein Laufbalken zeigt, dass etwas passiert; bei Erfolgs- oder Fehlermeldung ist beides wieder weg.
+- **Programm-Maske:** Der Hinweis „Blocktexte sind bei Tempo 60–90 kalibriert …“ entfällt, weil Programme fest mit Tempo 80 laufen; die Erläuterung zur Zeitabschätzung steht in [docs/FUNKTIONEN.md](docs/FUNKTIONEN.md).
+- **Mischfarben:** [docs/farbmischung](docs/farbmischung/README.md) enthält nur noch die sieben getesteten und für gut befundenen Dateien (Orange, Rot-Orange, Limette, Himmelblau, Hellblau, Pastellrot, Pastellgrün); ab 8 ms je Bild flimmern sie leicht, bei 1 ms nicht.
+- **Geprüft und unverändert gelassen:** Die Meldungen bei gesperrter Übertragung („Das Programm wird beendet …“, 409) bleiben, weil Kurzbefehle und ein zweites Gerät die Sperre der Oberfläche umgehen können.
+- **Offen:** Die Schätzung der Anzeigedauer langer Blocktexte (nach der Seite 40 erscheinen noch zwei Seiten, bevor nachgeladen wird) ist noch nicht nachgemessen; der Testplan enthält dafür einen Messschritt. Nicht getestet aus 0.7.1: D5, F4, L2, L3, L5.
+- **Prüfung am Rechner:** alle Tests mit Endung `0702` grün. **Noch nicht kompiliert und noch nicht auf der Hardware getestet.** 0.7.1 bleibt die getestete Rückfallversion.
+
+## Davor: v0.7.1-dev – Programmtempo, ruhigere Kurzwahl, Aufräumer aus dem Test von 0.7.0 (getestet, stabil)
+
+**Hardwaretest am 26.11.2026:** Die Version wurde kompiliert (Programmspeicher 1.600.577 Byte, 76 %; globale Variablen 79.488 Byte) und auf der Hardware getestet. Sie lief 73 Minuten ohne ungeplanten Neustart und ohne Fehler (67 Aufträge, 3031 Bluetooth-Pakete ohne Schreibfehler, Hang-Wächter nie ausgelöst; kleinster freier Heap 19.560 Byte, danach unverändert). Der bisherige Funktionsumfang arbeitet zufriedenstellend; alle Wünsche aus dem Test sind in 0.7.2 eingearbeitet.
 
 - **Programmtempo:** Programme laufen immer mit Tempo 80 (nur dort ist die Dauer von Blocktexten an der Tafel gemessen). Der Regler springt beim Start eines Programms auf 80 und bleibt danach dort; Einzelsendungen aus Bibliothek oder Kurzwahl behalten ihr Tempo.
 - **Kurzwahl:** Beim Antippen entfallen die Erfolgsmeldungen (Übertragung, Animation, Ambiente, Programm); die Pille zeigt den Ablauf. Fehlermeldungen bleiben. Die Antworten der Firmware sind unverändert, Kurzbefehle auf dem iPhone sehen dasselbe wie vorher.
@@ -56,21 +69,8 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 - **Backup:** Beim Export und Import enden die Meldungen nicht mehr auf „…“; das pulsierende Symbol gibt es nur noch bei der Übertragungs-Pille.
 - **Programm-Maske:** Das untere Bedienfeld entfällt beim Bearbeiten eines Programms.
 - **Kurzwahl belegen:** Escape schließt das Fenster, der Fokus kehrt zum Auslöser zurück.
-- **Mischfarben:** 15 Textraster-Dateien (je zwei oder drei Vollfarben-Bilder, 1 ms) für Orange, Limette, Mint, Himmelblau, Violett, Rosa, Hellblau, Pastelle und Grautöne; Ergebnisse trägt der Testplan ein.
-- **Prüfung am Rechner:** alle Tests mit Endung `0701` grün. Kein Arduino-Compile, keine Hardware, kein Safari.
-
-## Davor: v0.7.0-dev – WLAN-Puffer, Senden während Programm, Design, Export-Auswahl, Kurzbefehle
-
-- **Speicher (Hauptfrage des Tests):** Das WLAN reserviert sich ab Werk bis zu 32 Empfangspuffer zu je rund 1,6 KB. Neu lässt sich das in den Einstellungen auf 8 begrenzen (Voreinstellung) oder auf den Arduino-Standard stellen; die Änderung wirkt nach einem Neustart. So lassen sich beide Fälle im selben Build messen. Diagnose, `ram.txt` und `http.txt` nennen die aktive Einstellung.
-- **Senden während ein Programm läuft:** Lauftext, Bibliothek, Blocktext, Kurzwahl, Ambiente und Animation beenden ein laufendes Programm nach dem aktuellen Schritt; die Oberfläche sendet deinen Inhalt danach von selbst. Helligkeit, Tempo und Ein/Aus lassen das Programm weiterlaufen.
-- **Design:** Farben und Schriftgrößen als feste Werte an einer Stelle (gleiche Funktion = gleiche Farbe): ein Gelb, ein Grün für Senden und „auf der Tafel“, hellerer Rand der Eingabefelder (`#66748a`), gleiche Seitenüberschriften und Feldbeschriftungen. Vorher/Nachher-Bilder aus dem echten Quelltext.
-- **Backup:** Export mit Auswahl (Bibliothek, Programme, Animationen, Kurzwahlen); was Programme und Kurzwahlen brauchen, kommt automatisch mit. Import mit Fortschritt im Knopf und Abschlussmeldung; vorhandene Animationen aus älteren Dateien ohne Prüfsumme werden nicht mehr doppelt angelegt.
-- **Kurzbefehle:** Anleitung für iPhone (Kurzbefehle-App, Siri) und Android ([docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)). Für einen Lauftext reicht das Feld `text`; Animationen haben eine feste ID, die jetzt in der Liste steht.
-- **WLAN:** Das Standardpasswort steht in den Einstellungen im Klartext; WPA2/WPA3 gemischt lässt sich einschalten (fällt bei Problemen von selbst auf WPA2 zurück, die BOOT-Taste stellt auch das zurück).
-- **Animationen:** Play wird zur Stop-Taste; ein Upload von einem zweiten Gerät bricht einen laufenden Upload nicht mehr ab; verlassene Uploads verschwinden nach 60 s; Umbenennen schreibt nicht mehr in die Datei hinein, sondern legt eine neue an. DVD-Logo „ohne Ecke“ verfehlt jetzt um 5 Pixel.
-- **Kleinigkeiten:** echte Umlaute in der Diagnose, Dateinamen beim Herunterladen mit der aktuellen Version, Fenster schließen mit Escape, gesperrte Knöpfe auch für die Tastatur gesperrt, Ladehinweis im Kurzwahl-Fenster, Symbole gegen Lucide geprüft.
-- **Quelltext:** kurze deutsche Dateiköpfe, Versionsmarken aus den Kommentaren entfernt; ein Test verhindert neue. Ältere englische Kommentare sind noch nicht übersetzt.
-- **Prüfung am Rechner:** alle Tests mit Endung `0700` grün, darunter neue Hosttests für die WLAN-Einstellungen, den Upload von zwei Geräten und die Kurzbefehl-Routen. Kein Arduino-Compile, keine Hardware, kein Safari.
+- **Mischfarben:** 15 Textraster-Dateien (je zwei oder drei Vollfarben-Bilder, 1 ms); nach dem Test sind in 0.7.2 sieben davon übrig.
+- **Prüfung:** alle Tests mit Endung `0701` am Rechner grün, kompiliert und auf der Hardware getestet (siehe oben). Kein Safari.
 
 ## Frühere Versionen im Überblick
 
@@ -78,6 +78,8 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 
 | Version | Datum | Stichworte |
 |---|---|---|
+| 0.7.1 | 23.11. | Programme fest mit Tempo 80, Kurzwahl ohne Erfolgsmeldung, Palette bündig, Play-Sperre, 15 Mischfarben-Dateien; Hardwaretest am 26.11.: 73 Minuten ohne Fehler und Neustart, stabil |
+| 0.7.0 | 21.11. | WLAN-Puffer mit Umschalter (begrenzt/Standard), Senden während eines Programms, Design-Tokens, Backup-Export mit Auswahl, Kurzbefehle für iPhone und Android, WPA2/WPA3 wählbar, aufgeräumter Quelltext; Hardwaretest am 23.11. ohne Neustart, Puffer-Vergleich ohne messbaren Unterschied |
 | 0.6.1.11 | 17.11. | Gebündelte Antworten, Seitenband nur bei Bedarf, Korrekturen aus zwei Code-Reviews, Animationen im JSON-Backup, WLAN-Passwort änderbar (BOOT-Taste), Play-Taste; Hardwaretest am 17.11. ohne Neustart, Speichereinbrüche auf die WLAN-Empfangspuffer eingegrenzt |
 | 0.6.1.10 | 15.11. | Bluetooth-Unterbau NimBLE-Arduino statt Bluedroid (rund 9 KB weniger RAM beim Start, 60 KB weniger Programm); Hardwaretest am 16.11. ohne ungeplante Fehler |
 | 0.6.1.9 | 14.11. | Schlanke Animationsliste mit nachgeladenen Vorschaubildern (Anlass: Wächter-Neustart in `/api/anim/list`), Raster als Schnellmenü, „auf der Tafel“ als Punkt mit Flugzeug, Texteditor sperrt bei leerem Feld, Heißluftballon/Äffchen/Schwein, WLAN-Endungen in der Diagnose; Umkehren verworfen |
@@ -97,7 +99,7 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 ## Installation und Datensicherheit
 
 1. Vorab ein JSON-Backup aus der aktuell laufenden Firmware erstellen und lokal aufbewahren. Die bisherige Firmware als Rückfallversion sichern.
-2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_7_1/RavestickBoard_v0_7_1.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
+2. In der Arduino IDE über **Sketch → Bibliothek einbinden → Bibliotheken verwalten** die Bibliothek **NimBLE-Arduino** (h2zero, Version 2.x; Apache-2.0) installieren und die Versionsnummer notieren (neu seit 0.6.1.10). Dann `firmware/RavestickBoard_v0_7_2/RavestickBoard_v0_7_2.ino` öffnen. **Alle acht Dateien** im selben Sketch-Ordner belassen: `.ino`, `RavestickBoard_WebUI.h`, `RavestickBoard_Assets.h`, `RavestickBoard_Library.h`, `RavestickBoard_Anim.h` (neu in 0.6.1.0), `RavestickBoard_v042.h`, `RavestickBoard_Icon.h` und `RavestickBoard_Ble.h` (neu in 0.6.1.10).
 3. Arduino IDE: **ESP32C3 Dev Module**, Espressif **3.3.12**, **USB CDC On Boot: Enabled**, **No OTA (2MB APP/2MB SPIFFS)**. Bestehendes Partitionsschema **nicht ändern**, **Erase All Flash deaktiviert** lassen.
 4. Nach dem Flashen mit WLAN `RavestickBoard` verbinden (seit 0.6.1.5; bis 0.6.1.4 `CoolLED1248`). Das Standardpasswort steht im Sketch (`WIFI_PASSWORD`) und ist damit öffentlich; es lässt sich unter **Einstellungen → WLAN-Passwort** ändern, die BOOT-Taste (im Betrieb 5 s halten) stellt das Standardpasswort und WPA2 wieder her. Dann `http://192.168.4.1` aufrufen. Bibliothek nicht neu formatieren; das Bibliotheksformat ist unverändert. Ausnahme seit 0.6.1.6: Blocktexte werden beim nächsten Speichern mit 40 Seitenplätzen abgelegt und sind danach für 0.6.1.5 und älter nicht mehr lesbar (JSON-Backup!). Für Animationen muss das Dateisystem eingerichtet sein (wie für die Bibliothek); der Ordner `/rb-anim` wird beim Start angelegt. Falls das Homescreen-Icon nicht übernommen wird, die Verknüpfung über Safari erneut hinzufügen.
 5. Nach Änderungen an `web/index.html`: `python tools/sync_web.py` erzeugt den gzip-Webheader neu.
@@ -107,11 +109,11 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 - **Funktionen nach Themen:** [docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)
 - **Technik und Formate:** [docs/TECHNIK.md](docs/TECHNIK.md) · **Diagnose:** [docs/DIAGNOSE.md](docs/DIAGNOSE.md) · **Entscheidungen:** [docs/ENTSCHEIDUNGEN.md](docs/ENTSCHEIDUNGEN.md)
 - **Roadmap und Themenspeicher:** [docs/ROADMAP.md](docs/ROADMAP.md), [docs/THEMENSPEICHER.md](docs/THEMENSPEICHER.md) · **Quellen und Lizenzen:** [docs/QUELLEN_UND_LIZENZEN.md](docs/QUELLEN_UND_LIZENZEN.md)
-- **Hardwaretest 0.7.1:** [Testplan](docs/TESTPLAN_v0.7.1.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.7.1.xlsx`); ältere Pläne in [docs/archive/](docs/archive/)
+- **Hardwaretest 0.7.2:** [Testplan](docs/TESTPLAN_v0.7.2.md) (dieselben Schritte als Excel-Datei `RavestickBoard_Hardwaretest_v0.7.2.xlsx`); Ergebnis von 0.7.1: [Testplan 0.7.1](docs/TESTPLAN_v0.7.1.md); ältere Pläne in [docs/archive/](docs/archive/)
 - **Kurzbefehle (iPhone, Android):** [docs/KURZBEFEHLE.md](docs/KURZBEFEHLE.md)
 - **Älter:** [Bibliotheksformat](docs/archive/BIBLIOTHEK_v0.4.1.md), [letzte ausführliche Installationsanleitung](docs/archive/INSTALLATION_v0.4.2.4.1.md)
 
-**Teststand v0.7.1 (Tests mit Endung `0701`):** wie 0.7.0, dazu Prüfungen in `test_build_0701.py` für Programmtempo 80, Kurzwahl ohne Erfolgsmeldung, Palette, Play-Sperre und entfernte Hinweise. **Teststand v0.7.0 (Tests mit Endung `0700`):** wie 0.6.1.11, dazu `host_wifi_0700.py` (WLAN-Puffer, WPA2/WPA3 mit Rückfall, Neustart, Passwort, BOOT-Taste; echter Sketch-Code), `host_routes_0700.py` (feste Routen für Kurzbefehle gegen `docs/KURZBEFEHLE.md`), Upload von zwei Geräten, verlassener Upload und sicheres Umbenennen in `host_animfs_0700.py`, Export-Auswahl, Senden während Programm, WLAN-Einstellungen und Design-Tokens in `test_browser_neu_0700.py`, Vorher/Nachher-Bilder mit `design_shots_0700.py`; `test_build_0700.py` prüft zusätzlich, dass keine Versionsnummern in Kommentaren stehen (Einzelheiten: [tests/README.md](tests/README.md)). **Kein Arduino-Compile, keine Hardware, kein Safari:** Das prüft erst der Hardwaretest.
+**Teststand v0.7.2 (Tests mit Endung `0702`):** wie 0.7.1; `test_build_0702.py` prüft zusätzlich die Überschrift der Ambiente-Seite, die Arbeitsanzeige am Backup, den entfernten Kalibrierhinweis, die sieben Mischfarben-Dateien und dass die Firmware gegenüber 0.7.1 nur in Version und Web-Header abweicht; `test_browser_neu_0702.py` prüft Überschrift (Handy und Laptop) und Arbeitsanzeige im Browser. **Teststand v0.7.1 (Tests mit Endung `0701`):** wie 0.7.0, dazu Prüfungen für Programmtempo 80, Kurzwahl ohne Erfolgsmeldung, Palette, Play-Sperre und entfernte Hinweise. Die Tests von 0.7.0 und davor stehen in der Git-Geschichte; Einzelheiten: [tests/README.md](tests/README.md). **Kein Arduino-Compile, keine Hardware, kein Safari:** Das prüft erst der Hardwaretest.
 
 ## Mitmachen und Sicherheit
 

@@ -7,7 +7,7 @@ Wichtig vorab:
 - Das Handy muss mit dem WLAN **RavestickBoard** verbunden sein. Ohne diese Verbindung erreicht der Kurzbefehl das Board nicht.
 - Das Board hat immer die Adresse **http://192.168.4.1**.
 - Dieses WLAN hat kein Internet. Das Handy bleibt trotzdem verbunden, wenn du beim Hinweis „Kein Internetzugang“ die Verbindung behältst. Siri braucht für die Spracherkennung meist mobile Daten; die Anfrage an das Board läuft trotzdem über das WLAN.
-- Nicht auf echter Hardware geprüft (Stand v0.7.1). Bitte beim Hardwaretest ausprobieren.
+- Auf echter Hardware teilweise geprüft (Stand 26.11.2026): Der iPhone-Kurzbefehl „Tafeltext“ mit Siri funktioniert, die Anleitung war verständlich. Kurzwahl und Animation per Kurzbefehl sowie die Antwort 409 bei laufender Übertragung sind noch nicht getestet; Bilder der richtigen Konfiguration (iPhone) fehlen noch.
 
 ## Was geht
 
@@ -78,7 +78,7 @@ Falls Android die Anfrage über mobile Daten schickt und sie deshalb nicht ankom
 
 ## Für Entwickler: feste Routen
 
-Diese Routen und Felder bleiben über Versionen gleich. Der Test `tests/host_routes_0701.py` prüft sie gegen den Sketch.
+Diese Routen und Felder bleiben über Versionen gleich. Der Test `tests/host_routes_0702.py` prüft sie gegen den Sketch.
 
 <!-- ROUTEN-ANFANG -->
 | Methode | Pfad | Pflichtfelder | Optionale Felder |

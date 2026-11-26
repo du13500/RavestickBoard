@@ -2,6 +2,18 @@
 
 # RavestickBoard · Versionsgeschichte / Changelog
 
+## v0.7.2-dev – Aufräumer aus dem Hardwaretest von 0.7.1 (26.11.2026)
+
+- **Anlass:** Hardwaretest von 0.7.1 am 26.11.2026. Kompiliert (Programmspeicher 1.600.577 Byte, 76 %, +264 Byte gegenüber 0.7.0; globale Variablen 79.488 Byte, unverändert) und 73 Minuten betrieben: kein ungeplanter Neustart, 67 Aufträge ohne Fehler, 3031 Bluetooth-Pakete ohne Schreibfehler, 2928 Bestätigungen ohne Prüfsummenfehler, kein Notify-Timeout, Hang-Wächter nie ausgelöst. Freier Heap im Leerlauf 38.760 Byte, minimal freier Heap und System-Minimum 19.560 Byte (nach etwa 195 s erreicht, danach unverändert), längste Webanfrage `/api/library` mit 2,2 s. Der bisherige Funktionsumfang arbeitet zufriedenstellend. 0.7.1 ist damit die getestete Rückfallversion.
+- **Ambiente:** Die Überschrift sitzt wie bei Bibliothek, Programme und Animationen (Innenabstand 9/10/10 Pixel; am Laptop war er vorher 17 Pixel, die Überschrift acht Pixel tiefer und sieben Pixel weiter rechts).
+- **Backup:** Beim Export und beim Import färbt sich der Knopf gelb (`--rb-accent`) und ein Laufbalken (`rbWorkBar`) zeigt die Arbeit an; beides verschwindet mit der Erfolgs- oder Fehlermeldung. Bei „weniger Bewegung“ steht statt des Laufbalkens eine feste Leiste.
+- **Programm-Maske:** Der Hinweis „Blocktexte sind bei Tempo 60–90 kalibriert …“ ist aus der Oberfläche entfernt (Programme laufen fest mit Tempo 80); die Zeitabschätzung ist in `docs/FUNKTIONEN.md` beschrieben.
+- **Mischfarben:** `docs/farbmischung/` enthält nur noch sieben Dateien (Orange, Rot-Orange, Limette, Himmelblau, Hellblau, Pastellrot, Pastellgrün). Entfernt: Mint, Violett, Rosa, Pastellgelb, drei Graumischungen und die gelblastige Orange-Variante. Flimmern ab 8 ms je Bild (zwei Bilder = 62,5 Hz, Flimmergrenze etwa 62 Hz).
+- **Firmware:** gegenüber 0.7.1 nur die Versionsnummer; der Web-Header ist neu erzeugt (`tools/sync_web.py`).
+- **Geprüft, nichts geändert:** Die Meldung „Das Programm wird beendet. Dein Inhalt folgt gleich …“ (409 `retry`) und die Fehlermeldungen der Kurzwahl bleiben. Die Oberfläche sperrt zwar alles während einer Übertragung, aber Kurzbefehle und ein zweites Gerät erreichen die Routen trotzdem (Kurzbefehle erwarten die 409-Antwort).
+- **Nicht geändert:** Die Schätzung der Anzeigedauer langer Blocktexte (`Seiten · 795 ms · (100 − Tempo) / 10`, bei 40 Seiten und Tempo 80 genau 63.600 ms). Im Test erschienen nach der Seite 40 noch die Seiten 1 und 2, bevor nachgeladen wurde; ohne Stoppuhrmessung eines vollen Durchlaufs wird die Formel nicht verändert (Messschritt im Testplan 0.7.2).
+- **Prüfung:** alle Tests mit Endung `0702` am Rechner grün. Nicht geprüft: Arduino-Compile, Hardware, Safari.
+
 ## v0.7.1-dev – Programmtempo 80, Kurzwahl ohne Erfolgsmeldung, Aufräumer aus dem Test von 0.7.0 (23.11.2026)
 
 - **Anlass:** Hardwaretest von 0.7.0 (23.11.2026: kein ungeplanter Neustart, 36 BLE-Aufträge je Lauf ohne Fehler; WLAN-Puffer „begrenzt“ gegen „Arduino-Standard“ ohne messbaren Unterschied, „Nach WLAN-AP“ 68.452 Byte in beiden Fällen; WPA2/WPA3 kostet etwa 8 KB Ruhe-Heap) und Go von Felix am 23.11.2026.

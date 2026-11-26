@@ -1,3 +1,11 @@
+## Technischer Nachtrag v0.7.2: Oberfläche und Mischfarben (26.11.2026)
+
+- **Firmware:** gegenüber 0.7.1 unverändert bis auf `FW_VERSION` ("0.7.2-dev"); `RavestickBoard_WebUI.h` ist aus `web/index.html` neu erzeugt (`python tools/sync_web.py`). Ein Test (`tests/test_build_0702.py`) hält fest, dass sich die übrigen Dateien nicht unterscheiden.
+- **Ambiente-Überschrift:** `#view-ambience h2` hat denselben Außenabstand wie Bibliothek und Programme (`margin:0 0 8px`), `#view-ambience .inner-panel` denselben Innenabstand oben, links und rechts (9/10/10 Pixel, mit `!important`, weil die Regeln für breite Fenster 17 Pixel setzen). Am Laptop richtet sich die Seite nach Programme und Animationen (die Bibliothek sitzt wegen der Vorschau-Spalte weiter links).
+- **Arbeitsanzeige am Backup:** Die Klasse `rb-working` (setzt die vorhandene Export-Hülle und `rbImportProgress`) färbt Export- und Import-Knopf in `--rb-accent` und zeichnet mit `::after` einen Laufbalken (`@keyframes rbWorkBar`, 1,2 s); bei `prefers-reduced-motion` steht statt der Bewegung eine feste Leiste. Das pulsierende Symbol aus 0.7.0 bleibt entfernt.
+- **Programm-Maske:** Der Absatz „Blocktexte sind bei Tempo 60–90 kalibriert …“ ist entfernt. Die Zeitabschätzung der Programmgruppen (`v042AfterJob`) ist unverändert: Blocktexte `Seiten · 795 ms · (100 − Tempo) / 10`, Texte und Laufbänder aus Breite und Tempofaktor mit 35 Prozent Aufschlag. Zahl aus dem Test von 0.7.1: 40 Seiten bei Tempo 80 = 63.600 ms; die Tafel zeigte danach noch zwei Seiten, bis der nächste Eintrag ankam. Nachgemessen wird mit einer Stoppuhr über einen vollen Durchlauf, erst dann wird die Formel geändert.
+- **Mischfarben:** `docs/farbmischung/` hat sieben Dateien; ab 8 ms je Bild flimmert die Mischung leicht (62,5 Hz bei zwei Bildern).
+
 ## Technischer Nachtrag v0.7.1: Programmtempo, Oberfläche (23.11.2026)
 
 - **Programmtempo:** `RB42_PROGRAM_SPEED` (80) in `RavestickBoard_v042.h`; `v042RunCollection()` und `v042RunShortcut()` setzen `pendingSpeed` und `rb42ProgramSpeed` beim Programmstart. Der Status meldet `speed=pendingSpeed`, die Oberfläche gleicht den Regler daran an (`syncGlobalControls`). Während eines Programms bleibt der Regler gesperrt; die Blocktext-Dauer ist nur bei 60 bis 90 gemessen, bei fester 80 ist sie damit gedeckt.
