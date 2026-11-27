@@ -6,7 +6,7 @@ from pathlib import Path
 import base64, json, random, subprocess, sys, tempfile, zlib
 
 ROOT = Path(__file__).resolve().parents[1]
-fw = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_1'))
+fw = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_2'))
 ino = next(fw.glob('*.ino')).read_text(encoding='utf8')
 anim_h = (fw / 'RavestickBoard_Anim.h').read_text(encoding='utf8')
 
@@ -21,8 +21,8 @@ st_a = v42_h.index('struct RB42Shortcuts {'); st_b = v42_h.index('};', st_a) + 3
 cn_a = v42_h.index('static RB42Shortcuts rb42Shortcuts'); cn_b = v42_h.index('// Das Seitenband (bis 79 Seiten')
 wr_a = v42_h.index('template <typename T> bool rb42Write'); wr_b = v42_h.index('// Aeltere Blockdateien haben 25') if '// Aeltere Blockdateien haben 25' in v42_h else v42_h.index('bool rb42ReadBlock')   # 0.6.1.6: Lesen alter Blockdateien liegt dazwischen
 v42_part = v42_h[sc_a:sc_b] + v42_h[st_a:st_b] + v42_h[cn_a:cn_b] + v42_h[wr_a:wr_b]
-src = ((ROOT / 'tests/host/animfs_stub_0801.h').read_text() + ino[a:a2] + ino[c:b] + lib_part + v42_part + anim_h + '\n'
-       + (ROOT / 'tests/host/animfs_main_0801.cpp').read_text())
+src = ((ROOT / 'tests/host/animfs_stub_0802.h').read_text() + ino[a:a2] + ino[c:b] + lib_part + v42_part + anim_h + '\n'
+       + (ROOT / 'tests/host/animfs_main_0802.cpp').read_text())
 tmp = tempfile.mkdtemp()
 (Path(tmp) / 't.cpp').write_text(src)
 subprocess.run(['g++', '-std=c++17', '-Wall', '-Wextra', '-Wno-unused', '-Wno-volatile', '-Wno-unused-parameter', '-Wno-unused-function',

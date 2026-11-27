@@ -7,15 +7,15 @@ Original, zusammengefasste Listenabrufe, Live-Einstellung wird nachgeholt (F-040
 v0.7.2: Export mit Auswahl (Abhaengigkeiten kommen mit), Standardpasswort im Klartext, WLAN-Puffer/Sicherheit,
 Senden waehrend Programm (409 retry, automatisch nachgesendet), Upload-Kennung, Animations-ID sichtbar,
 Design-Tokens (Eingaberand, ein Gruenton), Importfortschritt.
-Aufruf: python tests/test_browser_neu_0801.py
+Aufruf: python tests/test_browser_neu_0802.py
 Nicht geprueft: echtes iPhone-Safari, echter ESP32 (WLAN-Neustart, BOOT-Taste)."""
 import json, re, sys, base64
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0801.py').read_text(encoding='utf8')
-asrc = (ROOT / 'tests/test_browser_anim_0801.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0802.py').read_text(encoding='utf8')
+asrc = (ROOT / 'tests/test_browser_anim_0802.py').read_text(encoding='utf8')
 base = src[src.index("MOCK=r'''") + 9:src.index("'''.replace('%FONT%'")].replace('%FONT%', '{}')
 ANIM_MOCK = asrc[asrc.index("ANIM_MOCK = r'''") + 16:asrc.index("</script>'''", asrc.index("ANIM_MOCK = r'''")) + 9]
 EXTRA = r'''<script>
@@ -89,7 +89,7 @@ with sync_playwright() as pw:
     check('3 Bibliothekseinträge' in t and '1 Programme' in t and '2 Animationen' in t and 'Vollständig' not in t, f'Meldung nennt, was drin ist: {t!r}')
     backup_txt = page.evaluate("window.__blobs.at(-1).text()")
     bk = json.loads(backup_txt)
-    check(bk['schema'] == 3 and len(bk['animations']) == 2 and bk['firmware'].startswith('0.8.1'), f"Schema 3, 2 Animationen, Version {bk.get('firmware')}")
+    check(bk['schema'] == 3 and len(bk['animations']) == 2 and bk['firmware'].startswith('0.8.2'), f"Schema 3, 2 Animationen, Version {bk.get('firmware')}")
     same = page.evaluate("""(an)=>an.every(a=>{const x=window.__anim.items.find(y=>y.id===a.id);const d=RbAnim.b64uDec(a.data);
       return x&&d.length===x.payload.length&&d.every((v,i)=>v===x.payload[i])&&a.frames===x.frames&&a.ms===x.ms&&a.name===x.name&&a.crc===(x.crc>>>0).toString(16).padStart(8,'0')})""", bk['animations'])
     check(same, 'Nutzlast, Name, Bilder, Zeit und Prüfsumme jeder Animation stimmen')

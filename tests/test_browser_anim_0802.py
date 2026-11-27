@@ -1,7 +1,7 @@
 """v0.6.1.0: Bereich „Animationen“ im echten (headless) Chromium mit simulierter API (Dateispeicher im Mock):
 Menü, Liste, Vorschau, Import (GIF, Bildstreifen, Text-Raster), Anpassen, Grenzen (79 Bilder), Speichern in Stücken
 (Nutzlast gegen unabhaengige Referenz), Senden/Umbenennen/Duplizieren/Loeschen, beschaedigte Eintraege, Tempo-Regler.
-Aufruf: python tests/test_browser_anim_0801.py [Screenshot-Ordner]
+Aufruf: python tests/test_browser_anim_0802.py [Screenshot-Ordner]
 Nicht geprueft: iPad-Safari, Apple Pencil, echte ESP32-Antworten."""
 import io, json, re, sys, base64, zlib
 from pathlib import Path
@@ -10,9 +10,9 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0801.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0802.py').read_text(encoding='utf8')
 # Schrift und Basis-Mock aus dem Haupt-Browsertest uebernehmen (dort ebenfalls aus dem Sketch gelesen)
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_1/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_2/*.ino')).read_text(encoding='utf8')
 blk = ino[ino.index('static const Glyph FONT[] = {'):]; blk = blk[:blk.index('};')]
 font = {}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}", blk):
@@ -78,7 +78,7 @@ errors = []
 def check(c, m):
     if not c: errors.append(m); print('FAIL', m)
 
-# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0801.py) ---------------------
+# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0802.py) ---------------------
 def ref_payload(frames, ms):   # frames: Liste von 16 Zeilen zu je 64 Farbwerten (0..7)
     n = len(frames); planes = [[], [], []]
     for p, bit in enumerate((4, 2, 1)):
@@ -329,6 +329,8 @@ with sync_playwright() as pw:
     page.set_input_files('#animFileGif', files=[{'name': 'gross.gif', 'mimeType': 'image/gif', 'buffer': gifbig}])
     page.wait_for_function("!document.getElementById('animAdjust').classList.contains('hidden')"); page.wait_for_timeout(300)
     cr = lambda: page.evaluate("JSON.parse(JSON.stringify(animImp.crop))")
+    check(page.input_value('#animKind') == 'pixel' and page.input_value('#animDither') == 'majority', 'Zwei-Farben-GIF wird als Pixelgrafik erkannt')
+    page.select_option('#animKind', 'photo'); page.select_option('#animFit', 'contain'); page.select_option('#animDither', 'thresh')   # ab 0.8.2: Pixelgrafik-Automatik; hier den klassischen Weg pruefen
     c0 = cr(); check(page.input_value('#animFit') == 'contain' and abs(c0['w'] - 2) < 1e-9 and abs(c0['cx'] - .5) < 1e-9, f'Einpassen (128x64 = 2:1): Rahmen doppelt so breit wie das Bild {c0}')
     page.select_option('#animFit', 'cover'); c1 = cr()
     check(abs(c1['w'] - 1) < 1e-9, f'Füllen: Rahmen so breit wie das Bild {c1}')
@@ -343,6 +345,7 @@ with sync_playwright() as pw:
     page.locator('#animImport').click()
     page.set_input_files('#animFileGif', files=[{'name': 'gross.gif', 'mimeType': 'image/gif', 'buffer': gifbig}])
     page.wait_for_function("!document.getElementById('animAdjust').classList.contains('hidden')"); page.wait_for_timeout(300)
+    page.select_option('#animKind', 'photo'); page.select_option('#animFit', 'contain'); page.select_option('#animDither', 'thresh')
     page.locator('#animCropSmaller').click(); c2 = cr()
     check(abs(c2['w'] - 1.7) < 1e-6 and page.input_value('#animFit') == 'crop', f'Rahmen kleiner {c2}')
     page.locator('#animCropBigger').click(); page.locator('#animCropBigger').click(); c3 = cr()

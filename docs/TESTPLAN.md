@@ -1,4 +1,4 @@
-> **Neuester Testplan:** [`TESTPLAN_v0.8.1.md`](TESTPLAN_v0.8.1.md) (Schwenk mit zwei Rahmen, Frame-Editor, Rückfrage beim Verwerfen; als Excel `RavestickBoard_Hardwaretest_v0.8.1.xlsx`). Vorher: [`TESTPLAN_v0.8.0.md`](archive/TESTPLAN_v0.8.0.md) (nie getestet, ersetzt durch 0.8.1), [`TESTPLAN_v0.7.2.md`](archive/TESTPLAN_v0.7.2.md) (am 26.11.2026 auf der Hardware durchgeführt). Ältere Pläne liegen in [`archive/`](archive/).
+> **Neuester Testplan:** [`TESTPLAN_v0.8.2.md`](TESTPLAN_v0.8.2.md) (Pixelgrafik, Rückfragen beim Quellwechsel, Review-Korrekturen; als Excel `RavestickBoard_Hardwaretest_v0.8.2.xlsx`). Vorher: [`TESTPLAN_v0.8.1.md`](archive/TESTPLAN_v0.8.1.md) (Schwenk mit zwei Rahmen, Frame-Editor; ersetzt durch 0.8.2), [`TESTPLAN_v0.8.0.md`](archive/TESTPLAN_v0.8.0.md) (nie getestet, ersetzt durch 0.8.1), [`TESTPLAN_v0.7.2.md`](archive/TESTPLAN_v0.7.2.md) (am 26.11.2026 auf der Hardware durchgeführt). Ältere Pläne liegen in [`archive/`](archive/).
 
 ## Ergänzung v0.3.5
 

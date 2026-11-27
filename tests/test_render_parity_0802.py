@@ -1,6 +1,6 @@
 """v0.4.4.0/0.4.5.0: Firmware-Renderer (g++ am Rechner, echter Sketch-Code) gegen Browser-Vorschau, Pixel für Pixel.
 Prüft außerdem: Texte ohne Stilmarken werden unverändert wie in v0.4.3.4 gezeichnet (Golden-Datei),
-Streaming und Vollpuffer liefern dasselbe Bild.   Aufruf: python tests/test_render_parity_0801.py"""
+Streaming und Vollpuffer liefern dasselbe Bild.   Aufruf: python tests/test_render_parity_0802.py"""
 import re, sys, json, subprocess, tempfile, shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -17,7 +17,7 @@ out=subprocess.run([H,'styled'],capture_output=True,text=True).stdout
 assert 'STYLED: ALL PASS' in out,out[-600:]
 # 3) Parität Firmware <-> Browser
 html=(ROOT/'web/index.html').read_text(encoding='utf8')
-ino=next((ROOT/'firmware').glob('RavestickBoard_v0_8_1/*.ino')).read_text(encoding='utf8')
+ino=next((ROOT/'firmware').glob('RavestickBoard_v0_8_2/*.ino')).read_text(encoding='utf8')
 blk=ino[ino.index('static const Glyph FONT[] = {'):]; blk=blk[:blk.index('};')]
 font={}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}",blk):

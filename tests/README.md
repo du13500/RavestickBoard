@@ -1,6 +1,6 @@
 # Offline-Tests
 
-**Aktuell: v0.8.1-dev** (Abschnitt „v0.6.0.0-dev bis v0.8.1-dev“ unten). **Die Tests älterer Versionen sind nicht mehr im Repo (sie liegen in der Git-Geschichte); die Abschnitte unten nennen sie nur als Geschichte.** Hauptprüfung: `python tests/test_build_0800.py`.
+**Aktuell: v0.8.2-dev** (Abschnitt „v0.6.0.0-dev bis v0.8.2-dev“ unten). **Die Tests älterer Versionen sind nicht mehr im Repo (sie liegen in der Git-Geschichte); die Abschnitte unten nennen sie nur als Geschichte.** Hauptprüfung: `python tests/test_build_0802.py` (`RB_SKIP_DOCS=1` überspringt die Doku-Prüfung). Browsertests: `python tests/test_browser_<name>_0802.py` (Playwright mit Chromium); Hosttests: `python tests/host_<name>_0802.py` (g++). `decl_order.py` und `arduino_prototypes.py` erwarten den Pfad der `.ino` als Argument.
 
 - `python tests/test_build_4253.py`: prüft Version, Schema-Konstanten, gzip/ETag, JavaScript/C++-Syntax und JSON-Chunks. Enthält Regressionen auf die sieben `<span>`-Menülabels, bereits gerenderte Kurzwahl-SVGs und den initialen Home-Zustand.
 - `python tests/browser_hotfix_smoke.py`: prüft mit einem headless Chromium und simulierten lokalen APIs die sichtbare Startansicht, den Ladezustand, das Hauptmenü und den Wechsel Home ↔ Texteditor.
@@ -23,7 +23,9 @@ Der Browser-Test erfordert Playwright und Chromium; Arduino-Boardpaket und reale
 
 `python tests/test_0431.py` prüft die JavaScript-Syntax, HTML/gzip-/ETag-Konsistenz, die korrigierte Versionskennung, den entkoppelten Diagnose-TXT-Download und die interaktive Darstellung in drei Chromium-Mobilgrößen. Der Stream-Puffer wurde außerdem separat mit einem Host-C++-Test kompiliert. Dies ersetzt **keinen Arduino-Gesamtcompile** und keinen Heap-/BLE-Test auf dem ESP32.
 
-## v0.6.0.0-dev bis v0.8.1-dev (3.11.2026 bis 26.11.2026)
+## v0.6.0.0-dev bis v0.8.2-dev (3.11.2026 bis 27.11.2026)
+
+- **Neu in 0.8.2:** Die Tests tragen die Endung `0802`. `test_browser_lifecycle_0802.py` prüft die Mehrheitsfarbe und die Faktor-Erkennung als reine Funktionen, die Bildart (Automatik, 1:1-Rahmen, Sperre von Schwelle und Kontrast), Zahlenfelder, den Aufklapper „Anker und Vorlagen“, die Rückfrage beim Quellwechsel (Abbrechen erhält den Entwurf), ganze Zahlen in Von/Bis/Schritt, `animFlush`, den GIF-Decoder bei abgeschnittenen Daten, die Undo-Grenze, die Tastatur bei gesperrtem Editor und das Freigeben beim Schließen. `test_build_0802.py` sucht Altlast-Kommentare („früher“, „ehemals“, ADR-Verweise, Versionsklammern) in Firmware und Oberfläche und meldet SKIP statt PASS, wenn `firmware/RavestickBoard_v0_7_2` fehlt. **Nicht geprüft:** Arduino-Compile, Hardware, Safari.
 
 Die Tests tragen jetzt die Endung `0615` (aus `0614`, `0613`, `0611`/`0610`/`0602`/`0601`/`0600`, davor `0500`/`0501`, umbenannt; die Rubrik gilt seit 0.6.0.0). Ältere Abschnitte unten nennen die Dateien unter ihrem damaligen Namen. Aufruf aus dem Repo-Wurzelverzeichnis:
 

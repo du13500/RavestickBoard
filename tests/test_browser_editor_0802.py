@@ -3,12 +3,12 @@ Schwenk: Fenster-Positionen, Versatz-Rechnung (Frames/Ende/Versatz), Stoppen/Uml
 Editor: Zeichnen (Stift, Radierer, Füllen, Pipette, Auswahl), Rückgängig/Wiederherstellen, Bildleiste, Zwiebelschicht, Zoom,
 Gesten nur im Zeichenfeld, Sperre im Hochformat und bei zu kleinem Feld, Bearbeiten gespeicherter Animationen.
 Kleinpaket: Tempo-Hinweis im Programm, gleiche Breite bei klassischem Scrollbalken, Backup-Knöpfe behalten ihre Farbe.
-Aufruf: python tests/test_browser_editor_0801.py
+Aufruf: python tests/test_browser_editor_0802.py
 Nicht geprüft: iPad/iPhone-Safari, echter Apple Pencil, echte Zwei-Finger-Gesten auf Hardware."""
 import io, json, re, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-_p = ROOT / 'tests/test_browser_anim_0801.py'
+_p = ROOT / 'tests/test_browser_anim_0802.py'
 _src = _p.read_text(encoding='utf8')
 _head = _src[:_src.index('with sync_playwright() as pw:')]
 _ns = {'__file__': str(_p), 'sys': sys, 're': re, 'json': json, 'Path': Path, '__name__': 'anim_base'}
@@ -71,7 +71,7 @@ with sync_playwright() as pw:
     st = page.evaluate("({n:animPan.n,s:animPan.s,e:animPan.e,src:animImp.sources.length,dither:$('animDither').value,lock:animPan.lock})")
     check(st['n'] == 79 and st['e']['x'] == 96 and st['e']['y'] == 0 and st['s']['w'] == 64 and st['e']['w'] == 64 and st['src'] == 79 and st['lock'], f'Vorgabe: Rahmen 64 breit, 79 Frames, Ende 96/0 ({st})')
     check(abs(page.evaluate("parseFloat($('animPanDx').value)") - 96 / 78) < 0.01, 'Versatz aus Frames und Ende angezeigt (1,23)')
-    check(st['dither'] == 'thresh', 'wenige Farben: Schwelle voreingestellt')
+    check(st['dither'] == 'majority', 'wenige Farben: Pixelgrafik (Mehrheitsfarbe) voreingestellt')
     page.fill('#animPanN', '5'); page.wait_for_timeout(300)
     st = page.evaluate("({n:animPan.n,pos:[0,1,2,3,4].map(k=>animPanFrame(k).x),src:animImp.sources.length,shown:$('animPanDx').value})")
     check(st['n'] == 5 and st['src'] == 5 and st['shown'] == '24' and st['pos'] == [0, 24, 48, 72, 96], f'5 Frames: Versatz 24 ({st})')
@@ -135,7 +135,8 @@ with sync_playwright() as pw:
     check(st['s'] > w0 and abs(st['s'] - st['e']) < 1e-9, f'Ecke ziehen ändert die Größe, bei „Größe gleich“ folgt der andere Rahmen ({w0} -> {st})')
     page.mouse.move(pan_px(10, 8)[0], pan_px(10, 8)[1]); wb = page.evaluate("animPan.s.w"); page.mouse.wheel(0, 120); page.wait_for_timeout(200)
     check(page.evaluate("animPan.s.w") > wb or page.evaluate("animPan.e.w") > wb, 'Mausrad ändert die Rahmengröße')
-    # Anker und Vorlagen
+    # Anker und Vorlagen (eingeklappt beim Start, ab 0.8.2)
+    check(page.locator('#animAnchBody').is_hidden(), 'Anker und Vorlagen starten eingeklappt'); page.click('#animAnchHead')
     page.locator('#animAnchE button').nth(8).click(); page.wait_for_timeout(200)
     st = page.evaluate("({x:animPan.e.x,y:animPan.e.y,w:animPan.e.w,iw:animPan.iw,ih:animPan.ih})")
     check(abs(st['x'] - (st['iw'] - st['w'])) < 1e-6 and abs(st['y'] - (st['ih'] - st['w'] / 4)) < 1e-6, f'Anker unten rechts setzt den Ende-Rahmen ({st})')
@@ -438,7 +439,7 @@ with sync_playwright() as pw:
     # Zahlenfeld: begrenzter Wert wird beim Verlassen zurückgeschrieben (siehe oben); Gleichheitsfall Start = Ende bleibt benutzbar
     ctx, page = page_with(browser, 844, 390)
     page.set_input_files('#animFilePan', str(TMP / 'streifen.png')); page.wait_for_selector('#animPanOpts:not(.hidden)', timeout=5000)
-    page.locator('#animPanPresets [data-pre="one"]').click(); page.fill('#animPanN', '2'); page.fill('#animPanEx', '0'); page.wait_for_timeout(300)
+    page.click('#animAnchHead'); page.locator('#animPanPresets [data-pre="one"]').click(); page.fill('#animPanN', '2'); page.fill('#animPanEx', '0'); page.wait_for_timeout(300)
     check('alle Frames sehen gleich aus' in page.locator('#animPanInfo').inner_text(), 'Start = Ende: Hinweis „alle Frames sehen gleich aus“')
     ctx.close()
 

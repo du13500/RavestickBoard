@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.8.1-dev</title>
+<title>RavestickBoard · v0.8.2-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -498,6 +498,15 @@ input,select,textarea{font-size:16px}              /* iOS zoomt sonst beim Fokus
 .anim-grid input:not([type=checkbox]):not([type=range]),.anim-grid select,.anim-grid button{font-size:16px;min-height:44px;padding:9px 10px}
 .anim-grid input[type=range]{min-height:32px;margin:0}
 .anim-grid .wide{grid-column:1/-1}
+.anim-slide-row{display:flex;align-items:center;gap:12px}.anim-slide-row input[type=range]{flex:1 1 auto;min-width:0}
+.anim-slide-row input[type=number]{flex:0 0 84px;width:84px;text-align:right}
+.anim-slide.is-off{opacity:.45}
+.anim-fold{border:1px solid var(--rb-panel-line);border-radius:12px;background:#1c2431;margin:16px 0 4px}
+.anim-fold-head{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:46px;padding:0 14px;background:transparent;color:var(--rb-label);font-size:var(--rb-fs-section);font-weight:800;letter-spacing:.8px;text-transform:uppercase;border:0;text-align:left}
+.anim-fold-head .rb-lucide{width:20px;height:20px;flex:none;color:var(--rb-accent)}
+.anim-fold-body{padding:2px 14px 14px}.anim-fold-body.hidden{display:none}
+.anim-fold-body .anim-anchors{margin:0}
+#animAdjust .label{margin-top:18px}#animAdjust>.label:first-child,#animPanOpts>.label:first-child,#animPixelOpts>.label:first-child,#animCropBlock>.label:first-child{margin-top:0}
 .anim-grid .anim-check{flex-direction:row;align-items:center;gap:8px;font-size:13px}
 .anim-grid .anim-check input{width:20px;height:20px;margin:0}
 .anim-crop-wrap{display:flex;justify-content:center;margin:8px 0}
@@ -778,7 +787,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 @media(min-width:1000px){html{overflow-y:scroll;scrollbar-gutter:stable}}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.1-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.2-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -874,12 +883,14 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <label class="anim-check wide"><input type="checkbox" id="animPanLock" checked/> Größe gleich (Start und Ende bleiben gleich groß)</label>
 <label class="anim-check wide"><input type="checkbox" id="animPanTile"/> Ohne Überlappung (Kachel für Kachel)</label>
 </div>
-<div class="label">Anker und Vorlagen</div>
+<div class="anim-fold" id="animAnchBox"><button type="button" class="anim-fold-head" id="animAnchHead" aria-expanded="false" aria-controls="animAnchBody"><span>Anker und Vorlagen</span><svg class="rb-lucide" id="animAnchChevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<div class="anim-fold-body hidden" id="animAnchBody">
 <div class="anim-anchors"><div><span class="tiny muted">Start</span><div class="anim-anchor-grid" id="animAnchS" role="group" aria-label="Anker für den Start-Rahmen"></div></div><div><span class="tiny muted">Ende</span><div class="anim-anchor-grid" id="animAnchE" role="group" aria-label="Anker für den Ende-Rahmen"></div></div>
 <div class="anim-presets" id="animPanPresets"><button type="button" class="secondary" data-pre="lr">Links → Rechts</button><button type="button" class="secondary" data-pre="rl">Rechts → Links</button><button type="button" class="secondary" data-pre="tb">Oben → Unten</button><button type="button" class="secondary" data-pre="bt">Unten → Oben</button><button type="button" class="secondary" data-pre="all">Ganzes Bild durchlaufen</button><button type="button" class="secondary" data-pre="one">Rahmen 1:1</button><button type="button" class="secondary" data-pre="fit">Höhe einpassen</button></div></div>
+</div></div>
 <div class="label">Feinschliff</div>
 <div class="anim-grid">
-<label>Rand<select id="animPanWrap"><option value="stop">Stoppen am Rand</option><option value="wrap">Umlauf (nahtlos)</option></select></label>
+<label class="wide">Rand<select id="animPanWrap"><option value="stop">Stoppen am Rand</option><option value="wrap">Umlauf (nahtlos)</option></select></label>
 <label>Anzahl Frames<input type="number" id="animPanN" min="2" max="79" step="1" inputmode="numeric" value="2"/></label>
 <label>Start X<input type="number" id="animPanSx" step="any" inputmode="decimal" value="0"/></label>
 <label>Start Y<input type="number" id="animPanSy" step="any" inputmode="decimal" value="0"/></label>
@@ -901,13 +912,15 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 </div>
 <div class="label">Anpassen</div>
 <div class="anim-grid">
-<label id="animFitWrap">Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
-<label>Farbumsetzung<select id="animDither"><option value="thresh">Schwelle</option><option value="fs">Floyd-Steinberg</option><option value="bayer">Geordnet</option></select></label>
+<label>Bildart<select id="animKind"><option value="photo">Foto oder Verlauf</option><option value="pixel">Pixelgrafik</option></select></label>
+<label>Farbumsetzung<select id="animDither"><option value="thresh">Schwelle</option><option value="fs">Floyd-Steinberg</option><option value="bayer">Geordnet</option><option value="majority">Mehrheitsfarbe</option></select></label>
+<label id="animFitWrap" class="wide">Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
 </div>
+<p class="tiny muted" id="animKindHelp"></p>
 <p class="tiny muted" id="animFitHelp">Einpassen zeigt das ganze Bild, Füllen schneidet zu, Strecken verzerrt, Original zeigt es unskaliert in der Mitte; jede Voreinstellung setzt nur den Rahmen, den du danach noch verschieben kannst. Schwelle ergibt flächige Farben, die beiden Rasterungen täuschen Zwischentöne mit Punktmustern vor. Die Tafel kennt nur acht Farben (je Farbkanal an oder aus).</p>
 <div class="anim-grid">
-<label>Helligkeit der Schwelle<input type="range" id="animThr" min="0" max="255" step="1" value="128"/></label>
-<label>Kontrast<input type="range" id="animCon" min="-50" max="100" step="1" value="0"/></label>
+<label class="wide anim-slide" id="animThrWrap">Helligkeit der Schwelle<span class="anim-slide-row"><input type="range" id="animThr" min="0" max="255" step="1" value="128"/><input type="number" id="animThrN" min="0" max="255" step="1" inputmode="numeric" value="128" aria-label="Helligkeit der Schwelle als Zahl (0 bis 255)"/></span></label>
+<label class="wide anim-slide" id="animConWrap">Kontrast<span class="anim-slide-row"><input type="range" id="animCon" min="-50" max="100" step="1" value="0"/><input type="number" id="animConN" min="-50" max="100" step="1" inputmode="numeric" value="0" aria-label="Kontrast als Zahl (−50 bis 100)"/></span></label>
 </div>
 </div>
 <div class="label">Bilder und Zeit</div>
@@ -1013,7 +1026,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.1-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.2-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -1155,13 +1168,13 @@ const RbAnim=(()=>{
   for(let i=0;i<clear;i++)suffix[i]=i;
   let o=0,bits=0,acc=0,p=0,old=-1,first=0;
   while(o<pixelCount){
-   while(bits<size){if(p>=data.length)return out;acc|=data[p++]<<bits;bits+=8;}
+   while(bits<size){if(p>=data.length)throw Error('GIF-Datei unvollständig (Bilddaten enden zu früh).');acc|=data[p++]<<bits;bits+=8;}
    let code=acc&mask;acc>>>=size;bits-=size;
    if(code===clear){size=minCode+1;mask=(1<<size)-1;next=eoi+1;old=-1;continue;}
-   if(code===eoi)break;
-   if(old===-1){if(code>=clear)return out;out[o++]=suffix[code];old=code;first=code;continue;}
+   if(code===eoi){if(o<pixelCount)throw Error('GIF-Datei unvollständig (Bilddaten enden zu früh).');break;}
+   if(old===-1){if(code>=clear)throw Error('GIF-Datei beschädigt (ungültiger Code).');out[o++]=suffix[code];old=code;first=code;continue;}
    const inCode=code;let sp=0;
-   if(code>=next){if(code>next)return out;stack[sp++]=first;code=old;}
+   if(code>=next){if(code>next)throw Error('GIF-Datei beschädigt (ungültiger Code).');stack[sp++]=first;code=old;}
    while(code>=clear){stack[sp++]=suffix[code];code=prefix[code];}
    first=suffix[code];stack[sp++]=first;
    if(next<4096){prefix[next]=old;suffix[next]=first;next++;if((next&mask)===0&&next<4096){size++;mask=(1<<size)-1;}}
@@ -1277,12 +1290,42 @@ const RbAnim=(()=>{
   return px;
  }
 
+ // Mehrheitsfarbe: jedes Tafelpixel bekommt die häufigste der acht Farben in seinem Bildbereich (für Pixelgrafik, keine Rasterung, kein Weichzeichnen).
+ // rgba/sw/sh: Quellbild; r: Rechteck des ganzen Quellbildes im 64x16-Feld ({x,y,w,h} wie fitRect). Bereiche außerhalb des Bildes bleiben schwarz.
+ function majority(rgba,sw,sh,r){
+  const px=new Uint8Array(W*H),cnt=new Uint32Array(8),kx=sw/r.w,ky=sh/r.h;
+  for(let y=0;y<H;y++){
+   const y0=Math.max(0,Math.floor((y-r.y)*ky+1e-6)),y1=Math.min(sh,Math.max(Math.floor((y-r.y)*ky+1e-6)+1,Math.ceil((y+1-r.y)*ky-1e-6)));
+   if(y1<=y0)continue;
+   for(let x=0;x<W;x++){
+    const x0=Math.max(0,Math.floor((x-r.x)*kx+1e-6)),x1=Math.min(sw,Math.max(Math.floor((x-r.x)*kx+1e-6)+1,Math.ceil((x+1-r.x)*kx-1e-6)));
+    if(x1<=x0)continue;
+    cnt.fill(0);
+    for(let yy=y0;yy<y1;yy++)for(let xx=x0;xx<x1;xx++){const i=(yy*sw+xx)*4;cnt[rgba[i+3]<128?0:(rgba[i]>=128?4:0)|(rgba[i+1]>=128?2:0)|(rgba[i+2]>=128?1:0)]++;}
+    let b=0;for(let k=1;k<8;k++)if(cnt[k]>cnt[b])b=k;
+    px[y*W+x]=b;
+   }
+  }
+  return px;
+ }
+ // Vergrößerungsfaktor einer Pixelgrafik: größter gemeinsamer Teiler aller Positionen, an denen sich die Farbe ändert (1 = nicht vergrößert).
+ // Sehr große Faktoren (über 32) gelten als Zufall, etwa bei wenigen großen Flächen.
+ function pixelScale(rgba,w,h){
+  const gcd=(a,b)=>{while(b){const t=a%b;a=b;b=t;}return a;};
+  const key=i=>rgba[i*4+3]<128?-1:(rgba[i*4]<<16)|(rgba[i*4+1]<<8)|rgba[i*4+2];
+  let gx=0,gy=0;
+  for(let y=0;y<h&&gx!==1;y++){const o=y*w;for(let x=1;x<w;x++)if(key(o+x)!==key(o+x-1)){gx=gcd(x,gx);if(gx===1)break;}}
+  for(let x=0;x<w&&gy!==1;x++)for(let y=1;y<h;y++)if(key(y*w+x)!==key((y-1)*w+x)){gy=gcd(y,gy);if(gy===1)break;}
+  const g=gx&&gy?gcd(gx,gy):(gx||gy||1);
+  return g>=1&&g<=32?g:1;
+ }
+
  // ---- Bildfolge: Auswahl, Zeiten, Pingpong -----------------------------------------------------
  // delays: Verzoegerung je Quellbild (ms). opt: {from,to (1-basiert), step, ping, ms, variable}
  // Rueckgabe: {order:[Quellindex je Ausgabebild], ms, count, tooMany}
  function plan(delays,opt){
   const total=delays.length;
-  const from=Math.max(1,Math.min(total,opt.from||1)),to=Math.max(from,Math.min(total,opt.to||total)),step=Math.max(1,opt.step||1);
+  const from=Math.max(1,Math.min(total,Math.round(opt.from)||1)),to=Math.max(from,Math.min(total,Math.round(opt.to)||total)),step=Math.max(1,Math.round(opt.step)||1);   // immer ganze Zahlen: Quellbilder werden über ihren Index gelesen
   let idx=[];for(let i=from-1;i<to;i+=step)idx.push(i);
   let ms=Math.max(1,Math.min(2000,Math.round(opt.ms||100)));
   let order=idx.slice();
@@ -1324,7 +1367,7 @@ const RbAnim=(()=>{
   return {x,y,w:dw,h:dh,scale:s};
  }
  function uploadSeconds(n){return Math.ceil((HDR+n*FB)/128)*0.23;}
- return {W,H,MAXF,HDR,FB,MAXSRC,RGB,CSS,b64uEnc,b64uDec,buildPayload,unpackPayload,crc32,thumbOf,thumbPixels,gifDecode,lzwDecode,parseRaster,quantize,plan,fitRect,uploadSeconds,cropFor,cropRect,clampCrop};
+ return {W,H,MAXF,HDR,FB,MAXSRC,RGB,CSS,b64uEnc,b64uDec,buildPayload,unpackPayload,crc32,thumbOf,thumbPixels,gifDecode,lzwDecode,parseRaster,quantize,majority,pixelScale,plan,fitRect,uploadSeconds,cropFor,cropRect,clampCrop};
 })();
 /* ==== Ende reine Funktionen ==== */
 </script>
@@ -1451,7 +1494,6 @@ function tokenGap(c){return c==='🌹'||c==='🌼'?0:1;}
 function linePixels(line,style){const a=codepoints(line).map(c=>displayCode(c,style));return a.reduce((n,c,i)=>n+tokenWidth(c,style)+(i+1<a.length?tokenGap(c):0),0);}
 function glyph(c){return font[c.codePointAt(0)]||FONT_FALLBACK;}
 function hexColor(n){return COLORS.find(c=>c[1]===Number(n))?.[2]||'#ffffff';}
-function esc(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));}
 function samplePage(){return {line1:'',line2:'',layout:3,align:1,color1:6,color2:7,duration:7};}
 function makeSwatches(root,selected,onChange){root.replaceChildren();for(const [name,code,hex] of COLORS){const b=document.createElement('button');b.type='button';b.className='swatch'+(Number(selected)===code?' selected':'');b.style.background=hex;b.setAttribute('aria-label',name);b.title=name;b.dataset.color=code;b.addEventListener('click',()=>onChange(code));root.append(b);}}
 function setTab(next){tab=next;if(next==='pages'&&rbHX.page.idx<0)rbHReset();try{localStorage.setItem('rb03-tab',tab);}catch(e){}$('tabScroll').classList.toggle('active',next==='scroll');$('tabPages').classList.toggle('active',next==='pages');$('scrollEditor').classList.toggle('hidden',next!=='scroll');$('pagesEditor').classList.toggle('hidden',next!=='pages');$('previewTools').classList.toggle('hidden',next==='pages');$('previewSpeedHint').classList.toggle('hidden',next==='pages');$('previewCaption').textContent='';restartPreview();draw();v42EditorMode(v42EditorOrigin); }
@@ -1660,8 +1702,6 @@ function buildSymbolPicker(){
   sh.style.setProperty('--pal','url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'+RB43_LUCIDE.palette+'</svg>')+'")');
 }
 // Native text-input undo remains available; no custom history in the basic editor.
-const editHistory={};
-function resetPageHistory(){}
 // Debounced controls; latest value wins and is sent without re-uploading the image.
 const latestControl=new Map();let liveTimer=null,livePumpRunning=false,rbLiveWarned=false;   // Wert bleibt vorgemerkt, Hinweis nur einmal
 function queueLive(key,params){if(key==='speed'&&programRunning)return;latestControl.set(key,params);clearTimeout(liveTimer);liveTimer=setTimeout(pumpLive,420);}
@@ -2748,7 +2788,7 @@ function rbDecode(enc,layout){
   for(const ch of Array.from(enc||'')){
     const cp=ch.codePointAt(0);
     if(cp===0x9d){pend=true;continue;}
-    if(cp===0x9e)continue;   // reserviert (frühere Funktion „Umkehren“), wird überlesen
+    if(cp===0x9e)continue;   // reserviert, wird überlesen
     if(cp>=0x90&&cp<=0x9c){if(cp===0x90)col=0;else if(cp<=0x97)col=cp-0x90;else if(cp<=0x9b)fnt=layout===1?-1:cp-0x98;else fnt=-1;continue;}
     text+=ch;
     if(ch==='︎'||ch==='️')continue;
@@ -2910,7 +2950,6 @@ function rbWireFields(){
   window.addEventListener('resize',rbGrowAll);
 }
 
-function rbHasOverrides(k){return RBS[k].c.some(Boolean)||RBS[k].f.some(x=>x>=0);}
 
 /* ---- Hauptansicht: Palettenknopf, globale Farbe, globale Schrift ---- */
 function rbPaletteButton(id){
@@ -3225,7 +3264,7 @@ async function rbzApplyFlow(){
   grids.addEventListener('pointerup',end);grids.addEventListener('pointercancel',end);
 })();
 
-async function init(){try{rb43StaticIcons();parseAssets();buildSymbolPicker();try{const draft=localStorage.getItem('rb03-scroll-draft');if(draft!==null)$('scrollText').value=draft;try{$('scrollLine2').value=localStorage.getItem('rb032-scroll-line2')||'';}catch(e){}rbRestoreDraft();rbWireFields();rbGrowAll();rbHReset();if(editHistory.scrollText)editHistory.scrollText.current=$('scrollText').value;}catch(e){}await rbFontInit();await refreshPages();try{if(localStorage.getItem('rb03-tab')==='pages')setTab('pages');}catch(e){}$('scrollText').dispatchEvent(new Event('input'));restartPreview();}catch(e){notify('Fehler beim Start: '+e.message);}finally{document.documentElement.classList.remove('rb-booting');}poll();setTimeout(rbLoadLists,150);requestAnimationFrame(tick);}
+async function init(){try{rb43StaticIcons();parseAssets();buildSymbolPicker();try{const draft=localStorage.getItem('rb03-scroll-draft');if(draft!==null)$('scrollText').value=draft;try{$('scrollLine2').value=localStorage.getItem('rb032-scroll-line2')||'';}catch(e){}rbRestoreDraft();rbWireFields();rbGrowAll();rbHReset();}catch(e){}await rbFontInit();await refreshPages();try{if(localStorage.getItem('rb03-tab')==='pages')setTab('pages');}catch(e){}$('scrollText').dispatchEvent(new Event('input'));restartPreview();}catch(e){notify('Fehler beim Start: '+e.message);}finally{document.documentElement.classList.remove('rb-booting');}poll();setTimeout(rbLoadLists,150);requestAnimationFrame(tick);}
 (function rbPreviewCompact(){
   const pv=document.querySelector('#view-editor .preview-sticky');if(!pv)return;let compact=false;
   function tick(){
@@ -3296,10 +3335,21 @@ const animImp={kind:'',sources:[],delays:[],name:'',frames:null,ms:100,problem:'
 let animLoadSeq=0;   // jede neue Quelle/jedes Zurücksetzen zählt hoch: ein später fertig werdendes Laden einer älteren Datei wird verworfen
 const ANIM_IMG_MAX=4096;   // längste Kante eines geladenen Bildes (größere werden verkleinert und das wird angezeigt)
 function animMarkDirty(){animImp.dirty=true;}
-// Rückfrage, wenn Änderungen verloren gingen (nur Speichern, nicht Senden, setzt das zurück)
-function animLeaveOk(){return !animImp.dirty||confirm('Änderungen an dieser Animation sind nicht gespeichert. Verwerfen?');}
-window.addEventListener('beforeunload',ev=>{if(animImp.dirty&&!$('animImportPane').classList.contains('hidden')){ev.preventDefault();ev.returnValue='';}});
-rbAnimLeave=()=>{const imp=!$('animImportPane').classList.contains('hidden')&&!$('view-animations').classList.contains('hidden');return !imp||animLeaveOk();};
+// Ungespeichert: der Entwurf in der Import-Maske oder ein offener Editor mit Änderungen (nur Speichern, nicht Senden, setzt das zurück)
+function animHasUnsaved(){return (animImp.dirty&&!$('animImportPane').classList.contains('hidden'))||(AD.open&&AD.dirty);}
+function animSavingNow(){if(!animUI.saving)return false;notify('Die Animation wird gerade gespeichert. Bitte kurz warten.');return true;}
+function animLeaveOk(){if(animSavingNow())return false;return !animHasUnsaved()||confirm('Änderungen an dieser Animation sind nicht gespeichert. Verwerfen?');}
+// Neue Quelle beginnen: ein ungespeicherter Entwurf wird erst nach Rückfrage verworfen; bei „Abbrechen“ bleibt er unverändert (same: dieselbe Quelle neu übernehmen)
+function animBeginSource(same){if(animSavingNow())return false;if(!same&&animHasUnsaved()&&!confirm('Die ungespeicherte Animation verwerfen und eine neue beginnen?'))return false;animReset();return true;}
+// Alle ausstehenden Neuberechnungen (Schwenk-Rahmen, Einstellungen) jetzt ausführen, damit beim Speichern der sichtbare Stand gilt
+function animFlush(){
+ if(animPan.rt){clearTimeout(animPan.rt);animPan.rt=0;if(animImp.kind==='pan')animPanRegen();}
+ if(animImp.timer){clearTimeout(animImp.timer);animImp.timer=0;animRender();}
+}
+function animPanStop(){try{clearTimeout(animPan.rt);animPan.rt=0;}catch(e){}}
+function animSaveLock(on){for(const id of ['animSourcePick','animAdjust'])$(id).inert=on;$('animImpBack').disabled=on;}
+window.addEventListener('beforeunload',ev=>{if(animHasUnsaved()){ev.preventDefault();ev.returnValue='';}});
+rbAnimLeave=()=>{const imp=!$('animImportPane').classList.contains('hidden')&&!$('view-animations').classList.contains('hidden');if(!imp)return true;if(!animLeaveOk())return false;animLoadSeq++;animPanStop();return true;};
 function animLed(canvas,px,s){
  const w=RbAnim.W*s,h=RbAnim.H*s;if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
  const ctx=canvas.getContext('2d');ctx.fillStyle='#05080d';ctx.fillRect(0,0,w,h);
@@ -3497,14 +3547,14 @@ $('animDelete').onclick=async()=>{if(rbMultiOn('anim')){await rbMultiDelete('ani
  try{await api('/api/anim/delete',{id:it.id});animUI.cache.delete(it.id);animUI.selected=0;await animRefresh();await v42RefreshShortcuts();notify('Animation gelöscht.');}catch(e){notify('Löschen: '+e.message);}};
 
 // ---- Import: Quellen ---------------------------------------------------------------------------
-function animShrink(c,max){const m=Math.max(c.width,c.height);if(m<=max)return c;const s=max/m,o=document.createElement('canvas');o.width=Math.max(1,Math.round(c.width*s));o.height=Math.max(1,Math.round(c.height*s));
- const x=o.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(c,0,0,o.width,o.height);return o;}
+function animShrink(c,max,sharp){const m=Math.max(c.width,c.height);if(m<=max)return c;const s=max/m,o=document.createElement('canvas');o.width=Math.max(1,Math.round(c.width*s));o.height=Math.max(1,Math.round(c.height*s));
+ const x=o.getContext('2d');x.imageSmoothingEnabled=!sharp;if(!sharp)x.imageSmoothingQuality='high';x.drawImage(c,0,0,o.width,o.height);return o;}   // sharp: Pixelgrafik behält reine Farben
 function animFreeImages(){   // große Bilddaten freigeben (Canvas auf 0 setzen gibt den Speicher auf iPhone/Safari wirklich frei)
  const p=animPan;if(p&&p.img){p.img.width=0;p.img.height=0;p.img=null;}
  for(const c of animImp.sources||[]){try{c.width=0;c.height=0;}catch(e){}}
 }
 function animReset(){
- animLoadSeq++;animFreeImages();animImp.dirty=false;clearTimeout(animImp.timer);animImp.timer=0;
+ animLoadSeq++;animPanStop();animImp.pixScale=1;animFreeImages();animImp.dirty=false;clearTimeout(animImp.timer);animImp.timer=0;
  animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.frames=null;animImp.problem='';animImp.saveError='';animImp.drawn=false;
  $('animPanOpts').classList.add('hidden');$('animCropBlock').classList.remove('hidden');$('animFitWrap').classList.remove('hidden');$('animFitHelp').classList.remove('hidden');$('animEditFrames').classList.add('hidden');
  animImp.editId=0;animImp.stored=null;$('animSourcePick').classList.remove('hidden');$('animPixelOpts').classList.remove('hidden');$('animImpTitle').textContent='Animation importieren';$('animSaveCopy').classList.add('hidden');$('animSaveCopy').disabled=true;
@@ -3526,8 +3576,9 @@ function animSetSources(kind,sources,delays,name,note){
  $('animVarWrap').classList.toggle('hidden',!(kind==='gif'&&varying));$('animVar').checked=false;
  const first=sources[0];
  $('animFit').value=kind==='raster'&&first.width<=64&&first.height<=16?'orig':'contain';
- $('animDither').value=kind==='raster'?'thresh':'fs';
- $('animThr').value=128;$('animCon').value=0;animFitUi(true);
+ $('animThr').value=128;$('animCon').value=0;animFitUi();
+ animKindApply(kind==='raster'?'photo':animCountColors(first)<=16?'pixel':'photo',true);
+ if(kind==='raster')$('animDither').value='thresh';
  $('animPixelOpts').classList.toggle('hidden',kind==='raster');   // Text-Raster ist 1:1 (64 × 16, Farben exakt): kein Rahmen, keine Voreinstellung, keine Farbumsetzung, keine Regler
  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(name)||'Animation');
  $('animSrcInfo').textContent=note||'';
@@ -3536,13 +3587,14 @@ function animSetSources(kind,sources,delays,name,note){
 }
 $('animFileGif').addEventListener('change',async e=>{
  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
- animReset();const my=animLoadSeq;$('animSrcInfo').textContent='GIF wird gelesen …';
+ if(!animBeginSource())return;const my=animLoadSeq;$('animSrcInfo').textContent='GIF wird gelesen …';
  try{
-  const buf=new Uint8Array(await f.arrayBuffer());const sources=[],delays=[];let tmp=null,tctx=null,img=null;
+  const buf=new Uint8Array(await f.arrayBuffer());const sources=[],delays=[];let tmp=null,tctx=null,img=null,sharp=false;
   const res=await RbAnim.gifDecode(buf,(rgba,w,h,d)=>{
    if(!tmp){tmp=document.createElement('canvas');tmp.width=w;tmp.height=h;tctx=tmp.getContext('2d');img=tctx.createImageData(w,h);}
    img.data.set(rgba);tctx.putImageData(img,0,0);
-   const c=animShrink(tmp,192);if(c===tmp){const o=document.createElement('canvas');o.width=w;o.height=h;o.getContext('2d').drawImage(tmp,0,0);sources.push(o);}else sources.push(c);
+   if(!sources.length)sharp=animCountColors(tmp)<=16;   // wenige Farben: beim Verkleinern nicht weichzeichnen
+   const c=animShrink(tmp,192,sharp);if(c===tmp){const o=document.createElement('canvas');o.width=w;o.height=h;o.getContext('2d').drawImage(tmp,0,0);sources.push(o);}else sources.push(c);
    delays.push(d);
   });
   if(my!==animLoadSeq)return;
@@ -3552,7 +3604,7 @@ $('animFileGif').addEventListener('change',async e=>{
 });
 const ANIM_RASTER_RGB=[[0,0,0],[0,0,255],[0,255,0],[0,255,255],[255,0,0],[255,0,255],[255,255,0],[255,255,255]];
 function animRasterApply(text,name){
- animReset();
+ if(!animBeginSource(animImp.kind==='raster'))return;
  try{
   const fr=RbAnim.parseRaster(text);
   const sources=fr.map(f=>{const c=document.createElement('canvas');c.width=f.w;c.height=f.h;const x=c.getContext('2d'),d=x.createImageData(f.w,f.h);
@@ -3572,14 +3624,18 @@ function animRasterUi(open){
 $('animRasterTile').onclick=()=>{animRasterUi($('animRasterBox').classList.contains('hidden'));if(!$('animRasterBox').classList.contains('hidden'))$('animRasterText').focus();};
 $('animRasterText').addEventListener('input',()=>animRasterUi());
 $('animRasterLoad').onclick=()=>$('animFileRaster').click();
-$('animFileRaster').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const t=await f.text();$('animRasterText').value=t;animRasterUi();animRasterApply(t,f.name.replace(/\.[^.]*$/,''));});
+$('animFileRaster').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const my=animLoadSeq;
+ try{const t=await f.text();if(my!==animLoadSeq)return;$('animRasterText').value=t;animRasterUi();animRasterApply(t,f.name.replace(/\.[^.]*$/,''));}
+ catch(err){if(my===animLoadSeq)$('animErr').textContent='Raster: '+err.message;}});
 
 
 // ---- Ausschnitt-Rahmen auf dem Quellbild (Zeigerereignisse) ---------------------------------------------
 const animCv=$('animCrop'),animCg=animCv.getContext('2d');
 const animCropPts=new Map();let animCropGest=null,animCropGeo=null;
 const ANIM_PAD=0.25,ANIM_HANDLE=22;
-function animCropSource(){const i=Math.max(0,Math.min(animImp.sources.length-1,(Number($('animFrom').value)||1)-1));return animImp.sources[i]||animImp.sources[0]||null;}
+// Eingabefeld als ganze Zahl im Bereich lesen (leer/ungültig = Vorgabe)
+function animInt(id,def,min,max){const s=String($(id).value).trim(),v=Math.round(Number(s));return s===''||!Number.isFinite(v)?def:Math.max(min,Math.min(max,v));}
+function animCropSource(){const i=Math.max(0,Math.min(animImp.sources.length-1,animInt('animFrom',1,1,1e6)-1));return animImp.sources[i]||animImp.sources[0]||null;}
 function animCropLayout(){
  const s0=animImp.sources[0];if(!s0)return null;
  const sw=s0.width,sh=s0.height,pad=ANIM_PAD*Math.max(sw,sh),vw=sw+2*pad,vh=sh+2*pad;
@@ -3659,7 +3715,13 @@ window.addEventListener('resize',()=>{if(!$('animImportPane').classList.contains
 
 // ---- Import: Anpassen, Vorschau --------------------------------------------------------------
 const animRc=document.createElement('canvas');animRc.width=64;animRc.height=16;const animRx=animRc.getContext('2d',{willReadFrequently:true});
+const animSrcData=new WeakMap();
+function animSrcPixels(src){let d=animSrcData.get(src);if(!d){d=src.getContext('2d',{willReadFrequently:true}).getImageData(0,0,src.width,src.height);animSrcData.set(src,d);}return d;}
 function animRenderOne(src,o){
+ if(o.method==='majority'){   // Pixelgrafik: Mehrheitsfarbe je Bildbereich, direkt aus dem Quellbild (die Schwenk-Fenster sind schon ein Ausschnitt)
+  const r=animImp.kind==='pan'?{x:0,y:0,w:RbAnim.W,h:RbAnim.H}:RbAnim.fitRect(src.width,src.height,o.fit,0,0,o.crop);
+  return RbAnim.majority(animSrcPixels(src).data,src.width,src.height,r);
+ }
  animRx.fillStyle='#000';animRx.fillRect(0,0,64,16);
  const r=RbAnim.fitRect(src.width,src.height,o.fit,0,0,o.crop),smooth=r.scale<1;
  animRx.imageSmoothingEnabled=smooth;if(smooth)animRx.imageSmoothingQuality='high';
@@ -3669,9 +3731,10 @@ function animRenderOne(src,o){
 function animSchedule(delay){animImp.saveError='';clearTimeout(animImp.timer);animImp.timer=setTimeout(()=>{animImp.timer=0;animRender();},delay==null?140:delay);}
 function animRender(){
  if(!animImp.sources.length&&!animImp.stored)return;
+ animSlideSync();
  const n=animImp.stored?animImp.stored.length:animImp.sources.length;   // Bearbeiten: gespeicherte Bilder statt Quellbilder
  const o={fit:$('animFit').value,crop:animImp.crop,method:$('animDither').value,thr:Number($('animThr').value),contrast:Number($('animCon').value)};
- const p=RbAnim.plan(animImp.delays,{from:Number($('animFrom').value)||1,to:Number($('animTo').value)||n,step:Number($('animStep').value)||1,reverse:$('animRev').checked,ping:$('animPing').checked,ms:Number($('animMs').value)||100,variable:$('animVar').checked&&!$('animVarWrap').classList.contains('hidden')});
+ const p=RbAnim.plan(animImp.delays,{from:animInt('animFrom',1,1,n),to:animInt('animTo',n,1,n),step:animInt('animStep',1,1,100),reverse:$('animRev').checked,ping:$('animPing').checked,ms:Number($('animMs').value)||100,variable:$('animVar').checked&&!$('animVarWrap').classList.contains('hidden')});
  const cache=new Map();
  const frames=p.tooMany?[]:p.order.map(i=>{let f=cache.get(i);if(!f){f=animImp.stored?animImp.stored[i]:animRenderOne(animImp.sources[i],o);cache.set(i,f);}return f;});
  animImp.frames=frames;animImp.ms=p.ms;
@@ -3700,6 +3763,46 @@ function animFitUi(){
  animCropDraw();
 }
 $('animFit').addEventListener('change',()=>animFitUi());
+// ---- Bildart (Foto / Pixelgrafik), Zahlenfelder zu den Reglern ----
+function animSlideSync(){for(const [r,n] of [['animThr','animThrN'],['animCon','animConN']])if(document.activeElement!==$(n))$(n).value=$(r).value;}
+for(const [r,n] of [['animThr','animThrN'],['animCon','animConN']]){
+ $(r).addEventListener('input',()=>{$(n).value=$(r).value;});
+ $(n).addEventListener('input',()=>{const s=$(n).value.trim(),v=Math.round(Number(s)),R=$(r);if(s===''||!Number.isFinite(v))return;R.value=Math.max(Number(R.min),Math.min(Number(R.max),v));animImp.dirty=true;animSchedule();});
+ $(n).addEventListener('change',()=>{$(n).value=$(r).value;});
+}
+// Farbumsetzung „Mehrheitsfarbe“ = Pixelgrafik: Schwelle und Kontrast wirken dort nicht
+function animQuantUi(){
+ const pix=$('animDither').value==='majority';
+ $('animKind').value=pix?'pixel':'photo';
+ for(const id of ['animThrWrap','animConWrap'])$(id).classList.toggle('is-off',pix);
+ for(const id of ['animThr','animThrN','animCon','animConN'])$(id).disabled=pix;
+ $('animKindHelp').textContent=pix?'Pixelgrafik: Jedes Tafelpixel bekommt die häufigste Farbe seines Bildbereichs. Das ergibt scharfe Flächen ohne Rasterpunkte; Schwelle und Kontrast sind dabei ohne Wirkung.'+(animImp.pixScale>1?' Erkannte Vergrößerung: '+animImp.pixScale+' ×, der Rahmen zeigt '+RbAnim.W*animImp.pixScale+' × '+RbAnim.H*animImp.pixScale+' Bildpixel (1:1).':''):'Foto oder Verlauf: Die Farbumsetzung rechnet Zwischentöne in die acht Farben der Tafel um.';
+}
+function animPixelScale(){
+ const src=animImp.kind==='pan'?animPan.img:animImp.sources[0];if(!src||src.width*src.height>6e6)return 1;
+ const d=src.getContext('2d',{willReadFrequently:true}).getImageData(0,0,src.width,src.height);
+ const g=RbAnim.pixelScale(d.data,src.width,src.height);
+ return RbAnim.W*g>src.width?1:g;   // der 1:1-Rahmen muss ins Bild passen, sonst war der Teiler Zufall (wenige große Flächen)
+}
+// Bildart setzen. jump: Rahmen auf 1:1 stellen (64 × Vergrößerungsfaktor Bildpixel breit), danach frei änderbar
+function animKindApply(kind,jump){
+ $('animDither').value=kind==='pixel'?'majority':'fs';animImp.pixScale=1;
+ if(kind==='pixel'&&jump){
+  const g=animPixelScale();animImp.pixScale=g;
+  if(animImp.kind==='pan')animPanDefaults(RbAnim.W*g);
+  else if(animImp.sources[0]){const s0=animImp.sources[0];animImp.crop=g>1?RbAnim.clampCrop({cx:.5,cy:.5,w:RbAnim.W*g/s0.width},s0.width,s0.height):RbAnim.cropFor(s0.width,s0.height,'orig');$('animFit').value=g>1?'crop':'orig';animCropDraw();}
+ }
+ animQuantUi();
+}
+$('animKind').addEventListener('change',()=>{
+ animImp.dirty=true;animKindApply($('animKind').value,$('animKind').value==='pixel');
+ if(animImp.kind==='pan'&&animPan.img){animPanFields();animPanSync();}else animSchedule(0);
+});
+$('animDither').addEventListener('change',()=>{animQuantUi();if(animImp.kind==='pan'&&animPan.img)animPanRegen();});
+$('animAnchHead').addEventListener('click',()=>{
+ const body=$('animAnchBody'),open=body.classList.contains('hidden');body.classList.toggle('hidden',!open);
+ $('animAnchHead').setAttribute('aria-expanded',String(open));$('animAnchChevron').innerHTML=open?'<path d="m18 15-6-6-6 6"/>':'<path d="m6 9 6 6 6-6"/>';
+});
 $('animName').addEventListener('input',()=>{animImp.nameAuto=false;animImp.dirty=true;});
 $('animImport').onclick=animShowImport;
 $('animImpBack').onclick=()=>{if(animLeaveOk())animShowList();};
@@ -3721,10 +3824,11 @@ async function animUploadPayload(payload,{name,frames,ms},progress){
  return last.id;
 }
 async function animSaveImport(mode){   // 'save' | 'saveSend' | 'sendOnly' | 'copy'
- if(animImp.timer){clearTimeout(animImp.timer);animImp.timer=0;animRender();}   // gerade geänderte Zeit/Bereich nicht mit altem Stand speichern
+ animFlush();   // gerade geänderte Zeit, Bereich oder Schwenk-Rahmen nicht mit altem Stand speichern
  const sendOnly=mode==='sendOnly',sendAfter=mode==='saveSend',replaceId=(animImp.editId&&!sendOnly&&mode!=='copy')?animImp.editId:0;   // 'copy' = Bearbeiten, aber als neue Animation
  if(animUI.saving||animImp.problem||(!sendOnly&&!replaceId&&animImp.limitProblem)||!animImp.frames||animImp.frames.length<2)return;
- animUI.saving=true;$('animSave').disabled=true;$('animSaveSend').disabled=true;$('animSendOnly').disabled=true;
+ animUI.saving=true;animSaveLock(true);$('animSave').disabled=true;$('animSaveSend').disabled=true;$('animSendOnly').disabled=true;
+ const my=animLoadSeq;let stage='upload';
  const frames=animImp.frames,ms=animImp.ms,n=frames.length,name=animBoundName($('animName').value)||'Animation';
  const payload=RbAnim.buildPayload(frames,ms),thumb=RbAnim.thumbOf(payload,n),prog=$('animProg');
  prog.max=payload.length;prog.value=0;prog.classList.remove('hidden');animImp.saveError='';$('animErr').textContent='';
@@ -3736,13 +3840,16 @@ async function animSaveImport(mode){   // 'save' | 'saveSend' | 'sendOnly' | 'co
    last=await api('/api/anim/put',data);prog.value=Math.min(payload.length,off+1200);
   }
   const id=last&&last.id;if(!id)throw Error('Keine Antwort mit Animations-ID.');
-  if(sendOnly){const j=await api('/api/anim/send',{temp:'1'});notify(j.message);return;}
-  animImp.dirty=false;animUI.selected=id;animUI.cache.delete(id);animShowList();await animRefresh();
-  if(sendAfter){const j=await api('/api/anim/send',{id});notify(j.message);}else notify(replaceId?'Animation aktualisiert.':'Animation gespeichert.');
+  if(sendOnly){stage='send';const j=await api('/api/anim/send',{temp:'1'});notify(j.message);return;}
+  stage='saved';animUI.cache.delete(id);
+  if(my===animLoadSeq){animImp.dirty=false;animUI.selected=id;animShowList();}   // nur den Entwurf schließen, der gespeichert wurde
+  await animRefresh();
+  if(sendAfter){stage='send';const j=await api('/api/anim/send',{id});notify(j.message);}else notify(replaceId?'Animation aktualisiert.':'Animation gespeichert.');
  }catch(e){
-  try{await api('/api/anim/put',{abort:'1',up});}catch(x){}
-  animImp.saveError='Speichern: '+e.message;$('animErr').textContent=animImp.saveError;notify('Animation: '+e.message);
- }finally{animUI.saving=false;prog.classList.add('hidden');if(!$('animImportPane').classList.contains('hidden'))animRender();}
+  if(stage==='upload'){try{await api('/api/anim/put',{abort:'1',up});}catch(x){}}
+  const msg=stage==='upload'?'Speichern: '+e.message:stage==='send'&&sendOnly?'Senden: '+e.message:'Animation gespeichert. '+(stage==='send'?'Senden fehlgeschlagen: ':'Liste nicht aktualisiert: ')+e.message;
+  animImp.saveError=msg;$('animErr').textContent=msg;notify(msg);
+ }finally{animUI.saving=false;animSaveLock(false);prog.classList.add('hidden');if(!$('animImportPane').classList.contains('hidden'))animRender();}
 }
 $('animSave').onclick=()=>animSaveImport('save');
 $('animSaveSend').onclick=()=>animSaveImport('saveSend');
@@ -3768,6 +3875,7 @@ $('animEdit').onclick=async()=>{
    animBusy(1);let u;
    try{u=RbAnim.unpackPayload((await animFetchPayload(it.id,(o,t)=>{info.textContent='Animation wird geladen … '+Math.round(100*o/t)+' %';})).payload);}finally{animBusy(-1);info.classList.remove('loading');}
    c={frames:u.frames,ms:u.ms,stamp};animUI.cache.set(it.id,c);}
+  if($('view-animations').classList.contains('hidden')||$('animListPane').classList.contains('hidden')||animUI.selected!==it.id)return;   // inzwischen woanders: nicht mehr öffnen
   animShowImport();animEditOpen(it,c);
  }catch(e){notify('Bearbeiten: '+e.message);}
 };
@@ -3789,6 +3897,11 @@ const animPanSame=()=>Math.abs(animPan.s.w-animPan.e.w)<1e-6;
 function animPanClampPos(f){   // die Mitte bleibt im Bild, damit ein Rahmen nie ganz verschwindet
  f.x=Math.max(-f.w/2,Math.min(animPan.iw-f.w/2,f.x));f.y=Math.max(-f.w/8,Math.min(animPan.ih-f.w/8,f.y));
 }
+function animPanLimitEnd(){   // Ende-Rahmen nach Eingabe des Versatzes begrenzen: Schwenk = Mitte im Bild, Umlauf = höchstens 8 Bilddurchläufe
+ const p=animPan,e=p.e;
+ if(p.wrap==='wrap'){const mx=8*p.iw,my=8*p.ih;e.x=Math.max(p.s.x-mx,Math.min(p.s.x+mx,e.x));e.y=Math.max(p.s.y-my,Math.min(p.s.y+my,e.y));}
+ else animPanClampPos(e);
+}
 function animPanFrame(k){   // Frame k von n: {x,y,w} (links oben, Breite) in Quellbild-Pixeln
  const n=animPan.n,t=n>1?k/(n-1):0,s=animPan.s,e=animPan.e;
  const w=animPanSame()?s.w:s.w*Math.pow(e.w/s.w,t);
@@ -3797,12 +3910,14 @@ function animPanFrame(k){   // Frame k von n: {x,y,w} (links oben, Breite) in Qu
  if(animPan.wrap==='wrap'){x=animPanMod(x,animPan.iw);y=animPanMod(y,animPan.ih);}
  return {x,y,w};
 }
+function f0w(k){return animPanFrame(k).w;}
 function animPanWindow(k){
- const f=animPanFrame(k),c=document.createElement('canvas');c.width=RbAnim.W;c.height=RbAnim.H;
- const g=c.getContext('2d'),iw=animPan.iw,ih=animPan.ih,sc=RbAnim.W/f.w,h=f.w/4;
- g.fillStyle='#000';g.fillRect(0,0,RbAnim.W,RbAnim.H);g.imageSmoothingEnabled=sc<1;if(sc<1)g.imageSmoothingQuality='high';
+ const pix=$('animDither').value==='majority',cw=pix?Math.max(RbAnim.W,Math.min(512,Math.round(f0w(k)))):RbAnim.W,ch=Math.max(RbAnim.H,Math.round(cw/4));   // Pixelgrafik: Fenster in Bildauflösung, damit die Mehrheitsfarbe aus echten Pixeln kommt
+ const f=animPanFrame(k),c=document.createElement('canvas');c.width=cw;c.height=ch;
+ const g=c.getContext('2d'),iw=animPan.iw,ih=animPan.ih,sc=cw/f.w,h=f.w/4;
+ g.fillStyle='#000';g.fillRect(0,0,cw,ch);g.imageSmoothingEnabled=sc<1;if(sc<1)g.imageSmoothingQuality='high';
  const put=(ox,oy)=>{   // Bild liegt um (ox,oy) verschoben; sichtbarer Teil des Rahmens wird zugeschnitten (außerhalb bleibt schwarz)
-  let sx=f.x-ox,sy=f.y-oy,sw=f.w,sh=h,dx=0,dy=0,dw=RbAnim.W,dh=RbAnim.H;
+  let sx=f.x-ox,sy=f.y-oy,sw=f.w,sh=h,dx=0,dy=0,dw=cw,dh=ch;
   if(sx<0){dx-=sx*sc;dw+=sx*sc;sw+=sx;sx=0;}
   if(sy<0){dy-=sy*sc;dh+=sy*sc;sh+=sy;sy=0;}
   if(sx+sw>iw){const cut=sx+sw-iw;sw-=cut;dw-=cut*sc;}
@@ -3832,9 +3947,9 @@ function animPanTravelN(){   // ein Tafelpixel Weg je Frame (bei Rahmenbreite w 
  const p=animPan,sc=p.s.w/RbAnim.W,d=Math.max(Math.abs(p.e.x-p.s.x),Math.abs(p.e.y-p.s.y));
  p.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(d/sc)+1));
 }
-function animPanDefaults(){   // „Ganzes Bild durchlaufen“
+function animPanDefaults(wFix){   // „Ganzes Bild durchlaufen“ (wFix: feste Rahmenbreite, z. B. 1:1 bei Pixelgrafik)
  const p=animPan;let w=4*p.ih;if(w>p.iw)w=p.iw;w=animPanClampW(w);
- if(Math.max(p.iw-w,p.ih-w/4)<1)w=animPanClampW(Math.min(RbAnim.W,p.iw));   // Bild hat schon 4 : 1: Rahmen 1:1 statt eines Rahmens, der alles zeigt
+ if(wFix)w=animPanClampW(wFix);else if(Math.max(p.iw-w,p.ih-w/4)<1)w=animPanClampW(Math.min(RbAnim.W,p.iw));   // Bild hat schon 4 : 1: Rahmen 1:1 statt eines Rahmens, der alles zeigt
  p.s.w=p.e.w=w;p.s.x=p.s.y=0;
  if(p.iw-w>=p.ih-w/4){p.e.x=p.iw-w;p.e.y=0;}else{p.e.x=0;p.e.y=p.ih-w/4;}
  if(p.e.x<0)p.e.x=0;if(p.e.y<0)p.e.y=0;
@@ -3857,7 +3972,7 @@ function animPanPreset(id){
  if(p.tile)animPanTileFix(false);
  animPanSync();
 }
-function animPanSetW(which,w,fromActive){   // Breite setzen; bei „Größe gleich“ folgt der andere Rahmen (Mitte bleibt)
+function animPanSetW(which,w){   // Breite setzen; bei „Größe gleich“ folgt der andere Rahmen (Mitte bleibt)
  const p=animPan;w=animPanClampW(w);
  const set=f=>{const cx=f.x+f.w/2,cy=f.y+f.w/8;f.w=w;f.x=cx-w/2;f.y=cy-w/8;};
  set(which==='s'?p.s:p.e);if(p.lock||p.tile)set(which==='s'?p.e:p.s);
@@ -3928,7 +4043,7 @@ function animPanRegen(){
 }
 function animPanSync(drag){   // nach jeder Änderung der Rahmen: Felder, Anzeige und Frames nachführen
  animPanFields(animPan.editing);animPanDraw();
- if(drag){clearTimeout(animPan.rt);animPan.rt=setTimeout(animPanRegen,40);}else{clearTimeout(animPan.rt);animPanRegen();}
+ if(drag){clearTimeout(animPan.rt);animPan.rt=setTimeout(()=>{animPan.rt=0;animPanRegen();},40);}else{clearTimeout(animPan.rt);animPan.rt=0;animPanRegen();}
  animMarkDirty();
 }
 function animPanEdit(which,id){
@@ -3937,7 +4052,7 @@ function animPanEdit(which,id){
  if(which==='n'){p.n=n;if(p.tile)animPanTileFix(true);}
  else if(which==='start'){p.s.x=animPanVal('animPanSx');p.s.y=animPanVal('animPanSy');animPanClampPos(p.s);if(p.tile)animPanTileFix(true);}
  else if(which==='end'){p.e.x=animPanVal('animPanEx');p.e.y=animPanVal('animPanEy');animPanClampPos(p.e);if(p.tile){animPanTileFix(false);}}
- else if(which==='step'){const n1=Math.max(1,p.n-1);p.e.x=p.s.x+p.s.w/2+animPanVal('animPanDx')*n1-p.e.w/2;p.e.y=p.s.y+p.s.w/8+animPanVal('animPanDy')*n1-p.e.w/8;if(p.tile)animPanTileFix(true);}
+ else if(which==='step'){const n1=Math.max(1,p.n-1);p.e.x=p.s.x+p.s.w/2+animPanVal('animPanDx')*n1-p.e.w/2;p.e.y=p.s.y+p.s.w/8+animPanVal('animPanDy')*n1-p.e.w/8;animPanLimitEnd();if(p.tile)animPanTileFix(true);}
  else if(which==='sw'){animPanSetW('s',animPanVal('animPanSw'));if(p.tile)animPanTileFix(true);}
  else if(which==='ew'){animPanSetW('e',animPanVal('animPanEw'));if(p.tile)animPanTileFix(true);}
  animPanSync();p.editing=null;
@@ -4018,7 +4133,7 @@ animPanCv.addEventListener('wheel',ev=>{const p=animPan;if(!p.img)return;ev.prev
 // ---- Bild laden (ein Weg für Schwenk und Einzelbilder) --------------------------------------------------------
 $('animFilePan').addEventListener('change',async e=>{
  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
- animReset();const my=animLoadSeq;$('animSrcInfo').textContent='Bild wird gelesen …';
+ if(!animBeginSource())return;const my=animLoadSeq;$('animSrcInfo').textContent='Bild wird gelesen …';
  try{
   const url=URL.createObjectURL(f);const im=new Image();im.src=url;
   try{await im.decode();}finally{URL.revokeObjectURL(url);}
@@ -4030,7 +4145,7 @@ $('animFilePan').addEventListener('change',async e=>{
   animImp.kind='pan';animImp.nameAuto=true;animImp.stored=null;
   animPanDefaults();
   $('animPanOpts').classList.remove('hidden');$('animCropBlock').classList.add('hidden');$('animFitWrap').classList.add('hidden');$('animFitHelp').classList.add('hidden');
-  $('animDither').value=animPanColors(c)<=16?'thresh':'fs';$('animThr').value=128;$('animCon').value=0;$('animMs').value=100;
+  $('animThr').value=128;$('animCon').value=0;$('animMs').value=100;animKindApply(animCountColors(c)<=16?'pixel':'photo',true);
   $('animFrom').value=1;$('animTo').value=p.n;$('animStep').value=1;$('animPing').checked=false;$('animRev').checked=false;$('animVarWrap').classList.add('hidden');$('animVar').checked=false;
   if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(f.name.replace(/\.[^.]*$/,''))||'Schwenk');
   $('animSrcInfo').textContent='Bild '+p.ow+' × '+p.oh+' Pixel.';
@@ -4039,9 +4154,10 @@ $('animFilePan').addEventListener('change',async e=>{
   $('animAdjust').classList.remove('hidden');animPanFields();animPanRegen();animPanDraw();animImp.dirty=true;
  }catch(err){if(my===animLoadSeq){$('animSrcInfo').textContent='';$('animErr').textContent='Bild: '+err.message;}}
 });
-function animPanColors(c){   // wenige Farben (Pixelgrafik): Schwelle erhält die Flächen, sonst Floyd-Steinberg
- const t=document.createElement('canvas');t.width=Math.min(c.width,160);t.height=Math.min(c.height,160);const x=t.getContext('2d',{willReadFrequently:true});x.drawImage(c,0,0,t.width,t.height);
- const d=x.getImageData(0,0,t.width,t.height).data,seen=new Set();for(let i=0;i<d.length&&seen.size<=16;i+=4)seen.add((d[i]<<16)|(d[i+1]<<8)|d[i+2]);
+function animCountColors(c,limit){   // Anzahl verschiedener Farben (bricht über dem Limit ab); wenige Farben = Pixelgrafik
+ limit=limit||16;const w=c.width,h=c.height;if(!w||!h)return 0;
+ const x=c.getContext('2d',{willReadFrequently:true}),seen=new Set(),band=Math.max(1,Math.floor(2e6/w));
+ for(let y=0;y<h;y+=band){const d=x.getImageData(0,y,w,Math.min(band,h-y)).data;for(let i=0;i<d.length;i+=4){seen.add(d[i+3]<128?-1:(d[i]<<16)|(d[i+1]<<8)|d[i+2]);if(seen.size>limit)return seen.size;}}
  return seen.size;
 }
 
@@ -4062,8 +4178,8 @@ function adSetZoom(z,ax,ay){const c0=adCellSize();z=Math.max(1,Math.min(adZoomMa
 function adSnap(){return {frames:AD.frames.slice(),cur:AD.cur};}
 // Ein Eingriff legt vorher einen Rückgängig-Schritt an. Wiederherstellen und „geändert“-Merker werden erst dann verworfen, wenn sich wirklich
 // ein Pixel ändert (adRollback nimmt den Schritt zurück, z. B. beim Antippen ohne Wirkung oder beim Wechsel zu zwei Fingern).
-function adBegin(){AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.hold={redo:AD.redo,dirty:AD.dirty};AD.redo=[];AD.frames[AD.cur]=AD.frames[AD.cur].slice();AD.dirty=true;}
-function adRollback(){AD.undo.pop();if(AD.hold){AD.redo=AD.hold.redo;AD.dirty=AD.hold.dirty;AD.hold=null;}}
+function adBegin(){AD.undo.push(adSnap());const trimmed=AD.undo.length>100?AD.undo.shift():null;AD.hold={redo:AD.redo,dirty:AD.dirty,trimmed};AD.redo=[];AD.frames[AD.cur]=AD.frames[AD.cur].slice();AD.dirty=true;}
+function adRollback(){AD.undo.pop();if(AD.hold){if(AD.hold.trimmed)AD.undo.unshift(AD.hold.trimmed);AD.redo=AD.hold.redo;AD.dirty=AD.hold.dirty;AD.hold=null;}}
 function adClipRect(r){const x0=Math.max(0,r.x),y0=Math.max(0,r.y),x1=Math.min(AD_W,r.x+r.w),y1=Math.min(AD_H,r.y+r.h);return x1>x0&&y1>y0?{x:x0,y:y0,w:x1-x0,h:y1-y0}:null;}
 function adInSel(x,y){const s=AD.sel;return !!s&&x>=s.x&&x<s.x+s.w&&y>=s.y&&y<s.y+s.h;}
 function adCommitFloat(){
@@ -4170,7 +4286,7 @@ function adOpen(frames,o){
  $('animDraw').classList.remove('hidden');document.documentElement.classList.add('ad-lock');
  adRebuildStrip();adUiSync();adApplyLayout();requestAnimationFrame(adApplyLayout);
 }
-function adClose(){AD.open=false;AD.flt=null;$('animDraw').classList.add('hidden');document.documentElement.classList.remove('ad-lock');}
+function adClose(){AD.open=false;AD.flt=null;AD.sel=null;AD.stroke=null;AD.gest=null;AD.hold=null;AD.ptrs.clear();AD.undo=[];AD.redo=[];AD.frames=[];AD.dirty=false;AD.onDone=null;AD.onCancel=null;$('animDraw').classList.add('hidden');document.documentElement.classList.remove('ad-lock');}
 $('adBack').onclick=()=>{if(AD.dirty&&!confirm('Änderungen an den Bildern verwerfen?'))return;const cb=AD.onCancel;adClose();if(cb)cb();};
 $('adDone').onclick=()=>{adCommitFloat();const fr=AD.frames.slice(),cb=AD.onDone,ch=AD.dirty;adClose();if(cb)cb(fr,ch);};
 $('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>{if(AD.move)adMove(-1);else adSelect(AD.cur-1);};$('adRight').onclick=()=>{if(AD.move)adMove(1);else adSelect(AD.cur+1);};
@@ -4258,6 +4374,7 @@ $('animDraw').addEventListener('touchmove',ev=>{if(!ev.target.closest||!ev.targe
 document.addEventListener('keydown',ev=>{
  if(!AD.open)return;
  const k=ev.key,mod=ev.ctrlKey||ev.metaKey;
+ if(AD.blocked&&k!=='Escape')return;   // Editor gesperrt (Hinweis sichtbar): keine Zeichenbefehle
  if(mod&&(k==='z'||k==='Z')){ev.preventDefault();if(ev.shiftKey)adRedoDo();else adUndoDo();}
  else if(mod&&(k==='y'||k==='Y')){ev.preventDefault();adRedoDo();}
  else if(k==='Escape'){ev.preventDefault();$('adBack').click();}
@@ -4281,7 +4398,7 @@ function animDrawApply(frames,changed){
 }
 $('animEditFrames').onclick=()=>{if(!animImp.stored)return;adOpen(animImp.stored,{onDone:animDrawApply});};
 $('animDrawNew').onclick=()=>{
- animReset();
+ if(!animBeginSource())return;
  const blank=()=>new Uint8Array(RbAnim.W*RbAnim.H);
  animImp.kind='draw';animImp.editId=0;animImp.stored=[blank(),blank()];animImp.delays=[100,100];animImp.nameAuto=false;animImp.drawn=false;
  $('animImpTitle').textContent='Neu zeichnen';$('animImpSub').textContent='2 Bilder';
@@ -4299,12 +4416,11 @@ window.addEventListener('resize',()=>{if(!$('animImportPane').classList.contains
 // Die Oberfläche sperrt dann alle Knöpfe, die senden oder etwas ändern (CSS html.rb-tx), und zeigt auf dem Bedienfeld
 // „Übertragung läuft …“. Seiten wechseln und Geladenes ansehen bleibt möglich. Kurze Steuerbefehle (Helligkeit, Tempo,
 // Modus, Ein/Aus) sperren nicht sofort, sondern erst, wenn zwei Abfragen nacheinander „läuft“ melden.
-var rbTxOn=false,rbTxPolledAt=0,rbTxSeen=0,rbTxSince=0;
+var rbTxOn=false,rbTxPolledAt=0,rbTxSince=0;
 const RB_TX_SHORT=/^\/api\/(brightness|speed|mode|power)$/;
 function rbTxSet(on){
  on=!!on;if(on)rbTxSince=Date.now();
  if(on===rbTxOn)return;rbTxOn=on;rbLockPaint();
- if(!on)rbTxSeen=0;
 }
 // Gesperrt wird nur, wenn der ESP32 selbst „busy“ meldet (das tut er nur bei echten Datenübertragungen).
 // Kurze Steuerbefehle (Helligkeit, Tempo, Modus, Ein/Aus) lösen keinen Hinweis aus.
@@ -4320,8 +4436,8 @@ async function rbWaitTxEnd(maxMs){const t0=Date.now();
  return false;}
 function rbTxFromStatus(d){
  rbProgSet(d.busy?d.program:d.programPlaying);
- if(d.busy){rbTxSeen++;rbTxSet(true);}
- else{rbTxSeen=0;rbTxSet(false);}
+ if(d.busy){rbTxSet(true);}
+ else{rbTxSet(false);}
 }
 // Notbremse: ohne Bestätigung durch den Status löst sich die Sperre nach zwei Minuten
 setInterval(()=>{if(rbTxOn&&Date.now()-rbTxSince>120000)rbTxSet(false);},5000);

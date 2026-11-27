@@ -6,8 +6,8 @@ from pathlib import Path
 import json, subprocess, tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-fw = ROOT / 'firmware' / 'RavestickBoard_v0_8_1'
-ino = (fw / 'RavestickBoard_v0_8_1.ino').read_text(encoding='utf8')
+fw = ROOT / 'firmware' / 'RavestickBoard_v0_8_2'
+ino = (fw / 'RavestickBoard_v0_8_2.ino').read_text(encoding='utf8')
 
 g_a = ino.index('static char wifiPassword[64] = "";')
 g_b = ino.index('static String wifiBufText();')

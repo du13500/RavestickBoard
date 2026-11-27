@@ -3,7 +3,7 @@ Prüft Stilmodell, Fenster (Einzeln/Wischen), Farbe, Schrift, Farbwechsel, Herz-
 Transportformat (Senden/Bibliothek), globale Farbe/Schrift, zweizeilig, Sendefarbe, Regler.
 Zusätzlich 0.4.5.0: Wischen-Entmarkieren, Schriftkästchen, mehrstufiges Rückgängig/Wiederherstellen,
 Startbildschirm mit voller Tafelsteuerung, wachsendes Eingabefeld mit Ziehgriff, Programme sortieren.
-Aufruf: python tests/test_browser_0801.py [Screenshot-Ordner]"""
+Aufruf: python tests/test_browser_0802.py [Screenshot-Ordner]"""
 import re, sys, json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 SHOTS=Path(sys.argv[1]) if len(sys.argv)>1 else None
 html=(ROOT/'web/index.html').read_text(encoding='utf8')
 open_html=html
-ino=next((ROOT/'firmware').glob('RavestickBoard_v0_8_1/*.ino')).read_text(encoding='utf8')
+ino=next((ROOT/'firmware').glob('RavestickBoard_v0_8_2/*.ino')).read_text(encoding='utf8')
 blk=ino[ino.index('static const Glyph FONT[] = {'):]; blk=blk[:blk.index('};')]
 font={}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}",blk):
