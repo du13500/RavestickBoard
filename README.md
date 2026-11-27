@@ -11,7 +11,7 @@ Entstanden aus einer Festival-Banane und dem Wunsch, mehr aus der ursprüngliche
 <img alt="Mission" src="https://img.shields.io/badge/mission-hugs%20and%20love-ff69b4">
 </p>
 
-> **Aktueller Entwicklungskandidat: v0.8.3-dev (27.11.2026), nur Weboberfläche.** Import-Maske mit **1:1-Knopf**, **Bahn bewegen** im Schwenk, **Rückgängig/Wiederherstellen**; im Frame-Editor **Duplizieren**, echtes **Neu** und **Linie, Rechteck, Kreis**; sieben **Mischfarben** unter Ambiente. Am Rechner geprüft, noch nicht kompiliert und nicht auf der Hardware getestet. **Rückfallversion ist v0.7.2** (am 26.11.2026 auf echter Hardware getestet, 28 Minuten ohne Fehler und Neustart). Einzelheiten: [CHANGELOG](CHANGELOG.md).
+> **Aktueller Entwicklungskandidat: v0.8.3-dev (27.11.2026), nur Weboberfläche.** Import-Maske mit **1:1-Knopf**, **Bahn bewegen** im Schwenk, **Rückgängig/Wiederherstellen**; im Frame-Editor **Duplizieren**, echtes **Neu** und **Linie, Rechteck, Kreis**; sieben **Mischfarben** unter Ambiente. **Kompiliert** (Programmspeicher 1.624.683 Byte, 77 %; globale Variablen 79.488 Byte), Hardwaretest steht aus. **Rückfallversion ist v0.7.2** (am 26.11.2026 auf echter Hardware getestet, 28 Minuten ohne Fehler und Neustart). Einzelheiten: [CHANGELOG](CHANGELOG.md).
 
 ## Was ist RavestickBoard?
 
@@ -53,7 +53,7 @@ Ausführlich nach Themen: **[docs/FUNKTIONEN.md](docs/FUNKTIONEN.md)**.
 - **Schwenk:** Umschalter **Rahmen bewegen / Bahn bewegen**; im Bahn-Modus lässt sich die Laufbahn am Griff in der Mitte biegen.
 - **Frame-Editor:** „Duplizieren“ (früher „Neu“) und ein echtes **Neu** (leeres Bild); Werkzeuge **Linie, Rechteck, Kreis** (auch gefüllt).
 - **Ambiente:** die sieben getesteten Mischfarben als zusätzliche Kacheln („nur senden“).
-- **Firmware:** unverändert bis auf die Versionsnummer. **Noch nicht kompiliert und nicht auf der Hardware getestet.** Tests: Endung `0803`; für Reviews: [docs/AUDIT_HINWEISE.md](docs/AUDIT_HINWEISE.md).
+- **Firmware:** unverändert bis auf die Versionsnummer. **Kompiliert (1.624.683 Byte, 77 %), noch nicht auf der Hardware getestet.** Tests: Endung `0803`; für Reviews: [docs/AUDIT_HINWEISE.md](docs/AUDIT_HINWEISE.md).
 
 Die Beschreibungen der älteren Versionen stehen im [CHANGELOG](CHANGELOG.md) und in der [Versionsgeschichte](VERSIONSGESCHICHTE.md).
 
@@ -63,7 +63,7 @@ Vollständige Tabelle: [VERSIONSGESCHICHTE.md](VERSIONSGESCHICHTE.md) · Einzelh
 
 | Version | Datum | Stichworte |
 |---|---|---|
-| 0.8.3 | 27.11. | Import-Maske: 1:1-Knopf, Rückgängig/Wiederherstellen; Schwenk: Bahn bewegen; Editor: Duplizieren/Neu, Linie, Rechteck, Kreis; Mischfarben unter Ambiente; nur Weboberfläche, noch ungetestet |
+| 0.8.3 | 27.11. | Import-Maske: 1:1-Knopf, Rückgängig/Wiederherstellen; Schwenk: Bahn bewegen; Editor: Duplizieren/Neu, Linie, Rechteck, Kreis; Mischfarben unter Ambiente; nur Weboberfläche, kompiliert (77 %), Hardwaretest steht aus |
 | 0.8.2 | 27.11. | Bildart „Pixelgrafik“ (Mehrheitsfarbe, Automatik bei höchstens 16 Farben), Zahlenfelder, Rückfragen beim Quellwechsel, Korrekturen aus zwei Audits; nur Weboberfläche |
 | 0.8.1 | 26.11. | Schwenk mit zwei Rahmen (Start/Ende, Zoom, Anker, Vorlagen, ohne Überlappung), Frame-Editor mit Zeichenwerkzeugen, Rückfrage beim Verwerfen, Importmenü mit vier Kacheln |
 | 0.8.0 | 26.11. | Erster Stand von Schwenk und Frame-Editor (ersetzt durch 0.8.1) |
