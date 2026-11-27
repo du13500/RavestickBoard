@@ -23,3 +23,5 @@ Bei 1 ms je Bild (Standard) ist nichts zu sehen. Ab 8 ms je Bild flimmert die Mi
 ## Aussortiert
 
 Getestet und verworfen: Mint aus Grün und Cyan (Pastellgrün ist besser), Violett aus Blau und Magenta, Rosa aus Rot und Magenta (sieht wie Magenta aus), Pastellgelb (das reine Gelb wirkt ähnlich), die drei Graumischungen und die gelblastige Orange-Variante (wirkt wie ein schöneres Gelb, weil das reine Gelb einen leichten Grünstich hat).
+
+Ab 0.8.3 stehen dieselben sieben Mischfarben als Kacheln unter **Ambiente** („nur senden“, ohne Speicherplatz); die Dateien hier bleiben für eigene Experimente.

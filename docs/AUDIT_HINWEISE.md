@@ -1,6 +1,6 @@
 # Hinweise für Audits und Reviews (RavestickBoard)
 
-**Stand: 27.11.2026 (v0.8.2-dev).** Diese Datei ist für Reviewer, menschliche wie KI-gestützte: Sie sagt, was bewusst so ist, was bekannt offen ist, was ein Review hier nicht ausführen kann und welche Befunde schon geprüft sind. Sie ersetzt keine Prüfung; wer etwas anders sieht, soll es melden. Aber bitte erst hier nachlesen, damit Zeit auf Neues geht. Wird bei jedem Build fortgeschrieben; Entscheidungen mit Begründung stehen in [ENTSCHEIDUNGEN.md](ENTSCHEIDUNGEN.md), Pläne in [ROADMAP.md](ROADMAP.md).
+**Stand: 27.11.2026 (v0.8.3-dev; gegenüber 0.8.2 nur Weboberfläche: 1:1, Bahn, Verlauf, Formen, Mischfarben).** Diese Datei ist für Reviewer, menschliche wie KI-gestützte: Sie sagt, was bewusst so ist, was bekannt offen ist, was ein Review hier nicht ausführen kann und welche Befunde schon geprüft sind. Sie ersetzt keine Prüfung; wer etwas anders sieht, soll es melden. Aber bitte erst hier nachlesen, damit Zeit auf Neues geht. Wird bei jedem Build fortgeschrieben; Entscheidungen mit Begründung stehen in [ENTSCHEIDUNGEN.md](ENTSCHEIDUNGEN.md), Pläne in [ROADMAP.md](ROADMAP.md).
 
 ## 1. Bindende Entscheidungen (nicht als Fehler melden)
 

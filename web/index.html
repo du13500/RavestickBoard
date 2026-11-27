@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.8.2-dev</title>
+<title>RavestickBoard · v0.8.3-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -310,10 +310,10 @@ body.home-active #rbDock{flex:0 0 auto;margin:8px auto 0!important}
 .rb-name-actions{justify-content:flex-end;gap:8px}.rb-name-actions button{min-width:58px;min-height:44px;display:grid;place-items:center}
 #view-ambience:not(.hidden){display:flex;flex-direction:column;min-height:0;height:calc(100dvh - 204px - env(safe-area-inset-bottom,0px))}
 #view-ambience .inner-panel{min-height:0!important;flex:1;display:flex;flex-direction:column;overflow:hidden;margin:0}
-#view-ambience .ambience-colors{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(7,minmax(43px,1fr));gap:8px;flex:1;min-height:0}
+#view-ambience .ambience-colors{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-rows:minmax(43px,1fr);gap:8px;flex:1;min-height:0}
 #view-ambience .ambience-colors button{min-height:0!important;border-radius:11px}
 
-@media(max-height:620px){#view-ambience:not(.hidden){height:auto;min-height:310px}#view-ambience .ambience-colors{grid-template-rows:repeat(7,52px)}}
+@media(max-height:620px){#view-ambience:not(.hidden){height:auto;min-height:310px}#view-ambience .ambience-colors{grid-auto-rows:52px}}
 /* disabled destructive tools look unavailable, not just dimmed red. */
 #v42NewBlock:disabled,#pageDelete:disabled{background:#2b3039!important;color:#818b9b!important;opacity:1;cursor:not-allowed}
 #view-editor .editor-submit-actions{row-gap:8px;}
@@ -583,8 +583,8 @@ body.rb-frame #rbDock{flex:0 0 auto}
 body.rb-frame #view-home{min-height:0!important}
 body.rb-frame .home-controls{flex:1 1 auto;min-height:0!important;overflow-y:auto}
 body.rb-frame .shortcut-grid{flex:1 1 auto;min-height:0}
-/* Ambiente: sieben Farben teilen sich die Höhe (Weiß bleibt sichtbar), bei sehr wenig Platz scrollen sie innen */
-body.rb-frame #view-ambience .ambience-colors{flex:1 1 auto;min-height:0;grid-template-rows:repeat(7,minmax(34px,1fr))!important;overflow-y:auto;gap:7px}
+/* Ambiente: sieben Farben und darunter die Mischfarben teilen sich die Höhe (Weiß bleibt sichtbar), sonst scrollt die Liste innen */
+body.rb-frame #view-ambience .ambience-colors{flex:1 1 auto;min-height:0;grid-template-rows:none!important;grid-auto-rows:minmax(34px,1fr)!important;overflow-y:auto;gap:7px}
 body.rb-frame #view-ambience .ambience-colors button{min-height:34px!important}
 /* Kleine Bildschirme: Dock-Tasten in einer Reihe */
 @media(max-width:399px){
@@ -656,6 +656,7 @@ html.rb-down .rb-tx-pill i{background:#ff7385;box-shadow:0 0 0 4px rgba(255,115,
 .shortcut.on-board{border-color:var(--rb-on);box-shadow:inset 0 0 0 1px var(--rb-on)}
 .shortcut>.rb-on-badge{position:absolute;top:5px;right:5px}
 #ambienceColors button{position:relative}
+#ambienceColors button.mix-busy{opacity:.6;cursor:progress}
 #ambienceColors button.on-board{outline:3px solid var(--rb-on);outline-offset:-3px}
 #ambienceColors button>.rb-on-badge{position:absolute;top:6px;right:8px}
 
@@ -739,7 +740,8 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 #animDraw{position:fixed;inset:0;z-index:400;background:var(--rb-bg);display:flex;flex-direction:column;gap:6px;padding:max(6px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
 #animDraw.hidden{display:none!important}
 #animDraw button{min-height:0;padding:0;width:36px;height:36px;border-radius:9px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
-#animDraw button.primary,#animDraw button.on{background:var(--rb-accent);color:var(--rb-accent-ink)}
+#animDraw button.primary,#animDraw button.on,#animPanMode button.on{background:var(--rb-accent);color:var(--rb-accent-ink)}
+.anim-onetoone{display:flex;align-items:center;gap:10px;margin:2px 0 6px}.anim-onetoone button{width:auto;min-height:0;padding:8px 16px}
 #animDraw button.secondary,#animDraw .ad-tools button:not(.on){background:var(--rb-btn);color:var(--rb-ink)}
 #animDraw button:disabled{opacity:.4}
 .ad-top{display:flex;align-items:center;gap:6px}
@@ -759,11 +761,11 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 .ad-colors{display:flex;gap:7px;align-items:center}
 .ad-colors button{width:32px;height:32px;border-radius:50%;border:3px solid #303948;padding:0}
 .ad-colors button.sel{outline:2px solid #fff;outline-offset:2px}
-.ad-more{position:absolute;right:auto;left:0;bottom:46px;display:flex;gap:6px;padding:7px;border-radius:11px;background:var(--rb-panel);border:1px solid var(--rb-panel-line);box-shadow:0 8px 24px #000a}
+.ad-more{flex-wrap:wrap;max-width:calc(100vw - 20px);position:absolute;right:auto;left:0;bottom:46px;display:flex;gap:6px;padding:7px;border-radius:11px;background:var(--rb-panel);border:1px solid var(--rb-panel-line);box-shadow:0 8px 24px #000a}
 .ad-more.hidden{display:none}
 #animPanView{display:block;max-width:100%;border:1px solid #2c3646;border-radius:8px;background:#05080d}
 @media(max-width:700px){.ad-colors button{width:28px;height:28px}.ad-colors{gap:5px}#animDraw button{width:34px;height:34px}.ad-tools{gap:4px}}
-#animDraw.ad-blocked .ad-bottom,#animDraw.ad-blocked .ad-strip,#animDraw.ad-blocked #adAdd,#animDraw.ad-blocked #adDel,#animDraw.ad-blocked #adLeft,#animDraw.ad-blocked #adRight,#animDraw.ad-blocked #adCount{display:none}
+#animDraw.ad-blocked .ad-bottom,#animDraw.ad-blocked .ad-strip,#animDraw.ad-blocked #adAdd,#animDraw.ad-blocked #adNew,#animDraw.ad-blocked #adDel,#animDraw.ad-blocked #adLeft,#animDraw.ad-blocked #adRight,#animDraw.ad-blocked #adCount{display:none}
 #animDraw .ad-top{justify-content:space-between}
 .pixel-range.rb-fixed b{font-size:0;line-height:0}.pixel-range.rb-fixed b::after{content:"fest 80";font-size:13px;line-height:1.2}
 #animEditFrames,#animPanSeam{width:100%;margin:6px 0}
@@ -787,7 +789,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 @media(min-width:1000px){html{overflow-y:scroll;scrollbar-gutter:stable}}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.2-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.3-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -858,7 +860,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div aria-label="Gespeicherte Animationen" class="entry-list library-list" role="list" id="animList"></div>
 </div>
 <div class="panel inner-panel hidden" id="animImportPane">
-<div class="editor-context"><button id="animImpBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Zurück zur Liste" aria-label="Zurück zur Liste"></button><div style="flex:1;min-width:0"><strong id="animImpTitle">Animation importieren</strong><small id="animImpSub">Quelle wählen</small></div></div>
+<div class="editor-context"><button id="animImpBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Zurück zur Liste" aria-label="Zurück zur Liste"></button><div style="flex:1;min-width:0"><strong id="animImpTitle">Animation importieren</strong><small id="animImpSub">Quelle wählen</small></div><button id="animImpUndo" type="button" class="secondary" data-rb-icon="undo-2" data-rb-only="1" title="Rückgängig (Strg+Z)" aria-label="Rückgängig" disabled></button><button id="animImpRedo" type="button" class="secondary" data-rb-icon="redo-2" data-rb-only="1" title="Wiederherstellen (Strg+Umschalt+Z)" aria-label="Wiederherstellen" disabled></button></div>
 <div id="animSourcePick"><div class="label">Quelle</div>
 <div class="anim-src-grid">
 <label class="anim-src" for="animFileGif" data-rb-icon="image-up">GIF importieren</label><input type="file" id="animFileGif" class="visually-hidden" accept="image/gif,.gif"/>
@@ -878,7 +880,8 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div id="animPanOpts" class="hidden">
 <div class="label">Bild mit Start- und Ende-Rahmen (4 : 1 wie die Tafel)</div>
 <div class="anim-crop-wrap"><canvas id="animPanView" width="340" height="120" role="img" aria-label="Quellbild mit Start-Rahmen (gelb) und Ende-Rahmen (weiß gestrichelt). Rahmen ziehen zum Verschieben, an den Ecken oder mit zwei Fingern zum Vergrößern und Verkleinern."></canvas></div>
-<p class="tiny muted">Gelb: Start · weiß gestrichelt: Ende · blass: Frames dazwischen. Rahmen mit Finger, Stift oder Maus ziehen; an den Ecken, mit zwei Fingern oder dem Mausrad in der Größe ändern (das Zoomen). Außerhalb des Bildes ist die Tafel schwarz. <span id="animPanSize"></span></p>
+<div class="anim-grid" id="animPanMode" role="group" aria-label="Was gezogen wird"><button type="button" class="secondary on" id="animPanModeFrame" aria-pressed="true">Rahmen bewegen</button><button type="button" class="secondary" id="animPanModeBend" aria-pressed="false">Bahn bewegen</button><button type="button" class="secondary wide" id="animPanBendReset" disabled>Bahn wieder gerade</button></div>
+<p class="tiny muted">Gelb: Start · weiß gestrichelt: Ende · blau gepunktet: Bahn · blass: Frames dazwischen. In „Bahn bewegen“ ziehst du den blauen Punkt und biegst damit den Weg zwischen Start und Ende. Rahmen mit Finger, Stift oder Maus ziehen; an den Ecken, mit zwei Fingern oder dem Mausrad in der Größe ändern (das Zoomen). Außerhalb des Bildes ist die Tafel schwarz. <span id="animPanSize"></span></p>
 <div class="anim-grid">
 <label class="anim-check wide"><input type="checkbox" id="animPanLock" checked/> Größe gleich (Start und Ende bleiben gleich groß)</label>
 <label class="anim-check wide"><input type="checkbox" id="animPanTile"/> Ohne Überlappung (Kachel für Kachel)</label>
@@ -916,6 +919,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <label>Farbumsetzung<select id="animDither"><option value="thresh">Schwelle</option><option value="fs">Floyd-Steinberg</option><option value="bayer">Geordnet</option><option value="majority">Mehrheitsfarbe</option></select></label>
 <label id="animFitWrap" class="wide">Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
 </div>
+<div class="anim-onetoone"><button type="button" id="animOneBtn" class="secondary" title="Rahmen auf 1:1 stellen: ein Tafelpixel = ein Bildpixel bzw. die erkannte Vergrößerung">1:1</button><span class="tiny muted" id="animOneInfo" aria-live="polite"></span></div>
 <p class="tiny muted" id="animKindHelp"></p>
 <p class="tiny muted" id="animFitHelp">Einpassen zeigt das ganze Bild, Füllen schneidet zu, Strecken verzerrt, Original zeigt es unskaliert in der Mitte; jede Voreinstellung setzt nur den Rahmen, den du danach noch verschieben kannst. Schwelle ergibt flächige Farben, die beiden Rasterungen täuschen Zwischentöne mit Punktmustern vor. Die Tafel kennt nur acht Farben (je Farbkanal an oder aus).</p>
 <div class="anim-grid">
@@ -979,7 +983,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div class="power-control"><span><b>LED-Anzeige</b><small id="powerState">Status nach Neustart unbekannt</small></span><div aria-label="Anzeige ein- oder ausschalten" role="group"><button class="small-btn" id="powerOff" type="button" data-rb-icon="eye-closed" data-rb-only="1" title="Anzeige aus" aria-label="Anzeige aus">Aus</button><button class="small-btn" id="powerOn" type="button" data-rb-icon="eye" data-rb-only="1" title="Anzeige ein" aria-label="Anzeige ein">Ein</button></div></div>
 <p class="hint">Nur das LED-Display, nicht den ESP32 ausschalten. Der zuletzt erfolgreich gesendete BLE-Befehl wird angezeigt; ein Zustandssensor ist nicht vorhanden.</p>
 <div class="pixel-range" role="group" aria-label="Helligkeit"><span class="range-pict rb-range-icon" data-rb-icon="sunset" data-rb-painted="sunset" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" id="brightness" max="100" min="1" type="range" value="75"/><b id="brightLabel">75 %</b><span class="range-pict rb-range-icon" data-rb-icon="sunrise" data-rb-painted="sunrise" aria-hidden="true"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div></section></section><section aria-label="Ambiente" class="app-view inner-view hidden" id="view-ambience">
-<div class="panel inner-panel"><h2>Ambiente</h2><p class="hint">Eine Farbe antippen, um die gesamte 64×16-Tafel mit dieser Farbe zu füllen. Die aktuelle Textanzeige wird dadurch ersetzt.</p>
+<div class="panel inner-panel"><h2>Ambiente</h2><p class="hint">Eine Farbe antippen, um die gesamte 64×16-Tafel mit dieser Farbe zu füllen. Die aktuelle Textanzeige wird dadurch ersetzt. Unter den sieben Farben folgen Mischfarben: Sie entstehen durch sehr schnellen Bildwechsel, wirken etwas dunkler und werden nur gesendet, nicht gespeichert.</p>
 <div aria-label="LED-Farben" class="ambience-colors" id="ambienceColors"></div>
 
 </div></section><section aria-label="Diagnose" class="app-view inner-view hidden" id="view-diagnostics"><h2>Diagnose</h2><details class="panel" id="diagnostics" open=""><summary>Diagnose und Ereignisprotokoll</summary><p class="hint">Daten seit dem letzten ESP32-Start. Keine Textinhalte, Passwörter oder BLE-Adressen im Protokoll.</p><div class="diag-grid" id="diagGrid"></div><div class="actions"><button class="secondary" id="diagReload" data-rb-icon="database-backup" data-rb-painted="database-backup"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 12a9 3 0 0 0 5 2.69"/><path d="M21 9.3V5"/><path d="M3 5v14a9 3 0 0 0 6.47 2.88"/><path d="M12 12v4h4"/><path d="M13 20a5 5 0 0 0 9-3 4.5 4.5 0 0 0-4.5-4.5c-1.33 0-2.54.54-3.41 1.41L12 16"/></svg>Aktualisieren</button><button class="primary" id="diagCopy" data-rb-icon="clipboard-copy" data-rb-painted="clipboard-copy"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></svg>Log kopieren</button><a class="secondary rb-btnlink" download href="/api/diagnostics.txt" data-rb-icon="database-arrow-down">TXT herunterladen</a><a class="secondary rb-btnlink" download href="/api/ram.txt" data-rb-icon="database-arrow-down">RAM-Verlauf TXT</a></div><div class="label" style="margin-top:15px">Letzte Ereignisse</div><div class="diag-log" id="diagLog"></div><p class="hint" id="diagFeedback"></p><div hidden="" id="copyManual"><textarea aria-label="Log manuell kopieren" id="manualText" readonly=""></textarea></div></details></section><section aria-label="Einstellungen" class="app-view inner-view hidden" id="view-settings">
@@ -1026,7 +1030,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.2-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.3-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -1082,7 +1086,8 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div class="ad-top">
 <button id="adBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Abbrechen" aria-label="Abbrechen"></button>
 <div id="adStrip" class="ad-strip" role="list" aria-label="Bilder"></div>
-<button id="adAdd" type="button" class="secondary" data-lbl="Neu" data-rb-icon="plus" data-rb-only="1" title="Neues Bild als Kopie des aktuellen" aria-label="Neues Bild als Kopie des aktuellen"></button>
+<button id="adNew" type="button" class="secondary" data-lbl="Neu" data-rb-icon="plus" data-rb-only="1" title="Neues leeres Bild hinter dem aktuellen" aria-label="Neues leeres Bild hinter dem aktuellen"></button>
+<button id="adAdd" type="button" class="secondary" data-lbl="Duplizieren" data-rb-icon="copy" data-rb-only="1" title="Aktuelles Bild duplizieren" aria-label="Aktuelles Bild duplizieren"></button>
 <button id="adDel" type="button" class="secondary" data-lbl="Löschen" data-rb-icon="trash" data-rb-only="1" title="Bild löschen" aria-label="Bild löschen"></button>
 <button id="adLeft" type="button" class="secondary" data-lbl="Voriges" data-rb-icon="chevron-left" data-rb-only="1" title="Voriges Frame" aria-label="Voriges Frame"></button>
 <button id="adRight" type="button" class="secondary" data-lbl="Nächstes" data-rb-icon="chevron-right" data-rb-only="1" title="Nächstes Frame" aria-label="Nächstes Frame"></button>
@@ -1108,6 +1113,10 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 </div>
 <div class="ad-colors" id="adColors" role="radiogroup" aria-label="Farbe"></div>
 <div class="ad-more hidden" id="adMorePanel">
+<button type="button" data-tool="line" data-lbl="Linie" data-rb-icon="slash" data-rb-only="1" title="Linie: von Punkt zu Punkt ziehen" aria-label="Linie"></button>
+<button type="button" data-tool="rect" data-lbl="Rechteck" data-rb-icon="square" data-rb-only="1" title="Rechteck: aufziehen" aria-label="Rechteck"></button>
+<button type="button" data-tool="ellipse" data-lbl="Kreis" data-rb-icon="circle" data-rb-only="1" title="Kreis oder Ellipse: aufziehen" aria-label="Kreis"></button>
+<button type="button" id="adShapeFill" data-lbl="Gefüllt" data-rb-icon="square-fill" data-rb-only="1" title="Rechteck und Kreis gefüllt zeichnen" aria-label="Formen gefüllt zeichnen" aria-pressed="false"></button>
 <button type="button" id="adFlipH" data-lbl="Spiegeln" data-rb-icon="arrow-left-right" data-rb-only="1" title="Spiegeln links/rechts (Auswahl oder ganzes Bild)" aria-label="Spiegeln links/rechts"></button>
 <button type="button" id="adFlipV" data-lbl="Kippen" data-rb-icon="arrow-up-down" data-rb-only="1" title="Spiegeln oben/unten (Auswahl oder ganzes Bild)" aria-label="Spiegeln oben/unten"></button>
 <button type="button" id="adClear" data-lbl="Leeren" data-rb-icon="brush-cleaning" data-rb-only="1" title="Leeren (Auswahl oder ganzes Bild)" aria-label="Leeren"></button>
@@ -2196,7 +2205,25 @@ for(const [name,color] of ambienceNames){
  const b=document.createElement('button');b.type='button';b.textContent=name;b.title=name+' auf der ganzen Tafel anzeigen';
  b.style.background=hexColor(color);b.style.color=color===1||color===4?'#fff':'#0b1019';
  b.addEventListener('click',async()=>{try{const result=await api('/api/ambience',{color});notify(result.message||name+' wird angezeigt.');}catch(e){notify('Ambiente: '+e.message);}});
- rbOnTag(b,3,color);$('ambienceColors').appendChild(b);
+rbOnTag(b,3,color);$('ambienceColors').appendChild(b);
+}
+// Mischfarben: zwei bis drei Vollbilder mit 1 ms je Bild, das Auge mischt die Farbe. Sie gehen als „nur senden“ auf die Tafel (nichts wird gespeichert).
+// Farbwerte: 4 Rot, 6 Gelb, 2 Grün, 3 Cyan, 1 Blau, 7 Weiß (wie die Testdateien in docs/farbmischung)
+const RB_MIX=[['Orange',[4,6],'#f08a1c'],['Rot-Orange',[4,4,6],'#f25a14'],['Limette',[2,6],'#9be21a'],['Himmelblau',[1,3],'#2a8cff'],['Hellblau',[1,7],'#8c8cff'],['Hellrosa',[4,7],'#ff9a9a'],['Mint',[2,7],'#8cf5a0']];
+let rbMixBusy=false;
+async function rbSendMix(def,btn){
+ if(rbMixBusy)return;rbMixBusy=true;btn.classList.add('mix-busy');
+ try{
+  const frames=def[1].map(c=>new Uint8Array(RbAnim.W*RbAnim.H).fill(c)),payload=RbAnim.buildPayload(frames,1);
+  await animUploadPayload(payload,{name:def[0],frames:frames.length,ms:1,temp:true});
+  const j=await api('/api/anim/send',{temp:'1'});notify(j.message||def[0]+' wird angezeigt.');
+ }catch(e){notify('Mischfarbe: '+e.message);}
+ finally{rbMixBusy=false;btn.classList.remove('mix-busy');}
+}
+for(const def of RB_MIX){
+ const b=document.createElement('button');b.type='button';b.textContent=def[0];b.dataset.mix='1';b.title=def[0]+' (Mischfarbe) auf der ganzen Tafel anzeigen';
+ b.style.background=def[2];b.style.color=def[0]==='Himmelblau'?'#fff':'#0b1019';
+ b.addEventListener('click',()=>rbSendMix(def,b));$('ambienceColors').appendChild(b);
 }
 (function(){
  const run=async(pattern,n)=>{const data={pattern,mode:'keep'};const ms=$('rbAnimMs').value.trim();if(n)data.n=n;if(ms)data.ms=ms;
@@ -2539,6 +2566,9 @@ $('libImport').onchange=async e=>{const file=e.target.files?.[0];e.target.value=
 // ISC / selected Feather MIT notices: THIRD_PARTY_NOTICES.md and LICENSE.
 // No external network required on ESP32 AP.
 const RB43_LUCIDE={
+'circle':'<circle cx="12" cy="12" r="10"/>',
+'slash':'<path d="M22 2 2 22"/>',
+'square-fill':'<rect width="18" height="18" x="3" y="3" rx="2" fill="currentColor"/>',
 'tower-control':'<path d="M18.2 12.27 20 6H4l1.8 6.27a1 1 0 0 0 .95.73h10.5a1 1 0 0 0 .96-.73Z"/><path d="M8 13v9"/><path d="M16 22v-9"/><path d="m9 6 1 7"/><path d="m15 6-1 7"/><path d="M12 6V2"/><path d="M13 2h-2"/>',
 'blend':'<circle cx="15" cy="9" r="7"/><circle cx="9" cy="15" r="7"/>',
 'image-play':'<path d="M15 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z"/><path d="M21 12.17V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m6 21 5-5"/><circle cx="9" cy="9" r="2"/>',
@@ -3347,7 +3377,57 @@ function animFlush(){
  if(animImp.timer){clearTimeout(animImp.timer);animImp.timer=0;animRender();}
 }
 function animPanStop(){try{clearTimeout(animPan.rt);animPan.rt=0;}catch(e){}}
-function animSaveLock(on){for(const id of ['animSourcePick','animAdjust'])$(id).inert=on;$('animImpBack').disabled=on;}
+function animSaveLock(on){for(const id of ['animSourcePick','animAdjust'])$(id).inert=on;$('animImpBack').disabled=on;animHistUi();}
+// ---- Rückgängig / Wiederherstellen für die ganze Import-Maske (Schwenk, GIF, Einzelbilder) ----
+// Ein Schritt = der gesamte Stand der Einstellungen (Rahmen, Bahn, Ausschnitt, Bildart, Reglerwerte, Bereich, Zeit). Eine Ziehbewegung, ein
+// Regler oder eine Mausrad-Serie ergibt einen Schritt, weil erst nach dem Loslassen bzw. Übernehmen festgehalten wird. Eine neue Quelle leert den Verlauf.
+const ANIM_HIST_IDS=['animFit','animDither','animThr','animCon','animFrom','animTo','animStep','animRev','animPing','animMs','animVar'],ANIM_HIST_MAX=100;
+const AH={h:[],i:-1,busy:false,t:0};
+function animHistSnap(){
+ const o={c:{},crop:animImp.crop?Object.assign({},animImp.crop):null,ps:animImp.pixScale||1};
+ for(const id of ANIM_HIST_IDS){const e=$(id);o.c[id]=e.type==='checkbox'?e.checked:e.value;}
+ if(animImp.kind==='pan'&&animPan.img){const p=animPan;o.pan={s:Object.assign({},p.s),e:Object.assign({},p.e),n:p.n,wrap:p.wrap,lock:p.lock,tile:p.tile,act:p.act,bend:Object.assign({},p.bend)};}
+ return JSON.stringify(o);
+}
+function animHistUi(){
+ const busy=!!(animUI&&animUI.saving);
+ $('animImpUndo').disabled=busy||AH.i<=0;$('animImpRedo').disabled=busy||AH.i<0||AH.i>=AH.h.length-1;
+}
+function animHistClear(){clearTimeout(AH.t);AH.t=0;AH.h=[];AH.i=-1;animHistUi();}
+function animHistBase(){if(AH.i<0){AH.h=[animHistSnap()];AH.i=0;animHistUi();}}
+function animHistCommit(){
+ clearTimeout(AH.t);AH.t=0;if(AH.busy||AH.i<0)return;
+ const sn=animHistSnap();if(sn===AH.h[AH.i])return;
+ AH.h.length=AH.i+1;AH.h.push(sn);if(AH.h.length>ANIM_HIST_MAX)AH.h.shift();AH.i=AH.h.length-1;animHistUi();
+}
+function animHistSoon(delay){clearTimeout(AH.t);AH.t=setTimeout(animHistCommit,delay==null?40:delay);}
+function animHistGo(d){
+ if(animSavingNow())return;animHistCommit();
+ const j=AH.i+d;if(AH.i<0||j<0||j>=AH.h.length)return;
+ AH.busy=true;AH.i=j;
+ try{
+  const o=JSON.parse(AH.h[j]);
+  for(const id of ANIM_HIST_IDS){const e=$(id);if(!(id in o.c))continue;if(e.type==='checkbox')e.checked=!!o.c[id];else e.value=o.c[id];}
+  animImp.crop=o.crop;animImp.pixScale=o.ps;
+  if(o.pan&&animPan.img){const p=animPan;Object.assign(p.s,o.pan.s);Object.assign(p.e,o.pan.e);p.n=o.pan.n;p.wrap=o.pan.wrap;p.lock=o.pan.lock;p.tile=o.pan.tile;p.act=o.pan.act;p.bend=Object.assign({},o.pan.bend);}
+  animQuantUi();animSlideSync();animMarkDirty();
+  if(animImp.kind==='pan'&&animPan.img){animPanFields();animPanSync();}else{animCropDraw();animSchedule(0);}
+ }finally{AH.busy=false;animHistUi();}
+}
+$('animImpUndo').onclick=()=>animHistGo(-1);
+$('animImpRedo').onclick=()=>animHistGo(1);
+(function(){
+ const pane=$('animImportPane');
+ for(const ev of ['change','click','pointerup'])pane.addEventListener(ev,()=>{if(ev==='click'||ev==='change')animHistSoon();else animHistSoon(60);});
+ pane.addEventListener('wheel',()=>animHistSoon(500),{passive:true});
+ document.addEventListener('keydown',e=>{
+  if(pane.classList.contains('hidden')||AD.open)return;
+  if(document.querySelector('.v42-dialog:not(.hidden),.rbz:not(.hidden),.symbol-modal:not(.hidden)'))return;
+  const k=e.key,mod=e.ctrlKey||e.metaKey;if(!mod)return;
+  const t=e.target,txt=t&&(t.tagName==='TEXTAREA'||t.isContentEditable||(t.tagName==='INPUT'&&/^(text|number|search)$/.test(t.type)));if(txt)return;
+  if(k==='z'||k==='Z'){e.preventDefault();animHistGo(e.shiftKey?1:-1);}else if(k==='y'||k==='Y'){e.preventDefault();animHistGo(1);}
+ });
+})();
 window.addEventListener('beforeunload',ev=>{if(animHasUnsaved()){ev.preventDefault();ev.returnValue='';}});
 rbAnimLeave=()=>{const imp=!$('animImportPane').classList.contains('hidden')&&!$('view-animations').classList.contains('hidden');if(!imp)return true;if(!animLeaveOk())return false;animLoadSeq++;animPanStop();return true;};
 function animLed(canvas,px,s){
@@ -3554,7 +3634,7 @@ function animFreeImages(){   // große Bilddaten freigeben (Canvas auf 0 setzen 
  for(const c of animImp.sources||[]){try{c.width=0;c.height=0;}catch(e){}}
 }
 function animReset(){
- animLoadSeq++;animPanStop();animImp.pixScale=1;animFreeImages();animImp.dirty=false;clearTimeout(animImp.timer);animImp.timer=0;
+ animLoadSeq++;animHistClear();animPanStop();animImp.pixScale=1;animImp.oneG=null;animPan.bend={x:0,y:0};animPan.bendOn=false;animFreeImages();animImp.dirty=false;clearTimeout(animImp.timer);animImp.timer=0;
  animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.frames=null;animImp.problem='';animImp.saveError='';animImp.drawn=false;
  $('animPanOpts').classList.add('hidden');$('animCropBlock').classList.remove('hidden');$('animFitWrap').classList.remove('hidden');$('animFitHelp').classList.remove('hidden');$('animEditFrames').classList.add('hidden');
  animImp.editId=0;animImp.stored=null;$('animSourcePick').classList.remove('hidden');$('animPixelOpts').classList.remove('hidden');$('animImpTitle').textContent='Animation importieren';$('animSaveCopy').classList.add('hidden');$('animSaveCopy').disabled=true;
@@ -3731,7 +3811,7 @@ function animRenderOne(src,o){
 function animSchedule(delay){animImp.saveError='';clearTimeout(animImp.timer);animImp.timer=setTimeout(()=>{animImp.timer=0;animRender();},delay==null?140:delay);}
 function animRender(){
  if(!animImp.sources.length&&!animImp.stored)return;
- animSlideSync();
+ animSlideSync();animOneInfo();animHistBase();
  const n=animImp.stored?animImp.stored.length:animImp.sources.length;   // Bearbeiten: gespeicherte Bilder statt Quellbilder
  const o={fit:$('animFit').value,crop:animImp.crop,method:$('animDither').value,thr:Number($('animThr').value),contrast:Number($('animCon').value)};
  const p=RbAnim.plan(animImp.delays,{from:animInt('animFrom',1,1,n),to:animInt('animTo',n,1,n),step:animInt('animStep',1,1,100),reverse:$('animRev').checked,ping:$('animPing').checked,ms:Number($('animMs').value)||100,variable:$('animVar').checked&&!$('animVarWrap').classList.contains('hidden')});
@@ -3784,11 +3864,28 @@ function animPixelScale(){
  const g=RbAnim.pixelScale(d.data,src.width,src.height);
  return RbAnim.W*g>src.width?1:g;   // der 1:1-Rahmen muss ins Bild passen, sonst war der Teiler Zufall (wenige große Flächen)
 }
+// 1:1: ein Tafelpixel = ein Bildpixel (bzw. der erkannte Vergrößerungsfaktor, höchstens 32)
+function animOneG(){if(animImp.oneG==null)animImp.oneG=animPixelScale();return Math.max(1,animImp.oneG);}
+function animOneInfo(){
+ const el=$('animOneInfo');if(!el)return;
+ const s0=animImp.sources[0];let ws=[];
+ if(animImp.kind==='pan'&&animPan.img)ws=[animPan.s.w,animPan.e.w];
+ else if(s0&&animImp.crop&&!animImp.stored)ws=[animImp.crop.w*s0.width];
+ if(!ws.length){el.textContent='';return;}
+ const one=RbAnim.W*animOneG(),sz=w=>animPanFmt(w)+' × '+animPanFmt(w/4),same=ws.length===1||Math.abs(ws[0]-ws[1])<1e-6;
+ el.textContent=same?(Math.abs(ws[0]-one)<0.5?'Rahmen '+sz(ws[0])+' Bildpixel = 1:1':'Rahmen '+sz(ws[0])+' Bildpixel (1:1 wären '+sz(one)+')'):'Start '+sz(ws[0])+', Ende '+sz(ws[1])+' Bildpixel (1:1 wären '+sz(one)+')';
+}
+function animOneApply(){
+ const w=RbAnim.W*animOneG();
+ if(animImp.kind==='pan'&&animPan.img){animPanSetW('s',w);animPanSetW('e',w);animPan.lock=true;if(animPan.tile)animPanTileFix(true);animPanSync();}
+ else if(animImp.sources[0]&&!animImp.stored){const s0=animImp.sources[0],c=animImp.crop||{cx:.5,cy:.5};animImp.crop=RbAnim.clampCrop({cx:c.cx,cy:c.cy,w:w/s0.width},s0.width,s0.height);$('animFit').value='crop';animImp.dirty=true;animCropDraw();animSchedule(0);}
+}
+$('animOneBtn').onclick=()=>animOneApply();
 // Bildart setzen. jump: Rahmen auf 1:1 stellen (64 × Vergrößerungsfaktor Bildpixel breit), danach frei änderbar
 function animKindApply(kind,jump){
  $('animDither').value=kind==='pixel'?'majority':'fs';animImp.pixScale=1;
  if(kind==='pixel'&&jump){
-  const g=animPixelScale();animImp.pixScale=g;
+  const g=animPixelScale();animImp.pixScale=g;animImp.oneG=g;
   if(animImp.kind==='pan')animPanDefaults(RbAnim.W*g);
   else if(animImp.sources[0]){const s0=animImp.sources[0];animImp.crop=g>1?RbAnim.clampCrop({cx:.5,cy:.5,w:RbAnim.W*g/s0.width},s0.width,s0.height):RbAnim.cropFor(s0.width,s0.height,'orig');$('animFit').value=g>1?'crop':'orig';animCropDraw();}
  }
@@ -3811,12 +3908,12 @@ $('animImpBack').onclick=()=>{if(animLeaveOk())animShowList();};
 // Upload einer fertigen Nutzlast in Stuecken zu 1200 Byte (fuer den Backup-Import). Gibt die neue ID zurueck.
 // Kennung pro Upload: Das Board lässt ein zweites Gerät einen laufenden Upload weder überholen noch verwerfen.
 function animUpToken(){try{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0].toString(16);}catch(e){return (Math.random()*4294967296>>>0).toString(16);}}
-async function animUploadPayload(payload,{name,frames,ms},progress){
+async function animUploadPayload(payload,{name,frames,ms,temp},progress){
  let last=null;const up=animUpToken();
  try{
   for(let off=0;off<payload.length;off+=1200){
    const data={off:String(off),up,data:RbAnim.b64uEnc(payload.subarray(off,off+1200))};
-   if(off===0)Object.assign(data,{name:animBoundName(name)||'Animation',frames:String(frames),ms:String(ms),total:String(payload.length),crc:String(RbAnim.crc32(payload)),thumb:RbAnim.b64uEnc(RbAnim.thumbOf(payload,frames))});
+   if(off===0)Object.assign(data,{name:animBoundName(name)||'Animation',frames:String(frames),ms:String(ms),total:String(payload.length),crc:String(RbAnim.crc32(payload)),thumb:RbAnim.b64uEnc(RbAnim.thumbOf(payload,frames))},temp?{temp:'1'}:{});
    last=await api('/api/anim/put',data);if(progress)progress(Math.min(payload.length,off+1200));
   }
  }catch(e){try{await api('/api/anim/put',{abort:'1',up});}catch(x){}throw e;}
@@ -3885,7 +3982,7 @@ animLed($('animPreview'),null,8);animLed($('animImpPreview'),null,8);
 // Zwei Rahmen im Seitenverhältnis 4 : 1 (wie die Tafel) auf dem Quellbild. Die Frames dazwischen entstehen durch Mischen von Mitte und
 // Breite (Breite geometrisch, damit ein Zoom gleichmäßig wirkt). Jedes Fenster wird als 64 × 16-Quellbild in die normale Import-Pipeline
 // gegeben (Farbumsetzung, Bereich, Zeit, Speichern wie beim GIF-Import). Maße in Quellbild-Pixeln; Rahmen dürfen über den Rand ragen (dort schwarz).
-const animPan={img:null,iw:0,ih:0,ow:0,oh:0,n:2,wrap:'stop',lock:true,tile:false,act:'s',s:{x:0,y:0,w:64},e:{x:0,y:0,w:64},drag:null,geo:null};
+const animPan={img:null,iw:0,ih:0,ow:0,oh:0,n:2,wrap:'stop',lock:true,tile:false,act:'s',s:{x:0,y:0,w:64},e:{x:0,y:0,w:64},drag:null,geo:null,bend:{x:0,y:0},bendOn:false};
 const PAN_WMIN=8;
 const animPanCv=$('animPanView'),animPanG=animPanCv.getContext('2d');
 const animPanFmt=v=>String(Math.round(v*100)/100);
@@ -3902,10 +3999,16 @@ function animPanLimitEnd(){   // Ende-Rahmen nach Eingabe des Versatzes begrenze
  if(p.wrap==='wrap'){const mx=8*p.iw,my=8*p.ih;e.x=Math.max(p.s.x-mx,Math.min(p.s.x+mx,e.x));e.y=Math.max(p.s.y-my,Math.min(p.s.y+my,e.y));}
  else animPanClampPos(e);
 }
+function animPanStraightMid(){const s=animPan.s,e=animPan.e;return [(s.x+s.w/2+e.x+e.w/2)/2,(s.y+s.w/8+e.y+e.w/8)/2];}
+const animPanBent=()=>Math.abs(animPan.bend.x)+Math.abs(animPan.bend.y)>1e-6;
+function animPanCenter(t){   // Mitte des Rahmens bei t (0..1): Gerade, durch den Bahnpunkt gebogen (der Punkt liegt genau bei t = 0,5 auf der Bahn)
+ const s=animPan.s,e=animPan.e,b=animPan.bend,k=4*t*(1-t);
+ return [(s.x+s.w/2)+((e.x+e.w/2)-(s.x+s.w/2))*t+b.x*k,(s.y+s.w/8)+((e.y+e.w/8)-(s.y+s.w/8))*t+b.y*k];
+}
 function animPanFrame(k){   // Frame k von n: {x,y,w} (links oben, Breite) in Quellbild-Pixeln
  const n=animPan.n,t=n>1?k/(n-1):0,s=animPan.s,e=animPan.e;
  const w=animPanSame()?s.w:s.w*Math.pow(e.w/s.w,t);
- const cx=(s.x+s.w/2)+((e.x+e.w/2)-(s.x+s.w/2))*t,cy=(s.y+s.w/8)+((e.y+e.w/8)-(s.y+s.w/8))*t;
+ const [cx,cy]=animPanCenter(t);
  let x=cx-w/2,y=cy-w/8;
  if(animPan.wrap==='wrap'){x=animPanMod(x,animPan.iw);y=animPanMod(y,animPan.ih);}
  return {x,y,w};
@@ -3936,7 +4039,7 @@ function animPanDir(){   // Hauptrichtung des Weges: true = waagerecht
  return dx>dy;
 }
 function animPanTileFix(keepN){   // Kachelmodus: gleich große Rahmen, Schritt = Rahmenbreite bzw. -höhe, Frames = ganze Kacheln
- const p=animPan,s=p.s,w=s.w,h=w/4;p.e.w=w;
+ const p=animPan,s=p.s,w=s.w,h=w/4;p.e.w=w;p.bend={x:0,y:0};
  const horiz=animPanDir(),dim=horiz?p.iw:p.ih,step=horiz?w:h,pos=horiz?s.x:s.y,dir=(horiz?p.e.x-s.x:p.e.y-s.y)<0?-1:1;
  let n=keepN?p.n:(dir>0?Math.floor((dim-pos)/step+1e-6):Math.floor((pos+step)/step+1e-6));
  if(!keepN&&!(n>=2)){n=Math.max(2,Math.round(Math.abs((horiz?p.e.x-s.x:p.e.y-s.y))/step)+1);}
@@ -3950,17 +4053,17 @@ function animPanTravelN(){   // ein Tafelpixel Weg je Frame (bei Rahmenbreite w 
 function animPanDefaults(wFix){   // „Ganzes Bild durchlaufen“ (wFix: feste Rahmenbreite, z. B. 1:1 bei Pixelgrafik)
  const p=animPan;let w=4*p.ih;if(w>p.iw)w=p.iw;w=animPanClampW(w);
  if(wFix)w=animPanClampW(wFix);else if(Math.max(p.iw-w,p.ih-w/4)<1)w=animPanClampW(Math.min(RbAnim.W,p.iw));   // Bild hat schon 4 : 1: Rahmen 1:1 statt eines Rahmens, der alles zeigt
- p.s.w=p.e.w=w;p.s.x=p.s.y=0;
+ p.s.w=p.e.w=w;p.s.x=p.s.y=0;p.bend={x:0,y:0};
  if(p.iw-w>=p.ih-w/4){p.e.x=p.iw-w;p.e.y=0;}else{p.e.x=0;p.e.y=p.ih-w/4;}
  if(p.e.x<0)p.e.x=0;if(p.e.y<0)p.e.y=0;
  p.tile=false;p.lock=true;p.act='s';animPanTravelN();
 }
 function animPanPlace(f,ax,ay){f.x=(animPan.iw-f.w)*ax;f.y=(animPan.ih-f.w/4)*ay;}
 function animPanPreset(id){
- const p=animPan,s=p.s,e=p.e,iw=p.iw,ih=p.ih;
+ const p=animPan,s=p.s,e=p.e,iw=p.iw,ih=p.ih;p.bend={x:0,y:0};
  if(id==='all'){animPanDefaults();}
  else if(id==='one'||id==='fit'){
-  const w=id==='one'?RbAnim.W:animPanClampW(4*ih);
+  const w=id==='one'?animPanClampW(RbAnim.W*animOneG()):animPanClampW(4*ih);
   for(const f of [s,e]){const cx=f.x+f.w/2,cy=f.y+f.w/8;f.w=w;f.x=cx-w/2;f.y=cy-w/8;}
   p.lock=true;
  }else{
@@ -3998,12 +4101,19 @@ function animPanDraw(){
  g.strokeStyle='#3a4456';g.lineWidth=1;g.strokeRect(X(0)+.5,Y(0)+.5,p.iw*k-1,p.ih*k-1);
  g.lineWidth=1;g.strokeStyle=p.tile?'rgba(255,255,255,.7)':'rgba(255,255,255,.28)';
  for(let i=1;i<p.n-1;i++){const f=animPanFrame(i);g.strokeRect(X(f.x)+.5,Y(f.y)+.5,f.w*k-1,f.w/4*k-1);}
+ if(animPanBent()||p.bendOn){   // Bahn der Rahmenmitte, im Bahn-Modus mit Griff
+  g.strokeStyle='#4da3ff';g.lineWidth=2;g.setLineDash([2,4]);g.beginPath();
+  for(let i=0;i<=32;i++){const [cx,cy]=animPanCenter(i/32);if(i)g.lineTo(X(cx),Y(cy));else g.moveTo(X(cx),Y(cy));}
+  g.stroke();g.setLineDash([]);
+ }
  const box=(f,col,dash,thick,lbl,on)=>{
   g.lineWidth=thick;g.strokeStyle=col;g.setLineDash(dash?[6,4]:[]);g.strokeRect(X(f.x)+thick/2,Y(f.y)+thick/2,f.w*k-thick,f.w/4*k-thick);g.setLineDash([]);
   g.fillStyle=col;g.font='700 11px system-ui';g.textBaseline='bottom';g.fillText(lbl,X(f.x)+3,Y(f.y)-2<10?Y(f.y)+13:Y(f.y)-2);
   if(on)for(const [hx,hy] of [[f.x,f.y],[f.x+f.w,f.y],[f.x,f.y+f.w/4],[f.x+f.w,f.y+f.w/4]])g.fillRect(X(hx)-5,Y(hy)-5,10,10);
  };
- if(p.act==='s'){box(p.e,'#fff',true,2,'Ende',false);box(p.s,'#ffd45c',false,3,'Start',true);}
+ if(p.bendOn){box(p.e,'#fff',true,2,'Ende',false);box(p.s,'#ffd45c',false,3,'Start',false);
+  const [hx,hy]=animPanCenter(.5);g.fillStyle='#4da3ff';g.strokeStyle='#fff';g.lineWidth=2;g.beginPath();g.arc(X(hx),Y(hy),10,0,Math.PI*2);g.fill();g.stroke();}
+ else if(p.act==='s'){box(p.e,'#fff',true,2,'Ende',false);box(p.s,'#ffd45c',false,3,'Start',true);}
  else{box(p.s,'#ffd45c',false,3,'Start',false);box(p.e,'#fff',true,2,'Ende',true);}
 }
 function animPanFields(except){
@@ -4013,6 +4123,8 @@ function animPanFields(except){
  $('animPanLock').checked=p.lock||p.tile;$('animPanLock').disabled=p.tile;$('animPanTile').checked=p.tile;
  $('animPanWrap').value=p.wrap;$('animPanWrap').disabled=p.tile;
  const wrap=p.wrap==='wrap',same=animPanSame();
+ if(p.tile)p.bendOn=false;
+ $('animPanModeBend').disabled=p.tile;$('animPanModeFrame').classList.toggle('on',!p.bendOn);$('animPanModeBend').classList.toggle('on',p.bendOn);$('animPanModeFrame').setAttribute('aria-pressed',String(!p.bendOn));$('animPanModeBend').setAttribute('aria-pressed',String(p.bendOn));$('animPanBendReset').disabled=!animPanBent();
  $('animPanSeam').classList.toggle('hidden',!wrap);$('animPanSeam').disabled=!same;
  $('animPanSeamWhy').textContent=wrap&&!same?'Eine nahtlose Schleife geht nur, wenn Start- und Ende-Rahmen gleich groß sind.':'';
 }
@@ -4025,6 +4137,7 @@ function animPanInfoText(){
  if(!same){const r=Math.pow(p.e.w/p.s.w,1/n1)-1;note+=' Größenänderung je Frame: '+(r>=0?'+':'−')+animPanFmt(Math.abs(r)*100).replace('.',',')+' % ('+(r<0?'hineinzoomen':'herauszoomen')+').';}
  else if(!parts.length)note+=' Start und Ende sind gleich: alle Frames sehen gleich aus.';
  if(p.tile)note+=' Kachel für Kachel, '+animPanFmt(p.s.w)+' × '+animPanFmt(p.s.w/4)+' Pixel je Kachel.';
+ if(animPanBent())note+=' Die Bahn ist gebogen.';
  note+=' Rahmen: Start '+animPanFmt(p.s.w)+' × '+animPanFmt(p.s.w/4)+(same?'':', Ende '+animPanFmt(p.e.w)+' × '+animPanFmt(p.e.w/4))+' Bildpixel.';
  return note;
 }
@@ -4082,6 +4195,14 @@ $('animPanSeam').onclick=()=>{   // Frames × Versatz = Bildgröße: das letzte 
  $('animPanPresets').addEventListener('click',ev=>{const b=ev.target.closest('button[data-pre]');if(b&&animPan.img)animPanPreset(b.dataset.pre);});
 })();
 // ---- Rahmen ziehen (Zeigerereignisse) -------------------------------------------------------------------
+function animPanBendTo(ev){   // Bahnpunkt unter den Zeiger setzen (bei t = 0,5); er bleibt im sichtbaren Bereich
+ const p=animPan,g=p.geo||animPanGeo(),[px0,py0]=animPanFromClient(g,ev);
+ let px=Math.max(g.x0,Math.min(g.x0+g.vw,px0)),py=Math.max(g.y0,Math.min(g.y0+g.vh,py0));
+ const [mx,my]=animPanStraightMid();p.bend={x:px-mx,y:py-my};
+}
+$('animPanModeFrame').onclick=()=>{animPan.bendOn=false;animPanFields();animPanDraw();};
+$('animPanModeBend').onclick=()=>{if(animPan.tile)return;animPan.bendOn=true;animPanFields();animPanDraw();};
+$('animPanBendReset').onclick=()=>{animPan.bend={x:0,y:0};animPanSync();};
 const animPanPts=new Map();
 function animPanHit(g,px,py){   // -> {w:'s'|'e', mode:'move'|'corner', i}
  const p=animPan,r=22/g.k;let best=null,bd=r;
@@ -4097,6 +4218,7 @@ animPanCv.addEventListener('pointerdown',ev=>{
  const p=animPan;if(!p.img)return;
  ev.preventDefault();try{animPanCv.setPointerCapture(ev.pointerId);}catch(e){}animPanPts.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});
  if(!p.drag)p.geo=animPanGeo();
+ if(p.bendOn){if(animPanPts.size===1){p.drag={mode:'bend'};animPanBendTo(ev);animPanCv.classList.add('dragging');animPanSync(true);}return;}
  if(animPanPts.size===2){const a=[...animPanPts.values()];p.drag={mode:'pinch',d0:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,w0:p[p.act].w};return;}
  const g=p.geo,[px,py]=animPanFromClient(g,ev),h=animPanHit(g,px,py);p.act=h.w;const f=p[h.w];
  if(h.mode==='corner'){
@@ -4111,6 +4233,7 @@ animPanCv.addEventListener('pointerdown',ev=>{
 animPanCv.addEventListener('pointermove',ev=>{
  const p=animPan;if(!animPanPts.has(ev.pointerId)||!p.drag)return;
  animPanPts.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});const d=p.drag,g=p.geo;
+ if(d.mode==='bend'){animPanBendTo(ev);animPanSync(true);return;}
  if(d.mode==='pinch'){if(animPanPts.size<2)return;const a=[...animPanPts.values()],now=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1;animPanSetW(p.act,d.w0*d.d0/now);if(p.tile)animPanTileFix(true);animPanSync(true);return;}
  const [px,py]=animPanFromClient(g,ev),f=p[d.w];
  if(d.mode==='move'){f.x=px-d.dx;f.y=py-d.dy;animPanClampPos(f);if(p.tile)animPanTileFix(d.w==='e'?false:true);}
@@ -4129,7 +4252,7 @@ const animPanEnd=ev=>{
  if(!animPanPts.size){p.drag=null;p.geo=null;animPanCv.classList.remove('dragging');animPanSync();}
 };
 animPanCv.addEventListener('pointerup',animPanEnd);animPanCv.addEventListener('pointercancel',animPanEnd);
-animPanCv.addEventListener('wheel',ev=>{const p=animPan;if(!p.img)return;ev.preventDefault();animPanSetW(p.act,p[p.act].w*(ev.deltaY>0?1.1:1/1.1));if(p.tile)animPanTileFix(true);animPanSync(true);},{passive:false});
+animPanCv.addEventListener('wheel',ev=>{const p=animPan;if(!p.img)return;ev.preventDefault();if(p.bendOn)return;animPanSetW(p.act,p[p.act].w*(ev.deltaY>0?1.1:1/1.1));if(p.tile)animPanTileFix(true);animPanSync(true);},{passive:false});
 // ---- Bild laden (ein Weg für Schwenk und Einzelbilder) --------------------------------------------------------
 $('animFilePan').addEventListener('change',async e=>{
  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
@@ -4165,7 +4288,7 @@ function animCountColors(c,limit){   // Anzahl verschiedener Farben (bricht übe
 // Vollbild-Ebene für das Querformat. Arbeitet auf einer Liste von Frames (Uint8Array(64·16), Werte 0..7) und gibt sie beim
 // Fertig zurück; Speichern, Name und Zeit bleiben in der Import-/Bearbeiten-Maske. Jede Änderung legt vorher das Bild neu an
 // (Copy-on-Write), damit Rückgängig nur Verweise merken muss.
-const AD={frames:[],cur:0,tool:'pen',color:4,zoom:1,ox:0,oy:0,base:0,onion:false,undo:[],redo:[],sel:null,flt:null,ptrs:new Map(),gest:null,stroke:null,onDone:null,onCancel:null,dirty:false,penAt:0,blocked:false,open:false};
+const AD={frames:[],cur:0,tool:'pen',color:4,zoom:1,ox:0,oy:0,base:0,onion:false,undo:[],redo:[],sel:null,flt:null,ptrs:new Map(),gest:null,stroke:null,onDone:null,onCancel:null,dirty:false,penAt:0,blocked:false,open:false,fill:false};
 const AD_W=64,AD_H=16,AD_MINCELL=6,AD_MAXCELL=60,AD_PHONE_W=600,AD_ORDER=[4,6,2,3,1,5,7],AD_NAMES={4:'Rot',6:'Gelb',2:'Grün',3:'Cyan',1:'Blau',5:'Magenta',7:'Weiß'};
 const ADC=$('adCanvas'),adg=ADC.getContext('2d');
 function adViewport(){const v=window.visualViewport;return {w:v?v.width:window.innerWidth,h:v?v.height:window.innerHeight};}
@@ -4197,6 +4320,20 @@ function adCell(ev){const r=ADC.getBoundingClientRect(),c=adCellSize();return [M
 function adPut(x,y,v){if(x<0||x>=AD_W||y<0||y>=AD_H)return;const fr=AD.frames[AD.cur],i=y*AD_W+x;if(fr[i]!==v){fr[i]=v;if(AD.stroke)AD.stroke.changed=true;}}
 function adLine(x0,y0,x1,y1,v){const dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx+dy;
  for(let n=0;n<512;n++){adPut(x0,y0,v);if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>=dy){e+=dy;x0+=sx;}if(e2<=dx){e+=dx;y0+=sy;}}}
+// Formen: Linie, Rechteck, Kreis/Ellipse (jeweils in das aufgezogene Feld eingepasst), umrandet oder gefüllt
+function adShapePx(kind,ax,ay,bx,by,v,fill){
+ const x0=Math.min(ax,bx),x1=Math.max(ax,bx),y0=Math.min(ay,by),y1=Math.max(ay,by);
+ if(kind==='line'){adLine(ax,ay,bx,by,v);return;}
+ if(kind==='rect'){for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)if(fill||x===x0||x===x1||y===y0||y===y1)adPut(x,y,v);return;}
+ const cx=(x0+x1)/2,cy=(y0+y1)/2,rx=(x1-x0)/2+.5,ry=(y1-y0)/2+.5;
+ const inE=(x,y)=>{const dx=(x-cx)/rx,dy=(y-cy)/ry;return dx*dx+dy*dy<=1;};
+ for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)if(inE(x,y)&&(fill||!(inE(x-1,y)&&inE(x+1,y)&&inE(x,y-1)&&inE(x,y+1))))adPut(x,y,v);
+}
+function adShapeRedraw(){
+ const gs=AD.gest;if(!gs||!AD.stroke)return;
+ AD.frames[AD.cur]=AD.stroke.before.slice();AD.stroke.changed=false;
+ adShapePx(AD.tool,gs.ax,gs.ay,gs.bx,gs.by,AD.color,AD.fill);adDraw();
+}
 function adFill(x,y,v){
  if(x<0||x>=AD_W||y<0||y>=AD_H)return;const t=AD.frames[AD.cur][y*AD_W+x];if(t===v)return;
  adBegin();const fr=AD.frames[AD.cur],st=[[x,y]];
@@ -4213,6 +4350,7 @@ function adRebuildStrip(){
 function adStripShow(){const box=$('adStrip'),el=box.children[AD.cur];if(!el)return;const l=el.offsetLeft,r=l+el.offsetWidth;if(l<box.scrollLeft)box.scrollLeft=l-4;else if(r>box.scrollLeft+box.clientWidth)box.scrollLeft=r-box.clientWidth+4;}
 function adSelect(i){if(i===AD.cur||i<0||i>=AD.frames.length)return;adCommitFloat();AD.sel=null;AD.cur=i;[...$('adStrip').children].forEach((d,k)=>d.classList.toggle('cur',k===i));adStripShow();adDraw();adUiSync();}
 function adStructural(fn){adCommitFloat();AD.sel=null;AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.redo.length=0;AD.dirty=true;fn();adRebuildStrip();adDraw();adUiSync();}
+function adNew(){if(AD.frames.length>=RbAnim.MAXF){notify('Höchstens '+RbAnim.MAXF+' Bilder.');return;}adStructural(()=>{const f=AD.frames[AD.cur].slice();f.fill(0);AD.frames.splice(AD.cur+1,0,f);AD.cur++;});}
 function adAdd(){if(AD.frames.length>=RbAnim.MAXF){notify('Höchstens '+RbAnim.MAXF+' Bilder.');return;}adStructural(()=>{AD.frames.splice(AD.cur+1,0,AD.frames[AD.cur].slice());AD.cur++;});}
 function adDel(){if(AD.frames.length<=2){notify('Mindestens 2 Bilder bleiben erhalten.');return;}adStructural(()=>{AD.frames.splice(AD.cur,1);AD.cur=Math.min(AD.cur,AD.frames.length-1);});}
 function adMove(d){const j=AD.cur+d;if(j<0||j>=AD.frames.length)return;adStructural(()=>{const t=AD.frames[AD.cur];AD.frames[AD.cur]=AD.frames[j];AD.frames[j]=t;AD.cur=j;});}
@@ -4233,7 +4371,8 @@ function adUiSync(){
  document.querySelectorAll('#animDraw [data-tool]').forEach(b=>{const on=b.dataset.tool===AD.tool;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
  document.querySelectorAll('#adColors button').forEach(b=>{const on=Number(b.dataset.c)===AD.color;b.classList.toggle('sel',on);b.setAttribute('aria-checked',String(on));});
  $('adUndo').disabled=!AD.undo.length;$('adRedo').disabled=!AD.redo.length;
- $('adDel').disabled=AD.frames.length<=2;$('adAdd').disabled=AD.frames.length>=RbAnim.MAXF;$('adLeft').disabled=AD.cur<=0;$('adRight').disabled=AD.cur>=AD.frames.length-1;
+ $('adDel').disabled=AD.frames.length<=2;$('adAdd').disabled=AD.frames.length>=RbAnim.MAXF;$('adNew').disabled=AD.frames.length>=RbAnim.MAXF;
+ $('adMore').classList.toggle('on',AD.tool==='line'||AD.tool==='rect'||AD.tool==='ellipse');$('adShapeFill').classList.toggle('on',AD.fill);$('adShapeFill').setAttribute('aria-pressed',String(AD.fill));$('adLeft').disabled=AD.cur<=0;$('adRight').disabled=AD.cur>=AD.frames.length-1;
  const mv=!!AD.move;$('animDraw').classList.toggle('ad-move',mv);$('adMoveMode').classList.toggle('on',mv);$('adMoveMode').setAttribute('aria-pressed',String(mv));
  for(const [id,lbl,t] of [['adLeft',mv?'Nach links':'Voriges',mv?'Frame in der Reihenfolge nach links schieben':'Voriges Frame'],['adRight',mv?'Nach rechts':'Nächstes',mv?'Frame in der Reihenfolge nach rechts schieben':'Nächstes Frame']]){const b=$(id);b.dataset.lbl=lbl;b.title=t;b.setAttribute('aria-label',t);}
  $('adCount').textContent='Bild '+(AD.cur+1)+'/'+AD.frames.length;$('adZoomTxt').textContent=Math.round(AD.zoom*100)+' %';
@@ -4289,7 +4428,7 @@ function adOpen(frames,o){
 function adClose(){AD.open=false;AD.flt=null;AD.sel=null;AD.stroke=null;AD.gest=null;AD.hold=null;AD.ptrs.clear();AD.undo=[];AD.redo=[];AD.frames=[];AD.dirty=false;AD.onDone=null;AD.onCancel=null;$('animDraw').classList.add('hidden');document.documentElement.classList.remove('ad-lock');}
 $('adBack').onclick=()=>{if(AD.dirty&&!confirm('Änderungen an den Bildern verwerfen?'))return;const cb=AD.onCancel;adClose();if(cb)cb();};
 $('adDone').onclick=()=>{adCommitFloat();const fr=AD.frames.slice(),cb=AD.onDone,ch=AD.dirty;adClose();if(cb)cb(fr,ch);};
-$('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>{if(AD.move)adMove(-1);else adSelect(AD.cur-1);};$('adRight').onclick=()=>{if(AD.move)adMove(1);else adSelect(AD.cur+1);};
+$('adNew').onclick=adNew;$('adShapeFill').onclick=()=>{AD.fill=!AD.fill;adUiSync();};$('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>{if(AD.move)adMove(-1);else adSelect(AD.cur-1);};$('adRight').onclick=()=>{if(AD.move)adMove(1);else adSelect(AD.cur+1);};
 $('adMoveMode').onclick=()=>{AD.move=!AD.move;adUiSync();};
 $('adStrip').addEventListener('wheel',ev=>{const b=$('adStrip');if(b.scrollWidth<=b.clientWidth)return;ev.preventDefault();b.scrollLeft+=(Math.abs(ev.deltaX)>Math.abs(ev.deltaY)?ev.deltaX:ev.deltaY);},{passive:false});
 $('adUndo').onclick=adUndoDo;$('adRedo').onclick=adRedoDo;
@@ -4321,6 +4460,10 @@ ADC.addEventListener('pointerdown',ev=>{
   adCommitFloat();AD.sel=null;const before=AD.frames[AD.cur];adBegin();AD.stroke={before,changed:false};
   const v=t==='pen'?AD.color:0;adPut(cx,cy,v);AD.gest={mode:'draw',lx:cx,ly:cy};adDraw();return;
  }
+ if(t==='line'||t==='rect'||t==='ellipse'){
+  adCommitFloat();AD.sel=null;const before=AD.frames[AD.cur];adBegin();AD.stroke={before,changed:false};
+  const ax=Math.max(0,Math.min(AD_W-1,cx)),ay=Math.max(0,Math.min(AD_H-1,cy));AD.gest={mode:'shape',ax,ay,bx:ax,by:ay};adShapeRedraw();return;
+ }
  if(t==='fill'){adCommitFloat();AD.sel=null;adFill(cx,cy,AD.color);adThumb();adDraw();adUiSync();AD.gest={mode:'dead'};return;}
  if(t==='pipette'){
   if(cx>=0&&cx<AD_W&&cy>=0&&cy<AD_H){const v=AD.frames[AD.cur][cy*AD_W+cx];if(v){AD.color=v;AD.tool='pen';}else AD.tool='eraser';adUiSync();}
@@ -4344,6 +4487,9 @@ ADC.addEventListener('pointermove',ev=>{
  if(AD.ptrs.size>1)return;
  if(gs.mode==='pan'){AD.ox=gs.ox+ev.clientX-gs.x;AD.oy=gs.oy+ev.clientY-gs.y;adClampPan();adDraw();return;}
  const [cx,cy]=adCell(ev);
+ if(gs.mode==='shape'){
+  const x=Math.max(0,Math.min(AD_W-1,cx)),y=Math.max(0,Math.min(AD_H-1,cy));if(x===gs.bx&&y===gs.by)return;gs.bx=x;gs.by=y;adShapeRedraw();return;
+ }
  if(gs.mode==='draw'){
   if(cx===gs.lx&&cy===gs.ly)return;
   adLine(gs.lx,gs.ly,cx,cy,AD.tool==='pen'?AD.color:0);gs.lx=cx;gs.ly=cy;adDraw();return;
@@ -4360,7 +4506,7 @@ ADC.addEventListener('pointermove',ev=>{
 function adPointerEnd(ev){
  if(!AD.ptrs.has(ev.pointerId))return;AD.ptrs.delete(ev.pointerId);const gs=AD.gest;
  if(gs){
-  if(gs.mode==='draw'&&AD.stroke){if(!AD.stroke.changed){AD.frames[AD.cur]=AD.stroke.before;adRollback();}AD.stroke=null;adThumb();}
+  if((gs.mode==='draw'||gs.mode==='shape')&&AD.stroke){if(!AD.stroke.changed){AD.frames[AD.cur]=AD.stroke.before;adRollback();}AD.stroke=null;adThumb();}
   else if(gs.mode==='rect'&&!gs.moved){AD.sel=null;}
   else if(gs.mode==='move'){adCommitFloat();}
   else if(gs.mode==='pan'){ADC.style.cursor='grab';}

@@ -2,6 +2,18 @@
 
 # RavestickBoard · Versionsgeschichte / Changelog
 
+## v0.8.3-dev – 1:1-Knopf, Bahn bewegen, Rückgängig im Import, Formen im Editor, Mischfarben (27.11.2026)
+
+- **Anlass:** Beobachtungen von Felix beim flüchtigen Test von 0.8.2 und die Absprache vom 27.11.2026. Nur Weboberfläche; die Firmware ändert nur die Versionsnummer. Kompiliert war 0.8.2 mit 1.620.403 Byte Programmspeicher (77 %), globale Variablen 79.488 Byte.
+- **1:1 und Rahmengröße:** Knopf „1:1“ (`animOneApply`) setzt den Rahmen in der Import-Maske auf Pixelgröße (64 × Vergrößerungsfaktor Bildpixel breit, Höhe = Breite / 4; der Faktor kommt aus `RbAnim.pixelScale` und wird je Quelle zwischengespeichert, `animOneG`). Die Zeile mit der Rahmengröße (`animOneInfo`) ist immer sichtbar.
+- **Bahn bewegen:** Umschalter „Rahmen bewegen / Bahn bewegen“ im Schwenk. Im Bahn-Modus erscheint ein Griff genau in der Bahnmitte (t = 0,5); Ziehen biegt die Mittelpunktbahn quadratisch (`animPanCenter(t)` = Mischung der Mittelpunkte + `bend·4t(1−t)`), die Breite folgt weiter geometrisch. „Bahn begradigen“ setzt `bend` zurück; im Kachelmodus ist das Biegen gesperrt. Bewusst keine Bahnarten und kein „echter Zoom“ (ADR-2026-11-27-F).
+- **Rückgängig/Wiederherstellen in der Import-Maske:** Verlauf aus Zustandsabzügen (`AH`: Bedienelemente, Zuschnitt, Pixelfaktor, Schwenkzustand), gebucht nach Änderung, Klick, Loslassen oder Mausrad (entprellt); Grundzustand beim ersten Zeichnen, gelöscht bei Quellwechsel und Reset; Knöpfe `animImpUndo`/`animImpRedo`, Strg+Z / Strg+Y.
+- **Frame-Editor:** alter Knopf „Neu“ heißt jetzt **Duplizieren**; **Neu** legt ein leeres Bild an (`adNew`). Neue Werkzeuge **Linie** (Bresenham), **Rechteck** und **Kreis/Ellipse** mit Schalter „Füllen“ unter „Mehr“ (`adShapePx`); die Form erscheint beim Ziehen als Vorschau und wird beim Loslassen als ein Schritt gesetzt. Drei neue Symbole (circle, slash, square-fill).
+- **Ambiente:** sieben Mischfarben als zusätzliche Kacheln (Orange, Rot-Orange, Limette, Himmelblau, Hellblau, Hellrosa, Mint; `RB_MIX`, `rbSendMix`). Jede wird als kurze temporäre Animation (zwei oder drei Vollfarben-Bilder, 1 ms) per „Nur senden“ übertragen, also ohne Speicherplatz und ohne Firmwareänderung.
+- **Standbild nach Lauftext (geprüft, keine Änderung nötig):** Die Firmware setzt für Seite, Ambiente und Seitenband den statischen Modus vor der Datenübertragung und danach, wenn der letzte Auftrag kein Text oder Bild war; Animationen ignorieren den Modus. Ein Standbild läuft deshalb nicht hinter einem Lauftext her. Der Hardwaretest hat dafür einen Prüfschritt (J8).
+- **Größe:** HTML 510.744 Byte, gepackt 145.780 Byte (0.8.2: 497.446 / 141.496).
+- **Geprüft (am Rechner):** alle Tests mit Endung `0803`; neu `tests/test_browser_import_0803.py` (1:1, Bahn, Verlauf, Formen, Neu/Duplizieren, Mischfarben) und `tests/test_browser_anim_0803.py`. **Nicht geprüft:** Arduino-Compile, Hardware, Safari, echter Apple Pencil.
+
 ## v0.8.2-dev – Pixelgrafik, Zahlenfelder, Rückfragen beim Quellwechsel, Review-Korrekturen (27.11.2026)
 
 - **Anlass:** Beobachtungen von Felix beim Ausprobieren von 0.8.1 (Pixelgrafik aus nur sieben Farben wurde schlecht umgesetzt; Regler ohne Zahl; „Anker und Vorlagen“ nimmt viel Platz; Abstände im Schwenk-Import) und zwei externe Audits (Code-Review R81-01 bis R81-25, Technical Audit RB-001 bis RB-034). Nur Weboberfläche; die Firmware ändert Versionsnummer und Kommentar-/Diagnosetexte.

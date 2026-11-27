@@ -1,3 +1,12 @@
+## Technischer Nachtrag v0.8.3: 1:1, Bahn, Verlauf, Formen, Mischfarben (27.11.2026)
+
+- **Firmware:** gegenüber 0.8.2 nur `FW_VERSION` („0.8.3-dev“) und das neu erzeugte `RavestickBoard_WebUI.h` (HTML 510.744 Byte, gepackt 145.780 Byte). `tests/test_build_0803.py` vergleicht weiter mit `RavestickBoard_v0_7_2` (SKIP, wenn der Ordner fehlt).
+- **Bahn:** `animPan.bend`/`bendOn`; Mittelpunkt `animPanCenter(t)` = Mischung der Mittelpunkte von Start und Ende + `bend·4t(1−t)`, Breite `s.w·(e.w/s.w)^t`; `animPanFrame(k)` benutzt beides. Der Griff sitzt bei t = 0,5, `animPanBendTo` rechnet die Zeigerposition auf `bend` zurück. Kachelmodus: kein Biegen.
+- **1:1:** `animOneG()` liefert den zwischengespeicherten Vergrößerungsfaktor (`animImp.oneG`), `animOneApply()` setzt Rahmen beziehungsweise Zuschnitt; Breite = 64 · Faktor, Höhe = Breite / 4.
+- **Verlauf der Import-Maske:** `AH` hält JSON-Abzüge der Bedienelemente (`ANIM_HIST_IDS`), des Zuschnitts, des Pixelfaktors und des Schwenkzustands; `animHistSoon` bucht entprellt nach change/click/pointerup/wheel, `animHistBase` legt den Grundzustand in `animRender` an, `animHistGo(±1)` stellt wieder her, `animHistClear` in `animReset`.
+- **Editor-Formen:** `adShapePx(kind,x0,y0,x1,y1,fill)` rastert Linie (Bresenham), Rechteck (Rand oder gefüllt) und Ellipse (normierter Zellmitten-Test mit Nachbarprüfung); `adShapeRedraw` zeichnet die Vorschau, das Loslassen ist ein Undo-Schritt (`adBegin`). `adNew()` legt ein leeres Bild an, `#adAdd` dupliziert.
+- **Mischfarben:** `RB_MIX` (Farbcodes R=4, G=2, B=1, Y=6, C=3, W=7), `rbSendMix` erzeugt zwei oder drei Vollfarben-Bilder zu 1 ms und überträgt sie über `/api/anim/put` (`temp:'1'`) und `/api/anim/send {temp:'1'}` wie „Nur senden“; die Flimmergrenze liegt bei etwa 62 Hz (1 ms Standard).
+
 ## Technischer Nachtrag v0.8.2: Pixelgrafik, Lebenszyklus des Entwurfs, Audit-Korrekturen (27.11.2026)
 
 - **Firmware:** gegenüber 0.7.2 nur `FW_VERSION` („0.8.2-dev“), fünf bereinigte Kommentar-/Diagnosetexte und das neu erzeugte `RavestickBoard_WebUI.h` (HTML 497.446 Byte, gepackt 141.496 Byte). `tests/test_build_0802.py` vergleicht mit `RavestickBoard_v0_7_2` (SKIP, wenn der Ordner fehlt).

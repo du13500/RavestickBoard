@@ -1,4 +1,4 @@
-> **Lesehilfe (27.11.2026, v0.8.2-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
+> **Lesehilfe (27.11.2026, v0.8.3-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
 
 > v0.4.2.5.2-dev: Bibliotheksfavoriten-Oberfläche entfernt; acht neu belegbare Kurzwahlen und Startseitentempo umgesetzt. Nicht mehr als offene UI-Forderung führen; Hardware-Abnahme und RAM-Problematik bleiben offen.
 
@@ -559,6 +559,11 @@ Die bestehenden v0.2.0-NVS-Seiten werden im v0.3.0-Entwurf nicht automatisch gel
 - **Gebaut (Compile und Hardware offen):** Programme fest mit Tempo 80, Kurzwahl ohne Erfolgsmeldungen, Palettenknopf bündig bei zwei Zeilen (Variante A), Play-Sperre bei Übertragung, Hinweis und ID aus der Oberfläche, Programm-Maske ohne Dock, Escape im Kurzwahl-Fenster, 15 Mischfarben-Testdateien.
 - **Offen:** Hardwaretest 0.7.1; Mischfarben (Orange bestätigt, die übrigen Dateien stehen im Testplan); ob die Puffer-Begrenzung wirkt (Idee: aktive Treiberkonfiguration nach dem Start auslesen und in der Diagnose zeigen); Beschriftung „Text · Zeile 2“ (I3); Kurzbefehle (H1 bis H6); Arduino-ESP32 4.0.x später prüfen (Core 4.0.0 vom 23.11.2026; bleibt vorerst bei 3.3.12); ältere englische Kommentare übersetzen.
 - **Als Nächstes (Vorschlag, nicht bestätigt):** 0.8.0 Zeichen-Editor Frame für Frame (ANM-06), 0.9.0 Schriftimport BDF, danach Mehrsprachigkeit DE/EN.
+
+## Stand 0.8.3 (27.11.2026) – was gebaut ist und was offen bleibt
+
+- **0.8.3 gegenüber 0.8.2:** 1:1-Knopf und Rahmengröße, Bahn bewegen, Rückgängig/Wiederherstellen in der Import-Maske, Duplizieren/Neu und Linie/Rechteck/Kreis im Editor, sieben Mischfarben unter Ambiente.
+- **Offen:** Firmware-Runde (F-009/F-010, Audit-Punkte) und Textwerkzeug (0.8.4); Messung der 40er-Grenze im Hardwaretest; später BDF-Import, DE/EN, Uhr-Animation.
 
 ## Stand 0.8.2 (27.11.2026) – was gebaut ist und was offen bleibt
 

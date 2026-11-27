@@ -1,6 +1,6 @@
 # RavestickBoard · Diagnose und Fehlerprotokoll
 
-**Fortgeschrieben 27.11.2026 für v0.8.2-dev (keine neuen Diagnosezeilen gegenüber 0.7.0; zwei Diagnosetexte ohne Versionsklammern; neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
+**Fortgeschrieben 27.11.2026 für v0.8.3-dev (keine neuen Diagnosezeilen gegenüber 0.7.0; zwei Diagnosetexte ohne Versionsklammern; neuester Abschnitt oben). Die älteren Abschnitte beschreiben den Stand ihrer Version.**
 
 ## Referenzwerte aus dem Hardwaretest von 0.7.1 (26.11.2026)
 
