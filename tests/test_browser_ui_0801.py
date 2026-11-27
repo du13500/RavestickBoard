@@ -7,16 +7,16 @@ Menue unter der Banane, Bedienfeld so breit wie der Inhalt.
 ohne es zu vergroessern), Schrift mit Wiederholung, Rahmen (fensterhoch, Bedienfeld unten buendig und so breit wie die
 Flaechen) auf iPhone SE, Handy und Laptop, Ambiente-Farben, lange Namen, Namen aus Dateinamen, beschaedigte Programme im
 Kurzwahl-Dialog, Blocktext-Kopf.
-Aufruf: python tests/test_browser_ui_0800.py [Screenshot-Ordner]"""
+Aufruf: python tests/test_browser_ui_0801.py [Screenshot-Ordner]"""
 import re, sys, json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0800.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0801.py').read_text(encoding='utf8')
 MOCK = src[src.index("MOCK=r'''") + 9:src.index("</script>'''") + 9]
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_1/*.ino')).read_text(encoding='utf8')
 blk = ino[ino.index('static const Glyph FONT[] = {'):]; blk = blk[:blk.index('};')]
 font = {}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}", blk):

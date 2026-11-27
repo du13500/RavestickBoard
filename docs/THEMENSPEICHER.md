@@ -1,4 +1,4 @@
-> **Lesehilfe (26.11.2026, v0.8.0-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
+> **Lesehilfe (26.11.2026, v0.8.1-dev):** Diese Datei ist ein Sammelbecken und wächst seit 0.1. Gültig ist der **neueste Abschnitt „Stand 0.6.1.x“** weiter unten und die [ROADMAP](ROADMAP.md). Die Kästchen `[ ]` in den Abschnitten bis 0.4.x (rund 170 Stück) sind **Geschichte** und werden nicht mehr abgehakt; was davon noch offen ist, steht in den neueren Abschnitten oder in der Roadmap (Hinweis aus beiden Code-Reviews, ChatGPT F-019).
 
 > v0.4.2.5.2-dev: Bibliotheksfavoriten-Oberfläche entfernt; acht neu belegbare Kurzwahlen und Startseitentempo umgesetzt. Nicht mehr als offene UI-Forderung führen; Hardware-Abnahme und RAM-Problematik bleiben offen.
 
@@ -560,7 +560,10 @@ Die bestehenden v0.2.0-NVS-Seiten werden im v0.3.0-Entwurf nicht automatisch gel
 - **Offen:** Hardwaretest 0.7.1; Mischfarben (Orange bestätigt, die übrigen Dateien stehen im Testplan); ob die Puffer-Begrenzung wirkt (Idee: aktive Treiberkonfiguration nach dem Start auslesen und in der Diagnose zeigen); Beschriftung „Text · Zeile 2“ (I3); Kurzbefehle (H1 bis H6); Arduino-ESP32 4.0.x später prüfen (Core 4.0.0 vom 23.11.2026; bleibt vorerst bei 3.3.12); ältere englische Kommentare übersetzen.
 - **Als Nächstes (Vorschlag, nicht bestätigt):** 0.8.0 Zeichen-Editor Frame für Frame (ANM-06), 0.9.0 Schriftimport BDF, danach Mehrsprachigkeit DE/EN.
 
-## Stand 0.8.0 (26.11.2026) – was gebaut ist und was offen bleibt
+## Stand 0.8.1 (26.11.2026) – was gebaut ist und was offen bleibt
+
+- **0.8.1 gegenüber 0.8.0:** Schwenk mit Start- und Ende-Rahmen statt Zahlenfeldern (Zoom über unterschiedlich große Rahmen, Anker, Vorlagen), Kachelmodus statt Sprite-Sheet, vier Importkacheln, Editor mit großen Flächen auf Laptop/iPad und Kompaktleiste mit „Mehr“ auf schmalem Handy, Pfeile wählen / „Verschieben“, Rückfrage beim Verwerfen, Review-Korrekturen. Aus dem Review nach 0.8.1 verschoben: F-009/F-010 (zwei Geräte, Firmware), CI, Modularisierung der `index.html`.
+
 
 - **Test von 0.7.2 (26.11.2026):** kompiliert (1.600.665 Byte, 76 %), 28 Minuten ohne Fehler und Neustart; Stoppuhr 63,2 s für 40 Blocktext-Seiten gegen berechnete 63,6 s (Formel bleibt). Rückmeldungen: Tempo-Hinweis, Laptop-Breite, Backup-Knopffarbe – alle in 0.8.0.
 - **Gebaut (Compile und Hardware offen):** Schwenk über große Bilder (Importquelle), Frame-Editor (Stift, Radierer, Füllen, Pipette, Auswahl, Spiegeln, Zwiebelschicht, Zoom, Rückgängig; Neu zeichnen und Einzelbilder gespeicherter Animationen; Handy nur quer, ausreichend große Zeichenfläche), Kleinpaket. Firmware nur mit neuer Versionsnummer.

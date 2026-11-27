@@ -1,9 +1,9 @@
 """v0.4.5.0: Programm-Reihenfolge (rb44ProgramOrder, v044MoveCollection) mit dem echten Code aus RavestickBoard_v042.h
-am Rechner (g++), mit kleinen Stubs für String, LittleFS und Webserver. Aufruf: python tests/host_program_order_0800.py"""
+am Rechner (g++), mit kleinen Stubs für String, LittleFS und Webserver. Aufruf: python tests/host_program_order_0801.py"""
 import re, subprocess, sys, tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-src=(ROOT/'firmware/RavestickBoard_v0_8_0/RavestickBoard_v042.h').read_text(encoding='utf8')
+src=(ROOT/'firmware/RavestickBoard_v0_8_1/RavestickBoard_v042.h').read_text(encoding='utf8')
 a=src.index('static constexpr const char *RB44_PROGRAM_ORDER_FILE'); b=src.index('void v042GetCollection()')
 body=src[a:b]
 # v042ListCollections gehört dazu, ist aber nur Ausgabe: für den Test genügt die Reihenfolge-Funktion und die Verschiebung

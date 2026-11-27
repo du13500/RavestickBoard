@@ -1,14 +1,14 @@
 """Bildschirmfotos der echten Oberfläche (web/index.html) mit der simulierten API aus den Browsertests.
 Für den Vorher/Nachher-Vergleich der Design-Tokens: gleiche Seiten, gleiche Daten, Handy und Laptop.
-Aufruf: python tests/design_shots_0800.py <Zielordner>
+Aufruf: python tests/design_shots_0801.py <Zielordner>
 Nicht geprüft: echtes iPhone/Safari."""
 import re, sys, json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
-_src = (ROOT / 'tests/test_browser_ui_0800.py').read_text(encoding='utf8')
-_ns = {'__file__': str(ROOT / 'tests/test_browser_ui_0800.py'), 'sys': sys, 're': re, 'json': json, 'Path': Path}
+_src = (ROOT / 'tests/test_browser_ui_0801.py').read_text(encoding='utf8')
+_ns = {'__file__': str(ROOT / 'tests/test_browser_ui_0801.py'), 'sys': sys, 're': re, 'json': json, 'Path': Path}
 exec(_src[:_src.index('with sync_playwright() as pw:')].replace('SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None', 'SHOTS = None'), _ns)
 boot = _ns['boot']
 VIEWS = [('home', None), ('editor', "setTab('scroll')"), ('editor-block', "setTab('pages')"), ('library', None),

@@ -1,7 +1,7 @@
 """v0.6.1.0: Bereich „Animationen“ im echten (headless) Chromium mit simulierter API (Dateispeicher im Mock):
 Menü, Liste, Vorschau, Import (GIF, Bildstreifen, Text-Raster), Anpassen, Grenzen (79 Bilder), Speichern in Stücken
 (Nutzlast gegen unabhaengige Referenz), Senden/Umbenennen/Duplizieren/Loeschen, beschaedigte Eintraege, Tempo-Regler.
-Aufruf: python tests/test_browser_anim_0800.py [Screenshot-Ordner]
+Aufruf: python tests/test_browser_anim_0801.py [Screenshot-Ordner]
 Nicht geprueft: iPad-Safari, Apple Pencil, echte ESP32-Antworten."""
 import io, json, re, sys, base64, zlib
 from pathlib import Path
@@ -10,9 +10,9 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 html = (ROOT / 'web/index.html').read_text(encoding='utf8')
-src = (ROOT / 'tests/test_browser_0800.py').read_text(encoding='utf8')
+src = (ROOT / 'tests/test_browser_0801.py').read_text(encoding='utf8')
 # Schrift und Basis-Mock aus dem Haupt-Browsertest uebernehmen (dort ebenfalls aus dem Sketch gelesen)
-ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_0/*.ino')).read_text(encoding='utf8')
+ino = next((ROOT / 'firmware').glob('RavestickBoard_v0_8_1/*.ino')).read_text(encoding='utf8')
 blk = ino[ino.index('static const Glyph FONT[] = {'):]; blk = blk[:blk.index('};')]
 font = {}
 for m in re.finditer(r"\{\s*(?:'(\\?.)'|(0x[0-9A-Fa-f]+|\d+))\s*,\s*\{([^}]*)\}\s*\}", blk):
@@ -78,7 +78,7 @@ errors = []
 def check(c, m):
     if not c: errors.append(m); print('FAIL', m)
 
-# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0800.py) ---------------------
+# ---- Referenz fuer die Nutzlast (unabhaengig, wie in test_anim_core_0801.py) ---------------------
 def ref_payload(frames, ms):   # frames: Liste von 16 Zeilen zu je 64 Farbwerten (0..7)
     n = len(frames); planes = [[], [], []]
     for p, bit in enumerate((4, 2, 1)):
@@ -190,24 +190,23 @@ with sync_playwright() as pw:
     page.wait_for_function("document.querySelectorAll('#animList .anim-row').length===1")
     check(page.evaluate("animUI.selected") == 0 and page.locator('#animSend').is_disabled(), 'nach Löschen keine Auswahl')
 
-    # 4) Bildstreifen: 4 Teile zu je 32x16 nebeneinander (128x16)
-    parts = [Image.new('RGB', (32, 16), RGB[c]) for c in (1, 2, 4, 6)]
-    strip = Image.new('RGB', (128, 16))
-    for i, pimg in enumerate(parts): strip.paste(pimg, (32 * i, 0))
+    # 4) Einzelbilder aus einem Bild: vier Kacheln zu je 64x16 nebeneinander (256x16), Haken "Ohne Überlappung"
+    parts = [Image.new('RGB', (64, 16), RGB[c]) for c in (1, 2, 4, 6)]
+    strip = Image.new('RGB', (256, 16))
+    for i, pimg in enumerate(parts): strip.paste(pimg, (64 * i, 0))
     sb = io.BytesIO(); strip.save(sb, format='PNG')
     page.locator('#animImport').click()
-    page.set_input_files('#animFileStrip', files=[{'name': 'streifen.png', 'mimeType': 'image/png', 'buffer': sb.getvalue()}])
-    page.wait_for_function("!document.getElementById('animStripOpts').classList.contains('hidden')")
-    check(page.input_value('#animStripN') == '8' and page.input_value('#animStripDir') == 'h', 'Streifen: Raten quadratischer Bilder (8)')
-    page.fill('#animStripN', '4'); page.dispatch_event('#animStripN', 'change'); page.wait_for_timeout(400)
-    check(page.input_value('#animTo') == '4' and 'in 4 Teile (nebeneinander)' in page.inner_text('#animSrcInfo'), page.inner_text('#animSrcInfo'))
+    page.set_input_files('#animFilePan', files=[{'name': 'streifen.png', 'mimeType': 'image/png', 'buffer': sb.getvalue()}])
+    page.wait_for_selector('#animPanOpts:not(.hidden)')
+    page.check('#animPanTile'); page.wait_for_timeout(400)
+    check(page.input_value('#animPanN') == '4' and page.input_value('#animTo') == '4', 'Kacheln: vier ganze Kacheln erkannt')
     page.select_option('#animDither', 'thresh'); page.fill('#animMs', '200'); page.wait_for_timeout(300)
     page.locator('#animSave').click(); page.wait_for_function("window.__anim.items.length===2", timeout=10000)
     exp = []
     for c in (1, 2, 4, 6):
-        d = {(x, y): c for x in range(16, 48) for y in range(16)}   # 32x16 mittig im 64x16-Feld (Faktor 1)
+        d = {(x, y): c for x in range(64) for y in range(16)}
         exp.append(grid(d))
-    check(captured_payload(page) == ref_payload(exp, 200), 'Nutzlast des Streifen-Imports = Referenz (4 Teile, mittig)')
+    check(captured_payload(page) == ref_payload(exp, 200), 'Nutzlast des Kachel-Imports = Referenz (4 Kacheln 1:1)')
     page.wait_for_function("document.querySelectorAll('#animList .anim-row').length===2")
 
     # 5) Text-Raster: 2 Bilder 5x3, Originalgroesse mittig
@@ -489,7 +488,7 @@ with sync_playwright() as pw:
     check(page.evaluate("window.__anim.items.length") == n_items, 'Ueberschreiben legt keinen neuen Eintrag an')
     it = page.evaluate("(()=>{const x=window.__anim.items.find(x=>x.id===%d);return {name:x.name,ms:x.ms,frames:x.frames}})()" % sel_id)
     check(it == {'name': 'Kurz', 'ms': 50, 'frames': 3}, f'Eintrag aktualisiert {it}')
-    exp3 = [grid({(x, y): c for x in range(16, 48) for y in range(16)}) for c in (1, 2, 4)]
+    exp3 = [grid({(x, y): c for x in range(64) for y in range(16)}) for c in (1, 2, 4)]
     cur = bytes(page.evaluate("Array.from(window.__anim.items.find(x=>x.id===%d).payload)" % sel_id))
     check(cur == ref_payload(exp3, 50), 'Nutzlast nach Bearbeiten = erste 3 Bilder mit 50 ms')
     page.wait_for_function("document.getElementById('animListPane') && !document.getElementById('animListPane').classList.contains('hidden')")

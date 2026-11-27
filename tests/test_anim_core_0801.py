@@ -1,5 +1,5 @@
 """v0.6.1.0: Kernfunktionen der Animationsoberflaeche (web/index.html, Block RbAnim) in Node:
- - Nutzlast-Bau gegen die unabhaengige Referenz, die in host_anim_0800.py die Firmware bestaetigt (und die auf der echten Tafel richtig aussah)
+ - Nutzlast-Bau gegen die unabhaengige Referenz, die in host_anim_0801.py die Firmware bestaetigt (und die auf der echten Tafel richtig aussah)
  - Base64, Auspacken, Vorschaubild
  - GIF-Decoder gegen Pillow (Interlace, Teilbilder, Transparenz, Entsorgungsarten, Rauschen mit 12-Bit-Codes, Randgroessen)
  - Text-Raster, Farbumsetzung, Bildfolge-Planung, Fenster, Streifen
@@ -26,7 +26,7 @@ fails = []
 def check(c, m):
     if not c: fails.append(m); print('FAIL', m)
 
-# ---- Referenz aus host_anim_0800.py (Firmware-bestaetigt): Testmuster -> Pixelfelder -> Nutzlast ----------
+# ---- Referenz aus host_anim_0801.py (Firmware-bestaetigt): Testmuster -> Pixelfelder -> Nutzlast ----------
 GLYPH = {'0': ['###', '# #', '# #', '# #', '###'], '1': [' # ', '## ', ' # ', ' # ', '###'], '2': ['###', '  #', '###', '#  ', '###'],
          '3': ['###', '  #', '###', '  #', '###'], '4': ['# #', '# #', '###', '  #', '  #'], '5': ['###', '#  ', '###', '  #', '###'],
          '6': ['###', '#  ', '###', '# #', '###'], '7': ['###', '  #', '  #', ' # ', ' # '], '8': ['###', '# #', '###', '# #', '###'],
@@ -101,7 +101,7 @@ for name, (frames, kw) in gifs.items():
     else: frames[0].save(path, format='GIF', save_all=True, append_images=frames[1:], **kw)
     paths[name] = path
 # Referenz 1: Chromium (ImageDecoder, Browser-Decoder); Referenz 2: Pillow. Weichen beide ab, gilt der Browser (Pillow-Hinweis wird gezaehlt).
-subprocess.run([sys.executable, str(ROOT / 'tests/gif_ref_chromium_0800.py'), str(tmp / 'chromium.json')] + [str(x) for x in paths.values()], check=True)
+subprocess.run([sys.executable, str(ROOT / 'tests/gif_ref_chromium_0801.py'), str(tmp / 'chromium.json')] + [str(x) for x in paths.values()], check=True)
 chromium = json.loads((tmp / 'chromium.json').read_text())
 pillow_diff = []
 def diffpix(mine, ref):
@@ -216,10 +216,6 @@ check(o[0]['cx'] == 0 and o[0]['cy'] == 1 and abs(o[0]['w'] - 8 / 128) < 1e-9, f
 check(abs(o[1]['w'] - 2 * max(128, 64 * 4) / 128) < 1e-9, f'clamp gross {o[1]}')
 check(o[2] == {'cx': .2, 'cy': .3, 'w': .5}, 'clamp laesst gueltige Werte unveraendert')
 
-o = node("process.stdout.write(JSON.stringify({h:R.stripRects(300,100,3,'h'),v:R.stripRects(100,300,3,'v'),g1:R.stripGuess(640,64),g2:R.stripGuess(16,160),g3:R.stripGuess(50,50)}))")
-check(o['h'] == [{'x': 0, 'y': 0, 'w': 100, 'h': 100}, {'x': 100, 'y': 0, 'w': 100, 'h': 100}, {'x': 200, 'y': 0, 'w': 100, 'h': 100}], f'Streifen waagerecht {o["h"]}')
-check(o['v'][2] == {'x': 0, 'y': 200, 'w': 100, 'h': 100}, 'Streifen senkrecht')
-check(o['g1'] == {'dir': 'h', 'n': 10} and o['g2'] == {'dir': 'v', 'n': 10} and o['g3']['n'] == 1, f'Streifen raten {o}')
 o = node("process.stdout.write(JSON.stringify({a:R.uploadSeconds(79),b:R.uploadSeconds(16)}))")
 check(53 < o['a'] < 57 and 10 < o['b'] < 14, f'Uebertragungsdauer-Schaetzung {o}')
 

@@ -1,5 +1,5 @@
-"""Hilfsprogramm fuer test_anim_core_0800.py: zerlegt GIF-Dateien mit dem ImageDecoder von Chromium (Playwright) in
-zusammengesetzte RGBA-Bilder. Aufruf: gif_ref_chromium_0800.py out.json a.gif b.gif ...  (JSON: {pfad: [rgba-Hex je Bild]})"""
+"""Hilfsprogramm fuer test_anim_core_0801.py: zerlegt GIF-Dateien mit dem ImageDecoder von Chromium (Playwright) in
+zusammengesetzte RGBA-Bilder. Aufruf: gif_ref_chromium_0801.py out.json a.gif b.gif ...  (JSON: {pfad: [rgba-Hex je Bild]})"""
 import sys, json, base64, threading, http.server
 from playwright.sync_api import sync_playwright
 class H(http.server.BaseHTTPRequestHandler):

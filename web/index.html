@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <meta content="#11141c" name="theme-color"/>
-<title>RavestickBoard · v0.8.0-dev</title>
+<title>RavestickBoard · v0.8.1-dev</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" href="/favicon.ico"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="RavestickBoard"/>
@@ -681,7 +681,15 @@ body.rb-frame #animGrid{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-be
 
 /* Import-Seite – drei gleichberechtigte Quellen, Dock aus */
 body.rb-no-dock #rbDock{display:none!important}
-.anim-src-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0}
+.anim-src-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:8px 0}
+@media(max-width:640px){.anim-src-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.anim-anchors{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-start;margin:6px 0}
+.anim-anchor-grid{display:grid;grid-template-columns:repeat(3,30px);gap:4px;margin-top:4px}
+.anim-anchor-grid button{min-height:0;width:30px;height:30px;padding:0;border-radius:7px;border:1px solid #6b7280;background:#283345;position:relative}
+.anim-anchor-grid button::after{content:"";position:absolute;inset:9px;border-radius:50%;background:#9aa5b8}
+.anim-anchor-grid button:active::after{background:var(--rb-accent)}
+.anim-presets{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 280px;align-self:center}
+.anim-presets button{min-height:0;width:auto;padding:8px 11px;font-size:13px}
 .anim-src{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:84px;padding:10px 6px;border:1px solid #6b7280;border-radius:12px;background:#283345;color:inherit;cursor:pointer;font-size:12.5px!important;line-height:1.2;text-align:center;font-weight:600}
 .anim-src .rb-lucide{width:26px;height:26px;color:var(--rb-accent)}
 .anim-src.active{border-color:var(--rb-accent);background:#2f3a4e}
@@ -750,10 +758,27 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 #animDraw .ad-top{justify-content:space-between}
 .pixel-range.rb-fixed b{font-size:0;line-height:0}.pixel-range.rb-fixed b::after{content:"fest 80";font-size:13px;line-height:1.2}
 #animEditFrames,#animPanSeam{width:100%;margin:6px 0}
+#animDraw .ad-more button:not(.on){background:var(--rb-btn);color:var(--rb-ink)}
+#animDraw.ad-move #adLeft,#animDraw.ad-move #adRight{background:var(--rb-accent);color:var(--rb-accent-ink)}
+/* schmales Querformat (Handy): Farben kleiner, seltene Werkzeuge liegen unter „Mehr“ (Ansicht verschieben, Zoom) */
+#animDraw.ad-compact .ad-colors{gap:4px}#animDraw.ad-compact .ad-colors button{width:26px;height:26px;border-width:2px}
+#animDraw.ad-compact .ad-bottom{gap:6px}
+/* große Bildschirme (Laptop, iPad): große, beschriftete Flächen statt kleiner Symbole */
+#animDraw.ad-large{gap:10px}
+#animDraw.ad-large button[data-lbl]{width:auto;min-width:66px;height:60px;padding:4px 8px;flex-direction:column;gap:3px;border-radius:12px}
+#animDraw.ad-large button[data-lbl]::after{content:attr(data-lbl);font:600 11px/1.1 system-ui;white-space:nowrap}
+#animDraw.ad-large .ad-top button:not([data-lbl]){width:48px;height:48px}
+#animDraw.ad-large .ad-top{gap:8px}
+#animDraw.ad-large .ad-strip .ad-th canvas{width:128px;height:32px}
+#animDraw.ad-large .ad-bottom{flex-wrap:wrap;justify-content:center;gap:10px 18px}
+#animDraw.ad-large .ad-tools{flex-wrap:wrap;justify-content:center;gap:6px}
+#animDraw.ad-large .ad-colors{gap:12px}#animDraw.ad-large .ad-colors button{width:46px;height:46px}
+#animDraw.ad-large .ad-more{bottom:100%;margin-bottom:8px}
+#animDraw.ad-large .ad-tools .tiny{min-width:46px}
 @media(min-width:1000px){html{overflow-y:scroll;scrollbar-gutter:stable}}
 </style></head>
 <body class="home-active" data-rb-view="home"><div id="rbBootScreen" class="rb-initial-loading" role="status" aria-live="polite"><span class="rb-boot-mark" aria-hidden="true"><svg aria-hidden="true" class="rb-lucide" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"></path><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"></path></svg></span><span>RavestickBoard wird geladen …</span></div><main id="appShell">
-<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.0-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
+<header class="app-header"><button aria-controls="mainMenu" aria-expanded="false" aria-label="Menü öffnen" class="logo" id="bananaMenu" type="button" data-rb-icon="banana" data-rb-painted="banana"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5"/><path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z"/></svg></button><div><h1>RavestickBoard <span class="version">v0.8.1-dev</span></h1><div class="sub">CoolLEDX · ESP32-C3 <span class="rb-ble" id="rbBle" data-state="idle" data-rb-icon="bluetooth" role="img" aria-label="LED-Tafel: noch kein Verbindungsversuch seit dem Start" title="LED-Tafel: noch kein Verbindungsversuch seit dem Start"></span><span id="rbConnectionStatus" hidden>WLAN-Verbindung prüfen</span></div></div></header>
 
 
 
@@ -828,16 +853,11 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div id="animSourcePick"><div class="label">Quelle</div>
 <div class="anim-src-grid">
 <label class="anim-src" for="animFileGif" data-rb-icon="image-up">GIF importieren</label><input type="file" id="animFileGif" class="visually-hidden" accept="image/gif,.gif"/>
-<label class="anim-src" for="animFileStrip" data-rb-icon="layout-grid">Einzelbilder aus einem Bild</label><input type="file" id="animFileStrip" class="visually-hidden" accept="image/*"/>
+<label class="anim-src" for="animFilePan" data-rb-icon="move-right">Schwenk / Einzelbilder</label><input type="file" id="animFilePan" class="visually-hidden" accept="image/*"/>
 <button type="button" class="anim-src" id="animRasterTile" data-rb-icon="file-spreadsheet" aria-expanded="false" aria-controls="animRasterBox">Text-Raster</button>
-<label class="anim-src" for="animFilePan" data-rb-icon="move-right">Schwenk über großes Bild</label><input type="file" id="animFilePan" class="visually-hidden" accept="image/*"/>
 <button type="button" class="anim-src" id="animDrawNew" data-rb-icon="pencil-line">Neu zeichnen</button>
 </div>
-<p class="tiny muted">Einzelbilder aus einem Bild: Ein PNG, JPG oder WebP enthält mehrere gleich große Bilder nebeneinander oder untereinander; daraus werden die Frames der Animation. Schwenk über großes Bild: Ein Fenster in Tafelgröße wandert Bild für Bild über ein größeres Bild. Neu zeichnen: Frames von Hand im Editor malen (nur im Querformat).</p>
-<div id="animStripOpts" class="anim-grid hidden">
-<label>Anzahl Einzelbilder<input type="number" id="animStripN" min="1" max="300" step="1" inputmode="numeric"/></label>
-<label>Anordnung<select id="animStripDir"><option value="h">nebeneinander</option><option value="v">untereinander</option></select></label>
-</div>
+<p class="tiny muted">Schwenk / Einzelbilder: Ein Bild (auch groß) wird mit einem Rahmen in Tafelgröße abgefahren: Start- und Ende-Rahmen ziehen, dazwischen entstehen die Frames; mit unterschiedlich großen Rahmen zoomst du. „Ohne Überlappung“ schneidet das Bild Kachel für Kachel in Einzelbilder. Text-Raster: Zeichen für Zeichen als Pixel. Neu zeichnen: Frames von Hand im Editor malen (nur Querformat, Laptop oder iPad am besten).</p>
 <div class="anim-raster hidden" id="animRasterBox">
 <p class="tiny muted">Ein Zeichen je Pixel: <b>.</b> aus, <b>R</b> rot, <b>G</b> grün, <b>B</b> blau, <b>C</b> cyan, <b>M</b> magenta, <b>Y</b> gelb, <b>W</b> weiß. Zellen aus Excel (Tab-getrennt) einfügen oder Zeichen direkt aneinanderschreiben. Mehrere Bilder trennt eine leere Zeile oder eine Zeile, die mit <b>---</b> beginnt. 64 × 16 Zeichen entsprechen 1:1 der Tafel.</p>
 <textarea id="animRasterText" aria-label="Text-Raster: je Zeile 64 Zeichen, Bilder durch --- getrennt" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="RRRR....BBBB&#10;RRRR....BBBB"></textarea>
@@ -847,22 +867,31 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <p class="tiny muted" id="animSrcInfo" aria-live="polite"></p>
 <div id="animAdjust" class="hidden">
 <div id="animPanOpts" class="hidden">
-<div class="label">Quellbild mit Fenster (64 × 16)</div>
-<div class="anim-crop-wrap"><canvas id="animPanView" width="340" height="120" role="img" aria-label="Quellbild mit dem Fenster der Tafel an Start, Ende und dazwischen"></canvas></div>
-<p class="tiny muted">Gelb: erstes Bild · weiß gestrichelt: letztes Bild · blass: dazwischen. Bild: <span id="animPanSize"></span>.</p>
+<div class="label">Bild mit Start- und Ende-Rahmen (4 : 1 wie die Tafel)</div>
+<div class="anim-crop-wrap"><canvas id="animPanView" width="340" height="120" role="img" aria-label="Quellbild mit Start-Rahmen (gelb) und Ende-Rahmen (weiß gestrichelt). Rahmen ziehen zum Verschieben, an den Ecken oder mit zwei Fingern zum Vergrößern und Verkleinern."></canvas></div>
+<p class="tiny muted">Gelb: Start · weiß gestrichelt: Ende · blass: Frames dazwischen. Rahmen mit Finger, Stift oder Maus ziehen; an den Ecken, mit zwei Fingern oder dem Mausrad in der Größe ändern (das Zoomen). Außerhalb des Bildes ist die Tafel schwarz. <span id="animPanSize"></span></p>
 <div class="anim-grid">
-<label>Bildgröße<select id="animPanScale"><option value="orig">Original (1 Pixel = 1 Tafelpixel)</option><option value="h16">Höhe auf 16 Pixel</option><option value="h32">Höhe auf 32 Pixel</option><option value="h48">Höhe auf 48 Pixel</option><option value="h64">Höhe auf 64 Pixel</option><option value="w64">Breite auf 64 Pixel</option></select></label>
+<label class="anim-check wide"><input type="checkbox" id="animPanLock" checked/> Größe gleich (Start und Ende bleiben gleich groß)</label>
+<label class="anim-check wide"><input type="checkbox" id="animPanTile"/> Ohne Überlappung (Kachel für Kachel)</label>
+</div>
+<div class="label">Anker und Vorlagen</div>
+<div class="anim-anchors"><div><span class="tiny muted">Start</span><div class="anim-anchor-grid" id="animAnchS" role="group" aria-label="Anker für den Start-Rahmen"></div></div><div><span class="tiny muted">Ende</span><div class="anim-anchor-grid" id="animAnchE" role="group" aria-label="Anker für den Ende-Rahmen"></div></div>
+<div class="anim-presets" id="animPanPresets"><button type="button" class="secondary" data-pre="lr">Links → Rechts</button><button type="button" class="secondary" data-pre="rl">Rechts → Links</button><button type="button" class="secondary" data-pre="tb">Oben → Unten</button><button type="button" class="secondary" data-pre="bt">Unten → Oben</button><button type="button" class="secondary" data-pre="all">Ganzes Bild durchlaufen</button><button type="button" class="secondary" data-pre="one">Rahmen 1:1</button><button type="button" class="secondary" data-pre="fit">Höhe einpassen</button></div></div>
+<div class="label">Feinschliff</div>
+<div class="anim-grid">
 <label>Rand<select id="animPanWrap"><option value="stop">Stoppen am Rand</option><option value="wrap">Umlauf (nahtlos)</option></select></label>
 <label>Anzahl Frames<input type="number" id="animPanN" min="2" max="79" step="1" inputmode="numeric" value="2"/></label>
-<span></span>
 <label>Start X<input type="number" id="animPanSx" step="any" inputmode="decimal" value="0"/></label>
 <label>Start Y<input type="number" id="animPanSy" step="any" inputmode="decimal" value="0"/></label>
 <label>Ende X<input type="number" id="animPanEx" step="any" inputmode="decimal" value="0"/></label>
 <label>Ende Y<input type="number" id="animPanEy" step="any" inputmode="decimal" value="0"/></label>
 <label>Versatz X je Frame<input type="number" id="animPanDx" step="any" inputmode="decimal" value="0"/></label>
 <label>Versatz Y je Frame<input type="number" id="animPanDy" step="any" inputmode="decimal" value="0"/></label>
+<label>Rahmenbreite Start<input type="number" id="animPanSw" step="any" inputmode="decimal" value="64"/></label>
+<label>Rahmenbreite Ende<input type="number" id="animPanEw" step="any" inputmode="decimal" value="64"/></label>
 </div>
 <button type="button" id="animPanSeam" class="secondary wide hidden">Versatz für eine nahtlose Schleife setzen</button>
+<p class="tiny muted" id="animPanSeamWhy"></p>
 <p class="tiny muted" id="animPanInfo" aria-live="polite"></p>
 </div>
 <div id="animPixelOpts"><div id="animCropBlock"><div class="label">Ausschnitt</div>
@@ -875,7 +904,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <label id="animFitWrap">Voreinstellung<select id="animFit"><option value="contain">Einpassen</option><option value="cover">Füllen</option><option value="stretch">Strecken</option><option value="orig">Original</option><option value="crop">Eigener Ausschnitt</option></select></label>
 <label>Farbumsetzung<select id="animDither"><option value="thresh">Schwelle</option><option value="fs">Floyd-Steinberg</option><option value="bayer">Geordnet</option></select></label>
 </div>
-<p class="tiny muted">Einpassen zeigt das ganze Bild, Füllen schneidet zu, Strecken verzerrt, Original zeigt es unskaliert in der Mitte; jede Voreinstellung setzt nur den Rahmen, den du danach noch verschieben kannst. Schwelle ergibt flächige Farben, die beiden Rasterungen täuschen Zwischentöne mit Punktmustern vor. Die Tafel kennt nur acht Farben (je Farbkanal an oder aus).</p>
+<p class="tiny muted" id="animFitHelp">Einpassen zeigt das ganze Bild, Füllen schneidet zu, Strecken verzerrt, Original zeigt es unskaliert in der Mitte; jede Voreinstellung setzt nur den Rahmen, den du danach noch verschieben kannst. Schwelle ergibt flächige Farben, die beiden Rasterungen täuschen Zwischentöne mit Punktmustern vor. Die Tafel kennt nur acht Farben (je Farbkanal an oder aus).</p>
 <div class="anim-grid">
 <label>Helligkeit der Schwelle<input type="range" id="animThr" min="0" max="255" step="1" value="128"/></label>
 <label>Kontrast<input type="range" id="animCon" min="-50" max="100" step="1" value="0"/></label>
@@ -984,7 +1013,7 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 </div>
 <p class="tiny muted">Jedes Frame zeigt seine Nummer (01, 02, 03 …) in der Mitte, so sieht man, wie viele Frames ankommen und wo die Schleife endet. Der Balken wandert von links nach rechts, oben links leuchtet ein roter und unten rechts ein blauer Eckpixel. Standardzeiten: Farben 700 ms, Balken 60 ms, Grenze 300 ms. Zum bequemen Lesen der Nummer reichen 300 ms oder mehr. Die 80-Frames-Probe ist absichtlich zu groß: Die Tafel soll sie mit einem Fehlercode ablehnen, der danach im Diagnoseprotokoll steht.</p>
 </div>
-<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.0-dev</p></div>
+<p class="tiny muted" style="margin-top:20px">RavestickBoard · v0.8.1-dev</p></div>
 </section><aside id="rbDock" class="rb-dock" aria-label="Tafelsteuerung">
  <div class="pixel-range" role="group" aria-label="Globale Helligkeit"><span class="rb-range-icon" data-rb-icon="sunset" aria-hidden="true" data-rb-painted="sunset"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><input aria-label="Helligkeit" data-global="brightness" id="dockBrightness" min="1" max="100" type="range" value="75"/><b data-global-label="brightness">75 %</b><span class="rb-range-icon" data-rb-icon="sunrise" aria-hidden="true" data-rb-painted="sunrise"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span></div>
  <div class="pixel-range rb-dock-speed" role="group" aria-label="Globale Geschwindigkeit"><span class="rb-range-icon" data-rb-icon="snail" aria-hidden="true" data-rb-painted="snail"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13a6 6 0 1 0 12 0 4 4 0 1 0-8 0 2 2 0 0 0 4 0"/><circle cx="10" cy="13" r="8"/><path d="M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6"/><path d="M18 3 19.1 5.2"/><path d="M22 3 20.9 5.2"/></svg></span><input aria-label="Geschwindigkeit" data-global="speed" id="dockSpeed" min="1" max="100" type="range" value="80"/><b data-global-label="speed">80 / 100</b><span class="rb-range-icon" data-rb-icon="rabbit" aria-hidden="true" data-rb-painted="rabbit"><svg class="rb-lucide" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg></span></div>
@@ -1040,35 +1069,36 @@ html.ad-lock,html.ad-lock body{overflow:hidden!important;overscroll-behavior:non
 <div class="ad-top">
 <button id="adBack" type="button" class="secondary" data-rb-icon="arrow-left" data-rb-only="1" title="Abbrechen" aria-label="Abbrechen"></button>
 <div id="adStrip" class="ad-strip" role="list" aria-label="Bilder"></div>
-<button id="adAdd" type="button" class="secondary" data-rb-icon="plus" data-rb-only="1" title="Neues Bild als Kopie des aktuellen" aria-label="Neues Bild als Kopie des aktuellen"></button>
-<button id="adDel" type="button" class="secondary" data-rb-icon="trash" data-rb-only="1" title="Bild löschen" aria-label="Bild löschen"></button>
-<button id="adLeft" type="button" class="secondary" data-rb-icon="chevron-left" data-rb-only="1" title="Bild nach links" aria-label="Bild nach links"></button>
-<button id="adRight" type="button" class="secondary" data-rb-icon="chevron-right" data-rb-only="1" title="Bild nach rechts" aria-label="Bild nach rechts"></button>
+<button id="adAdd" type="button" class="secondary" data-lbl="Neu" data-rb-icon="plus" data-rb-only="1" title="Neues Bild als Kopie des aktuellen" aria-label="Neues Bild als Kopie des aktuellen"></button>
+<button id="adDel" type="button" class="secondary" data-lbl="Löschen" data-rb-icon="trash" data-rb-only="1" title="Bild löschen" aria-label="Bild löschen"></button>
+<button id="adLeft" type="button" class="secondary" data-lbl="Voriges" data-rb-icon="chevron-left" data-rb-only="1" title="Voriges Frame" aria-label="Voriges Frame"></button>
+<button id="adRight" type="button" class="secondary" data-lbl="Nächstes" data-rb-icon="chevron-right" data-rb-only="1" title="Nächstes Frame" aria-label="Nächstes Frame"></button>
+<button id="adMoveMode" type="button" class="secondary" data-lbl="Verschieben" data-rb-icon="arrow-left-right" data-rb-only="1" title="Verschieben: Pfeile schieben das aktuelle Frame in der Reihenfolge" aria-label="Frame verschieben" aria-pressed="false"></button>
 <span id="adCount" class="tiny muted"></span>
 <button id="adDone" type="button" class="primary" data-rb-icon="check" data-rb-only="1" title="Fertig" aria-label="Fertig"></button>
 </div>
 <div class="ad-stage" id="adStage"><canvas id="adCanvas" aria-label="Zeichenfeld, 64 mal 16 Pixel"></canvas><div id="adBlock" class="ad-block hidden"><p id="adBlockText"></p></div></div>
 <div class="ad-bottom" id="adBottom">
 <div class="ad-tools" id="adTools">
-<button type="button" data-tool="pen" data-rb-icon="pencil" data-rb-only="1" title="Stift" aria-label="Stift"></button>
-<button type="button" data-tool="eraser" data-rb-icon="eraser" data-rb-only="1" title="Radierer" aria-label="Radierer"></button>
-<button type="button" data-tool="fill" data-rb-icon="paint-bucket" data-rb-only="1" title="Füllen" aria-label="Füllen"></button>
-<button type="button" data-tool="pipette" data-rb-icon="pipette" data-rb-only="1" title="Pipette" aria-label="Pipette"></button>
-<button type="button" data-tool="select" data-rb-icon="square-dashed" data-rb-only="1" title="Auswahl: aufziehen, dann verschieben" aria-label="Auswahl"></button>
-<button type="button" data-tool="pan" data-rb-icon="move" data-rb-only="1" title="Ansicht verschieben" aria-label="Ansicht verschieben"></button>
-<button type="button" id="adZoomOut" data-rb-icon="zoom-out" data-rb-only="1" title="Verkleinern" aria-label="Verkleinern"></button>
+<button type="button" data-tool="pen" data-lbl="Stift" data-rb-icon="pencil" data-rb-only="1" title="Stift" aria-label="Stift"></button>
+<button type="button" data-tool="eraser" data-lbl="Radierer" data-rb-icon="eraser" data-rb-only="1" title="Radierer" aria-label="Radierer"></button>
+<button type="button" data-tool="fill" data-lbl="Füllen" data-rb-icon="paint-bucket" data-rb-only="1" title="Füllen" aria-label="Füllen"></button>
+<button type="button" data-tool="pipette" data-lbl="Pipette" data-rb-icon="pipette" data-rb-only="1" title="Pipette" aria-label="Pipette"></button>
+<button type="button" data-tool="select" data-lbl="Auswahl" data-rb-icon="square-dashed" data-rb-only="1" title="Auswahl: aufziehen, dann verschieben" aria-label="Auswahl"></button>
+<button type="button" data-tool="pan" data-lbl="Ansicht" data-rb-icon="move" data-rb-only="1" title="Ansicht verschieben" aria-label="Ansicht verschieben"></button>
+<button type="button" id="adZoomOut" data-lbl="Kleiner" data-rb-icon="zoom-out" data-rb-only="1" title="Verkleinern" aria-label="Verkleinern"></button>
 <span id="adZoomTxt" class="tiny muted">100 %</span>
-<button type="button" id="adZoomIn" data-rb-icon="zoom-in" data-rb-only="1" title="Vergrößern" aria-label="Vergrößern"></button>
-<button type="button" id="adUndo" data-rb-icon="undo-2" data-rb-only="1" title="Rückgängig" aria-label="Rückgängig"></button>
-<button type="button" id="adRedo" data-rb-icon="redo-2" data-rb-only="1" title="Wiederherstellen" aria-label="Wiederherstellen"></button>
-<button type="button" id="adMore" data-rb-icon="chevron-up" data-rb-only="1" title="Mehr" aria-label="Mehr Werkzeuge" aria-expanded="false"></button>
+<button type="button" id="adZoomIn" data-lbl="Größer" data-rb-icon="zoom-in" data-rb-only="1" title="Vergrößern" aria-label="Vergrößern"></button>
+<button type="button" id="adUndo" data-lbl="Rückgängig" data-rb-icon="undo-2" data-rb-only="1" title="Rückgängig" aria-label="Rückgängig"></button>
+<button type="button" id="adRedo" data-lbl="Wiederholen" data-rb-icon="redo-2" data-rb-only="1" title="Wiederherstellen" aria-label="Wiederherstellen"></button>
+<button type="button" id="adMore" data-lbl="Mehr" data-rb-icon="chevron-up" data-rb-only="1" title="Mehr" aria-label="Mehr Werkzeuge" aria-expanded="false"></button>
 </div>
 <div class="ad-colors" id="adColors" role="radiogroup" aria-label="Farbe"></div>
 <div class="ad-more hidden" id="adMorePanel">
-<button type="button" id="adFlipH" data-rb-icon="arrow-left-right" data-rb-only="1" title="Spiegeln links/rechts (Auswahl oder ganzes Bild)" aria-label="Spiegeln links/rechts"></button>
-<button type="button" id="adFlipV" data-rb-icon="arrow-up-down" data-rb-only="1" title="Spiegeln oben/unten (Auswahl oder ganzes Bild)" aria-label="Spiegeln oben/unten"></button>
-<button type="button" id="adClear" data-rb-icon="brush-cleaning" data-rb-only="1" title="Leeren (Auswahl oder ganzes Bild)" aria-label="Leeren"></button>
-<button type="button" id="adOnion" data-rb-icon="layers-2" data-rb-only="1" title="Zwiebelschicht: vorheriges Bild blass zeigen" aria-label="Zwiebelschicht" aria-pressed="false"></button>
+<button type="button" id="adFlipH" data-lbl="Spiegeln" data-rb-icon="arrow-left-right" data-rb-only="1" title="Spiegeln links/rechts (Auswahl oder ganzes Bild)" aria-label="Spiegeln links/rechts"></button>
+<button type="button" id="adFlipV" data-lbl="Kippen" data-rb-icon="arrow-up-down" data-rb-only="1" title="Spiegeln oben/unten (Auswahl oder ganzes Bild)" aria-label="Spiegeln oben/unten"></button>
+<button type="button" id="adClear" data-lbl="Leeren" data-rb-icon="brush-cleaning" data-rb-only="1" title="Leeren (Auswahl oder ganzes Bild)" aria-label="Leeren"></button>
+<button type="button" id="adOnion" data-lbl="Zwiebel" data-rb-icon="layers-2" data-rb-only="1" title="Zwiebelschicht: vorheriges Bild blass zeigen" aria-label="Zwiebelschicht" aria-pressed="false"></button>
 </div>
 </div>
 </div>
@@ -1293,16 +1323,8 @@ const RbAnim=(()=>{
   const x=(W-dw)/2*(1+tx),y=(H-dh)/2*(1+ty);
   return {x,y,w:dw,h:dh,scale:s};
  }
- // Streifen in n gleich grosse Teile zerlegen: Rechtecke {x,y,w,h}
- function stripRects(imgW,imgH,n,dir){
-  const out=[];n=Math.max(1,Math.floor(n));
-  if(dir==='v'){const fh=Math.floor(imgH/n);for(let i=0;i<n;i++)out.push({x:0,y:i*fh,w:imgW,h:fh});}
-  else{const fw=Math.floor(imgW/n);for(let i=0;i<n;i++)out.push({x:i*fw,y:0,w:fw,h:imgH});}
-  return out;
- }
- function stripGuess(imgW,imgH){return imgW>=imgH?{dir:'h',n:Math.max(1,Math.round(imgW/imgH))}:{dir:'v',n:Math.max(1,Math.round(imgH/imgW))};}
  function uploadSeconds(n){return Math.ceil((HDR+n*FB)/128)*0.23;}
- return {W,H,MAXF,HDR,FB,MAXSRC,RGB,CSS,b64uEnc,b64uDec,buildPayload,unpackPayload,crc32,thumbOf,thumbPixels,gifDecode,lzwDecode,parseRaster,quantize,plan,fitRect,stripRects,stripGuess,uploadSeconds,cropFor,cropRect,clampCrop};
+ return {W,H,MAXF,HDR,FB,MAXSRC,RGB,CSS,b64uEnc,b64uDec,buildPayload,unpackPayload,crc32,thumbOf,thumbPixels,gifDecode,lzwDecode,parseRaster,quantize,plan,fitRect,uploadSeconds,cropFor,cropRect,clampCrop};
 })();
 /* ==== Ende reine Funktionen ==== */
 </script>
@@ -1808,8 +1830,10 @@ function showMenu(open){$('mainMenu').classList.toggle('hidden',!open);$('banana
 $('bananaMenu').addEventListener('click',()=>showMenu($('mainMenu').classList.contains('hidden')));
 $('mainMenu').addEventListener('click',e=>{if(e.target===$('mainMenu'))showMenu(false);});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')showMenu(false);});
+var rbAnimLeave=()=>true;   // wird im Animationsblock gesetzt: fragt bei ungespeicherten Änderungen nach
 function navigate(view){
  if(!$("view-"+view))return;
+ if(!rbAnimLeave())return;
  activeView=view;document.body.classList.toggle('home-active',view==='home');document.body.dataset.rbView=view;document.querySelectorAll('.app-view').forEach(el=>el.classList.toggle('hidden',el.id!=='view-'+view));
  document.querySelectorAll('[data-nav]').forEach(b=>{b.classList.toggle('current',b.dataset.nav===view);});
  showMenu(false);window.scrollTo({top:0,behavior:'instant'});
@@ -3268,7 +3292,14 @@ async function rbLoadLists(){const fresh=k=>Date.now()-(rbFresh[k]||0)<10000;   
  await v42RefreshShortcuts(true);await rbPause(200);if(!fresh('prog')){await v42RefreshPrograms(true);await rbPause(200);}if(!fresh('lib')){await refreshLibrary(true);await rbPause(200);}try{if(!fresh('anim'))await animLoad(true);libShortcutsDraw();}catch(e){}}
 /* ==== Animationen: Oberfläche (Liste, Import, Vorschau) ==== */
 var animUI={items:[],selected:0,cache:new Map(),ready:false,loaded:false,free:0,total:0,limit:40,saving:false};   // var: libShortcutsDraw kann vor diesem Block laufen
-const animImp={kind:'',sources:[],delays:[],name:'',strip:null,frames:null,ms:100,problem:'',timer:0};
+const animImp={kind:'',sources:[],delays:[],name:'',frames:null,ms:100,problem:'',timer:0,dirty:false};
+let animLoadSeq=0;   // jede neue Quelle/jedes Zurücksetzen zählt hoch: ein später fertig werdendes Laden einer älteren Datei wird verworfen
+const ANIM_IMG_MAX=4096;   // längste Kante eines geladenen Bildes (größere werden verkleinert und das wird angezeigt)
+function animMarkDirty(){animImp.dirty=true;}
+// Rückfrage, wenn Änderungen verloren gingen (nur Speichern, nicht Senden, setzt das zurück)
+function animLeaveOk(){return !animImp.dirty||confirm('Änderungen an dieser Animation sind nicht gespeichert. Verwerfen?');}
+window.addEventListener('beforeunload',ev=>{if(animImp.dirty&&!$('animImportPane').classList.contains('hidden')){ev.preventDefault();ev.returnValue='';}});
+rbAnimLeave=()=>{const imp=!$('animImportPane').classList.contains('hidden')&&!$('view-animations').classList.contains('hidden');return !imp||animLeaveOk();};
 function animLed(canvas,px,s){
  const w=RbAnim.W*s,h=RbAnim.H*s;if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
  const ctx=canvas.getContext('2d');ctx.fillStyle='#05080d';ctx.fillRect(0,0,w,h);
@@ -3452,7 +3483,9 @@ async function animPlay(){
 $('animPlay').onclick=()=>{const it=animSelectedItem();if(it&&animUI.playing===it.id)animStop();else animPlay();};
 function animShowList(m){   // m: 'grid' (Schnellmenü, nach dem Menü-Klick) oder 'editor' (Standard: zurück aus Import/Bearbeiten)
  if(m!=='grid'&&m!=='editor')m='editor';
+ const wasImp=!$('animImportPane').classList.contains('hidden');
  $('animListPane').classList.remove('hidden');$('animImportPane').classList.add('hidden');if(animImpPlayer)animImpPlayer.stop();
+ if(wasImp)animReset();   // Quellbilder und Zwischenstände freigeben
  animModeSet(m);renderAnimList();if(m==='editor'&&animUI.selected&&animListPlayer)animSelect(animUI.selected);
 }
 $('animSend').onclick=async()=>{const it=animSelectedItem();if(!it)return;try{const j=await api('/api/anim/send',{id:it.id});notify(j.message);}catch(e){notify('Senden: '+e.message);}};
@@ -3466,11 +3499,16 @@ $('animDelete').onclick=async()=>{if(rbMultiOn('anim')){await rbMultiDelete('ani
 // ---- Import: Quellen ---------------------------------------------------------------------------
 function animShrink(c,max){const m=Math.max(c.width,c.height);if(m<=max)return c;const s=max/m,o=document.createElement('canvas');o.width=Math.max(1,Math.round(c.width*s));o.height=Math.max(1,Math.round(c.height*s));
  const x=o.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(c,0,0,o.width,o.height);return o;}
+function animFreeImages(){   // große Bilddaten freigeben (Canvas auf 0 setzen gibt den Speicher auf iPhone/Safari wirklich frei)
+ const p=animPan;if(p&&p.img){p.img.width=0;p.img.height=0;p.img=null;}
+ for(const c of animImp.sources||[]){try{c.width=0;c.height=0;}catch(e){}}
+}
 function animReset(){
- animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.strip=null;animImp.frames=null;animImp.problem='';animImp.saveError='';animImp.drawn=false;
- $('animPanOpts').classList.add('hidden');$('animCropBlock').classList.remove('hidden');$('animFitWrap').classList.remove('hidden');$('animEditFrames').classList.add('hidden');
+ animLoadSeq++;animFreeImages();animImp.dirty=false;clearTimeout(animImp.timer);animImp.timer=0;
+ animImp.kind='';animImp.sources=[];animImp.delays=[];animImp.frames=null;animImp.problem='';animImp.saveError='';animImp.drawn=false;
+ $('animPanOpts').classList.add('hidden');$('animCropBlock').classList.remove('hidden');$('animFitWrap').classList.remove('hidden');$('animFitHelp').classList.remove('hidden');$('animEditFrames').classList.add('hidden');
  animImp.editId=0;animImp.stored=null;$('animSourcePick').classList.remove('hidden');$('animPixelOpts').classList.remove('hidden');$('animImpTitle').textContent='Animation importieren';$('animSaveCopy').classList.add('hidden');$('animSaveCopy').disabled=true;
- $('animAdjust').classList.add('hidden');$('animStripOpts').classList.add('hidden');$('animSrcInfo').textContent='';$('animErr').textContent='';$('animInfo').textContent='';
+ $('animAdjust').classList.add('hidden');$('animSrcInfo').textContent='';$('animErr').textContent='';$('animInfo').textContent='';
  $('animSave').disabled=true;$('animSaveSend').disabled=true;$('animSendOnly').disabled=true;animImp.crop=null;animImp.limitProblem='';if(animImpPlayer)animImpPlayer.set([],100);
  $('animRasterText').value='';animRasterUi(false);   // Eingabefeld beim nächsten Entwurf wieder leer
 }
@@ -3494,11 +3532,11 @@ function animSetSources(kind,sources,delays,name,note){
  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(name)||'Animation');
  $('animSrcInfo').textContent=note||'';
  $('animAdjust').classList.remove('hidden');$('animImpSub').textContent=n+' Bilder geladen';
- animCropDraw();animSchedule(0);
+ animCropDraw();animSchedule(0);animImp.dirty=true;
 }
 $('animFileGif').addEventListener('change',async e=>{
  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
- animReset();$('animSrcInfo').textContent='GIF wird gelesen …';
+ animReset();const my=animLoadSeq;$('animSrcInfo').textContent='GIF wird gelesen …';
  try{
   const buf=new Uint8Array(await f.arrayBuffer());const sources=[],delays=[];let tmp=null,tctx=null,img=null;
   const res=await RbAnim.gifDecode(buf,(rgba,w,h,d)=>{
@@ -3507,32 +3545,11 @@ $('animFileGif').addEventListener('change',async e=>{
    const c=animShrink(tmp,192);if(c===tmp){const o=document.createElement('canvas');o.width=w;o.height=h;o.getContext('2d').drawImage(tmp,0,0);sources.push(o);}else sources.push(c);
    delays.push(d);
   });
+  if(my!==animLoadSeq)return;
   animImp.nameAuto=true;
   animSetSources('gif',sources,delays,f.name.replace(/\.[^.]*$/,''),'GIF '+res.width+' × '+res.height+', '+res.count+' Bilder'+(res.truncated?' (mehr als '+RbAnim.MAXSRC+' Bilder: nur die ersten wurden gelesen)':'')+'.');
- }catch(err){$('animSrcInfo').textContent='';$('animErr').textContent='GIF: '+err.message;}
+ }catch(err){if(my===animLoadSeq){$('animSrcInfo').textContent='';$('animErr').textContent='GIF: '+err.message;}}
 });
-$('animFileStrip').addEventListener('change',async e=>{
- const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
- animReset();$('animSrcInfo').textContent='Bild wird gelesen …';
- try{
-  const url=URL.createObjectURL(f);const im=new Image();im.src=url;await im.decode();URL.revokeObjectURL(url);
-  const s=Math.min(1,4096/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));
-  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  animImp.strip=c;animImp.nameAuto=true;animImp.name=f.name.replace(/\.[^.]*$/,'');
-  const g=RbAnim.stripGuess(c.width,c.height);$('animStripN').value=Math.min(RbAnim.MAXSRC,g.n);$('animStripDir').value=g.dir;
-  $('animStripOpts').classList.remove('hidden');animSplitStrip();
- }catch(err){$('animSrcInfo').textContent='';$('animErr').textContent='Bild: '+err.message;}
-});
-function animSplitStrip(){
- const c=animImp.strip;if(!c)return;
- const n=Math.max(1,Math.min(RbAnim.MAXSRC,Number($('animStripN').value)||1)),dir=$('animStripDir').value;
- const rects=RbAnim.stripRects(c.width,c.height,n,dir);
- if(rects.some(r=>r.w<1||r.h<1)){$('animErr').textContent='Zu viele Teile für dieses Bild.';return;}
- const sources=rects.map(r=>{const o=document.createElement('canvas');o.width=r.w;o.height=r.h;o.getContext('2d').drawImage(c,r.x,r.y,r.w,r.h,0,0,r.w,r.h);return animShrink(o,192);});
- $('animErr').textContent='';
- animSetSources('strip',sources,sources.map(()=>100),animImp.name,'Streifen '+c.width+' × '+c.height+' in '+n+' Teile ('+(dir==='h'?'nebeneinander':'untereinander')+') zerlegt.');
-}
-$('animStripN').addEventListener('change',animSplitStrip);$('animStripDir').addEventListener('change',animSplitStrip);
 const ANIM_RASTER_RGB=[[0,0,0],[0,0,255],[0,255,0],[0,255,255],[255,0,0],[255,0,255],[255,255,0],[255,255,255]];
 function animRasterApply(text,name){
  animReset();
@@ -3593,7 +3610,7 @@ function animCropDraw(){
  x.strokeStyle='#ffd45c';x.lineWidth=2;x.setLineDash(b[4]?[6,4]:[]);x.strokeRect(rx,ry,rw,rh);x.setLineDash([]);
  if(!b[4]){x.fillStyle='#ffd45c';for(const [hx,hy] of [[rx,ry],[rx+rw,ry],[rx,ry+rh],[rx+rw,ry+rh]])x.fillRect(hx-5,hy-5,10,10);}
 }
-function animCropSet(c){const g=animCropLayout();if(!g)return;animImp.crop=RbAnim.clampCrop(c,g.sw,g.sh);
+function animCropSet(c){const g=animCropLayout();if(!g)return;animImp.dirty=true;animImp.crop=RbAnim.clampCrop(c,g.sw,g.sh);
  if($('animFit').value!=='crop')$('animFit').value='crop';animCropDraw();animSchedule(30);}
 function animCropZoom(f){if(!animImp.crop)return;const c=animImp.crop;animCropSet({cx:c.cx,cy:c.cy,w:c.w*f});}
 function animCropHit(g,px,py){   // -> 'move' | Ecke 0..3 (oben links, oben rechts, unten links, unten rechts)
@@ -3649,7 +3666,7 @@ function animRenderOne(src,o){
  if(smooth)animRx.drawImage(src,r.x,r.y,r.w,r.h);else animRx.drawImage(src,Math.round(r.x),Math.round(r.y),Math.max(1,Math.round(r.w)),Math.max(1,Math.round(r.h)));
  return RbAnim.quantize(animRx.getImageData(0,0,64,16).data,o);
 }
-function animSchedule(delay){animImp.saveError='';clearTimeout(animImp.timer);animImp.timer=setTimeout(animRender,delay==null?140:delay);}
+function animSchedule(delay){animImp.saveError='';clearTimeout(animImp.timer);animImp.timer=setTimeout(()=>{animImp.timer=0;animRender();},delay==null?140:delay);}
 function animRender(){
  if(!animImp.sources.length&&!animImp.stored)return;
  const n=animImp.stored?animImp.stored.length:animImp.sources.length;   // Bearbeiten: gespeicherte Bilder statt Quellbilder
@@ -3672,8 +3689,8 @@ function animRender(){
  $('animSaveCopy').disabled=!(ok&&!animImp.limitProblem)||animUI.saving;$('animSaveCopy').title=animImp.limitProblem?'Es sind schon '+animUI.limit+' Animationen gespeichert.':'';
  animImpPlayer.set(frames,p.ms);
 }
-$('animReduce').onclick=()=>{const n=animImp.stored?animImp.stored.length:animImp.sources.length,from=Number($('animFrom').value)||1,to=Number($('animTo').value)||n;const span=to-from+1;$('animStep').value=Math.ceil(span/RbAnim.MAXF);$('animPing').checked=false;animSchedule(0);};
-for(const id of ['animFit','animDither','animThr','animCon','animFrom','animTo','animStep','animRev','animPing','animMs','animVar'])$(id).addEventListener('input',()=>animSchedule());
+$('animReduce').onclick=()=>{animImp.dirty=true;const n=animImp.stored?animImp.stored.length:animImp.sources.length,from=Number($('animFrom').value)||1,to=Number($('animTo').value)||n;const span=to-from+1;$('animStep').value=Math.ceil(span/RbAnim.MAXF);$('animPing').checked=false;animSchedule(0);};
+for(const id of ['animFit','animDither','animThr','animCon','animFrom','animTo','animStep','animRev','animPing','animMs','animVar'])$(id).addEventListener('input',()=>{animImp.dirty=true;animSchedule();});
 // Voreinstellung -> Rahmen setzen (ausser "Eigener Ausschnitt" und "Strecken": dort bleibt der Rahmen wie er ist bzw. zeigt das ganze Bild)
 function animFitUi(){
  const s0=animImp.sources[0];if(!s0){animImp.crop=null;return;}
@@ -3683,9 +3700,9 @@ function animFitUi(){
  animCropDraw();
 }
 $('animFit').addEventListener('change',()=>animFitUi());
-$('animName').addEventListener('input',()=>{animImp.nameAuto=false;});
+$('animName').addEventListener('input',()=>{animImp.nameAuto=false;animImp.dirty=true;});
 $('animImport').onclick=animShowImport;
-$('animImpBack').onclick=animShowList;
+$('animImpBack').onclick=()=>{if(animLeaveOk())animShowList();};
 
 // ---- Import: Speichern -----------------------------------------------------------------------------
 // Upload einer fertigen Nutzlast in Stuecken zu 1200 Byte (fuer den Backup-Import). Gibt die neue ID zurueck.
@@ -3703,7 +3720,8 @@ async function animUploadPayload(payload,{name,frames,ms},progress){
  if(!last||!last.id)throw Error('Keine Antwort mit Animations-ID.');
  return last.id;
 }
-async function animSaveImport(mode){   // 'save' | 'saveSend' | 'sendOnly'
+async function animSaveImport(mode){   // 'save' | 'saveSend' | 'sendOnly' | 'copy'
+ if(animImp.timer){clearTimeout(animImp.timer);animImp.timer=0;animRender();}   // gerade geänderte Zeit/Bereich nicht mit altem Stand speichern
  const sendOnly=mode==='sendOnly',sendAfter=mode==='saveSend',replaceId=(animImp.editId&&!sendOnly&&mode!=='copy')?animImp.editId:0;   // 'copy' = Bearbeiten, aber als neue Animation
  if(animUI.saving||animImp.problem||(!sendOnly&&!replaceId&&animImp.limitProblem)||!animImp.frames||animImp.frames.length<2)return;
  animUI.saving=true;$('animSave').disabled=true;$('animSaveSend').disabled=true;$('animSendOnly').disabled=true;
@@ -3719,7 +3737,7 @@ async function animSaveImport(mode){   // 'save' | 'saveSend' | 'sendOnly'
   }
   const id=last&&last.id;if(!id)throw Error('Keine Antwort mit Animations-ID.');
   if(sendOnly){const j=await api('/api/anim/send',{temp:'1'});notify(j.message);return;}
-  animUI.selected=id;animUI.cache.delete(id);animShowList();await animRefresh();
+  animImp.dirty=false;animUI.selected=id;animUI.cache.delete(id);animShowList();await animRefresh();
   if(sendAfter){const j=await api('/api/anim/send',{id});notify(j.message);}else notify(replaceId?'Animation aktualisiert.':'Animation gespeichert.');
  }catch(e){
   try{await api('/api/anim/put',{abort:'1',up});}catch(x){}
@@ -3755,66 +3773,149 @@ $('animEdit').onclick=async()=>{
 };
 animListPlayer=animMakePlayer($('animPreview'));animImpPlayer=animMakePlayer($('animImpPreview'));
 animLed($('animPreview'),null,8);animLed($('animImpPreview'),null,8);
-/* ==== Schwenk über ein großes Bild ==== */
-// Ein Fenster in Tafelgröße (64 × 16) wandert Frame für Frame über ein größeres Bild. Die Fenster werden als Quellbilder
-// in die normale Import-Pipeline gegeben (Farbumsetzung, Bereich, Zeit, Speichern wie beim GIF-Import).
-const animPan={img:null,big:null,bw:0,bh:0,ow:0,oh:0,n:2,sx:0,sy:0,ex:0,ey:0,dx:0,dy:0,wrap:'stop'};
+/* ==== Schwenk / Einzelbilder: Bild mit Start- und Ende-Rahmen ==== */
+// Zwei Rahmen im Seitenverhältnis 4 : 1 (wie die Tafel) auf dem Quellbild. Die Frames dazwischen entstehen durch Mischen von Mitte und
+// Breite (Breite geometrisch, damit ein Zoom gleichmäßig wirkt). Jedes Fenster wird als 64 × 16-Quellbild in die normale Import-Pipeline
+// gegeben (Farbumsetzung, Bereich, Zeit, Speichern wie beim GIF-Import). Maße in Quellbild-Pixeln; Rahmen dürfen über den Rand ragen (dort schwarz).
+const animPan={img:null,iw:0,ih:0,ow:0,oh:0,n:2,wrap:'stop',lock:true,tile:false,act:'s',s:{x:0,y:0,w:64},e:{x:0,y:0,w:64},drag:null,geo:null};
+const PAN_WMIN=8;
 const animPanCv=$('animPanView'),animPanG=animPanCv.getContext('2d');
 const animPanFmt=v=>String(Math.round(v*100)/100);
 const animPanVal=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:0;};
-function animPanMax(){return {x:Math.max(0,animPan.bw-RbAnim.W),y:Math.max(0,animPan.bh-RbAnim.H)};}
-function animPanBuildBig(){
- const o=animPan.img,m=$('animPanScale').value;let s=1;
- if(m==='h16')s=16/o.height;else if(m==='h32')s=32/o.height;else if(m==='h48')s=48/o.height;else if(m==='h64')s=64/o.height;else if(m==='w64')s=64/o.width;
- const w=Math.max(1,Math.round(o.width*s)),h=Math.max(1,Math.round(o.height*s));
- if(w===o.width&&h===o.height)animPan.big=o;
- else{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(o,0,0,w,h);animPan.big=c;}
- animPan.bw=animPan.big.width;animPan.bh=animPan.big.height;
- $('animPanSize').textContent=animPan.bw+' × '+animPan.bh+' Pixel'+(m==='orig'?'':' (Original '+animPan.ow+' × '+animPan.oh+')');
+const animPanMod=(v,m)=>((v%m)+m)%m;
+function animPanWMax(){return Math.max(animPan.iw,animPan.ih*4)*2;}
+const animPanClampW=w=>Math.max(PAN_WMIN,Math.min(animPanWMax(),w));
+const animPanSame=()=>Math.abs(animPan.s.w-animPan.e.w)<1e-6;
+function animPanClampPos(f){   // die Mitte bleibt im Bild, damit ein Rahmen nie ganz verschwindet
+ f.x=Math.max(-f.w/2,Math.min(animPan.iw-f.w/2,f.x));f.y=Math.max(-f.w/8,Math.min(animPan.ih-f.w/8,f.y));
 }
-function animPanStep(){const k=Math.max(1,animPan.n-1);animPan.dx=(animPan.ex-animPan.sx)/k;animPan.dy=(animPan.ey-animPan.sy)/k;}
-function animPanDefaults(){
- const m=animPanMax();animPan.sx=0;animPan.sy=0;
- if(m.x>=m.y){animPan.ex=m.x;animPan.ey=0;}else{animPan.ex=0;animPan.ey=m.y;}
- const travel=Math.max(Math.abs(animPan.ex-animPan.sx),Math.abs(animPan.ey-animPan.sy));
- animPan.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(travel)+1));animPanStep();
-}
-function animPanPos(k){
- let x=Math.round(animPan.sx+animPan.dx*k),y=Math.round(animPan.sy+animPan.dy*k);
- if(animPan.wrap==='wrap'){x=((x%animPan.bw)+animPan.bw)%animPan.bw;y=((y%animPan.bh)+animPan.bh)%animPan.bh;}
- else{const m=animPanMax();x=Math.max(0,Math.min(m.x,x));y=Math.max(0,Math.min(m.y,y));}
- return [x,y];
+function animPanFrame(k){   // Frame k von n: {x,y,w} (links oben, Breite) in Quellbild-Pixeln
+ const n=animPan.n,t=n>1?k/(n-1):0,s=animPan.s,e=animPan.e;
+ const w=animPanSame()?s.w:s.w*Math.pow(e.w/s.w,t);
+ const cx=(s.x+s.w/2)+((e.x+e.w/2)-(s.x+s.w/2))*t,cy=(s.y+s.w/8)+((e.y+e.w/8)-(s.y+s.w/8))*t;
+ let x=cx-w/2,y=cy-w/8;
+ if(animPan.wrap==='wrap'){x=animPanMod(x,animPan.iw);y=animPanMod(y,animPan.ih);}
+ return {x,y,w};
 }
 function animPanWindow(k){
- const [x,y]=animPanPos(k),c=document.createElement('canvas');c.width=RbAnim.W;c.height=RbAnim.H;
- const g=c.getContext('2d');g.fillStyle='#000';g.fillRect(0,0,RbAnim.W,RbAnim.H);g.imageSmoothingEnabled=false;
- const big=animPan.big;
- if(animPan.wrap==='wrap'){const nx=Math.ceil(RbAnim.W/animPan.bw)+1,ny=Math.ceil(RbAnim.H/animPan.bh)+1;for(let j=0;j<ny;j++)for(let i=0;i<nx;i++)g.drawImage(big,-x+i*animPan.bw,-y+j*animPan.bh);}
- else g.drawImage(big,-x,-y);
+ const f=animPanFrame(k),c=document.createElement('canvas');c.width=RbAnim.W;c.height=RbAnim.H;
+ const g=c.getContext('2d'),iw=animPan.iw,ih=animPan.ih,sc=RbAnim.W/f.w,h=f.w/4;
+ g.fillStyle='#000';g.fillRect(0,0,RbAnim.W,RbAnim.H);g.imageSmoothingEnabled=sc<1;if(sc<1)g.imageSmoothingQuality='high';
+ const put=(ox,oy)=>{   // Bild liegt um (ox,oy) verschoben; sichtbarer Teil des Rahmens wird zugeschnitten (außerhalb bleibt schwarz)
+  let sx=f.x-ox,sy=f.y-oy,sw=f.w,sh=h,dx=0,dy=0,dw=RbAnim.W,dh=RbAnim.H;
+  if(sx<0){dx-=sx*sc;dw+=sx*sc;sw+=sx;sx=0;}
+  if(sy<0){dy-=sy*sc;dh+=sy*sc;sh+=sy;sy=0;}
+  if(sx+sw>iw){const cut=sx+sw-iw;sw-=cut;dw-=cut*sc;}
+  if(sy+sh>ih){const cut=sy+sh-ih;sh-=cut;dh-=cut*sc;}
+  if(sw>0&&sh>0&&dw>0&&dh>0)g.drawImage(animPan.img,sx,sy,sw,sh,dx,dy,dw,dh);
+ };
+ if(animPan.wrap==='wrap'){
+  const i0=Math.floor(f.x/iw),i1=Math.floor((f.x+f.w-1e-6)/iw),j0=Math.floor(f.y/ih),j1=Math.floor((f.y+h-1e-6)/ih);
+  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++)put(i*iw,j*ih);
+ }else put(0,0);
  return c;
 }
-function animPanFields(except){
- const set=(id,v)=>{if(id!==except)$(id).value=animPanFmt(v);};
- set('animPanN',animPan.n);set('animPanSx',animPan.sx);set('animPanSy',animPan.sy);set('animPanEx',animPan.ex);set('animPanEy',animPan.ey);set('animPanDx',animPan.dx);set('animPanDy',animPan.dy);
- $('animPanSeam').classList.toggle('hidden',animPan.wrap!=='wrap');
+function animPanDir(){   // Hauptrichtung des Weges: true = waagerecht
+ const dx=Math.abs(animPan.e.x-animPan.s.x),dy=Math.abs(animPan.e.y-animPan.s.y);
+ if(dx===dy)return animPan.iw/animPan.s.w>=animPan.ih/(animPan.s.w/4);
+ return dx>dy;
 }
+function animPanTileFix(keepN){   // Kachelmodus: gleich große Rahmen, Schritt = Rahmenbreite bzw. -höhe, Frames = ganze Kacheln
+ const p=animPan,s=p.s,w=s.w,h=w/4;p.e.w=w;
+ const horiz=animPanDir(),dim=horiz?p.iw:p.ih,step=horiz?w:h,pos=horiz?s.x:s.y,dir=(horiz?p.e.x-s.x:p.e.y-s.y)<0?-1:1;
+ let n=keepN?p.n:(dir>0?Math.floor((dim-pos)/step+1e-6):Math.floor((pos+step)/step+1e-6));
+ if(!keepN&&!(n>=2)){n=Math.max(2,Math.round(Math.abs((horiz?p.e.x-s.x:p.e.y-s.y))/step)+1);}
+ p.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(n)));
+ if(horiz){p.e.x=s.x+dir*step*(p.n-1);p.e.y=s.y;}else{p.e.y=s.y+dir*step*(p.n-1);p.e.x=s.x;}
+}
+function animPanTravelN(){   // ein Tafelpixel Weg je Frame (bei Rahmenbreite w sind das w/64 Quellpixel), höchstens 79 Frames
+ const p=animPan,sc=p.s.w/RbAnim.W,d=Math.max(Math.abs(p.e.x-p.s.x),Math.abs(p.e.y-p.s.y));
+ p.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(d/sc)+1));
+}
+function animPanDefaults(){   // „Ganzes Bild durchlaufen“
+ const p=animPan;let w=4*p.ih;if(w>p.iw)w=p.iw;w=animPanClampW(w);
+ if(Math.max(p.iw-w,p.ih-w/4)<1)w=animPanClampW(Math.min(RbAnim.W,p.iw));   // Bild hat schon 4 : 1: Rahmen 1:1 statt eines Rahmens, der alles zeigt
+ p.s.w=p.e.w=w;p.s.x=p.s.y=0;
+ if(p.iw-w>=p.ih-w/4){p.e.x=p.iw-w;p.e.y=0;}else{p.e.x=0;p.e.y=p.ih-w/4;}
+ if(p.e.x<0)p.e.x=0;if(p.e.y<0)p.e.y=0;
+ p.tile=false;p.lock=true;p.act='s';animPanTravelN();
+}
+function animPanPlace(f,ax,ay){f.x=(animPan.iw-f.w)*ax;f.y=(animPan.ih-f.w/4)*ay;}
+function animPanPreset(id){
+ const p=animPan,s=p.s,e=p.e,iw=p.iw,ih=p.ih;
+ if(id==='all'){animPanDefaults();}
+ else if(id==='one'||id==='fit'){
+  const w=id==='one'?RbAnim.W:animPanClampW(4*ih);
+  for(const f of [s,e]){const cx=f.x+f.w/2,cy=f.y+f.w/8;f.w=w;f.x=cx-w/2;f.y=cy-w/8;}
+  p.lock=true;
+ }else{
+  const w=s.w;e.w=w;p.lock=true;
+  if(id==='lr'||id==='rl'){const y=Math.max(0,Math.min(ih-w/4,s.y));s.y=e.y=y;const a=0,b=iw-w;s.x=id==='lr'?a:b;e.x=id==='lr'?b:a;}
+  else{const x=Math.max(0,Math.min(iw-w,s.x));s.x=e.x=x;const a=0,b=ih-w/4;s.y=id==='tb'?a:b;e.y=id==='tb'?b:a;}
+  animPanTravelN();
+ }
+ if(p.tile)animPanTileFix(false);
+ animPanSync();
+}
+function animPanSetW(which,w,fromActive){   // Breite setzen; bei „Größe gleich“ folgt der andere Rahmen (Mitte bleibt)
+ const p=animPan;w=animPanClampW(w);
+ const set=f=>{const cx=f.x+f.w/2,cy=f.y+f.w/8;f.w=w;f.x=cx-w/2;f.y=cy-w/8;};
+ set(which==='s'?p.s:p.e);if(p.lock||p.tile)set(which==='s'?p.e:p.s);
+}
+// ---- Anzeige --------------------------------------------------------------------------------------
+function animPanGeo(){
+ const p=animPan;if(p.drag&&p.geo)return p.geo;
+ const fr=[p.s,p.e];let x0=0,y0=0,x1=p.iw,y1=p.ih;
+ for(const f of fr){x0=Math.min(x0,f.x);y0=Math.min(y0,f.y);x1=Math.max(x1,f.x+f.w);y1=Math.max(y1,f.y+f.w/4);}
+ const pad=0.04*Math.max(x1-x0,y1-y0)+2,vw=x1-x0+2*pad,vh=y1-y0+2*pad;
+ const wrapW=animPanCv.parentElement.clientWidth||340,avail=Math.max(200,Math.min(900,wrapW)),maxH=Math.max(180,Math.min(440,(window.innerHeight||600)*0.5));
+ const k=Math.min(avail/vw,maxH/vh);
+ return {x0:x0-pad,y0:y0-pad,vw,vh,k,cw:Math.max(1,Math.round(vw*k)),ch:Math.max(1,Math.round(vh*k))};
+}
+function animPanFromClient(g,ev){const r=animPanCv.getBoundingClientRect();return [((ev.clientX-r.left)/r.width)*g.vw+g.x0,((ev.clientY-r.top)/r.height)*g.vh+g.y0];}
 function animPanDraw(){
- if(!animPan.big)return;
- const avail=Math.max(200,Math.min(440,(animPanCv.parentElement.clientWidth||340))),k=Math.min(avail/animPan.bw,200/animPan.bh);
- const cw=Math.max(1,Math.round(animPan.bw*k)),ch=Math.max(1,Math.round(animPan.bh*k)),dpr=Math.min(2,window.devicePixelRatio||1);
- if(animPanCv.width!==Math.round(cw*dpr)||animPanCv.height!==Math.round(ch*dpr)){animPanCv.width=Math.round(cw*dpr);animPanCv.height=Math.round(ch*dpr);}
- animPanCv.style.width=cw+'px';animPanCv.style.height=ch+'px';
- const g=animPanG;g.setTransform(dpr,0,0,dpr,0,0);g.fillStyle='#05080d';g.fillRect(0,0,cw,ch);
- g.imageSmoothingEnabled=k*dpr<1;g.drawImage(animPan.big,0,0,animPan.bw*k,animPan.bh*k);
- const n=animPan.n,wk=RbAnim.W*k,hk=RbAnim.H*k;
- g.lineWidth=1;g.strokeStyle='rgba(255,255,255,.28)';
- for(let i=1;i<n-1;i++){const [x,y]=animPanPos(i);g.strokeRect(x*k+.5,y*k+.5,wk-1,hk-1);}
- const [lx,ly]=animPanPos(n-1);g.lineWidth=2;g.strokeStyle='#fff';g.setLineDash([6,4]);g.strokeRect(lx*k+1,ly*k+1,wk-2,hk-2);g.setLineDash([]);
- const [fx,fy]=animPanPos(0);g.strokeStyle='#ffd45c';g.lineWidth=3;g.strokeRect(fx*k+1.5,fy*k+1.5,wk-3,hk-3);
+ const p=animPan;if(!p.img)return;
+ const g0=animPanGeo(),dpr=Math.min(2,window.devicePixelRatio||1);animPan.geoNow=g0;
+ if(animPanCv.width!==Math.round(g0.cw*dpr)||animPanCv.height!==Math.round(g0.ch*dpr)){animPanCv.width=Math.round(g0.cw*dpr);animPanCv.height=Math.round(g0.ch*dpr);}
+ animPanCv.style.width=g0.cw+'px';animPanCv.style.height=g0.ch+'px';
+ const g=animPanG,k=g0.k,X=x=>(x-g0.x0)*k,Y=y=>(y-g0.y0)*k;g.setTransform(dpr,0,0,dpr,0,0);g.fillStyle='#0b0f16';g.fillRect(0,0,g0.cw,g0.ch);
+ g.imageSmoothingEnabled=k*dpr<1;if(k*dpr<1)g.imageSmoothingQuality='high';g.drawImage(p.img,X(0),Y(0),p.iw*k,p.ih*k);
+ g.strokeStyle='#3a4456';g.lineWidth=1;g.strokeRect(X(0)+.5,Y(0)+.5,p.iw*k-1,p.ih*k-1);
+ g.lineWidth=1;g.strokeStyle=p.tile?'rgba(255,255,255,.7)':'rgba(255,255,255,.28)';
+ for(let i=1;i<p.n-1;i++){const f=animPanFrame(i);g.strokeRect(X(f.x)+.5,Y(f.y)+.5,f.w*k-1,f.w/4*k-1);}
+ const box=(f,col,dash,thick,lbl,on)=>{
+  g.lineWidth=thick;g.strokeStyle=col;g.setLineDash(dash?[6,4]:[]);g.strokeRect(X(f.x)+thick/2,Y(f.y)+thick/2,f.w*k-thick,f.w/4*k-thick);g.setLineDash([]);
+  g.fillStyle=col;g.font='700 11px system-ui';g.textBaseline='bottom';g.fillText(lbl,X(f.x)+3,Y(f.y)-2<10?Y(f.y)+13:Y(f.y)-2);
+  if(on)for(const [hx,hy] of [[f.x,f.y],[f.x+f.w,f.y],[f.x,f.y+f.w/4],[f.x+f.w,f.y+f.w/4]])g.fillRect(X(hx)-5,Y(hy)-5,10,10);
+ };
+ if(p.act==='s'){box(p.e,'#fff',true,2,'Ende',false);box(p.s,'#ffd45c',false,3,'Start',true);}
+ else{box(p.s,'#ffd45c',false,3,'Start',false);box(p.e,'#fff',true,2,'Ende',true);}
+}
+function animPanFields(except){
+ const p=animPan,set=(id,v)=>{if(id!==except)$(id).value=animPanFmt(v);};
+ const n1=Math.max(1,p.n-1),scx=(p.e.x+p.e.w/2-p.s.x-p.s.w/2)/n1,scy=(p.e.y+p.e.w/8-p.s.y-p.s.w/8)/n1;
+ set('animPanN',p.n);set('animPanSx',p.s.x);set('animPanSy',p.s.y);set('animPanEx',p.e.x);set('animPanEy',p.e.y);set('animPanDx',scx);set('animPanDy',scy);set('animPanSw',p.s.w);set('animPanEw',p.e.w);
+ $('animPanLock').checked=p.lock||p.tile;$('animPanLock').disabled=p.tile;$('animPanTile').checked=p.tile;
+ $('animPanWrap').value=p.wrap;$('animPanWrap').disabled=p.tile;
+ const wrap=p.wrap==='wrap',same=animPanSame();
+ $('animPanSeam').classList.toggle('hidden',!wrap);$('animPanSeam').disabled=!same;
+ $('animPanSeamWhy').textContent=wrap&&!same?'Eine nahtlose Schleife geht nur, wenn Start- und Ende-Rahmen gleich groß sind.':'';
+}
+function animPanInfoText(){
+ const p=animPan,n1=Math.max(1,p.n-1),same=animPanSame();
+ const scx=(p.e.x+p.e.w/2-p.s.x-p.s.w/2)/n1,scy=(p.e.y+p.e.w/8-p.s.y-p.s.w/8)/n1;
+ const dir=(v,pos,neg)=>Math.abs(v)<1e-9?'':animPanFmt(Math.abs(v))+' px nach '+(v>0?pos:neg);
+ const parts=[dir(scx,'rechts','links'),dir(scy,'unten','oben')].filter(Boolean);
+ let note=p.n+' Frames · Versatz '+(parts.length?parts.join(', '):'keiner')+' je Frame.';
+ if(!same){const r=Math.pow(p.e.w/p.s.w,1/n1)-1;note+=' Größenänderung je Frame: '+(r>=0?'+':'−')+animPanFmt(Math.abs(r)*100).replace('.',',')+' % ('+(r<0?'hineinzoomen':'herauszoomen')+').';}
+ else if(!parts.length)note+=' Start und Ende sind gleich: alle Frames sehen gleich aus.';
+ if(p.tile)note+=' Kachel für Kachel, '+animPanFmt(p.s.w)+' × '+animPanFmt(p.s.w/4)+' Pixel je Kachel.';
+ note+=' Rahmen: Start '+animPanFmt(p.s.w)+' × '+animPanFmt(p.s.w/4)+(same?'':', Ende '+animPanFmt(p.e.w)+' × '+animPanFmt(p.e.w/4))+' Bildpixel.';
+ return note;
 }
 function animPanRegen(){
- if(!animPan.big)return;
- const n=animPan.n,sources=[],prevN=animImp.delays.length;
+ const p=animPan;if(!p.img)return;
+ const n=p.n,sources=[],prevN=animImp.delays.length;
  for(let k=0;k<n;k++)sources.push(animPanWindow(k));
  const ms=Number($('animMs').value)||100;
  animImp.sources=sources;animImp.delays=sources.map(()=>ms);
@@ -3822,62 +3923,127 @@ function animPanRegen(){
  const to=Number($('animTo').value)||0;if(!(to>=1&&to<n)||to===prevN)$('animTo').value=n;
  if((Number($('animFrom').value)||1)>n)$('animFrom').value=1;
  $('animFit').value='orig';animFitUi();
- const dir=(v,pos,neg)=>v===0?'':animPanFmt(Math.abs(v))+' px nach '+(v>0?pos:neg);
- const parts=[dir(animPan.dx,'rechts','links'),dir(animPan.dy,'unten','oben')].filter(Boolean);
- let note=n+' Frames · Versatz '+(parts.length?parts.join(', '):'keiner')+' je Frame.';
- const m=animPanMax();
- if(animPan.wrap==='stop'&&m.x===0&&m.y===0)note+=' Das Bild ist nicht größer als die Tafel, es gibt nichts zu schwenken.';
- else if(animPan.dx===0&&animPan.dy===0)note+=' Start und Ende sind gleich: alle Frames sehen gleich aus.';
- if(animPan.wrap==='stop'&&(Math.abs(animPanVal('animPanEx')-animPan.ex)>0||false))note+='';
- $('animPanInfo').textContent=note;$('animImpSub').textContent='Schwenk · '+n+' Bilder';
- animPanDraw();animSchedule(0);
+ $('animPanInfo').textContent=animPanInfoText();$('animImpSub').textContent='Schwenk · '+n+' Bilder';
+ animSchedule(0);
 }
-function animPanClamp(){
- if(animPan.wrap!=='stop')return;
- const m=animPanMax(),c=(v,hi)=>Math.max(0,Math.min(hi,v));
- animPan.sx=c(animPan.sx,m.x);animPan.sy=c(animPan.sy,m.y);animPan.ex=c(animPan.ex,m.x);animPan.ey=c(animPan.ey,m.y);
+function animPanSync(drag){   // nach jeder Änderung der Rahmen: Felder, Anzeige und Frames nachführen
+ animPanFields(animPan.editing);animPanDraw();
+ if(drag){clearTimeout(animPan.rt);animPan.rt=setTimeout(animPanRegen,40);}else{clearTimeout(animPan.rt);animPanRegen();}
+ animMarkDirty();
 }
 function animPanEdit(which,id){
- animPan.wrap=$('animPanWrap').value;
- if(which==='n'){animPan.n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(animPanVal('animPanN'))||2));animPanClamp();animPanStep();}
- else if(which==='start'){animPan.sx=animPanVal('animPanSx');animPan.sy=animPanVal('animPanSy');animPanClamp();animPan.ex=animPan.sx+animPan.dx*(animPan.n-1);animPan.ey=animPan.sy+animPan.dy*(animPan.n-1);animPanClamp();animPanStep();}
- else if(which==='end'){animPan.ex=animPanVal('animPanEx');animPan.ey=animPanVal('animPanEy');animPanClamp();animPanStep();}
- else if(which==='step'){animPan.dx=animPanVal('animPanDx');animPan.dy=animPanVal('animPanDy');animPan.ex=animPan.sx+animPan.dx*(animPan.n-1);animPan.ey=animPan.sy+animPan.dy*(animPan.n-1);animPanClamp();animPanStep();}
- animPanFields(id);animPanRegen();
+ const p=animPan,n=Math.max(2,Math.min(RbAnim.MAXF,Math.round(animPanVal('animPanN'))||2));
+ p.editing=id;
+ if(which==='n'){p.n=n;if(p.tile)animPanTileFix(true);}
+ else if(which==='start'){p.s.x=animPanVal('animPanSx');p.s.y=animPanVal('animPanSy');animPanClampPos(p.s);if(p.tile)animPanTileFix(true);}
+ else if(which==='end'){p.e.x=animPanVal('animPanEx');p.e.y=animPanVal('animPanEy');animPanClampPos(p.e);if(p.tile){animPanTileFix(false);}}
+ else if(which==='step'){const n1=Math.max(1,p.n-1);p.e.x=p.s.x+p.s.w/2+animPanVal('animPanDx')*n1-p.e.w/2;p.e.y=p.s.y+p.s.w/8+animPanVal('animPanDy')*n1-p.e.w/8;if(p.tile)animPanTileFix(true);}
+ else if(which==='sw'){animPanSetW('s',animPanVal('animPanSw'));if(p.tile)animPanTileFix(true);}
+ else if(which==='ew'){animPanSetW('e',animPanVal('animPanEw'));if(p.tile)animPanTileFix(true);}
+ animPanSync();p.editing=null;
 }
-for(const [id,w] of [['animPanN','n'],['animPanSx','start'],['animPanSy','start'],['animPanEx','end'],['animPanEy','end'],['animPanDx','step'],['animPanDy','step']])$(id).addEventListener('input',()=>animPanEdit(w,id));
-$('animPanScale').addEventListener('change',()=>{animPanBuildBig();animPanDefaults();animPanFields();animPanRegen();});
-$('animPanWrap').addEventListener('change',()=>{animPan.wrap=$('animPanWrap').value;animPanClamp();animPanStep();animPanFields();animPanRegen();});
+for(const [id,w] of [['animPanN','n'],['animPanSx','start'],['animPanSy','start'],['animPanEx','end'],['animPanEy','end'],['animPanDx','step'],['animPanDy','step'],['animPanSw','sw'],['animPanEw','ew']]){
+ $(id).addEventListener('input',()=>animPanEdit(w,id));
+ $(id).addEventListener('change',()=>animPanFields());   // beim Verlassen den tatsächlich gültigen (begrenzten) Wert zurückschreiben
+}
+$('animPanWrap').addEventListener('change',()=>{animPan.wrap=$('animPanWrap').value;animPanSync();});
+$('animPanLock').addEventListener('change',()=>{const p=animPan;p.lock=$('animPanLock').checked;if(p.lock){animPanSetW(p.act,p[p.act].w);}animPanSync();});
+$('animPanTile').addEventListener('change',()=>{const p=animPan;p.tile=$('animPanTile').checked;if(p.tile){p.lock=true;p.wrap='stop';animPanTileFix(false);}animPanSync();});
 $('animPanSeam').onclick=()=>{   // Frames × Versatz = Bildgröße: das letzte Bild schließt an das erste an
- const n=animPan.n;
- if(Math.abs(animPan.dx)>1e-6)animPan.dx=(animPan.dx>0?1:-1)*animPan.bw/n;
- if(Math.abs(animPan.dy)>1e-6)animPan.dy=(animPan.dy>0?1:-1)*animPan.bh/n;
- animPan.ex=animPan.sx+animPan.dx*(n-1);animPan.ey=animPan.sy+animPan.dy*(n-1);animPanFields();animPanRegen();
+ const p=animPan;if(!animPanSame())return;const n=p.n,sx=p.e.x-p.s.x,sy=p.e.y-p.s.y;
+ const dx=Math.abs(sx)>1e-6?(sx>0?1:-1)*p.iw/n:0,dy=Math.abs(sy)>1e-6?(sy>0?1:-1)*p.ih/n:0;
+ p.e.x=p.s.x+dx*(n-1);p.e.y=p.s.y+dy*(n-1);animPanSync();
 };
+(function(){
+ for(const [id,w] of [['animAnchS','s'],['animAnchE','e']]){
+  const box=$(id);
+  for(const ay of [0,.5,1])for(const ax of [0,.5,1]){
+   const b=document.createElement('button');b.type='button';b.className='secondary';
+   const nm=(ay===0?'oben ':ay===1?'unten ':'')+(ax===0?'links':ax===1?'rechts':'mitte');b.title=(w==='s'?'Start-Rahmen ':'Ende-Rahmen ')+nm.replace('mitte',ay===.5?'in die Mitte':'mittig');b.setAttribute('aria-label',b.title);
+   b.addEventListener('click',()=>{const p=animPan;if(!p.img)return;animPanPlace(p[w],ax,ay);p.act=w;if(p.tile)animPanTileFix(w==='e'?false:true);animPanSync();});
+   box.appendChild(b);
+  }
+ }
+ $('animPanPresets').addEventListener('click',ev=>{const b=ev.target.closest('button[data-pre]');if(b&&animPan.img)animPanPreset(b.dataset.pre);});
+})();
+// ---- Rahmen ziehen (Zeigerereignisse) -------------------------------------------------------------------
+const animPanPts=new Map();
+function animPanHit(g,px,py){   // -> {w:'s'|'e', mode:'move'|'corner', i}
+ const p=animPan,r=22/g.k;let best=null,bd=r;
+ for(const w of [p.act,p.act==='s'?'e':'s']){const f=p[w];
+  [[f.x,f.y],[f.x+f.w,f.y],[f.x,f.y+f.w/4],[f.x+f.w,f.y+f.w/4]].forEach(([hx,hy],i)=>{const d=Math.hypot(hx-px,hy-py);if(d<bd-1e-9){bd=d;best={w,mode:'corner',i};}});}
+ if(best)return best;
+ const inside=f=>px>=f.x&&px<=f.x+f.w&&py>=f.y&&py<=f.y+f.w/4;
+ if(inside(p[p.act]))return {w:p.act,mode:'move'};
+ const o=p.act==='s'?'e':'s';if(inside(p[o]))return {w:o,mode:'move'};
+ return {w:p.act,mode:'jump'};
+}
+animPanCv.addEventListener('pointerdown',ev=>{
+ const p=animPan;if(!p.img)return;
+ ev.preventDefault();try{animPanCv.setPointerCapture(ev.pointerId);}catch(e){}animPanPts.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});
+ if(!p.drag)p.geo=animPanGeo();
+ if(animPanPts.size===2){const a=[...animPanPts.values()];p.drag={mode:'pinch',d0:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,w0:p[p.act].w};return;}
+ const g=p.geo,[px,py]=animPanFromClient(g,ev),h=animPanHit(g,px,py);p.act=h.w;const f=p[h.w];
+ if(h.mode==='corner'){
+  const fx=(h.i===0||h.i===2)?f.x+f.w:f.x,fy=(h.i<2)?f.y+f.w/4:f.y;
+  p.drag={mode:'corner',w:h.w,fx,fy,right:h.i===1||h.i===3,bottom:h.i>=2};
+ }else{
+  if(h.mode==='jump'){f.x=px-f.w/2;f.y=py-f.w/8;animPanClampPos(f);if(p.tile)animPanTileFix(h.w==='e'?false:true);}
+  p.drag={mode:'move',w:h.w,dx:px-f.x,dy:py-f.y};
+ }
+ animPanCv.classList.add('dragging');animPanSync(true);
+});
+animPanCv.addEventListener('pointermove',ev=>{
+ const p=animPan;if(!animPanPts.has(ev.pointerId)||!p.drag)return;
+ animPanPts.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});const d=p.drag,g=p.geo;
+ if(d.mode==='pinch'){if(animPanPts.size<2)return;const a=[...animPanPts.values()],now=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1;animPanSetW(p.act,d.w0*d.d0/now);if(p.tile)animPanTileFix(true);animPanSync(true);return;}
+ const [px,py]=animPanFromClient(g,ev),f=p[d.w];
+ if(d.mode==='move'){f.x=px-d.dx;f.y=py-d.dy;animPanClampPos(f);if(p.tile)animPanTileFix(d.w==='e'?false:true);}
+ else if(d.mode==='corner'){
+  const w=animPanClampW(Math.max(Math.abs(px-d.fx),Math.abs(py-d.fy)*4));
+  const left=d.right?d.fx:d.fx-w,top=d.bottom?d.fy:d.fy-w/4;
+  const oldW=f.w;f.w=w;f.x=left;f.y=top;
+  if((p.lock||p.tile)&&w!==oldW){const o=d.w==='s'?p.e:p.s,cx=o.x+o.w/2,cy=o.y+o.w/8;o.w=w;o.x=cx-w/2;o.y=cy-w/8;}
+  if(p.tile)animPanTileFix(true);
+ }
+ animPanSync(true);
+});
+const animPanEnd=ev=>{
+ const p=animPan;animPanPts.delete(ev.pointerId);
+ if(animPanPts.size<2&&p.drag&&p.drag.mode==='pinch')p.drag=null;
+ if(!animPanPts.size){p.drag=null;p.geo=null;animPanCv.classList.remove('dragging');animPanSync();}
+};
+animPanCv.addEventListener('pointerup',animPanEnd);animPanCv.addEventListener('pointercancel',animPanEnd);
+animPanCv.addEventListener('wheel',ev=>{const p=animPan;if(!p.img)return;ev.preventDefault();animPanSetW(p.act,p[p.act].w*(ev.deltaY>0?1.1:1/1.1));if(p.tile)animPanTileFix(true);animPanSync(true);},{passive:false});
+// ---- Bild laden (ein Weg für Schwenk und Einzelbilder) --------------------------------------------------------
+$('animFilePan').addEventListener('change',async e=>{
+ const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+ animReset();const my=animLoadSeq;$('animSrcInfo').textContent='Bild wird gelesen …';
+ try{
+  const url=URL.createObjectURL(f);const im=new Image();im.src=url;
+  try{await im.decode();}finally{URL.revokeObjectURL(url);}
+  if(my!==animLoadSeq)return;   // inzwischen etwas anderes geöffnet
+  const mx=Math.max(im.naturalWidth,im.naturalHeight),s=Math.min(1,ANIM_IMG_MAX/mx),c=document.createElement('canvas');
+  c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+  const p=animPan;p.img=c;p.iw=c.width;p.ih=c.height;p.ow=im.naturalWidth;p.oh=im.naturalHeight;p.wrap='stop';
+  animImp.kind='pan';animImp.nameAuto=true;animImp.stored=null;
+  animPanDefaults();
+  $('animPanOpts').classList.remove('hidden');$('animCropBlock').classList.add('hidden');$('animFitWrap').classList.add('hidden');$('animFitHelp').classList.add('hidden');
+  $('animDither').value=animPanColors(c)<=16?'thresh':'fs';$('animThr').value=128;$('animCon').value=0;$('animMs').value=100;
+  $('animFrom').value=1;$('animTo').value=p.n;$('animStep').value=1;$('animPing').checked=false;$('animRev').checked=false;$('animVarWrap').classList.add('hidden');$('animVar').checked=false;
+  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(f.name.replace(/\.[^.]*$/,''))||'Schwenk');
+  $('animSrcInfo').textContent='Bild '+p.ow+' × '+p.oh+' Pixel.';
+  $('animPanSize').textContent=s<1?'Das Bild war größer als '+ANIM_IMG_MAX+' Pixel an der längsten Kante und wurde auf '+p.iw+' × '+p.ih+' verkleinert.':'Bild: '+p.iw+' × '+p.ih+' Pixel.';
+  if(s<1)$('animSrcInfo').textContent+=' Verkleinert auf '+p.iw+' × '+p.ih+' (höchstens '+ANIM_IMG_MAX+' Pixel an der längsten Kante).';
+  $('animAdjust').classList.remove('hidden');animPanFields();animPanRegen();animPanDraw();animImp.dirty=true;
+ }catch(err){if(my===animLoadSeq){$('animSrcInfo').textContent='';$('animErr').textContent='Bild: '+err.message;}}
+});
 function animPanColors(c){   // wenige Farben (Pixelgrafik): Schwelle erhält die Flächen, sonst Floyd-Steinberg
  const t=document.createElement('canvas');t.width=Math.min(c.width,160);t.height=Math.min(c.height,160);const x=t.getContext('2d',{willReadFrequently:true});x.drawImage(c,0,0,t.width,t.height);
  const d=x.getImageData(0,0,t.width,t.height).data,seen=new Set();for(let i=0;i<d.length&&seen.size<=16;i+=4)seen.add((d[i]<<16)|(d[i+1]<<8)|d[i+2]);
  return seen.size;
 }
-$('animFilePan').addEventListener('change',async e=>{
- const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
- animReset();$('animSrcInfo').textContent='Bild wird gelesen …';
- try{
-  const url=URL.createObjectURL(f);const im=new Image();im.src=url;await im.decode();URL.revokeObjectURL(url);
-  const s=Math.min(1,4096/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.naturalWidth*s));c.height=Math.max(1,Math.round(im.naturalHeight*s));
-  c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  animPan.img=c;animPan.ow=im.naturalWidth;animPan.oh=im.naturalHeight;animPan.wrap='stop';
-  $('animPanWrap').value='stop';$('animPanScale').value=c.height<=64?'orig':(c.width>=c.height?'h32':'w64');
-  animImp.kind='pan';animImp.nameAuto=true;animImp.stored=null;
-  animPanBuildBig();animPanDefaults();
-  $('animPanOpts').classList.remove('hidden');$('animCropBlock').classList.add('hidden');$('animFitWrap').classList.add('hidden');
-  $('animDither').value=animPanColors(animPan.big)<=16?'thresh':'fs';$('animThr').value=128;$('animCon').value=0;$('animMs').value=100;
-  $('animFrom').value=1;$('animTo').value=animPan.n;$('animStep').value=1;$('animPing').checked=false;$('animRev').checked=false;$('animVarWrap').classList.add('hidden');$('animVar').checked=false;
-  if(!$('animName').value.trim()||animImp.nameAuto!==false)$('animName').value=animBoundName(rbNiceName(f.name.replace(/\.[^.]*$/,''))||'Schwenk');
-  $('animSrcInfo').textContent='Bild '+animPan.ow+' × '+animPan.oh+' Pixel.';
-  $('animAdjust').classList.remove('hidden');animPanFields();animPanRegen();
- }catch(err){$('animSrcInfo').textContent='';$('animErr').textContent='Bild: '+err.message;}
-});
 
 /* ==== Frame-Editor ==== */
 // Vollbild-Ebene für das Querformat. Arbeitet auf einer Liste von Frames (Uint8Array(64·16), Werte 0..7) und gibt sie beim
@@ -3894,15 +4060,20 @@ function adClampPan(){const m=adMetrics(),c=adCellSize(),gw=AD_W*c,gh=AD_H*c;
 function adZoomMax(){return Math.max(1,AD_MAXCELL/Math.max(1,AD.base));}
 function adSetZoom(z,ax,ay){const c0=adCellSize();z=Math.max(1,Math.min(adZoomMax(),z));const c1=AD.base*z,gx=(ax-AD.ox)/c0,gy=(ay-AD.oy)/c0;AD.zoom=z;AD.ox=ax-gx*c1;AD.oy=ay-gy*c1;adClampPan();adDraw();adUiSync();}
 function adSnap(){return {frames:AD.frames.slice(),cur:AD.cur};}
-function adBegin(){AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.redo.length=0;AD.frames[AD.cur]=AD.frames[AD.cur].slice();AD.dirty=true;}
+// Ein Eingriff legt vorher einen Rückgängig-Schritt an. Wiederherstellen und „geändert“-Merker werden erst dann verworfen, wenn sich wirklich
+// ein Pixel ändert (adRollback nimmt den Schritt zurück, z. B. beim Antippen ohne Wirkung oder beim Wechsel zu zwei Fingern).
+function adBegin(){AD.undo.push(adSnap());if(AD.undo.length>100)AD.undo.shift();AD.hold={redo:AD.redo,dirty:AD.dirty};AD.redo=[];AD.frames[AD.cur]=AD.frames[AD.cur].slice();AD.dirty=true;}
+function adRollback(){AD.undo.pop();if(AD.hold){AD.redo=AD.hold.redo;AD.dirty=AD.hold.dirty;AD.hold=null;}}
+function adClipRect(r){const x0=Math.max(0,r.x),y0=Math.max(0,r.y),x1=Math.min(AD_W,r.x+r.w),y1=Math.min(AD_H,r.y+r.h);return x1>x0&&y1>y0?{x:x0,y:y0,w:x1-x0,h:y1-y0}:null;}
 function adInSel(x,y){const s=AD.sel;return !!s&&x>=s.x&&x<s.x+s.w&&y>=s.y&&y<s.y+s.h;}
 function adCommitFloat(){
  const f=AD.flt;if(!f)return;AD.flt=null;const fr=AD.frames[AD.cur];
  for(let j=0;j<f.h;j++)for(let i=0;i<f.w;i++){const v=f.px[j*f.w+i],x=f.x+i,y=f.y+j;if(v&&x>=0&&x<AD_W&&y>=0&&y<AD_H)fr[y*AD_W+x]=v;}
+ if(AD.sel)AD.sel=adClipRect(AD.sel);   // ragt die Auswahl über den Rand, gilt danach nur der Teil auf der Zeichenfläche
  adThumb();
 }
 function adLift(){
- adBegin();const s=AD.sel,fr=AD.frames[AD.cur],px=new Uint8Array(s.w*s.h);
+ const s=AD.sel?adClipRect(AD.sel):null;if(!s){AD.sel=null;return;}AD.sel=s;adBegin();const fr=AD.frames[AD.cur],px=new Uint8Array(s.w*s.h);
  for(let j=0;j<s.h;j++)for(let i=0;i<s.w;i++){const k=(s.y+j)*AD_W+s.x+i;px[j*s.w+i]=fr[k];fr[k]=0;}
  AD.flt={px,x:s.x,y:s.y,w:s.w,h:s.h};
 }
@@ -3929,19 +4100,26 @@ function adStructural(fn){adCommitFloat();AD.sel=null;AD.undo.push(adSnap());if(
 function adAdd(){if(AD.frames.length>=RbAnim.MAXF){notify('Höchstens '+RbAnim.MAXF+' Bilder.');return;}adStructural(()=>{AD.frames.splice(AD.cur+1,0,AD.frames[AD.cur].slice());AD.cur++;});}
 function adDel(){if(AD.frames.length<=2){notify('Mindestens 2 Bilder bleiben erhalten.');return;}adStructural(()=>{AD.frames.splice(AD.cur,1);AD.cur=Math.min(AD.cur,AD.frames.length-1);});}
 function adMove(d){const j=AD.cur+d;if(j<0||j>=AD.frames.length)return;adStructural(()=>{const t=AD.frames[AD.cur];AD.frames[AD.cur]=AD.frames[j];AD.frames[j]=t;AD.cur=j;});}
-function adRegion(){return AD.sel?{x:AD.sel.x,y:AD.sel.y,w:AD.sel.w,h:AD.sel.h}:{x:0,y:0,w:AD_W,h:AD_H};}
-function adClear(){adCommitFloat();adBegin();const r=adRegion(),fr=AD.frames[AD.cur];for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++)fr[(r.y+j)*AD_W+r.x+i]=0;adThumb();adDraw();adUiSync();}
-function adFlip(h){adCommitFloat();adBegin();const r=adRegion(),fr=AD.frames[AD.cur],src=fr.slice();
- for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++){const a=(r.y+j)*AD_W+r.x+i,b=h?(r.y+j)*AD_W+r.x+(r.w-1-i):(r.y+(r.h-1-j))*AD_W+r.x+i;fr[a]=src[b];}
- adThumb();adDraw();adUiSync();}
+function adRegion(){return AD.sel?adClipRect(AD.sel):{x:0,y:0,w:AD_W,h:AD_H};}
+function adClear(){adCommitFloat();const r=adRegion();if(!r){AD.sel=null;adDraw();adUiSync();return;}
+ const old=AD.frames[AD.cur];let any=false;for(let j=0;j<r.h&&!any;j++)for(let i=0;i<r.w;i++)if(old[(r.y+j)*AD_W+r.x+i]){any=true;break;}
+ if(!any)return;   // nichts zu leeren: kein Verlauf, kein „geändert“
+ adBegin();const fr=AD.frames[AD.cur];for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++)fr[(r.y+j)*AD_W+r.x+i]=0;adThumb();adDraw();adUiSync();}
+function adFlip(h){adCommitFloat();const r=adRegion();if(!r){AD.sel=null;adDraw();adUiSync();return;}
+ const src=AD.frames[AD.cur],out=src.slice();let same=true;
+ for(let j=0;j<r.h;j++)for(let i=0;i<r.w;i++){const a=(r.y+j)*AD_W+r.x+i,b=h?(r.y+j)*AD_W+r.x+(r.w-1-i):(r.y+(r.h-1-j))*AD_W+r.x+i;out[a]=src[b];if(out[a]!==src[a])same=false;}
+ if(same)return;   // symmetrisch: nichts verändert
+ adBegin();AD.frames[AD.cur]=out;adThumb();adDraw();adUiSync();}
 function adUndoDo(){adCommitFloat();if(!AD.undo.length)return;AD.redo.push(adSnap());const s=AD.undo.pop();AD.frames=s.frames.slice();AD.cur=Math.min(s.cur,AD.frames.length-1);AD.sel=null;adRebuildStrip();adDraw();adUiSync();}
 function adRedoDo(){adCommitFloat();if(!AD.redo.length)return;AD.undo.push(adSnap());const s=AD.redo.pop();AD.frames=s.frames.slice();AD.cur=Math.min(s.cur,AD.frames.length-1);AD.sel=null;adRebuildStrip();adDraw();adUiSync();}
 function adSetTool(t){adCommitFloat();if(t!=='select')AD.sel=null;AD.tool=t;adDraw();adUiSync();}
 function adUiSync(){
- document.querySelectorAll('#adTools [data-tool]').forEach(b=>{const on=b.dataset.tool===AD.tool;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
+ document.querySelectorAll('#animDraw [data-tool]').forEach(b=>{const on=b.dataset.tool===AD.tool;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
  document.querySelectorAll('#adColors button').forEach(b=>{const on=Number(b.dataset.c)===AD.color;b.classList.toggle('sel',on);b.setAttribute('aria-checked',String(on));});
  $('adUndo').disabled=!AD.undo.length;$('adRedo').disabled=!AD.redo.length;
  $('adDel').disabled=AD.frames.length<=2;$('adAdd').disabled=AD.frames.length>=RbAnim.MAXF;$('adLeft').disabled=AD.cur<=0;$('adRight').disabled=AD.cur>=AD.frames.length-1;
+ const mv=!!AD.move;$('animDraw').classList.toggle('ad-move',mv);$('adMoveMode').classList.toggle('on',mv);$('adMoveMode').setAttribute('aria-pressed',String(mv));
+ for(const [id,lbl,t] of [['adLeft',mv?'Nach links':'Voriges',mv?'Frame in der Reihenfolge nach links schieben':'Voriges Frame'],['adRight',mv?'Nach rechts':'Nächstes',mv?'Frame in der Reihenfolge nach rechts schieben':'Nächstes Frame']]){const b=$(id);b.dataset.lbl=lbl;b.title=t;b.setAttribute('aria-label',t);}
  $('adCount').textContent='Bild '+(AD.cur+1)+'/'+AD.frames.length;$('adZoomTxt').textContent=Math.round(AD.zoom*100)+' %';
  $('adZoomOut').disabled=AD.zoom<=1.001;$('adZoomIn').disabled=AD.zoom>=adZoomMax()-0.001;
  $('adOnion').classList.toggle('on',AD.onion);$('adOnion').setAttribute('aria-pressed',String(AD.onion));
@@ -3964,17 +4142,29 @@ function adDraw(){
  const s=AD.sel;
  if(s){g.lineWidth=2;g.strokeStyle='#fff';g.setLineDash([6,4]);g.strokeRect(AD.ox+s.x*c+1,AD.oy+s.y*c+1,s.w*c-2,s.h*c-2);g.setLineDash([]);}
 }
+const AD_COMPACT_W=760,AD_LARGE_W=820,AD_LARGE_H=560;
+function adCompactMove(on){   // seltene Werkzeuge (Ansicht verschieben, Zoom) wandern bei schmalem Querformat unter „Mehr“
+ const ids=[...document.querySelectorAll('#animDraw [data-tool="pan"]'),$('adZoomOut'),$('adZoomTxt'),$('adZoomIn')];
+ if(on===AD.compactMoved)return;AD.compactMoved=on;
+ if(on)for(const e of ids)$('adMorePanel').appendChild(e);
+ else for(const e of ids)$('adTools').insertBefore(e,$('adUndo'));
+}
 function adApplyLayout(){
  if(!AD.open)return;
- const vp=adViewport(),availW=vp.w-20,availH=vp.h-116,est=Math.min(availW/AD_W,availH/AD_H);
+ const vp=adViewport(),root=$('animDraw');
+ AD.large=vp.w>=AD_LARGE_W&&vp.h>=AD_LARGE_H;AD.compact=!AD.large&&vp.w<AD_COMPACT_W;
+ root.classList.toggle('ad-large',AD.large);root.classList.toggle('ad-compact',AD.compact);adCompactMove(AD.compact);
+ // Sperre nach der echten Zeichenfläche entscheiden (nicht nach einer Schätzung): erst Sperre lösen, messen, dann entscheiden
+ root.classList.remove('ad-blocked');
+ const m0=adMetrics(),est=Math.min((m0.w-4)/AD_W,(m0.h-4)/AD_H);
  AD.blocked=est<AD_MINCELL||(vp.w<vp.h&&vp.w<AD_PHONE_W);
- $('animDraw').classList.toggle('ad-blocked',AD.blocked);$('adBlock').classList.toggle('hidden',!AD.blocked);
+ root.classList.toggle('ad-blocked',AD.blocked);$('adBlock').classList.toggle('hidden',!AD.blocked);
  if(AD.blocked){$('adBlockText').textContent=vp.w<vp.h?'Bitte das Handy ins Querformat drehen. Der Editor braucht ein breites Zeichenfeld, damit jedes Pixel mit dem Finger zu treffen ist.':'Der Bildschirm ist zu klein zum Zeichnen. Importieren, Senden und alles andere funktionieren weiter; zum Bearbeiten einzelner Bilder bitte ein größeres Gerät verwenden.';}
  const m=adMetrics();AD.base=Math.max(1,Math.min((m.w-4)/AD_W,(m.h-4)/AD_H));
  AD.zoom=Math.max(1,Math.min(adZoomMax(),AD.zoom));adClampPan();adDraw();adUiSync();
 }
 function adOpen(frames,o){
- AD.frames=frames.map(f=>f.slice());AD.cur=0;AD.undo=[];AD.redo=[];AD.sel=null;AD.flt=null;AD.stroke=null;AD.gest=null;AD.ptrs.clear();AD.zoom=1;AD.ox=0;AD.oy=0;AD.dirty=false;
+ AD.frames=frames.map(f=>f.slice());AD.cur=0;AD.undo=[];AD.redo=[];AD.sel=null;AD.flt=null;AD.stroke=null;AD.gest=null;AD.ptrs.clear();AD.zoom=1;AD.ox=0;AD.oy=0;AD.dirty=false;AD.move=false;
  AD.onDone=o.onDone||null;AD.onCancel=o.onCancel||null;AD.open=true;
  $('adMorePanel').classList.add('hidden');$('adMore').setAttribute('aria-expanded','false');
  $('animDraw').classList.remove('hidden');document.documentElement.classList.add('ad-lock');
@@ -3982,18 +4172,20 @@ function adOpen(frames,o){
 }
 function adClose(){AD.open=false;AD.flt=null;$('animDraw').classList.add('hidden');document.documentElement.classList.remove('ad-lock');}
 $('adBack').onclick=()=>{if(AD.dirty&&!confirm('Änderungen an den Bildern verwerfen?'))return;const cb=AD.onCancel;adClose();if(cb)cb();};
-$('adDone').onclick=()=>{adCommitFloat();const fr=AD.frames.slice(),cb=AD.onDone;adClose();if(cb)cb(fr);};
-$('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>adMove(-1);$('adRight').onclick=()=>adMove(1);
+$('adDone').onclick=()=>{adCommitFloat();const fr=AD.frames.slice(),cb=AD.onDone,ch=AD.dirty;adClose();if(cb)cb(fr,ch);};
+$('adAdd').onclick=adAdd;$('adDel').onclick=adDel;$('adLeft').onclick=()=>{if(AD.move)adMove(-1);else adSelect(AD.cur-1);};$('adRight').onclick=()=>{if(AD.move)adMove(1);else adSelect(AD.cur+1);};
+$('adMoveMode').onclick=()=>{AD.move=!AD.move;adUiSync();};
+$('adStrip').addEventListener('wheel',ev=>{const b=$('adStrip');if(b.scrollWidth<=b.clientWidth)return;ev.preventDefault();b.scrollLeft+=(Math.abs(ev.deltaX)>Math.abs(ev.deltaY)?ev.deltaX:ev.deltaY);},{passive:false});
 $('adUndo').onclick=adUndoDo;$('adRedo').onclick=adRedoDo;
 $('adZoomIn').onclick=()=>{const m=adMetrics();adSetZoom(AD.zoom*1.5,m.w/2,m.h/2);};
 $('adZoomOut').onclick=()=>{const m=adMetrics();adSetZoom(AD.zoom/1.5,m.w/2,m.h/2);};
 $('adFlipH').onclick=()=>adFlip(true);$('adFlipV').onclick=()=>adFlip(false);$('adClear').onclick=adClear;
 $('adOnion').onclick=()=>{AD.onion=!AD.onion;adDraw();adUiSync();};
 $('adMore').onclick=()=>{const p=$('adMorePanel'),open=p.classList.contains('hidden');p.classList.toggle('hidden',!open);$('adMore').setAttribute('aria-expanded',String(open));};
-document.querySelectorAll('#adTools [data-tool]').forEach(b=>b.addEventListener('click',()=>adSetTool(b.dataset.tool)));
+document.querySelectorAll('#animDraw [data-tool]').forEach(b=>b.addEventListener('click',()=>adSetTool(b.dataset.tool)));
 AD_ORDER.forEach(v=>{const b=document.createElement('button');b.type='button';b.dataset.c=String(v);b.style.background=RbAnim.CSS[v];b.setAttribute('role','radio');b.setAttribute('aria-label',AD_NAMES[v]);b.title=AD_NAMES[v];b.addEventListener('click',()=>{AD.color=v;if(AD.tool==='eraser'||AD.tool==='pipette'||AD.tool==='pan')AD.tool='pen';adUiSync();});$('adColors').appendChild(b);});
 // Zeigerereignisse: ein Finger/Stift/Maus zeichnet, zwei Finger zoomen und verschieben nur das Zeichenfeld.
-function adStrokeCancel(){if(AD.stroke){AD.frames[AD.cur]=AD.stroke.before;AD.undo.pop();AD.stroke=null;adThumb();}}
+function adStrokeCancel(){if(AD.stroke){AD.frames[AD.cur]=AD.stroke.before;adRollback();AD.stroke=null;adThumb();}}
 ADC.addEventListener('pointerdown',ev=>{
  if(!AD.open||AD.blocked)return;
  if(ev.pointerType==='mouse'&&ev.button!==0)return;
@@ -4052,7 +4244,7 @@ ADC.addEventListener('pointermove',ev=>{
 function adPointerEnd(ev){
  if(!AD.ptrs.has(ev.pointerId))return;AD.ptrs.delete(ev.pointerId);const gs=AD.gest;
  if(gs){
-  if(gs.mode==='draw'&&AD.stroke){if(!AD.stroke.changed){AD.frames[AD.cur]=AD.stroke.before;AD.undo.pop();}AD.stroke=null;adThumb();}
+  if(gs.mode==='draw'&&AD.stroke){if(!AD.stroke.changed){AD.frames[AD.cur]=AD.stroke.before;adRollback();}AD.stroke=null;adThumb();}
   else if(gs.mode==='rect'&&!gs.moved){AD.sel=null;}
   else if(gs.mode==='move'){adCommitFloat();}
   else if(gs.mode==='pan'){ADC.style.cursor='grab';}
@@ -4072,15 +4264,18 @@ document.addEventListener('keydown',ev=>{
  else if((k==='Delete'||k==='Backspace')&&AD.sel){ev.preventDefault();adClear();}
  else if(AD.sel&&k.startsWith('Arrow')){ev.preventDefault();adNudge(k==='ArrowLeft'?-1:k==='ArrowRight'?1:0,k==='ArrowUp'?-1:k==='ArrowDown'?1:0);}
 });
-function adNudge(dx,dy){if(!AD.sel)return;if(!AD.flt)adLift();AD.flt.x+=dx;AD.flt.y+=dy;AD.sel={x:AD.flt.x,y:AD.flt.y,w:AD.flt.w,h:AD.flt.h};adDraw();}
+function adNudge(dx,dy){if(!AD.sel)return;if(!AD.flt)adLift();if(!AD.flt)return;AD.flt.x+=dx;AD.flt.y+=dy;AD.sel={x:AD.flt.x,y:AD.flt.y,w:AD.flt.w,h:AD.flt.h};adDraw();}
 window.addEventListener('resize',()=>{adApplyLayout();});
 window.addEventListener('orientationchange',()=>setTimeout(adApplyLayout,250));
 if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>adApplyLayout());
 // Einstiege: bestehende Animation (Bearbeiten-Maske) und leere Zeichnung (Import-Quelle „Neu zeichnen“)
-function animDrawApply(frames){
- const n=frames.length;animImp.stored=frames;animImp.drawn=true;
+function animDrawApply(frames,changed){
+ const n=frames.length,was=animImp.stored?animImp.stored.length:n,oldTo=Number($('animTo').value)||was;
+ animImp.stored=frames;animImp.drawn=true;if(changed)animImp.dirty=true;
  animImp.delays=Array(n).fill(Number($('animMs').value)||100);
- $('animFrom').value=1;$('animTo').value=n;$('animFrom').max=n;$('animTo').max=n;$('animStep').value=1;$('animRev').checked=false;$('animPing').checked=false;
+ // Bereich, Schritt, Rückwärts und Hin-und-zurück bleiben, wie sie sind; nur an die neue Frame-Zahl angepasst
+ $('animFrom').max=n;$('animTo').max=n;
+ $('animTo').value=(oldTo>=was||oldTo>n)?n:oldTo;if((Number($('animFrom').value)||1)>n)$('animFrom').value=1;
  $('animImpSub').textContent=n+' Bilder'+(animImp.editId?' (bearbeitet)':'');
  animSchedule(0);
 }

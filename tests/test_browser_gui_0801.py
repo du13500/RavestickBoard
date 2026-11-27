@@ -5,15 +5,15 @@ Schneeflocke weiss, Tab „Alle Symbole“, Kategorieleiste: Umbruch am Laptop, 
 Bibliothek-Vorschau (Tempo-Taste Schnecke/Vogel/Hase statt Regler, auch fuer Blocktexte, Unterkante wie die Liste),
 Ambiente am Laptop untereinander, „auf der Tafel“ als Flugzeug (Zeile: links der Pfeile; Kachel/Kurzwahl/Ambiente: Punkt),
 weich ein- und ausgeblendete Hinweise.
-Aufruf: python tests/test_browser_gui_0800.py [Screenshot-Ordner]
+Aufruf: python tests/test_browser_gui_0801.py [Screenshot-Ordner]
 Nicht geprueft: echtes Handy/Safari, ESP32."""
 import re, sys, json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
-_src = (ROOT / 'tests/test_browser_ui_0800.py').read_text(encoding='utf8')
-_ns = {'__file__': str(ROOT / 'tests/test_browser_ui_0800.py'), 'sys': sys, 're': re, 'json': json, 'Path': Path}
+_src = (ROOT / 'tests/test_browser_ui_0801.py').read_text(encoding='utf8')
+_ns = {'__file__': str(ROOT / 'tests/test_browser_ui_0801.py'), 'sys': sys, 're': re, 'json': json, 'Path': Path}
 exec(_src[:_src.index('with sync_playwright() as pw:')].replace('SHOTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None', 'SHOTS = None'), _ns)
 boot, check, fails, html = _ns['boot'], _ns['check'], _ns['fails'], _ns['html']
 
